@@ -292,6 +292,34 @@
     ''' </summary>
     Class File
 
+        ''' <summary>
+        ''' Get an array of all files with a specific extention in a givem folder
+        ''' </summary>
+        ''' <param name="path">The path to the folder</param>
+        ''' <param name="extention">The extention of files to return (ex: ".vass")</param>
+        ''' <returns>An array of path strings to existing files</returns>
+        Shared Function GetFilesWithExtension(path As String, extention As String) As String()
+            Dim NamesArray(-1) As String
+            Dim NumberOfFiles = -1
+            Dim fullName As String
+
+            For Each file In IO.Directory.EnumerateFiles(path)
+                If IO.Path.GetExtension(file) = extention Then
+                    NumberOfFiles += 1
+                    If NumberOfFiles > NamesArray.GetUpperBound(0) Then
+                        ReDim Preserve NamesArray(NamesArray.GetUpperBound(0) + 20)
+                    End If
+
+                    fullName = IO.Path.Combine(path, file)
+                    NamesArray(NumberOfFiles) = fullName
+                End If
+            Next
+
+            ReDim Preserve NamesArray(NumberOfFiles)
+
+            Return NamesArray
+
+        End Function
     End Class
 
 

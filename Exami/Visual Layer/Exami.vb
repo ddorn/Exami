@@ -30,7 +30,7 @@
     End Sub
 
     Private Sub ConvertButton_Click() Handles ConvertButton.Click
-        For Each fileName In GetFilesWithExtension(WorkingFolder, ".vass")
+        For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
             DataAccessLayer.SV.ConvertVassToSv(fileName)
         Next
 
@@ -64,10 +64,17 @@
 
         svFile = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv")
         ddFile = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd")
+        If svFile Is Nothing Or ddFile Is Nothing Then
+            Return
+        End If
         textToSave = GetPlacementString(svFile, ddFile)
 
         fileName = String.Format("Examun {0} room {1} the {2}")
         filePath = IO.Path.Combine(WorkingFolder, fileName)
+
+        Dim file = IO.File.CreateText(filePath)
+        file.Write(textToSave)
+        file.Close()
 
     End Sub
 
@@ -129,8 +136,8 @@
         }
 
         ' basicly, those booleans are just is there is some .sv files in the working folder (resp dd)
-        successSV = SetFileListBoxItems(svListBox, GetFilesWithExtension(WorkingFolder, ".sv"), defaultItems)
-        successDD = SetFileListBoxItems(ddListBox, GetFilesWithExtension(WorkingFolder, ".dd"), defaultItems)
+        successSV = SetFileListBoxItems(svListBox, File.GetFilesWithExtension(WorkingFolder, ".sv"), defaultItems)
+        successDD = SetFileListBoxItems(ddListBox, File.GetFilesWithExtension(WorkingFolder, ".dd"), defaultItems)
 
         ' If and only if there is files the user can check them
         svListBox.Enabled = successSV
@@ -213,34 +220,7 @@
         Return Places
     End Function
 
-    ''' <summary>
-    ''' Get an array of all files with a specific extention in a givem folder
-    ''' </summary>
-    ''' <param name="path">The path to the folder</param>
-    ''' <param name="extention">The extention of files to return (ex: ".vass")</param>
-    ''' <returns>An array of path strings to existing files</returns>
-    Shared Function GetFilesWithExtension(path As String, extention As String) As String()
-        Dim NamesArray(-1) As String
-        Dim NumberOfFiles = -1
-        Dim fullName As String
 
-        For Each file In IO.Directory.EnumerateFiles(path)
-            If IO.Path.GetExtension(file) = extention Then
-                NumberOfFiles += 1
-                If NumberOfFiles > NamesArray.GetUpperBound(0) Then
-                    ReDim Preserve NamesArray(NamesArray.GetUpperBound(0) + 20)
-                End If
-
-                fullName = IO.Path.Combine(path, file)
-                NamesArray(NumberOfFiles) = fullName
-            End If
-        Next
-
-        ReDim Preserve NamesArray(NumberOfFiles)
-
-        Return NamesArray
-
-    End Function
 
     ''' <summary>
     ''' Get the only checked item from a CheckedListBox and if there is no only one, shows warnings to the user
