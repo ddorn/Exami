@@ -187,26 +187,4 @@
         Return 1
     End Function
 
-    ''' <summary>
-    ''' Get the only checked item from a CheckedListBox and if there is no only one, shows warnings to the user
-    ''' </summary>
-    ''' <param name="checkListBox">The CheckedListBox to procced.</param>
-    ''' <param name="name">The name of what the user didn't checked or checked too much, for showing warning.</param>
-    ''' <returns>The checked item or Nothing</returns>
-    Private Function GetOneSelected(checkListBox As CheckedListBox, name As String) As String
-
-        If checkListBox.CheckedItems.Count = 0 Then
-            MsgBox(String.Format("Select a {0} first.", name), MsgBoxStyle.Exclamation)
-            Return Nothing
-        ElseIf checkListBox.CheckedItems.Count > 1 Then
-            MsgBox(String.Format("Currently support only one {0} at a time", name), MsgBoxStyle.Exclamation)
-            Return Nothing
-        End If
-
-        Dim checkedItem = checkListBox.CheckedItems.Item(0)
-
-        Return checkedItem
-
-    End Function
-
 End Class

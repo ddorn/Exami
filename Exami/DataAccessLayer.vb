@@ -228,7 +228,7 @@
         ''' </summary>
         ''' <param name="room">The Room to save</param>
         ''' <param name="ddFilePath">The file to save the room. You must have writting rights.</param>
-        Public Shared Sub SaveRoom(room As Room, ddFilePath As String)
+        Public Shared Sub SaveRoom(room As Room, ddFilePath As String
             Dim file As IO.StreamWriter
 
             file = IO.File.CreateText(ddFilePath)
@@ -255,6 +255,7 @@
         ''' <param name="ddFilePath">The file to load the room. The file must exist.</param>
         ''' <returns>The room that was in the file.</returns>
         Public Shared Function LoadRoom(ddFilePath As String) As Room
+
             Dim availables As Boolean(,)
 
             Dim file As IO.StreamReader

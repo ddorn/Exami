@@ -86,7 +86,7 @@
     <Compile Include="Visual Layer\RoomDesigner.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BuisnessLogicLayer.vb" />
+    <Compile Include="CortexLayer.vb" />
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="My Project\Application.Designer.vb">
       <AutoGen>True</AutoGen>
