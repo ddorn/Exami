@@ -1,4 +1,4 @@
-﻿Module BuisnessLogicLayer
+﻿Module CortexLayer
 
     ''' <summary>
     ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
@@ -247,7 +247,71 @@
     End Class
 
     Class Placement
+        Dim svFilePaths As String()
+        Dim ddFilePaths As String()
 
+        Sub New()
+            svFilePaths = {}
+            ddFilePaths = {}
+        End Sub
+
+        Sub New(svFilePath As String, ddFilePath As String)
+            Me.svFilePaths = {svFilePath}
+            Me.ddFilePaths = {ddFilePath}
+        End Sub
+
+        Sub SetStudentValues(svFilePaths As String())
+            Me.svFilePaths = svFilePaths
+        End Sub
+
+        Sub SetDesktopDisposition(ddFilePaths As String())
+            Me.ddFilePaths = ddFilePaths
+        End Sub
+
+        Sub Save(filePath As String)
+            IO.File.WriteAllText(filePath, GetPlacementString())
+        End Sub
+
+        ''' <summary>
+        ''' Make the placement and return one string of all the places.
+        ''' </summary>
+        ''' <remarks>The files must exist or an exception will be raised.</remarks>
+        Public Function GetPlacementString() As String
+
+            Dim placementString As String = ""
+
+            For Each stud In GetPlacementArray()
+                placementString += stud.place.ToString & " " & stud.ToString()
+                placementString += Environment.NewLine
+            Next
+
+            Return placementString
+        End Function
+
+        Public Function GetPlacementArray() As Student()
+
+            Dim students As Student() = {}
+            Dim places As Place() = {}
+
+            ' We get a list of students from each file, and concatenate them every times
+            For Each svPath In Me.svFilePaths
+                students = students.Union(DataAccessLayer.SV.GetStudents(svPath)).ToArray
+            Next
+
+            ' Likewise a list of the tables
+            For Each ddPath In ddFilePaths
+                places = places.Union(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray).ToArray
+            Next
+
+            Dim placementArray(Math.Min(students.GetUpperBound(0), places.GetUpperBound(0))) As Student
+
+            For pos = 0 To Math.Min(places.GetUpperBound(0), students.GetUpperBound(0))
+                students(pos).place = places(pos)
+                placementArray(pos) = students(pos)
+            Next
+
+            Return placementArray
+        End Function
     End Class
 
 End Module

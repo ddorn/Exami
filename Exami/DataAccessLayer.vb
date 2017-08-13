@@ -29,12 +29,13 @@
         Public secondName As String
         Public unitCode As String
         Public studentNumber As String
+        Public place As Place
 
         Sub New(unitCode, studentNumber, familyName, firstName, secondName)
             With Me
                 .unitCode = unitCode
                 .studentNumber = studentNumber
-                .familyName = firstName
+                .familyName = familyName
                 .firstName = firstName
                 .secondName = secondName
             End With
@@ -104,7 +105,7 @@
             fields = line.Split("|")
 
             ' We don't want a non value line (like the last ones of vass files)
-            If fields.Length < 13 Then
+            If fields.Length < 19 Then
                 Throw New ArgumentException("The line doesn't represent a student.")
             End If
 
@@ -205,7 +206,7 @@
 
                 ' The supression of useless, empty and naughty lines is in the TryParse
                 If Student.TryParseFromVass(line, student) Then
-                    line = student.ToSvLine
+                    line = student.ToSvLine()
                     svFile.WriteLine(line)
                 End If
 
@@ -319,6 +320,19 @@
 
             Return NamesArray
 
+        End Function
+
+        Shared Function IsValidFileName(name As String) As Boolean
+            If name Is Nothing Then
+                Return False
+            End If
+
+            For Each ch In IO.Path.GetInvalidFileNameChars
+                If name.Contains(ch) Then
+                    Return False
+                End If
+            Next
+            Return True
         End Function
     End Class
 

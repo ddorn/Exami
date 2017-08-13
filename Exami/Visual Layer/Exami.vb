@@ -39,15 +39,21 @@
     End Sub
 
     Private Sub PlacementButton_Click() Handles PlacementButton.Click
-        Dim svFile = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv")
-        Dim ddFile = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd")
+        Dim svFiles = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv").ToArray
+        Dim ddFiles = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd").ToArray
 
         ' We want one man !!!
-        If ddFile Is Nothing Or svFile Is Nothing Then
+        If ddFiles Is Nothing Or svFiles Is Nothing Then
             Return
         End If
 
-        ResultLabel.Text = GetPlacementString(svFile, ddFile)
+        Dim placement = New Placement()
+        placement.SetStudentValues(svFiles)
+        placement.SetDesktopDisposition(ddFiles)
+
+        ResultLabel.Text = placement.GetPlacementString()
+
+        SaveButton.Visible = True
     End Sub
 
     Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
@@ -56,63 +62,50 @@
     End Sub
 
     Private Sub SaveButton_Click() Handles SaveButton.Click
-        Dim svFile As String
-        Dim ddFile As String
-        Dim textToSave As String
+        Dim svFiles As String()
+        Dim ddFiles As String()
         Dim fileName As String
         Dim filePath As String
 
-        svFile = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv")
-        ddFile = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd")
-        If svFile Is Nothing Or ddFile Is Nothing Then
+        svFiles = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv").ToArray
+        ddFiles = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd").ToArray
+        If svFiles Is Nothing Or ddFiles Is Nothing Then
             Return
         End If
-        textToSave = GetPlacementString(svFile, ddFile)
 
-        fileName = String.Format("Examun {0} room {1} the {2}")
-        filePath = IO.Path.Combine(WorkingFolder, fileName)
+        Dim placement = New Placement()
+        placement.SetDesktopDisposition(ddFiles)
+        placement.SetStudentValues(svFiles)
 
-        Dim file = IO.File.CreateText(filePath)
-        file.Write(textToSave)
-        file.Close()
+        While File.IsValidFileName(fileName) = False
+            fileName = InputBox("Enter the name of the exam to save")
+        End While
 
+        filePath = IO.Path.Combine(WorkingFolder, fileName & ".txt")
+
+        placement.Save(filePath)
     End Sub
 
     ' Utilitaries functions
 
-    Public Function GetSelectedFilesNamesOrWarn(listBox As CheckedListBox, name As String, extension As String)
-
-        Dim fileName = GetOneSelected(listBox, name)
-        If fileName Is Nothing Then
+    Public Function GetSelectedFilesNamesOrWarn(checkListBox As CheckedListBox, name As String, extension As String) As String()
+        If checkListBox.CheckedItems.Count = 0 Then
+            MsgBox(String.Format("Select a {0} first.", name), MsgBoxStyle.Exclamation)
             Return Nothing
         End If
-        fileName = IO.Path.Combine(WorkingFolder, fileName + extension)
-        Return fileName
+
+        Dim fileNames As New List(Of String)
+        For i = 0 To (checkListBox.Items.Count - 1)
+            If checkListBox.GetItemChecked(i) = True Then
+                fileNames.Add(checkListBox.Items(i))
+            End If
+        Next
+        For pos = 0 To fileNames.Count - 1
+            fileNames(pos) = IO.Path.Combine(WorkingFolder, fileNames(pos) & extension)
+        Next
+
+        Return fileNames.ToArray
     End Function
-
-    ''' <summary>
-    ''' Make the placement and return one string of all the places.
-    ''' </summary>
-    ''' <remarks>The files must exist or an exception will be raised.</remarks>
-    Public Function GetPlacementString(svFile As String, ddFile As String) As String
-
-        ' Then we can get a list of students from the file 
-        Dim Students As Student() = SV.GetStudents(svFile)
-        ' And a list of the tables
-        Dim Places As Place() = DataAccessLayer.DD.LoadRoom(ddFile).GetPlaces1DArray
-
-        Dim placementString As String = ""
-
-        Dim pos As Short = 0
-        While pos < Students.Length And pos < Places.Length
-            placementString += Places(pos).ToString() & " " & Students(pos).ToString()
-            placementString += Environment.NewLine
-            pos += 1
-        End While
-
-        Return placementString
-    End Function
-
 
     ''' <summary>
     ''' Updates the files shown in the two CheckBoxList and enables them if needed.
@@ -193,34 +186,6 @@
         listBox.EndUpdate()
         Return 1
     End Function
-
-    ''' <summary>
-    ''' Get a 1-dimensional array of all available places. For now it asumes the room is a rectangle of an hardcoded size
-    ''' </summary>
-    ''' <returns>A 1-dimentional array of places</returns>
-    Private Function GetPlacesArray() As Place()
-
-        ' for now it's just a rectangular placement of size MAXROW x MAXCOl
-        Dim MAXROW = 5
-        Dim MAXCOL = 4
-
-        Dim row As Byte = 0
-        Dim col As Byte = 0
-        Dim Places(MAXCOL * MAXROW - 1) As Place
-
-        While col < MAXCOL
-            row = 0
-            While row < MAXROW
-                Places(col * MAXROW + row) = New Place(row, col)
-                row += 1
-            End While
-            col += 1
-        End While
-
-        Return Places
-    End Function
-
-
 
     ''' <summary>
     ''' Get the only checked item from a CheckedListBox and if there is no only one, shows warnings to the user
