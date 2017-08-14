@@ -396,6 +396,10 @@
                 Return False
             End If
 
+            If fileName = "" Then
+                Return False
+            End If
+
             For Each ch In IO.Path.GetInvalidFileNameChars
                 If fileName.Contains(ch) Then
                     Return False
