@@ -63,7 +63,7 @@ Class RoomPreview
     Sub New(rowNb, colNb)
         MyBase.New(rowNb, colNb)
         ReDim tablesButtons(rowNb, colNb)
-        SetAvailable(0, 0, rowNb - 1, colNb - 1)
+        SetRectangle(True, 0, 0, rowNb - 1, colNb - 1)
     End Sub
 
     Protected Overrides Sub SetAvailable(row As Byte, col As Byte, value As Boolean)

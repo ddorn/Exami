@@ -140,7 +140,7 @@ Partial Class ExamiForm
         '
         'SaveButton
         '
-        Me.SaveButton.Location = New System.Drawing.Point(12, 533)
+        Me.SaveButton.Location = New System.Drawing.Point(798, 533)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(129, 45)
         Me.SaveButton.TabIndex = 7

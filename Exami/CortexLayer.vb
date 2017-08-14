@@ -3,7 +3,7 @@
     ''' <summary>
     ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
     ''' </summary>
-    Class Place
+    Public Class Place
         Public row As Byte
         Public col As Byte
 
@@ -26,7 +26,7 @@
     ''' Four walls. One table. Or more... and that's the point of this class
     ''' Represent a room with a way to get all real places and modify them
     ''' </summary>
-    Class Room
+    Public Class Room
         ' I swap them every fucking single time.......
         Dim ROW_AXE = 0
         Dim COL_AXE = 1
@@ -41,9 +41,19 @@
 
         ' Create a new room
 
+        ''' <summary>
+        ''' Create a new empty room with all places unavailable.
+        ''' </summary>
+        ''' <param name="rowNb">Number of rows</param>
+        ''' <param name="colNb">Number of columns</param>
         Public Sub New(Optional rowNb As Byte = 5, Optional colNb As Byte = 4)
             ReDim availablePlaces(rowNb - 1, colNb - 1)
         End Sub
+
+        ''' <summary>
+        ''' Create a room from a 2D-array of booleans.
+        ''' </summary>
+        ''' <param name="availables">A 2D-array of boolean representing the availaibility of a desktop.</param>
         Public Sub New(availables As Boolean(,))
             ' The two arrays have the same size now.
             ReDim availablePlaces(availables.GetUpperBound(0), availables.GetUpperBound(1))
@@ -87,40 +97,37 @@
         ''' <param name="col1">An horizontal boundary of the rectangle</param>
         ''' <param name="row2">The second Y boundary.</param>
         ''' <param name="col2">The second X boundary.</param>
-        Public Sub SetAvailable(row1 As Byte, col1 As Byte, row2 As Byte, col2 As Byte)
+        Public Sub SetRectangle(value As Boolean, row1 As Byte, col1 As Byte, row2 As Byte, col2 As Byte)
             If Not VerifyBox(row1, col1, row2, col2) Then
-                Return
+                Throw New ArgumentException("The box is not inside the room")
             End If
 
             For col = col1 To col2
                 For row = row1 To row2
-                    SetAvailable(row, col, True)
+                    SetAvailable(row, col, value)
                 Next
             Next
 
         End Sub
         ''' <summary>
-        ''' Set all the places in the given rectangle as not available, aka they do not exists.
+        ''' Set all the places in the given rectangle as available, aka the are real existing places.
         ''' All boundaries are included. The order doesn't matter.
+        ''' A return value indicates wether the set is successful or not.
         ''' </summary>
         ''' <param name="row1">One vertical boundary of the rectangle.</param>
         ''' <param name="col1">An horizontal boundary of the rectangle</param>
         ''' <param name="row2">The second Y boundary.</param>
         ''' <param name="col2">The second X boundary.</param>
-        Public Sub SetUnavailable(row1 As Byte, col1 As Byte, row2 As Byte, col2 As Byte)
-            If Not VerifyBox(row1, col1, row2, col2) Then
-                Return
-            End If
+        ''' <returns>True if it worked, else False.</returns>
+        Public Function TrySetRectange(value As Boolean, row1 As Byte, col1 As Byte, row2 As Byte, col2 As Byte) As Boolean
+            Try
+                SetRectangle(value, row1, col1, row2, col2)
+            Catch ex As ArgumentException
+                Return False
+            End Try
+            Return True
+        End Function
 
-            For col = col1 To col2
-                For row = row1 To row2
-                    SetAvailable(row, col, False)
-                Next
-            Next
-
-
-
-        End Sub
         ''' <summary>
         ''' Change the availability state of each place in the given rectangle.
         ''' All boundaries are included. The order doesn't matter.
@@ -141,6 +148,24 @@
             Next
 
         End Sub
+        ''' <summary>
+        ''' Change the availability state of each place in the given rectangle.
+        ''' All boundaries are included. The order doesn't matter.
+        ''' A return value indicates wether the change as succesfull of not.
+        ''' </summary>
+        ''' <param name="row1">One vertical boundary of the rectangle.</param>
+        ''' <param name="col1">An horizontal boundary of the rectangle</param>
+        ''' <param name="row2">The second Y boundary.</param>
+        ''' <param name="col2">The second X boundary.</param>
+        ''' <returns>True if the change worked else false.</returns>
+        Public Function TryChangeAvailaible(row1 As Byte, col1 As Byte, row2 As Byte, col2 As Byte) As Boolean
+            Try
+                ChangeAvailaible(row1, col1, row2, col2)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
 
         ' Verify boxes to change rectangles
 
@@ -153,6 +178,11 @@
                                    ByRef row2 As Byte, ByRef col2 As Byte) As Boolean
 
             Dim ErrorMessage = "Fail, x1=" & row1.ToString & " y1=" & col1.ToString & " x2=" & row2.ToString & " y2=" & col2.ToString
+
+            If IsNothing(row1) Or IsNothing(row2) Or IsNothing(col1) Or IsNothing(col2) Then
+                Return False
+            End If
+
             Dim temp As Byte
 
             ' swap coordinates to always have row1 < row2
@@ -244,38 +274,79 @@
                 Return availablePlaces.GetUpperBound(1)
             End Get
         End Property
+
     End Class
 
-    Class Placement
+    ''' <summary>
+    ''' This class represent a placement with mutiples classes and classrooms.
+    ''' </summary>
+    Public Class Placement
+        ''' <summary>
+        ''' The array of all Student Values files used to make the placement.
+        ''' </summary>
         Dim svFilePaths As String()
+        ''' <summary>
+        ''' The array of all Desktop Disposition of rooms used for this exam.
+        ''' </summary>
         Dim ddFilePaths As String()
 
+        ' New 
+
+        ''' <summary>
+        ''' Creates a new placement with no room/students.
+        ''' You MUST add them before doing anything.
+        ''' </summary>
         Sub New()
             svFilePaths = {}
             ddFilePaths = {}
         End Sub
-
+        ''' <summary>
+        ''' Creates a new placement with one room and one class
+        ''' </summary>
+        ''' <param name="svFilePath">The students sv file path</param>
+        ''' <param name="ddFilePath">The room dd file path</param>
         Sub New(svFilePath As String, ddFilePath As String)
-            Me.svFilePaths = {svFilePath}
-            Me.ddFilePaths = {ddFilePath}
+            Me.New({svFilePath}, {ddFilePath})
         End Sub
-
-        Sub SetStudentValues(svFilePaths As String())
+        ''' <summary>
+        ''' Create a new placement with two arrays of classes and classerooms.
+        ''' </summary>
+        ''' <param name="svFilePaths">An array with the pathes to the sv files.</param>
+        ''' <param name="ddFilePaths">An array of the pathes to the dd files.</param>
+        Sub New(svFilePaths As String(), ddFilePaths As String())
             Me.svFilePaths = svFilePaths
-        End Sub
-
-        Sub SetDesktopDisposition(ddFilePaths As String())
             Me.ddFilePaths = ddFilePaths
         End Sub
 
+        ' Save
+
+        ''' <summary>
+        ''' Save a human readable copy of the placement.
+        ''' </summary>
+        ''' <param name="filePath"></param>
         Sub Save(filePath As String)
             IO.File.WriteAllText(filePath, GetPlacementString())
         End Sub
+        ''' <summary>
+        ''' Save a human readable copy of the placement.
+        ''' </summary>
+        ''' <param name="filePath"></param>
+        Public Function TrySave(filePath As String) As Boolean
+            Try
+                Save(filePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
+        ' Get placement 
 
         ''' <summary>
         ''' Make the placement and return one string of all the places.
         ''' </summary>
         ''' <remarks>The files must exist or an exception will be raised.</remarks>
+        ''' <seealso cref="TryGetPlacementString(String)"/>
         Public Function GetPlacementString() As String
 
             Dim placementString As String = ""
@@ -287,7 +358,25 @@
 
             Return placementString
         End Function
+        ''' <summary>
+        ''' Make the placement and get one string of all the places.
+        ''' A return value indicates wether it worked or not.
+        ''' </summary>
+        ''' <returns>True if it worked, else False.</returns>
+        ''' <seealso cref="GetPlacementString()"/>
+        Public Function TryGetPlacementString(placementString As String) As Boolean
+            Try
+                placementString = GetPlacementString()
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
 
+        ''' <summary>
+        ''' Get an array of students with Student.place set to their place in the rooms
+        ''' </summary>
+        ''' <returns>An array of placed Students</returns>
         Public Function GetPlacementArray() As Student()
 
             Dim students As Student() = {}
@@ -311,6 +400,20 @@
             Next
 
             Return placementArray
+        End Function
+        ''' <summary>
+        ''' Get an array of students with Students.place set to their place in the rooms.
+        ''' A return value indicate wether it worked or not.
+        ''' </summary>
+        ''' <param name="students">The variable that will be the list of students.</param>
+        ''' <returns>True if it worked, else False.</returns>
+        Public Function TryGetPlacementArray(ByRef students As Student()) As Boolean
+            Try
+                students = GetPlacementArray()
+            Catch ex As Exception
+                Return False
+            End Try
+            Return False
         End Function
     End Class
 

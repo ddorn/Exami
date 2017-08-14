@@ -11,99 +11,159 @@
 
         ' Be sure the user selected a folder
         If Not result = DialogResult.OK Then
-            MsgBox("You must select a folder")
+            MsgBox("You must select a folder.")
             Return
         End If
 
-        ' the selected folder path
+        ' The selected folder path
         WorkingFolder = FolderChooseWidget.SelectedPath
 
-        ' activate the buttons and display the folder selected
+        ' Display the selected folder 
         folderLabel.Text = WorkingFolder
 
+        ' Updates visibles files
         UpdateAvailaibleFiles()
 
-        ' The room designer and converter are available now that a folder is selected
-        CreateRoomButton.Enabled = True
+        ' The onverter and room designer are available now that a folder is selected
         ConvertButton.Enabled = True
+        CreateRoomButton.Enabled = True
 
     End Sub
 
     Private Sub ConvertButton_Click() Handles ConvertButton.Click
+        Dim nbFilesConverted = 0
+        Dim nbFilesFailed = 0
+
+        ' We convert each .vass file in the WorkingFolder
         For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
-            DataAccessLayer.SV.ConvertVassToSv(fileName)
+            ' Keeping track of the number converted / failed
+            If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
+                nbFilesConverted += 1
+            Else
+                nbFilesFailed += 1
+            End If
         Next
 
-        MsgBox("All data processed")
+        ' Be kind, tell her what happend
+        If nbFilesConverted = 0 Then
+            MsgBox("There is no .vass files to convert in this folder :/")
+        ElseIf nbFilesFailed = 0 Then
+            MsgBox("All data processed")
+        Else
+            MsgBox(String.Format("{} files where processed but {} failed", nbFilesConverted, nbFilesFailed))
+        End If
+
+        ' Show new files 
         UpdateAvailaibleFiles()
     End Sub
 
     Private Sub PlacementButton_Click() Handles PlacementButton.Click
-        Dim svFiles = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv").ToArray
-        Dim ddFiles = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd").ToArray
 
-        ' We want one man !!!
-        If ddFiles Is Nothing Or svFiles Is Nothing Then
+        Dim placement As Placement
+        If Not TryGetPlacementFromSelectedOrWarn(placement) Then
+            ' We already warned in the TryGetBlabla so we just go back
             Return
         End If
 
-        Dim placement = New Placement()
-        placement.SetStudentValues(svFiles)
-        placement.SetDesktopDisposition(ddFiles)
-
+        ' Show the placement on the screen
         ResultLabel.Text = placement.GetPlacementString()
 
+        ' Allow the user to save this placement
         SaveButton.Visible = True
     End Sub
 
     Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
+
+        ' Just switch to the room designer form
         Me.Hide()
         RoomDesigner.Show()
+
     End Sub
 
     Private Sub SaveButton_Click() Handles SaveButton.Click
-        Dim svFiles As String()
-        Dim ddFiles As String()
         Dim fileName As String
         Dim filePath As String
 
-        svFiles = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv").ToArray
-        ddFiles = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd").ToArray
-        If svFiles Is Nothing Or ddFiles Is Nothing Then
+        Dim placement As Placement
+        If TryGetPlacementFromSelectedOrWarn(placement) = False Then
+            'We have already worn
             Return
         End If
 
-        Dim placement = New Placement()
-        placement.SetDesktopDisposition(ddFiles)
-        placement.SetStudentValues(svFiles)
+        Dim prompt As String = "Enter the name of the exam to save."
+        ' Until we have a valid file name
 
-        While File.IsValidFileName(fileName) = False
-            fileName = InputBox("Enter the name of the exam to save")
+        While Not File.IsValidFileName(fileName)
+            ' We ask (a bit too violently I think) the name of the file to save
+            fileName = InputBox(prompt)
+            ' We change the message a bit to explain why we ask again this boring question
+            prompt = "This name is not valid, try an other one (don't use any special chars)"
         End While
 
+        ' We put it in the folder
         filePath = IO.Path.Combine(WorkingFolder, fileName & ".txt")
 
+        ' And save it
         placement.Save(filePath)
     End Sub
 
     ' Utilitaries functions
 
+    ''' <summary>
+    ''' Get the placement given the checked items in the CheckedListBoxes.
+    ''' If there is something wrong, it tells the user and a return value indicates it
+    ''' </summary>
+    ''' <param name="placement">The variable that will hold the placement.</param>
+    ''' <returns>Try if it succeded, else False.</returns>
+    Private Function TryGetPlacementFromSelectedOrWarn(ByRef placement As Placement) As Boolean
+        Dim svFiles As String()
+        Dim ddFiles As String()
+
+        ' Try to get the selected files from the to checklist boxes
+        svFiles = GetSelectedFilesNamesOrWarn(svListBox, "class", ".sv")
+        ddFiles = GetSelectedFilesNamesOrWarn(ddListBox, "classroom", ".dd")
+
+        ' We want one man !!! We already warned so we just go back
+        If svFiles Is Nothing Or ddFiles Is Nothing Then
+            Return False
+        End If
+
+        ' We create the new placement
+        placement = New Placement(svFiles, ddFiles)
+        Return True
+
+    End Function
+
+    ''' <summary>
+    ''' Get an array of the checked files in a given CheckedListBox, assuming the files are all in the WorkingDirectory.
+    ''' If there is not checked files, it will warn the user and return Nothing
+    ''' </summary>
+    ''' <param name="checkListBox">The CheckedListBox the get checked items</param>
+    ''' <param name="name">The name of what the user didn't selcect (for warning purposes)</param>
+    ''' <param name="extension">The extensions of files in this checkedbox</param>
+    ''' <returns>An array of selected files</returns>
     Public Function GetSelectedFilesNamesOrWarn(checkListBox As CheckedListBox, name As String, extension As String) As String()
+
+        ' If there is no checked item
         If checkListBox.CheckedItems.Count = 0 Then
             MsgBox(String.Format("Select a {0} first.", name), MsgBoxStyle.Exclamation)
             Return Nothing
         End If
 
+        ' We just append every checked thing to the list
         Dim fileNames As New List(Of String)
         For i = 0 To (checkListBox.Items.Count - 1)
             If checkListBox.GetItemChecked(i) = True Then
                 fileNames.Add(checkListBox.Items(i))
             End If
         Next
+
+        ' And then convert it to the full path
         For pos = 0 To fileNames.Count - 1
             fileNames(pos) = IO.Path.Combine(WorkingFolder, fileNames(pos) & extension)
         Next
 
+        ' Finally, I prefer array than lists so... 
         Return fileNames.ToArray
     End Function
 
@@ -115,7 +175,6 @@
             Debug.WriteLine("UpdateAvailableFiles called when there was no WorkingFolder set.", "WARNING")
             Return
         End If
-
 
         Dim successSV As Boolean
         Dim successDD As Boolean
@@ -129,8 +188,8 @@
         }
 
         ' basicly, those booleans are just is there is some .sv files in the working folder (resp dd)
-        successSV = SetFileListBoxItems(svListBox, File.GetFilesWithExtension(WorkingFolder, ".sv"), defaultItems)
-        successDD = SetFileListBoxItems(ddListBox, File.GetFilesWithExtension(WorkingFolder, ".dd"), defaultItems)
+        successSV = TrySetFileListBoxItems(svListBox, File.GetFilesWithExtension(WorkingFolder, ".sv"), defaultItems)
+        successDD = TrySetFileListBoxItems(ddListBox, File.GetFilesWithExtension(WorkingFolder, ".dd"), defaultItems)
 
         ' If and only if there is files the user can check them
         svListBox.Enabled = successSV
@@ -146,16 +205,22 @@
     ''' The items are an array of file paths, and the items shown in the checkedLstBox will be only the file name (without extension and folders)
     ''' You can provide a default items array in case the first one is empty. I know this compprtement is a bit weird but I will change it later... maybe
     ''' </summary>
+    ''' <param name="listBox">The CheckedListBox to set items</param>
     ''' <param name="items">The future contents of the ListBox</param>
-    Private Function SetFileListBoxItems(listBox As CheckedListBox, items As String(), Optional defaultsItems As String() = Nothing) As Boolean
+    ''' <param name="defaultsItems">The subtitude for <paramref name="items"/> if this array is empty.</param>
+    ''' <returns>True if the items are set False otherwise (even if it is the <paramref name="defaultsItems"/> that is set.</returns>
+    Private Function TrySetFileListBoxItems(listBox As CheckedListBox, items As String(), Optional defaultsItems As String() = Nothing) As Boolean
         ' TODO : remove it, or not ?
+        ' If items is empty
         If items.GetUpperBound(0) < 0 Then
+            ' If there is some default to set
             If defaultsItems IsNot Nothing Then
+                'And things in it
                 If defaultsItems.GetUpperBound(0) >= 0 Then
-                    SetFileListBoxItems(listBox, defaultsItems)
+                    TrySetFileListBoxItems(listBox, defaultsItems)
                 End If
             End If
-            Return 0
+            Return False
         End If
 
         ' Check if the contents are the same, in this case we do nothing so we don't lose the checked boxes
@@ -170,21 +235,23 @@
                 End If
             Next
 
+            ' We pretend they are set, but it is the same result
             If allSame Then
-                Return 1
+                Return True
             End If
         End If
 
         listBox.BeginUpdate()
         listBox.Items.Clear()
 
+        ' We add each file name (without folder/extension)
         For Each file In items
             file = IO.Path.GetFileNameWithoutExtension(file)
             listBox.Items.Add(file)
         Next
 
         listBox.EndUpdate()
-        Return 1
+        Return True
     End Function
 
 End Class

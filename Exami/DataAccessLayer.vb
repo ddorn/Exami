@@ -135,6 +135,7 @@
         ''' <summary>
         ''' Convert a student to a .sv line fully representing him.
         ''' </summary>
+        ''' <exception cref="ArgumentNullException">If not all atributes are set.</exception>
         ''' <returns>The .sv line.</returns>
         Function ToSvLine() As String
             Return String.Join(",", {unitCode, studentNumber, familyName, firstName, secondName})
@@ -145,6 +146,7 @@
         ''' <summary>
         ''' Get a string with the family and first name of the student.
         ''' </summary>
+        ''' <exception cref="ArgumentNullException">If familyName or firstName is Nothing</exception>
         Overrides Function ToString() As String
             Return String.Format("{0} {1}", familyName, firstName)
         End Function
@@ -164,25 +166,52 @@
         ''' Get an array of all the students present in a the selected .sv file
         ''' </summary>
         ''' <param name="svFilePath">The file to exctract students from</param>
+        ''' <exception cref="IO.FileNotFoundException">The file does not exist.</exception>
         ''' <returns>The array of the students</returns>
         Shared Function GetStudents(svFilePath As String) As Student()
+            ' What is not allowed to read ?
+            If Not IO.File.Exists(svFilePath) Then
+                Throw New IO.FileNotFoundException("The sv file must exist.")
+            End If
+
             Dim pos As Short
             Dim lines As String() = IO.File.ReadAllLines(svFilePath)
 
             ' It is -2 because of the header and the last blank line
-            Dim Students(lines.Length - 2) As Student
+            Dim Students = New List(Of Student)(lines.Length - 2)
+            Dim stud As Student
 
             ' -1 cos we skip the first line and then it is zero and it is aligned with the indices of Students
             pos = -1
             For Each line In lines
                 ' We ignore the header and the last blanck line
                 If pos <> -1 And pos <> lines.GetUpperBound(0) Then
-                    Students(pos) = Student.ParseFromSv(line)
+                    'If we can parse the line
+                    If Student.TryParseFormSv(line, stud) Then
+                        ' We add it to the list
+                        Students.Add(Student.ParseFromSv(line))
+                    End If
                 End If
                 pos += 1
             Next
 
-            Return Students
+            Return Students.ToArray
+        End Function
+        ''' <summary>
+        ''' Get an array of all the students present in a the selected .sv file.
+        ''' A return value indicates wether the convertion succeded or failed.
+        ''' </summary>
+        ''' <param name="svFilePath">The file to exctract students from</param>
+        ''' <param name="students">The student array where the students will be loaded.</param>
+        ''' <returns>Wether the convertion succeded or failed.</returns>
+        Shared Function TryGetStudents(svFilePath As String, ByRef students As Student()) As Boolean
+            Try
+                students = GetStudents(svFilePath)
+            Catch ex As Exception
+                Debug.WriteLine(String.Format("Unable to load students from {0}. Exception {1}", svFilePath.ToString, ex.ToString))
+                Return False
+            End Try
+            Return True
         End Function
 
         ''' <summary>
@@ -191,9 +220,7 @@
         ''' <param name="vassFilePath">The path of the .vass file to convert</param>
         Shared Sub ConvertVassToSv(vassFilePath As String)
             ' We just change the extention
-            Dim folder As String = IO.Path.GetDirectoryName(vassFilePath)
-            Dim svFileName As String = IO.Path.GetFileNameWithoutExtension(vassFilePath) + ".sv"
-            Dim svFilePath As String = IO.Path.Combine(folder, svFileName)
+            Dim svFilePath = IO.Path.ChangeExtension(vassFilePath, ".sv")
 
             ' .sv file where we we put the cleaned data
             Dim svFile As IO.StreamWriter = IO.File.CreateText(svFilePath)
@@ -214,7 +241,20 @@
 
             svFile.Close()
         End Sub
-
+        ''' <summary>
+        ''' Convert a .vass file into a .sv file.
+        ''' A return value indicates wether the conversion succeded of not.
+        ''' </summary>
+        ''' <param name="vassFilePath">The path of the .vass file to convert</param>
+        ''' <returns>True if it succedded False else.</returns>
+        Shared Function TryConvertVassToSv(vassFilePath As String) As Boolean
+            Try
+                ConvertVassToSv(vassFilePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
     End Class
 
 
@@ -228,7 +268,7 @@
         ''' </summary>
         ''' <param name="room">The Room to save</param>
         ''' <param name="ddFilePath">The file to save the room. You must have writting rights.</param>
-        Public Shared Sub SaveRoom(room As Room, ddFilePath As String
+        Public Shared Sub SaveRoom(room As Room, ddFilePath As String)
             Dim file As IO.StreamWriter
 
             file = IO.File.CreateText(ddFilePath)
@@ -248,6 +288,23 @@
 
             file.Close()
         End Sub
+        ''' <summary>
+        ''' Save a room in a file. The inverse function is LoadRoom.
+        ''' A return value indicates wether the saving succedded or not.
+        ''' </summary>
+        ''' <param name="room">The Room to save</param>
+        ''' <param name="ddFilePath">The file to save the room. You must have writting rights.</param>
+        ''' <returns>True if the room is saved, else False.</returns>
+        Public Shared Function TrySaveRoom(room As Room, ddFilePath As String) As Boolean
+
+            Try
+                SaveRoom(room, ddFilePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
 
         ''' <summary>
         ''' Loads a room from a file, the inverse function is SaveRoom
@@ -285,6 +342,19 @@
 
             Return New Room(availables)
         End Function
+        ''' <summary>
+        ''' Loads a room from a file, the inverse function is SaveRoom
+        ''' </summary>
+        ''' <param name="ddFilePath">The file to load the room. The file must exist.</param>
+        ''' <returns>The room that was in the file.</returns>
+        Public Shared Function TryLoadRoom(ddFilePath As String, ByRef room As Room)
+            Try
+                room = LoadRoom(ddFilePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
 
     End Class
 
@@ -301,38 +371,43 @@
         ''' <param name="extention">The extention of files to return (ex: ".vass")</param>
         ''' <returns>An array of path strings to existing files</returns>
         Shared Function GetFilesWithExtension(path As String, extention As String) As String()
-            Dim NamesArray(-1) As String
-            Dim NumberOfFiles = -1
+            Dim NamesArray = New List(Of String)
             Dim fullName As String
 
             For Each file In IO.Directory.EnumerateFiles(path)
                 If IO.Path.GetExtension(file) = extention Then
-                    NumberOfFiles += 1
-                    If NumberOfFiles > NamesArray.GetUpperBound(0) Then
-                        ReDim Preserve NamesArray(NamesArray.GetUpperBound(0) + 20)
-                    End If
 
                     fullName = IO.Path.Combine(path, file)
-                    NamesArray(NumberOfFiles) = fullName
+                    NamesArray.Add(fullName)
                 End If
             Next
 
-            ReDim Preserve NamesArray(NumberOfFiles)
-
-            Return NamesArray
+            Return NamesArray.ToArray
 
         End Function
 
-        Shared Function IsValidFileName(name As String) As Boolean
-            If name Is Nothing Then
+        ''' <summary>
+        ''' Get the validity of a file name. Aka it doesn't contains any invalid character and is not nothing.
+        ''' </summary>
+        ''' <param name="fileName">The file name to check</param>
+        ''' <returns>True if it is valid else False</returns>
+        Shared Function IsValidFileName(fileName As String) As Boolean
+            If fileName Is Nothing Then
                 Return False
             End If
 
             For Each ch In IO.Path.GetInvalidFileNameChars
-                If name.Contains(ch) Then
+                If fileName.Contains(ch) Then
                     Return False
                 End If
             Next
+
+            For Each ch In IO.Path.GetInvalidPathChars
+                If fileName.Contains(ch) Then
+                    Return False
+                End If
+            Next
+
             Return True
         End Function
     End Class
