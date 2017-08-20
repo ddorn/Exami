@@ -140,6 +140,7 @@ Partial Class ExamiForm
         '
         'SaveButton
         '
+        Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SaveButton.Location = New System.Drawing.Point(798, 533)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(129, 45)
