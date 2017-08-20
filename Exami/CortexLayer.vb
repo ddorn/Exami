@@ -278,7 +278,7 @@
     End Class
 
     ''' <summary>
-    ''' This class represent a placement with mutiples classes and classrooms.
+    ''' This class represent a placement with mutiples classes and classrooms. This placement is not calculated but this is the purpose of the class.
     ''' </summary>
     Public Class Placement
         ''' <summary>
@@ -289,6 +289,19 @@
         ''' The array of all Desktop Disposition of rooms used for this exam.
         ''' </summary>
         Dim ddFilePaths As String()
+
+        ''' <summary>
+        ''' The array of all placed stdents. They will have their .place set.
+        ''' </summary>
+        Public placed As List(Of Student)
+        ''' <summary>
+        ''' The array of all not placed students
+        ''' </summary>
+        Public notPlaced As List(Of Student)
+        ''' <summary>
+        ''' The places that doesn't have students in them.
+        ''' </summary>
+        Public placesLeft As List(Of Place)
 
         ' New 
 
@@ -351,7 +364,9 @@
 
             Dim placementString As String = ""
 
-            For Each stud In GetPlacementArray()
+            MakePlacement()
+
+            For Each stud In placed
                 placementString += stud.place.ToString & " " & stud.ToString()
                 placementString += Environment.NewLine
             Next
@@ -374,47 +389,67 @@
         End Function
 
         ''' <summary>
-        ''' Get an array of students with Student.place set to their place in the rooms
+        ''' Calculate all the placed, unplaced and places left with the given sv and dd files. The students in .placed will have their place set.
         ''' </summary>
-        ''' <returns>An array of placed Students</returns>
-        Public Function GetPlacementArray() As Student()
+        Public Sub MakePlacement()
 
-            Dim students As Student() = {}
-            Dim places As Place() = {}
+            ' Reinitialize arrays
+            placed = New List(Of Student)
+            notPlaced = New List(Of Student)
+            placesLeft = New List(Of Place)
+
+            Dim allStudents As Student() = {}
+            Dim allPlaces As Place() = {}
 
             ' We get a list of students from each file, and concatenate them every times
             For Each svPath In Me.svFilePaths
-                students = students.Union(DataAccessLayer.SV.GetStudents(svPath)).ToArray
+                allStudents = allStudents.Union(DataAccessLayer.SV.GetStudents(svPath)).ToArray
             Next
 
             ' Likewise a list of the tables
             For Each ddPath In ddFilePaths
-                places = places.Union(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray).ToArray
+                allPlaces = allPlaces.Union(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray).ToArray
             Next
 
-            Dim placementArray(Math.Min(students.GetUpperBound(0), places.GetUpperBound(0))) As Student
+            Dim studentNb = allStudents.Length
+            Dim placesNb = allPlaces.Length
 
-            For pos = 0 To Math.Min(places.GetUpperBound(0), students.GetUpperBound(0))
-                students(pos).place = places(pos)
-                placementArray(pos) = students(pos)
+            ' We walk through the arrays and we want to have all elements of both arrays
+            For pos = 0 To Math.Max(studentNb, placesNb) - 1
+
+                ' If we are still in both arrays
+                If pos < studentNb And pos < placesNb Then
+                    ' Place the student
+                    allStudents(pos).place = allPlaces(pos)
+                    placed.Add(allStudents(pos))
+
+                ElseIf pos < studentNb Then ' If there is only students left
+
+                    allStudents(pos).place = Nothing
+                    notPlaced.Add(allStudents(pos))
+
+                Else ' If there is only places left
+                    placesLeft.Add(allPlaces(pos))
+                End If
+
             Next
 
-            Return placementArray
-        End Function
+        End Sub
         ''' <summary>
         ''' Get an array of students with Students.place set to their place in the rooms.
         ''' A return value indicate wether it worked or not.
         ''' </summary>
         ''' <param name="students">The variable that will be the list of students.</param>
         ''' <returns>True if it worked, else False.</returns>
-        Public Function TryGetPlacementArray(ByRef students As Student()) As Boolean
+        Public Function TryMakePlacement() As Boolean
             Try
-                students = GetPlacementArray()
+                MakePlacement()
             Catch ex As Exception
                 Return False
             End Try
-            Return False
+            Return True
         End Function
+
     End Class
 
 End Module
