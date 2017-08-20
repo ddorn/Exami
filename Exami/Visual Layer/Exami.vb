@@ -1,5 +1,6 @@
 ﻿Public Class ExamiForm
 
+    Dim OuaBonjour
     Public WorkingFolder As String
 
     ' Button functions
@@ -60,9 +61,23 @@
     Private Sub PlacementButton_Click() Handles PlacementButton.Click
 
         Dim placement As Placement
+
         If Not TryGetPlacementFromSelectedOrWarn(placement) Then
-            ' We already warned in the TryGetBlabla so we just go back
+            ' We already warned about the selected stuff in the TryGetBlabla so we just go back
             Return
+        End If
+
+        ' Probably a problem with the files
+        If Not placement.TryMakePlacement() Then
+            MsgBox("Something went wrong... Check if files exists and are readble.")
+            Return
+        End If
+
+        If placement.notPlaced.Count > 0 Then
+            Dim response = MsgBox(String.Format("There will be {0} students without a place. Continue ?", placement.notPlaced.Count), MsgBoxStyle.YesNo)
+            If response = MsgBoxResult.No Then
+                Return
+            End If
         End If
 
         ' Show the placement on the screen
@@ -96,8 +111,16 @@
         While Not File.IsValidFileName(fileName)
             ' We ask (a bit too violently I think) the name of the file to save
             fileName = InputBox(prompt)
-            ' We change the message a bit to explain why we ask again this boring question
-            prompt = "This name is not valid, try an other one (don't use any special chars)"
+
+            ' If nothing is entered (like when clicked cancel)
+            If fileName = "" Then
+                ' Ask if they want to leaaaave
+                If MsgBox("You don't want to save it ?", MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                    Return
+                End If
+            End If
+                ' We change the message a bit to explain why we ask again this boring question
+                prompt = "This name is not valid, try an other one (don't use any special chars)"
         End While
 
         ' We put it in the folder
