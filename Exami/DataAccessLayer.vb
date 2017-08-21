@@ -1,23 +1,33 @@
 ﻿Module DataAccessLayer
 
-    ' Order : unitCode, studendNumber, familyName, firstName, secondName
-    ' In an .sf file   : 0,  1,  2,  3,  4
-    ' In a .vass file  : 0, 16, 18, 18, 19
-
     Enum SvKeys
+        ' Student
         unitCode = 0
         studentNumber = 1
         familyName = 2
         firstName = 3
         secondName = 4
+        ' Class 
+        classCode = 5
+        teacherCode = 6
+        teacherTitle = 7
+        teacherFirstName = 8
+        teacherFamilyName = 9
     End Enum
 
     Enum VassKeys
+        ' Student
         unitCode = 0
         studentNumber = 16
         familyName = 17
         firstName = 18
         secondName = 19
+        ' Class
+        classCode = 2
+        teacherCode = 4
+        teacherTitle = 5
+        teacherFirstName = 6
+        teacherFamilyName = 7
     End Enum
 
     ''' <summary>
@@ -29,15 +39,17 @@
         Public secondName As String
         Public unitCode As String
         Public studentNumber As String
+        Public classUnit As ClassUnit
         Public place As Place
 
-        Sub New(unitCode, studentNumber, familyName, firstName, secondName)
+        Sub New(unitCode As String, studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
             With Me
                 .unitCode = unitCode
                 .studentNumber = studentNumber
                 .familyName = familyName
                 .firstName = firstName
                 .secondName = secondName
+                .classUnit = classUnit
             End With
         End Sub
 
@@ -56,15 +68,23 @@
             End If
 
             Dim fields = line.Split(",")
-            If fields.Length <> 5 Then
+            If fields.Length <> 6 Then
                 Throw New ArgumentException("There is not 5 values in the line, it is not a student.")
             End If
+
+
+            Dim classUnit = New ClassUnit(fields(SvKeys.classCode),
+                                          fields(SvKeys.teacherCode),
+                                          fields(SvKeys.teacherTitle),
+                                          fields(SvKeys.teacherFirstName),
+                                          fields(SvKeys.teacherFamilyName))
 
             Return New Student(fields(SvKeys.unitCode),
                                fields(SvKeys.studentNumber),
                                fields(SvKeys.familyName),
                                fields(SvKeys.firstName),
-                               fields(SvKeys.secondName))
+                               fields(SvKeys.secondName),
+                               classUnit)
         End Function
         ''' <summary>
         ''' Create a Student object from a .sv file line. A return value indicates wether the convertion succeded or failed.
@@ -109,12 +129,18 @@
                 Throw New ArgumentException("The line doesn't represent a student.")
             End If
 
+            Dim classUnit = New ClassUnit(fields(VassKeys.classCode),
+                                          fields(VassKeys.teacherCode),
+                                          fields(VassKeys.teacherTitle),
+                                          fields(VassKeys.teacherFirstName),
+                                          fields(VassKeys.teacherFamilyName))
 
             Return New Student(fields(VassKeys.unitCode),
                                fields(VassKeys.studentNumber),
                                fields(VassKeys.familyName),
                                fields(VassKeys.firstName),
-                               fields(VassKeys.secondName))
+                               fields(VassKeys.secondName),
+                               classUnit)
         End Function
         ''' <summary>
         ''' Create a Student object from a .vass file line. A return value indicates wether the convertion succeded or failed.
@@ -138,7 +164,7 @@
         ''' <exception cref="ArgumentNullException">If not all atributes are set.</exception>
         ''' <returns>The .sv line.</returns>
         Function ToSvLine() As String
-            Return String.Join(",", {unitCode, studentNumber, familyName, firstName, secondName})
+            Return String.Join(",", {unitCode, studentNumber, familyName, firstName, secondName, classUnit.ToSvString})
         End Function
 
         ' Readable version
@@ -152,6 +178,40 @@
         End Function
     End Class
 
+    ''' <summary>
+    ''' A class to represent a class... Yeah it's the same name and it's ******* boring... So lets use the frenche name, it's not really better but it's not a keyword.
+    ''' Well it is just a class class with the teacher informations too.
+    ''' </summary>
+    Public Class ClassUnit
+        Public classCode As String
+        Public teacherCode As String
+        Public teacherTitle As String
+        Public teacherFirstName As String
+        Public teacherFamilyName As String
+
+        Sub New(classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName)
+            With Me
+                .classCode = classCode
+                .teacherCode = teacherCode
+                .teacherTitle = teacherTitle
+                .teacherFamilyName = teacherFamilyName
+                .teacherFirstName = teacherFirstName
+            End With
+        End Sub
+
+        ''' <summary>
+        ''' Get the full name of the teacher of this class.
+        ''' </summary>
+        Public Function GetTeacherFullName() As String
+            Return String.Join(" ", {teacherTitle, teacherFirstName, teacherFamilyName})
+        End Function
+
+
+
+        Public Function ToSvString() As String
+            Return String.Join(",", {classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName})
+        End Function
+    End Class
 
     ''' <summary>
     ''' A class to manipulate .sv files, extract, convert and save content

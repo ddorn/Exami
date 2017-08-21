@@ -70,6 +70,7 @@
         ' Probably a problem with the files
         If Not placement.TryMakePlacement() Then
             MsgBox("Something went wrong... Check if files exists and are readble.")
+            UpdateAvailaibleFiles()
             Return
         End If
 
