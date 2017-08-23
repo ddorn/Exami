@@ -2,17 +2,18 @@
 
     Enum SvKeys
         ' Student
-        unitCode = 0
-        studentNumber = 1
-        familyName = 2
-        firstName = 3
-        secondName = 4
+        studentNumber = 0
+        familyName = 1
+        firstName = 2
+        secondName = 3
         ' Class 
+        unitCode = 4
         classCode = 5
         teacherCode = 6
         teacherTitle = 7
         teacherFirstName = 8
         teacherFamilyName = 9
+        subject = 10
     End Enum
 
     Enum VassKeys
@@ -28,6 +29,7 @@
         teacherTitle = 5
         teacherFirstName = 6
         teacherFamilyName = 7
+        subject = 1
     End Enum
 
     ''' <summary>
@@ -37,14 +39,12 @@
         Public familyName As String
         Public firstName As String
         Public secondName As String
-        Public unitCode As String
         Public studentNumber As String
         Public classUnit As ClassUnit
         Public place As Place
 
-        Sub New(unitCode As String, studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
+        Sub New(studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
             With Me
-                .unitCode = unitCode
                 .studentNumber = studentNumber
                 .familyName = familyName
                 .firstName = firstName
@@ -73,14 +73,15 @@
             End If
 
 
-            Dim classUnit = New ClassUnit(fields(SvKeys.classCode),
+            Dim classUnit = New ClassUnit(fields(SvKeys.unitCode),
+                                          fields(SvKeys.classCode),
                                           fields(SvKeys.teacherCode),
                                           fields(SvKeys.teacherTitle),
                                           fields(SvKeys.teacherFirstName),
-                                          fields(SvKeys.teacherFamilyName))
+                                          fields(SvKeys.teacherFamilyName),
+                                          fields(SvKeys.subject))
 
-            Return New Student(fields(SvKeys.unitCode),
-                               fields(SvKeys.studentNumber),
+            Return New Student(fields(SvKeys.studentNumber),
                                fields(SvKeys.familyName),
                                fields(SvKeys.firstName),
                                fields(SvKeys.secondName),
@@ -129,14 +130,15 @@
                 Throw New ArgumentException("The line doesn't represent a student.")
             End If
 
-            Dim classUnit = New ClassUnit(fields(VassKeys.classCode),
+            Dim classUnit = New ClassUnit(fields(VassKeys.unitCode),
+                                          fields(VassKeys.classCode),
                                           fields(VassKeys.teacherCode),
                                           fields(VassKeys.teacherTitle),
                                           fields(VassKeys.teacherFirstName),
-                                          fields(VassKeys.teacherFamilyName))
+                                          fields(VassKeys.teacherFamilyName),
+                                          fields(VassKeys.subject))
 
-            Return New Student(fields(VassKeys.unitCode),
-                               fields(VassKeys.studentNumber),
+            Return New Student(fields(VassKeys.studentNumber),
                                fields(VassKeys.familyName),
                                fields(VassKeys.firstName),
                                fields(VassKeys.secondName),
@@ -164,7 +166,7 @@
         ''' <exception cref="ArgumentNullException">If not all atributes are set.</exception>
         ''' <returns>The .sv line.</returns>
         Function ToSvLine() As String
-            Return String.Join(",", {unitCode, studentNumber, familyName, firstName, secondName, classUnit.ToSvString})
+            Return String.Join(",", {studentNumber, familyName, firstName, secondName, classUnit.ToSvString})
         End Function
 
         ' Readable version
@@ -183,19 +185,23 @@
     ''' Well it is just a class class with the teacher informations too.
     ''' </summary>
     Class ClassUnit
+        Public unitCode As String
         Public classCode As String
         Public teacherCode As String
         Public teacherTitle As String
         Public teacherFirstName As String
         Public teacherFamilyName As String
+        Public subject As String
 
-        Sub New(classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName)
+        Sub New(unitCode, classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName, subject)
             With Me
+                .unitCode = unitCode
                 .classCode = classCode
                 .teacherCode = teacherCode
                 .teacherTitle = teacherTitle
                 .teacherFamilyName = teacherFamilyName
                 .teacherFirstName = teacherFirstName
+                .subject = subject
             End With
         End Sub
 
@@ -210,7 +216,7 @@
         ''' Converts the classUnit to the string that you can save in an sv file.
         ''' </summary>
         Public Function ToSvString() As String
-            Return String.Join(",", {classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName})
+            Return String.Join(",", {unitCode, classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName, subject})
         End Function
 
         Public Overloads Overrides Function Equals(obj As Object) As Boolean
@@ -225,7 +231,8 @@
                 Me.teacherCode = unit.teacherCode And
                 Me.teacherTitle = unit.teacherTitle And
                 Me.teacherFamilyName = unit.teacherFamilyName And
-                Me.teacherFirstName = unit.teacherFirstName
+                Me.teacherFirstName = unit.teacherFirstName And
+                Me.subject - unit.subject
         End Function
     End Class
 

@@ -6,10 +6,17 @@
     Public Class Place
         Public row As Byte
         Public col As Byte
+        Public room As String = ""
 
         Sub New(row As Byte, col As Byte)
             Me.row = row
             Me.col = col
+        End Sub
+
+        Sub New(row As Byte, col As Byte, room As String)
+            Me.row = row
+            Me.col = col
+            Me.room = room
         End Sub
 
         ''' <summary>
@@ -28,8 +35,10 @@
     ''' </summary>
     Public Class Room
         ' I swap them every fucking single time.......
-        Dim ROW_AXE = 0
-        Dim COL_AXE = 1
+        Private ROW_AXE = 0
+        Private COL_AXE = 1
+
+        Public name As String = ""
 
         ''' <summary>
         ''' A 2D array of all the possible places, a place that exists is represented by True.
@@ -46,10 +55,9 @@
         ''' </summary>
         ''' <param name="rowNb">Number of rows</param>
         ''' <param name="colNb">Number of columns</param>
-        Public Sub New(Optional rowNb As Byte = 5, Optional colNb As Byte = 4)
+        Public Sub New(rowNb As Byte, colNb As Byte)
             ReDim availablePlaces(rowNb - 1, colNb - 1)
         End Sub
-
         ''' <summary>
         ''' Create a room from a 2D-array of booleans.
         ''' </summary>
@@ -64,6 +72,24 @@
                 Next
             Next
 
+        End Sub
+
+        ''' <summary>
+        ''' Create a new empty named room with all places unavailable.
+        ''' </summary>
+        ''' <param name="rowNb">Number of rows</param>
+        ''' <param name="colNb">Number of columns</param>
+        Public Sub New(rowNb As Byte, colNb As Byte, name As String)
+            Me.New(rowNb, colNb)
+            Me.name = name
+        End Sub
+        ''' <summary>
+        ''' Create a named room from a 2D-array of booleans.
+        ''' </summary>
+        ''' <param name="availables">A 2D-array of boolean representing the availaibility of a desktop.</param>
+        Public Sub New(availables As Boolean(,), name As String)
+            Me.New(availables)
+            Me.name = name
         End Sub
 
         ' Get / Set one place
@@ -229,7 +255,7 @@
                 For row = 0 To availablePlaces.GetUpperBound(ROW_AXE)
                     If availablePlaces(row, col) Then
                         numberOfPlaces += 1
-                        placesArray(numberOfPlaces) = New Place(row, col)
+                        placesArray(numberOfPlaces) = New Place(row, col, name)
                     End If
                 Next
             Next
@@ -274,6 +300,138 @@
                 Return availablePlaces.GetUpperBound(1)
             End Get
         End Property
+
+    End Class
+
+    Public Class StudentGroup
+
+        Public allStudents As List(Of Student)
+
+        Sub New(svFilePaths As String())
+            Me.allStudents = GetAllStudentsFromSv(svFilePaths)
+        End Sub
+
+        Sub New(students As List(Of Student))
+            Me.allStudents = students
+        End Sub
+
+        Private Function GetAllStudentsFromSv(svFilePaths As String()) As List(Of Student)
+            Dim allStuds = New List(Of Student)
+
+            ' We get a list of students from each file, and concatenate them every times
+            For Each svPath In svFilePaths
+                allStuds.AddRange(DataAccessLayer.SV.GetStudents(svPath))
+            Next
+
+            Return allStuds
+
+        End Function
+
+        ' Categorize Students
+
+        ''' <summary>
+        ''' This function return students classified by whatever we pass for <paramref name="key"/>.
+        ''' </summary>
+        ''' <typeparam name="T">The type of the key.</typeparam>
+        ''' <param name="key">The function that returns the key ofr a given student</param>
+        ''' <returns>A dict of all the students categorized by ...</returns>
+        Private Function GetBy(Of T)(key As Func(Of Student, T)) As Dictionary(Of T, List(Of Student))
+
+            ' The return dict 
+            Dim byT = New Dictionary(Of T, List(Of Student))
+            ' shortcut so I don't need to recalculate the key for a given student each time
+            Dim studKey As T
+
+            For Each stud In allStudents
+                ' The category of the student
+                studKey = key(stud)
+
+                ' If the category is in the dict
+                If byT.ContainsKey(studKey) Then
+                    ' We jsut add the student in it
+                    byT(studKey).Add(stud)
+                Else
+                    ' Or we create a new one for this student
+                    byT.Add(studKey, New List(Of Student)({stud}))
+                End If
+            Next
+
+            Return byT
+
+        End Function
+
+        ''' <summary>
+        ''' Get the students categorized by their subjects.
+        ''' </summary>
+        ''' <returns>A dict with the subject as key and a list of the students for the corresponding subject as values.</returns>
+        Public Function GetStudentsBySubject() As Dictionary(Of String, List(Of Student))
+
+            Return GetBy(Of String)(Function(s As Student) As String
+                                        Return s.classUnit.subject
+                                    End Function)
+
+        End Function
+        ''' <summary>
+        ''' Get the students categorized by their room.
+        ''' </summary>
+        ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
+        Public Function GetStudentsByRoom() As Dictionary(Of String, List(Of Student))
+
+            Return GetBy(Of String)(Function(s As Student) As String
+                                        Return s.place.room
+                                    End Function)
+
+        End Function
+        ''' <summary>
+        ''' Get the students categorized by their classes.
+        ''' </summary>
+        ''' <returns>A dict with the ClassUnit as key and a list of the students for the corresponding class as values.</returns>
+        Public Function GetStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
+
+            Return GetBy(Of ClassUnit)(Function(s As Student) As ClassUnit
+                                           Return s.classUnit
+                                       End Function)
+
+        End Function
+
+        ' Order students (or not)
+
+        ''' <summary>
+        ''' Sort the student of this group by... RANDOOOOOOOM. Yes, it is a way of sorting !
+        ''' </summary>
+        Public Sub Shuffle()
+
+
+            Dim last As Integer = allStudents.Count - 1
+            Dim outArray = New List(Of Student)(last)
+            Dim done(last) As Boolean
+            Dim r As New Random(My.Computer.Clock.TickCount)
+            Dim n As Integer
+
+            For i As Integer = 0 To last
+                Do
+                    n = r.Next(last + 1)
+                Loop Until Not done(n)
+                ' We get a random elt that has not been moved
+                done(n) = 1
+                ' and put it in order the out lsit
+                outArray(i) = allStudents(n)
+            Next
+            allStudents = outArray
+
+        End Sub
+        ''' <summary>
+        ''' Sort the students of this group alphabetically (by family name).
+        ''' </summary>
+        Public Sub Sort()
+            allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
+                                                            If s1.familyName = s2.familyName Then
+                                                                Return s1.firstName <= s2.firstName
+                                                            Else
+                                                                Return s1.familyName <= s2.familyName
+                                                            End If
+                                                        End Function))
+        End Sub
 
     End Class
 
@@ -359,7 +517,7 @@
         ''' Get all the students in a 1D list. You can not suppose they are sorted, either by class or by name or by number of hair.
         ''' </summary>
         ''' <returns>A list of the students in every sv file of the Placement.</returns>
-        Function GetAllStudents1D() As Student()
+        Private Function GetAllStudents1D() As Student()
             Dim allStudents = New List(Of Student)
 
             ' We get a list of students from each file, and concatenate them every times
@@ -374,7 +532,7 @@
         ''' Get a dictionnary of the students in each class. In each class students are not sorted. They are just separated by class.
         ''' </summary>
         ''' <returns>A dictionnary(classUnit) = List(of Student)</returns>
-        Function GetAllStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
+        Private Function GetAllStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
 
             Dim studByClass = New Dictionary(Of ClassUnit, List(Of Student))
 

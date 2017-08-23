@@ -100,6 +100,7 @@ End Class
 Class RoomTable
     Inherits Button
 
+    Const sep = 0
     Private _available As Boolean
     Public row, col As Byte
     Public roomPreviewParent As RoomPreview
@@ -124,7 +125,7 @@ Class RoomTable
         TabIndex = col * roomPreviewParent.LastRow + row
         Text = New Place(row, col).ToString()
         Size = New Size(81, 50)  ' goldratio4ever
-        Location = New Point(12 + col * (Width + 6), 12 + row * (Height + 6))
+        Location = New Point(12 + col * (Width + sep), 12 + row * (Height + sep))
 
         ' We add me to the form and allow events to be triggered or whatever the word is
         RoomDesigner.Controls.Add(Me)

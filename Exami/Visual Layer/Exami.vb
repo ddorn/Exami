@@ -278,7 +278,4 @@
         Return True
     End Function
 
-    Private Sub PlacementButton_Click(sender As Object, e As EventArgs) Handles PlacementButton.Click
-
-    End Sub
 End Class
