@@ -20,7 +20,7 @@
         WorkingFolder = FolderChooseWidget.SelectedPath
 
         ' Display the selected folder 
-        folderLabel.Text = WorkingFolder
+        ChooseFolderButton.Text = "Selected: " & WorkingFolder.Split("\").Last
 
         ' Updates visibles files
         UpdateAvailaibleFiles()

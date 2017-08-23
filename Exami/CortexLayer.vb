@@ -353,6 +353,47 @@
             Return True
         End Function
 
+        ' Get students
+
+        ''' <summary>
+        ''' Get all the students in a 1D list. You can not suppose they are sorted, either by class or by name or by number of hair.
+        ''' </summary>
+        ''' <returns>A list of the students in every sv file of the Placement.</returns>
+        Function GetAllStudents1D() As Student()
+            Dim allStudents = New List(Of Student)
+
+            ' We get a list of students from each file, and concatenate them every times
+            For Each svPath In Me.svFilePaths
+                allStudents.AddRange(DataAccessLayer.SV.GetStudents(svPath))
+            Next
+
+            Return allStudents.ToArray
+
+        End Function
+        ''' <summary>
+        ''' Get a dictionnary of the students in each class. In each class students are not sorted. They are just separated by class.
+        ''' </summary>
+        ''' <returns>A dictionnary(classUnit) = List(of Student)</returns>
+        Function GetAllStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
+
+            Dim studByClass = New Dictionary(Of ClassUnit, List(Of Student))
+
+            ' We go through the flat student array
+            For Each stud In GetAllStudents1D()
+
+                If studByClass.ContainsKey(stud.classUnit) Then
+                    ' If the class is in the dict, we just add the student to this class
+                    studByClass(stud.classUnit).Add(stud)
+                Else
+                    ' Or we create a new class for him
+                    studByClass(stud.classUnit) = New List(Of Student)({stud})
+                End If
+            Next
+
+            Return studByClass
+        End Function
+
+
         ' Get placement 
 
         ''' <summary>

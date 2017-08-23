@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
+    <Compile Include="Helper.vb" />
     <Compile Include="Visual Layer\Exami.vb">
       <SubType>Form</SubType>
     </Compile>

@@ -27,7 +27,6 @@ Partial Class ExamiForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PlacementButton = New System.Windows.Forms.Button()
         Me.ChooseFolderButton = New System.Windows.Forms.Button()
-        Me.folderLabel = New System.Windows.Forms.Label()
         Me.svListBox = New System.Windows.Forms.CheckedListBox()
         Me.ddListBox = New System.Windows.Forms.CheckedListBox()
         Me.CreateRoomButton = New System.Windows.Forms.Button()
@@ -78,16 +77,6 @@ Partial Class ExamiForm
         Me.ChooseFolderButton.TabIndex = 0
         Me.ChooseFolderButton.Text = "Choose &folder"
         Me.ChooseFolderButton.UseVisualStyleBackColor = True
-        '
-        'folderLabel
-        '
-        Me.folderLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.folderLabel.Location = New System.Drawing.Point(474, 12)
-        Me.folderLabel.Name = "folderLabel"
-        Me.folderLabel.Size = New System.Drawing.Size(453, 26)
-        Me.folderLabel.TabIndex = 6
-        Me.folderLabel.Text = "No folder selected"
-        Me.folderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'svListBox
         '
@@ -168,7 +157,6 @@ Partial Class ExamiForm
         Me.Controls.Add(Me.CreateRoomButton)
         Me.Controls.Add(Me.ddListBox)
         Me.Controls.Add(Me.svListBox)
-        Me.Controls.Add(Me.folderLabel)
         Me.Controls.Add(Me.ChooseFolderButton)
         Me.Controls.Add(Me.PlacementButton)
         Me.Controls.Add(Me.Label1)
@@ -187,7 +175,6 @@ Partial Class ExamiForm
     Friend WithEvents Label1 As Label
     Friend WithEvents PlacementButton As Button
     Friend WithEvents ChooseFolderButton As Button
-    Friend WithEvents folderLabel As Label
     Friend WithEvents svListBox As CheckedListBox
     Friend WithEvents ddListBox As CheckedListBox
     Friend WithEvents CreateRoomButton As Button
