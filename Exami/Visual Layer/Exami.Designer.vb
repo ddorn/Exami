@@ -26,13 +26,13 @@ Partial Class ExamiForm
         Me.FolderChooseWidget = New System.Windows.Forms.FolderBrowserDialog()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.PlacementButton = New System.Windows.Forms.Button()
-        Me.ResultLabel = New System.Windows.Forms.Label()
         Me.ChooseFolderButton = New System.Windows.Forms.Button()
         Me.folderLabel = New System.Windows.Forms.Label()
         Me.svListBox = New System.Windows.Forms.CheckedListBox()
         Me.ddListBox = New System.Windows.Forms.CheckedListBox()
         Me.CreateRoomButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
+        Me.PlacementBox = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
         '
         'ConvertButton
@@ -69,15 +69,6 @@ Partial Class ExamiForm
         Me.PlacementButton.Text = "Get &placement"
         Me.PlacementButton.UseVisualStyleBackColor = True
         '
-        'ResultLabel
-        '
-        Me.ResultLabel.AutoSize = True
-        Me.ResultLabel.Location = New System.Drawing.Point(9, 50)
-        Me.ResultLabel.Name = "ResultLabel"
-        Me.ResultLabel.Size = New System.Drawing.Size(179, 20)
-        Me.ResultLabel.TabIndex = 4
-        Me.ResultLabel.Text = "Made with love by Diego"
-        '
         'ChooseFolderButton
         '
         Me.ChooseFolderButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -91,12 +82,12 @@ Partial Class ExamiForm
         'folderLabel
         '
         Me.folderLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.folderLabel.Location = New System.Drawing.Point(336, 18)
+        Me.folderLabel.Location = New System.Drawing.Point(474, 12)
         Me.folderLabel.Name = "folderLabel"
-        Me.folderLabel.Size = New System.Drawing.Size(591, 20)
+        Me.folderLabel.Size = New System.Drawing.Size(453, 26)
         Me.folderLabel.TabIndex = 6
         Me.folderLabel.Text = "No folder selected"
-        Me.folderLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
+        Me.folderLabel.TextAlign = System.Drawing.ContentAlignment.MiddleRight
         '
         'svListBox
         '
@@ -149,18 +140,36 @@ Partial Class ExamiForm
         Me.SaveButton.UseVisualStyleBackColor = True
         Me.SaveButton.Visible = False
         '
+        'PlacementBox
+        '
+        Me.PlacementBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox.BackColor = System.Drawing.SystemColors.Control
+        Me.PlacementBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PlacementBox.Cursor = System.Windows.Forms.Cursors.IBeam
+        Me.PlacementBox.Location = New System.Drawing.Point(15, 12)
+        Me.PlacementBox.Multiline = True
+        Me.PlacementBox.Name = "PlacementBox"
+        Me.PlacementBox.ReadOnly = True
+        Me.PlacementBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
+        Me.PlacementBox.Size = New System.Drawing.Size(453, 566)
+        Me.PlacementBox.TabIndex = 8
+        Me.PlacementBox.Text = "Made with love by Diego"
+        '
         'ExamiForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1202, 590)
+        Me.Controls.Add(Me.PlacementBox)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.CreateRoomButton)
         Me.Controls.Add(Me.ddListBox)
         Me.Controls.Add(Me.svListBox)
         Me.Controls.Add(Me.folderLabel)
         Me.Controls.Add(Me.ChooseFolderButton)
-        Me.Controls.Add(Me.ResultLabel)
         Me.Controls.Add(Me.PlacementButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ConvertButton)
@@ -177,11 +186,11 @@ Partial Class ExamiForm
     Friend WithEvents SelectFolderButton As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents PlacementButton As Button
-    Friend WithEvents ResultLabel As Label
     Friend WithEvents ChooseFolderButton As Button
     Friend WithEvents folderLabel As Label
     Friend WithEvents svListBox As CheckedListBox
     Friend WithEvents ddListBox As CheckedListBox
     Friend WithEvents CreateRoomButton As Button
     Friend WithEvents SaveButton As Button
+    Friend WithEvents PlacementBox As TextBox
 End Class

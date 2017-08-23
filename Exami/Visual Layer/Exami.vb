@@ -82,7 +82,7 @@
         End If
 
         ' Show the placement on the screen
-        ResultLabel.Text = placement.GetPlacementString()
+        PlacementBox.Text = placement.GetPlacementString()
 
         ' Allow the user to save this placement
         SaveButton.Visible = True
@@ -278,4 +278,7 @@
         Return True
     End Function
 
+    Private Sub PlacementButton_Click(sender As Object, e As EventArgs) Handles PlacementButton.Click
+
+    End Sub
 End Class

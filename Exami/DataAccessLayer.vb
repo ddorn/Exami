@@ -68,7 +68,7 @@
             End If
 
             Dim fields = line.Split(",")
-            If fields.Length <> 6 Then
+            If fields.Length <> 10 Then
                 Throw New ArgumentException("There is not 5 values in the line, it is not a student.")
             End If
 
@@ -182,7 +182,7 @@
     ''' A class to represent a class... Yeah it's the same name and it's ******* boring... So lets use the frenche name, it's not really better but it's not a keyword.
     ''' Well it is just a class class with the teacher informations too.
     ''' </summary>
-    Public Class ClassUnit
+    Class ClassUnit
         Public classCode As String
         Public teacherCode As String
         Public teacherTitle As String
@@ -206,10 +206,26 @@
             Return String.Join(" ", {teacherTitle, teacherFirstName, teacherFamilyName})
         End Function
 
-
-
+        ''' <summary>
+        ''' Converts the classUnit to the string that you can save in an sv file.
+        ''' </summary>
         Public Function ToSvString() As String
             Return String.Join(",", {classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName})
+        End Function
+
+        Public Overloads Overrides Function Equals(obj As Object) As Boolean
+
+            If obj Is Nothing OrElse Not Me.GetType() Is obj.GetType() Then
+                Return False
+            End If
+
+            Dim unit As ClassUnit = CType(obj, ClassUnit)
+
+            Return Me.classCode = unit.classCode And
+                Me.teacherCode = unit.teacherCode And
+                Me.teacherTitle = unit.teacherTitle And
+                Me.teacherFamilyName = unit.teacherFamilyName And
+                Me.teacherFirstName = unit.teacherFirstName
         End Function
     End Class
 
