@@ -31,7 +31,8 @@ Partial Class ExamiForm
         Me.ddListBox = New System.Windows.Forms.CheckedListBox()
         Me.CreateRoomButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
-        Me.PlacementBox = New System.Windows.Forms.TextBox()
+        Me.PlacementBox = New System.Windows.Forms.RichTextBox()
+        Me.PrintButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'ConvertButton
@@ -65,7 +66,7 @@ Partial Class ExamiForm
         Me.PlacementButton.Name = "PlacementButton"
         Me.PlacementButton.Size = New System.Drawing.Size(122, 45)
         Me.PlacementButton.TabIndex = 5
-        Me.PlacementButton.Text = "Get &placement"
+        Me.PlacementButton.Text = "&Get placement"
         Me.PlacementButton.UseVisualStyleBackColor = True
         '
         'ChooseFolderButton
@@ -131,20 +132,28 @@ Partial Class ExamiForm
         '
         'PlacementBox
         '
-        Me.PlacementBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PlacementBox.BackColor = System.Drawing.SystemColors.Control
         Me.PlacementBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.PlacementBox.Cursor = System.Windows.Forms.Cursors.IBeam
-        Me.PlacementBox.Location = New System.Drawing.Point(15, 12)
-        Me.PlacementBox.Multiline = True
+        Me.PlacementBox.HideSelection = False
+        Me.PlacementBox.Location = New System.Drawing.Point(12, 12)
         Me.PlacementBox.Name = "PlacementBox"
-        Me.PlacementBox.ReadOnly = True
-        Me.PlacementBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical
-        Me.PlacementBox.Size = New System.Drawing.Size(453, 566)
-        Me.PlacementBox.TabIndex = 8
-        Me.PlacementBox.Text = "Made with love by Diego"
+        Me.PlacementBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
+        Me.PlacementBox.Size = New System.Drawing.Size(780, 566)
+        Me.PlacementBox.TabIndex = 9
+        Me.PlacementBox.Text = "Made with love by Diego <3"
+        '
+        'PrintButton
+        '
+        Me.PrintButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PrintButton.Location = New System.Drawing.Point(798, 482)
+        Me.PrintButton.Name = "PrintButton"
+        Me.PrintButton.Size = New System.Drawing.Size(129, 45)
+        Me.PrintButton.TabIndex = 10
+        Me.PrintButton.Text = "&Print"
+        Me.PrintButton.UseVisualStyleBackColor = True
+        Me.PrintButton.Visible = False
         '
         'ExamiForm
         '
@@ -152,6 +161,7 @@ Partial Class ExamiForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1202, 590)
+        Me.Controls.Add(Me.PrintButton)
         Me.Controls.Add(Me.PlacementBox)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.CreateRoomButton)
@@ -179,5 +189,6 @@ Partial Class ExamiForm
     Friend WithEvents ddListBox As CheckedListBox
     Friend WithEvents CreateRoomButton As Button
     Friend WithEvents SaveButton As Button
-    Friend WithEvents PlacementBox As TextBox
+    Friend WithEvents PlacementBox As RichTextBox
+    Friend WithEvents PrintButton As Button
 End Class

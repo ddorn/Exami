@@ -81,8 +81,11 @@
             End If
         End If
 
+        PlacementBox.ResetText()
         ' Show the placement on the screen
-        PlacementBox.Text = placement.GetPlacementString()
+        PlacementBox.Text = placement.GetPlacementFormatedString()
+        ' Highlighting sections
+        HighLightSectionPlacementBox()
 
         ' Allow the user to save this placement
         SaveButton.Visible = True
@@ -120,8 +123,8 @@
                     Return
                 End If
             End If
-                ' We change the message a bit to explain why we ask again this boring question
-                prompt = "This name is not valid, try an other one (don't use any special chars)"
+            ' We change the message a bit to explain why we ask again this boring question
+            prompt = "This name is not valid, try an other one (don't use any special chars)"
         End While
 
         ' We put it in the folder
@@ -277,5 +280,38 @@
         listBox.EndUpdate()
         Return True
     End Function
+
+    Sub HighLightSectionPlacementBox()
+        ' Thanks !
+        ' https://social.msdn.microsoft.com/Forums/vstudio/en-US/89355ca9-d026-4140-8326-354a95706365/making-specific-lines-bold-in-a-richtextbox-vbnet?forum=vbgeneral
+
+        PlacementBox.SuspendLayout()
+
+        PlacementBox.SelectionStart = 0
+        PlacementBox.SelectionLength = PlacementBox.TextLength
+        PlacementBox.Font = New Font(PlacementBox.Font, FontStyle.Regular)
+
+        For iLine = 0 To PlacementBox.Lines.Length - 1
+            PlacementBox.SelectionStart = PlacementBox.GetFirstCharIndexFromLine(iLine)
+            PlacementBox.SelectionLength = PlacementBox.Lines(iLine).Length
+
+            If PlacementBox.Lines(iLine).StartsWith(" ") Then
+                PlacementBox.SelectionFont = New Font(PlacementBox.SelectionFont, FontStyle.Bold)
+
+                If PlacementBox.Lines(iLine).StartsWith("  ") Then
+                    PlacementBox.SelectionFont = New Font(PlacementBox.SelectionFont, FontStyle.Bold Or FontStyle.Underline)
+
+                    If PlacementBox.Lines(iLine).StartsWith("   ") Then
+                        PlacementBox.SelectionAlignment = HorizontalAlignment.Center
+                    End If
+                End If
+            End If
+        Next
+
+        PlacementBox.SelectionStart = 0
+        PlacementBox.SelectionLength = 0
+
+        PlacementBox.ResumeLayout()
+    End Sub
 
 End Class

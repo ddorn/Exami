@@ -70,7 +70,7 @@ Class RoomPreview
     ''' </summary>
     ''' <param name="rowNb">The number of rows</param>
     ''' <param name="colNb">The nmber of columns</param>
-    Sub New(rowNb, colNb)
+    Sub New(rowNb As Byte, colNb As Byte)
         MyBase.New(rowNb, colNb)
         ReDim tablesButtons(rowNb, colNb)
         SetRectangle(True, 0, 0, rowNb - 1, colNb - 1)

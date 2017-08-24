@@ -1,4 +1,6 @@
-﻿Module DataAccessLayer
+﻿Imports Exami
+
+Module DataAccessLayer
 
     Enum SvKeys
         ' Student
@@ -67,7 +69,7 @@
             End If
 
             Dim fields = line.Split(",")
-            If fields.Length <> 10 Then
+            If fields.Length <> 11 Then
                 Throw New ArgumentException("There is not 5 values in the line, it is not a student.")
             End If
 
@@ -184,6 +186,8 @@
     ''' Well it is just a class class with the teacher informations too.
     ''' </summary>
     Class ClassUnit
+        Implements IEquatable(Of ClassUnit)
+
         Public unitCode As String
         Public classCode As String
         Public teacherCode As String
@@ -232,6 +236,14 @@
                 Me.teacherFamilyName = unit.teacherFamilyName And
                 Me.teacherFirstName = unit.teacherFirstName And
                 Me.subject - unit.subject
+        End Function
+
+        Public Overloads Function Equals(other As ClassUnit) As Boolean Implements IEquatable(Of ClassUnit).Equals
+            Return teacherCode = other.teacherCode And classCode = other.classCode
+        End Function
+
+        Public Overrides Function GetHashCode() As Integer
+            Return New Tuple(Of String, String)(teacherCode, classCode).GetHashCode
         End Function
     End Class
 

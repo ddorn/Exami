@@ -66,6 +66,9 @@ Module CortexLayer
 
         ' Create a new room
 
+        Protected Sub New()
+
+        End Sub
         ''' <summary>
         ''' Create a new empty room with all places unavailable.
         ''' </summary>
@@ -416,7 +419,7 @@ Module CortexLayer
 
 
             Dim last As Integer = allStudents.Count - 1
-            Dim outArray = New List(Of Student)(last)
+            Dim tempList = New List(Of Student)(last + 1)
             Dim done(last) As Boolean
             Dim r As New Random(My.Computer.Clock.TickCount)
             Dim n As Integer
@@ -427,10 +430,10 @@ Module CortexLayer
                 Loop Until Not done(n)
                 ' We get a random elt that has not been moved
                 done(n) = 1
-                ' and put it in order the out lsit
-                outArray(i) = allStudents(n)
+                ' and put it in order the out list
+                tempList.Add(allStudents(n))
             Next
-            allStudents = outArray
+            allStudents = tempList
 
         End Sub
         ''' <summary>
@@ -446,113 +449,17 @@ Module CortexLayer
                                                         End Function))
         End Sub
 
-    End Class
-
-
-    Public Class PlacesGroup
-
-        Public allPlaces As List(Of Place)
+        ' Wrapping methods
 
         ''' <summary>
-        ''' Create a new empty group.
+        ''' Get the number of students in this group.
         ''' </summary>
-        Sub New()
-            allPlaces = New List(Of Place)
-        End Sub
-        ''' <summary>
-        ''' Create a new group reading in files.
-        ''' </summary>
-        ''' <param name="ddFilePaths">A list of files to read the students from.</param>
-        Sub New(ddFilePaths As String())
-            Me.allPlaces = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
-        End Sub
-        ''' <summary>
-        ''' Create a new group from a list of students.
-        ''' </summary>
-        ''' <param name="places"></param>
-        Sub New(places As List(Of Place))
-            Me.allPlaces = places
-        End Sub
-
-        ' Categorize Places
-
-        ''' <summary>
-        ''' This function return students classified by whatever we pass for <paramref name="key"/>.
-        ''' </summary>
-        ''' <typeparam name="T">The type of the key.</typeparam>
-        ''' <param name="key">The function that returns the key ofr a given student</param>
-        ''' <returns>A dict of all the students categorized by ...</returns>
-        Private Function GetBy(Of T)(key As Func(Of Place, T)) As Dictionary(Of T, PlacesGroup)
-
-            ' The return dict 
-            Dim byT = New Dictionary(Of T, List(Of Place))
-            ' shortcut so I don't need to recalculate the key for a given student each time
-            Dim plaKay As T
-
-            For Each pla In allPlaces
-                ' The category of the student
-                plaKay = key(pla)
-
-                ' If the category is in the dict
-                If byT.ContainsKey(plaKay) Then
-                    ' We jsut add the student in it
-                    byT(plaKay).Add(pla)
-                Else
-                    ' Or we create a new one for this student
-                    byT.Add(plaKay, New List(Of Place)({pla}))
-                End If
-            Next
-
-            ' We convert the lists of students into PlacesGRoup to allow easier reuse after
-
-            Dim returnDict = New Dictionary(Of T, PlacesGroup)
-            For Each groupKey In byT.Keys
-                returnDict(groupKey) = New PlacesGroup(byT(groupKey))
-            Next
-
-            Return returnDict
-
-        End Function
-
-        ''' <summary>
-        ''' Get the students categorized by their room.
-        ''' </summary>
-        ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
-        Public Function GetPlacesByRoom() As Dictionary(Of String, PlacesGroup)
-
-            Return GetBy(Of String)(Function(p As Place) As String
-                                        Return p.room
-                                    End Function)
-
-        End Function
-        ''' <summary>
-        ''' Get the students categorized by their classes.
-        ''' </summary>
-        ''' <returns>A dict with the ClassUnit as key and a list of the students for the corresponding class as values.</returns>
-        Public Function GetPlaceByOccupation() As Dictionary(Of Boolean, PlacesGroup)
-
-            Return GetBy(Of Boolean)(Function(p As Place) As Boolean
-                                         Return p.col = 3
-                                     End Function)
-
-        End Function
-
-        ''' <summary>
-        ''' Sort the students of this group alphabetically (by family name).
-        ''' </summary>
-        Public Sub Sort()
-            allPlaces.Sort(New Comparison(Of Place)(Function(p1, p2)
-                                                        If p1.room = p2.room Then
-                                                            If p1.col = p2.col Then
-                                                                Return p1.row <= p2.row
-                                                            Else
-                                                                Return p1.col < p2.col
-                                                            End If
-                                                        Else
-                                                            Return p1.room <= p2.room
-                                                        End If
-                                                    End Function))
-        End Sub
+        ''' <returns></returns>
+        Public ReadOnly Property Count As Integer
+            Get
+                Return allStudents.Count
+            End Get
+        End Property
 
     End Class
 
@@ -571,10 +478,29 @@ Module CortexLayer
     End Structure
 
 
+
     ''' <summary>
-    ''' This class represent a placement with mutiples classes and classrooms. This placement is not calculated but this is the purpose of the class.
+    ''' This class represent a placement with mutiples classes and classrooms.
+    ''' You can allocate the seats with (Try)MakePlacement. 
+    ''' 
+    ''' The placed students are stored in paires in .placeMapping as the Table sctructure
+    ''' The students left alone without places are in the StudentGroup at .notPlaced
+    ''' The places left are in the list .placesLeft
     ''' </summary>
     Public Class Placement
+
+        ' The idea is to have all the students places in placesLeft and notPlaced at the begining 
+        ' And then to make pairs of place / student and add them to the placedMapping
+        ' in different ways (class by class, teacher by teacher, shuffled)...
+        ' removing them as they are used/placed
+        ' Then the user can get a representation of the placement in the way he wants
+
+        <Flags()>
+        Enum Order
+            None
+            ShuffleClass
+        End Enum
+
 
         ''' <summary>
         ''' The array of all placed students. They will have their .place set.
@@ -596,6 +522,7 @@ Module CortexLayer
 
         ''' <summary>
         ''' Create a new placement with two arrays of classes and classerooms.
+        ''' The students are placed only if you call {Try)MakePlacement.
         ''' </summary>
         ''' <param name="svFilePaths">An array with the pathes to the sv files.</param>
         ''' <param name="ddFilePaths">An array of the pathes to the dd files.</param>
@@ -605,106 +532,34 @@ Module CortexLayer
 
             Me.Reset()
         End Sub
-
+        ''' <summary>
+        ''' Reloads all the students and places from the files and put them all as not placed/occupied
+        ''' </summary>
         Public Sub Reset()
             Me.placedMapping = New List(Of Table)
             Me.notPlaced = New StudentGroup(svFilePaths)
             Me.placesLeft = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
         End Sub
 
-        ' Save
-
-        ''' <summary>
-        ''' Save a human readable copy of the placement.
-        ''' </summary>
-        ''' <param name="filePath"></param>
-        Sub Save(filePath As String)
-            IO.File.WriteAllText(filePath, GetPlacementString())
-        End Sub
-        ''' <summary>
-        ''' Save a human readable copy of the placement.
-        ''' </summary>
-        ''' <param name="filePath"></param>
-        Public Function TrySave(filePath As String) As Boolean
-            Try
-                Save(filePath)
-            Catch ex As Exception
-                Return False
-            End Try
-            Return True
-        End Function
-
-        ' Get students
-
-        ''' <summary>
-        ''' Get all the students in a 1D list. You can not suppose they are sorted, either by class or by name or by number of hair.
-        ''' </summary>
-        ''' <returns>A list of the students in every sv file of the Placement.</returns>
-        Private Function GetAllStudents() As List(Of Student)
-            Dim allStudents = New List(Of Student)
-
-            For Each table In placedMapping
-                allStudents.Add(table.student)
-            Next
-            allStudents.AddRange(notPlaced)
-
-            Return allStudents
-
-        End Function
-
-        ' Get placement 
-
-        ''' <summary>
-        ''' Make the placement and return one string of all the places.
-        ''' </summary>
-        ''' <remarks>The files must exist or an exception will be raised.</remarks>
-        ''' <seealso cref="TryGetPlacementString(String)"/>
-        Public Function GetPlacementString() As String
-
-            Dim placementString As String = ""
-
-            MakePlacement()
-
-            For Each table In placedMapping
-                placementString += table.place.ToString & " " & table.student.ToString()
-                placementString += Environment.NewLine
-            Next
-
-            Return placementString
-        End Function
-        ''' <summary>
-        ''' Make the placement and get one string of all the places.
-        ''' A return value indicates wether it worked or not.
-        ''' </summary>
-        ''' <returns>True if it worked, else False.</returns>
-        ''' <seealso cref="GetPlacementString()"/>
-        Public Function TryGetPlacementString(placementString As String) As Boolean
-            Try
-                placementString = GetPlacementString()
-            Catch ex As Exception
-                Return False
-            End Try
-            Return True
-        End Function
+        ' Make the placement
 
         ''' <summary>
         ''' Give the places left to the students that deosn't have one
         ''' </summary>
-        Public Sub MakePlacement()
+        Public Sub MakePlacement(Optional order As Order = Order.None)
 
-            Dim ShuffleOption = True
             Dim studentOverFlow = New List(Of Student)
 
             SortPlacesByRoom()
 
-            ' For each subject in non placed students            ' 
+            ' For each subject in non placed students
             For Each subject In notPlaced.GetStudentsBySubject.Values
 
                 ' For each class in each subject
                 For Each clss In subject.GetStudentsByClass.Values
 
                     ' We shuffle or sort the class if we want
-                    If ShuffleOption Then
+                    If order.HasFlag(Order.ShuffleClass) Then
                         clss.Shuffle()
                     Else
                         clss.Sort()
@@ -731,17 +586,70 @@ Module CortexLayer
             notPlaced = New StudentGroup(studentOverFlow)
 
         End Sub
-
-        Public Function TryMakePlacement() As Boolean
+        ''' <summary>
+        ''' Give the places left to the students that deosn't have one. 
+        ''' A return value indicates wether it worked or not.
+        ''' </summary>
+        ''' <returns>True if the placement was effected else false.</returns>
+        Public Function TryMakePlacement(Optional order As Order = Order.None) As Boolean
             Try
-                MakePlacement()
+                MakePlacement(order)
             Catch ex As Exception
                 Return False
             End Try
             Return True
         End Function
 
-        ' Kind functions
+        ' Get placement representations
+
+        ''' <summary>
+        ''' Get a string version of the full placement without any header or separations. Just a bare list of places and their students 
+        ''' The placement must be already made. Call (Try)MakePlacement to do it.
+        ''' </summary>
+        ''' <remarks>The files must exist or an exception will be raised.</remarks>
+        Public Function GetPlacementString() As String
+
+            Dim placementString As String = ""
+
+            For Each table In placedMapping
+                placementString += table.place.ToString & " " & table.student.ToString()
+                placementString += Environment.NewLine
+            Next
+
+            Return placementString
+        End Function
+        Public Function GetPlacementFormatedString() As String
+            Dim placementStr As String = ""
+            Dim room As String = "Salomé <3"
+            Dim subject As String = "Diegooo :*"
+            Dim teacher As String = "Joshhhh :D"
+
+            For Each table In placedMapping
+
+                'If there is a changement of category
+
+                If room <> table.place.room Then
+                    room = table.place.room
+                    placementStr += Environment.NewLine & String.Format("   {0}   ", room) & Environment.NewLine & Environment.NewLine
+                End If
+                If subject <> table.student.classUnit.subject Then
+                    subject = table.student.classUnit.subject
+                    placementStr += Environment.NewLine & String.Format("  {0}  ", subject) & Environment.NewLine & Environment.NewLine
+                End If
+                If teacher <> table.student.classUnit.GetTeacherFullName Then
+                    teacher = table.student.classUnit.GetTeacherFullName
+                    placementStr += String.Format(" {0} ", teacher) & Environment.NewLine
+                End If
+
+                placementStr += table.place.ToString & " " & table.student.ToString & Environment.NewLine
+
+            Next
+
+            Return placementStr
+
+        End Function
+
+        ' Sort Places
 
         ''' <summary>
         ''' Sorts placesLeft so places of the same room are together
@@ -768,6 +676,47 @@ Module CortexLayer
             Next
 
         End Sub
+
+        ' Save
+
+        ''' <summary>
+        ''' Save a human readable copy of the placement.
+        ''' </summary>
+        ''' <param name="filePath"></param>
+        Sub Save(filePath As String)
+            IO.File.WriteAllText(filePath, GetPlacementString())
+        End Sub
+        ''' <summary>
+        ''' Save a human readable copy of the placement.
+        ''' </summary>
+        ''' <param name="filePath"></param>
+        Public Function TrySave(filePath As String) As Boolean
+            Try
+                Save(filePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
+        ' Get all students
+
+        ''' <summary>
+        ''' Get all the students in a 1D list. You can not suppose they are sorted, either by class or by name or by number of hair.
+        ''' </summary>
+        ''' <returns>A list of the students in every sv file of the Placement.</returns>
+        Public Function GetAllStudents() As List(Of Student)
+            Dim allStudents = New List(Of Student)
+
+            For Each table In placedMapping
+                allStudents.Add(table.student)
+            Next
+            allStudents.AddRange(notPlaced)
+
+            Return allStudents
+
+        End Function
+
     End Class
 
 End Module
