@@ -396,17 +396,6 @@ Module CortexLayer
 
         End Function
         ''' <summary>
-        ''' Get the students categorized by their room.
-        ''' </summary>
-        ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
-        Public Function GetStudentsByRoom() As Dictionary(Of String, StudentGroup)
-
-            Return GetBy(Of String)(Function(s As Student) As String
-                                        Return s.place.room
-                                    End Function)
-
-        End Function
-        ''' <summary>
         ''' Get the students categorized by their classes.
         ''' </summary>
         ''' <returns>A dict with the ClassUnit as key and a list of the students for the corresponding class as values.</returns>
@@ -554,7 +543,7 @@ Module CortexLayer
         Public Sub Sort()
             allPlaces.Sort(New Comparison(Of Place)(Function(p1, p2)
                                                         If p1.room = p2.room Then
-                                                            If p1.col == p2.col Then
+                                                            If p1.col = p2.col Then
                                                                 Return p1.row <= p2.row
                                                             Else
                                                                 Return p1.col < p2.col
@@ -654,7 +643,9 @@ Module CortexLayer
         Private Function GetAllStudents() As List(Of Student)
             Dim allStudents = New List(Of Student)
 
-            allStudents.AddRange(placed)
+            For Each table In placedMapping
+                allStudents.Add(table.student)
+            Next
             allStudents.AddRange(notPlaced)
 
             Return allStudents
@@ -674,8 +665,8 @@ Module CortexLayer
 
             MakePlacement()
 
-            For Each stud In placed
-                placementString += stud.place.ToString & " " & stud.ToString()
+            For Each table In placedMapping
+                placementString += table.place.ToString & " " & table.student.ToString()
                 placementString += Environment.NewLine
             Next
 
@@ -697,58 +688,12 @@ Module CortexLayer
         End Function
 
         ''' <summary>
-        ''' Calculate all the placed, unplaced and places left with the given sv and dd files. The students in .placed will have their place set.
+        ''' Give the places left to the students that deosn't have one
         ''' </summary>
         Public Sub MakePlacement()
 
-            ' Reinitialize arrays
-
-            Dim studentNb = allStudents.Length
-            Dim placesNb = allPlaces.Length
-
-            ' We walk through the arrays and we want to have all elements of both arrays
-            For pos = 0 To Math.Max(studentNb, placesNb) - 1
-
-                ' If we are still in both arrays
-                If pos < studentNb And pos < placesNb Then
-                    ' Place the student
-                    allStudents(pos).place = allPlaces(pos)
-                    placed.Add(allStudents(pos))
-
-                ElseIf pos < studentNb Then ' If there is only students left
-
-                    allStudents(pos).place = Nothing
-                    notPlaced.Add(allStudents(pos))
-
-                Else ' If there is only places left
-                    placesLeft.Add(allPlaces(pos))
-                End If
-
-            Next
-
-        End Sub
-        ''' <summary>
-        ''' Get an array of students with Students.place set to their place in the rooms.
-        ''' A return value indicate wether it worked or not.
-        ''' </summary>
-        ''' <param name="students">The variable that will be the list of students.</param>
-        ''' <returns>True if it worked, else False.</returns>
-        Public Function TryMakePlacement() As Boolean
-            Try
-                MakePlacement()
-            Catch ex As Exception
-                Return False
-            End Try
-            Return True
-        End Function
-
-
-        ' Kind functions
-
-
-        Public Sub Meuh()
-
-            Dim ShuffleOption = False
+            Dim ShuffleOption = True
+            Dim studentOverFlow = New List(Of Student)
 
             SortPlacesByRoom()
 
@@ -768,23 +713,35 @@ Module CortexLayer
                     ' We place each student 
                     For Each stud In clss.allStudents
 
-                        ' If all places are used, stup the process
+                        ' If all places are used, add the guy in the loosers
                         If placesLeft.Count = 0 Then
-                            Return
+                            studentOverFlow.Add(stud)
+                        Else
+                            ' We take the first place in the list and remove it from the unused ones
+                            Dim place = placesLeft(0)
+                            placesLeft.RemoveAt(0)
+
+                            ' We add the pair to the placed list
+                            placedMapping.Add(New Table(stud, place))
                         End If
-
-                        ' We take the first place in the list and remove it from the unused ones
-                        Dim place = placesLeft(0)
-                        placesLeft.RemoveAt(0)
-
-                        ' We add the pair to the placed list
-                        placedMapping.Add(New Table(stud, place))
-
                     Next
                 Next
             Next
 
+            notPlaced = New StudentGroup(studentOverFlow)
+
         End Sub
+
+        Public Function TryMakePlacement() As Boolean
+            Try
+                MakePlacement()
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
+        ' Kind functions
 
         ''' <summary>
         ''' Sorts placesLeft so places of the same room are together
