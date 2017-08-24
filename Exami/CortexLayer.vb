@@ -308,24 +308,11 @@
         Public allStudents As List(Of Student)
 
         Sub New(svFilePaths As String())
-            Me.allStudents = GetAllStudentsFromSv(svFilePaths)
+            Me.allStudents = DataAccessLayer.SV.GetAllStudents(svFilePaths)
         End Sub
-
         Sub New(students As List(Of Student))
             Me.allStudents = students
         End Sub
-
-        Private Function GetAllStudentsFromSv(svFilePaths As String()) As List(Of Student)
-            Dim allStuds = New List(Of Student)
-
-            ' We get a list of students from each file, and concatenate them every times
-            For Each svPath In svFilePaths
-                allStuds.AddRange(DataAccessLayer.SV.GetStudents(svPath))
-            Next
-
-            Return allStuds
-
-        End Function
 
         ' Categorize Students
 
@@ -335,7 +322,7 @@
         ''' <typeparam name="T">The type of the key.</typeparam>
         ''' <param name="key">The function that returns the key ofr a given student</param>
         ''' <returns>A dict of all the students categorized by ...</returns>
-        Private Function GetBy(Of T)(key As Func(Of Student, T)) As Dictionary(Of T, List(Of Student))
+        Private Function GetBy(Of T)(key As Func(Of Student, T)) As Dictionary(Of T, StudentGroup)
 
             ' The return dict 
             Dim byT = New Dictionary(Of T, List(Of Student))
@@ -356,7 +343,14 @@
                 End If
             Next
 
-            Return byT
+            ' We convert the lists of students into StudentGroup to allow easier reuse after
+
+            Dim returnDict = New Dictionary(Of T, StudentGroup)
+            For Each groupKey In byT.Keys
+                returnDict(groupKey) = New StudentGroup(byT(groupKey))
+            Next
+
+            Return returnDict
 
         End Function
 
@@ -364,7 +358,7 @@
         ''' Get the students categorized by their subjects.
         ''' </summary>
         ''' <returns>A dict with the subject as key and a list of the students for the corresponding subject as values.</returns>
-        Public Function GetStudentsBySubject() As Dictionary(Of String, List(Of Student))
+        Public Function GetStudentsBySubject() As Dictionary(Of String, StudentGroup)
 
             Return GetBy(Of String)(Function(s As Student) As String
                                         Return s.classUnit.subject
@@ -375,7 +369,7 @@
         ''' Get the students categorized by their room.
         ''' </summary>
         ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
-        Public Function GetStudentsByRoom() As Dictionary(Of String, List(Of Student))
+        Public Function GetStudentsByRoom() As Dictionary(Of String, StudentGroup)
 
             Return GetBy(Of String)(Function(s As Student) As String
                                         Return s.place.room
@@ -386,7 +380,7 @@
         ''' Get the students categorized by their classes.
         ''' </summary>
         ''' <returns>A dict with the ClassUnit as key and a list of the students for the corresponding class as values.</returns>
-        Public Function GetStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
+        Public Function GetStudentsByClass() As Dictionary(Of ClassUnit, StudentGroup)
 
             Return GetBy(Of ClassUnit)(Function(s As Student) As ClassUnit
                                            Return s.classUnit

@@ -298,6 +298,25 @@
         End Function
 
         ''' <summary>
+        ''' Get the list of students from diferent sv files.
+        ''' </summary>
+        ''' <param name="svFilePaths">The file path to the sv to load</param>
+        ''' <returns>A list of all the students in the files.</returns>
+        Shared Function GetAllStudents(svFilePaths As String()) As List(Of Student)
+            Dim allStuds = New List(Of Student)
+
+            ' We get a list of students from each file, and concatenate them every times
+            For Each svPath In svFilePaths
+                allStuds.AddRange(GetStudents(svPath))
+            Next
+
+            Return allStuds
+
+        End Function
+
+
+
+        ''' <summary>
         ''' Convert a .vass file into a .sv file
         ''' </summary>
         ''' <param name="vassFilePath">The path of the .vass file to convert</param>
