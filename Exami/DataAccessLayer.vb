@@ -463,15 +463,17 @@
         End Function
 
         ''' <summary>
-        ''' Loads all the places from a list of files.
+        ''' Loads all the places from a list of files.Keep them grouped by room in a Dict.
         ''' </summary>
         ''' <param name="ddFilePaths">The list of files where to load the room.</param>
-        Public Shared Function LoadAllPlaces(ddFilePaths As String()) As List(Of Place)
-            Dim rooms = New List(Of Place)
+        Public Shared Function LoadAllPlaces(ddFilePaths As String()) As Dictionary(Of String, Place())
+            Dim rooms = New Dictionary(Of String, Place())
+            Dim room As Room
 
             ' We build the list of the tables room by room
             For Each ddPath In ddFilePaths
-                rooms.AddRange(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray)
+                room = DataAccessLayer.DD.LoadRoom(ddPath)
+                rooms.Add(room.name, room.GetPlaces1DArray())
             Next
 
             Return rooms
