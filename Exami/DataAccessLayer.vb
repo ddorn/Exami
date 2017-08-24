@@ -365,6 +365,8 @@
     ''' </summary>
     Class DD
 
+        ' Save a room
+
         ''' <summary>
         ''' Save a room in a file. The inverse function is LoadRoom
         ''' </summary>
@@ -407,6 +409,7 @@
             Return True
         End Function
 
+        ' Load a room
 
         ''' <summary>
         ''' Loads a room from a file, the inverse function is SaveRoom
@@ -442,7 +445,8 @@
             Next
             file.Close()
 
-            Return New Room(availables)
+            Dim roomName = IO.Path.GetFileNameWithoutExtension(ddFilePath)
+            Return New Room(availables, roomName)
         End Function
         ''' <summary>
         ''' Loads a room from a file, the inverse function is SaveRoom
@@ -458,6 +462,20 @@
             Return True
         End Function
 
+        ''' <summary>
+        ''' Loads all the places from a list of files.
+        ''' </summary>
+        ''' <param name="ddFilePaths">The list of files where to load the room.</param>
+        Public Shared Function LoadAllPlaces(ddFilePaths As String()) As List(Of Place)
+            Dim rooms = New List(Of Place)
+
+            ' We build the list of the tables room by room
+            For Each ddPath In ddFilePaths
+                rooms.AddRange(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray)
+            Next
+
+            Return rooms
+        End Function
     End Class
 
 
