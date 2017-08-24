@@ -41,7 +41,6 @@
         Public secondName As String
         Public studentNumber As String
         Public classUnit As ClassUnit
-        Public place As Place
 
         Sub New(studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
             With Me
@@ -477,6 +476,21 @@
             Next
 
             Return rooms
+        End Function
+
+        ''' <summary>
+        ''' Loads all the places from a list of files.
+        ''' </summary>
+        ''' <param name="ddFilePaths">The list of files where to load the rooms.</param>
+        Public Shared Function LoadAllPlaces1D(ddFilePaths As String()) As List(Of Place)
+            Dim places = New List(Of Place)
+
+            ' We build the list of the tables room by room
+            For Each ddPath In ddFilePaths
+                places.AddRange(DD.LoadRoom(ddPath).GetPlaces1DArray)
+            Next
+
+            Return places
         End Function
     End Class
 

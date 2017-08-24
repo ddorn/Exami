@@ -1,9 +1,13 @@
-﻿Module CortexLayer
+﻿Imports Exami
+
+Module CortexLayer
 
     ''' <summary>
     ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
     ''' </summary>
     Public Class Place
+        Implements IComparable(Of Place)
+
         Public row As Byte
         Public col As Byte
         Public room As String = ""
@@ -26,6 +30,18 @@
         Public Overrides Function ToString() As String
             Dim colChar As Char = Chr(col + Asc("A"))
             Return String.Format("{0}{1}", colChar, row + 1)
+        End Function
+
+        Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
+            If room <> other.room Then
+                Return room.CompareTo(other.room)
+            End If
+
+            If col <> other.col Then
+                Return col.CompareTo(other.col)
+            End If
+
+            Return row.CompareTo(other.row)
         End Function
     End Class
 
@@ -307,9 +323,23 @@
 
         Public allStudents As List(Of Student)
 
+        ''' <summary>
+        ''' Create a new empty group.
+        ''' </summary>
+        Sub New()
+            allStudents = New List(Of Student)
+        End Sub
+        ''' <summary>
+        ''' Create a new group reading in files.
+        ''' </summary>
+        ''' <param name="svFilePaths">A list of files to read the students from.</param>
         Sub New(svFilePaths As String())
             Me.allStudents = DataAccessLayer.SV.GetAllStudents(svFilePaths)
         End Sub
+        ''' <summary>
+        ''' Create a new group from a list of students.
+        ''' </summary>
+        ''' <param name="students"></param>
         Sub New(students As List(Of Student))
             Me.allStudents = students
         End Sub
@@ -429,58 +459,168 @@
 
     End Class
 
+
+    Public Class PlacesGroup
+
+        Public allPlaces As List(Of Place)
+
+        ''' <summary>
+        ''' Create a new empty group.
+        ''' </summary>
+        Sub New()
+            allPlaces = New List(Of Place)
+        End Sub
+        ''' <summary>
+        ''' Create a new group reading in files.
+        ''' </summary>
+        ''' <param name="ddFilePaths">A list of files to read the students from.</param>
+        Sub New(ddFilePaths As String())
+            Me.allPlaces = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
+        End Sub
+        ''' <summary>
+        ''' Create a new group from a list of students.
+        ''' </summary>
+        ''' <param name="places"></param>
+        Sub New(places As List(Of Place))
+            Me.allPlaces = places
+        End Sub
+
+        ' Categorize Places
+
+        ''' <summary>
+        ''' This function return students classified by whatever we pass for <paramref name="key"/>.
+        ''' </summary>
+        ''' <typeparam name="T">The type of the key.</typeparam>
+        ''' <param name="key">The function that returns the key ofr a given student</param>
+        ''' <returns>A dict of all the students categorized by ...</returns>
+        Private Function GetBy(Of T)(key As Func(Of Place, T)) As Dictionary(Of T, PlacesGroup)
+
+            ' The return dict 
+            Dim byT = New Dictionary(Of T, List(Of Place))
+            ' shortcut so I don't need to recalculate the key for a given student each time
+            Dim plaKay As T
+
+            For Each pla In allPlaces
+                ' The category of the student
+                plaKay = key(pla)
+
+                ' If the category is in the dict
+                If byT.ContainsKey(plaKay) Then
+                    ' We jsut add the student in it
+                    byT(plaKay).Add(pla)
+                Else
+                    ' Or we create a new one for this student
+                    byT.Add(plaKay, New List(Of Place)({pla}))
+                End If
+            Next
+
+            ' We convert the lists of students into PlacesGRoup to allow easier reuse after
+
+            Dim returnDict = New Dictionary(Of T, PlacesGroup)
+            For Each groupKey In byT.Keys
+                returnDict(groupKey) = New PlacesGroup(byT(groupKey))
+            Next
+
+            Return returnDict
+
+        End Function
+
+        ''' <summary>
+        ''' Get the students categorized by their room.
+        ''' </summary>
+        ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
+        Public Function GetPlacesByRoom() As Dictionary(Of String, PlacesGroup)
+
+            Return GetBy(Of String)(Function(p As Place) As String
+                                        Return p.room
+                                    End Function)
+
+        End Function
+        ''' <summary>
+        ''' Get the students categorized by their classes.
+        ''' </summary>
+        ''' <returns>A dict with the ClassUnit as key and a list of the students for the corresponding class as values.</returns>
+        Public Function GetPlaceByOccupation() As Dictionary(Of Boolean, PlacesGroup)
+
+            Return GetBy(Of Boolean)(Function(p As Place) As Boolean
+                                         Return p.col = 3
+                                     End Function)
+
+        End Function
+
+        ''' <summary>
+        ''' Sort the students of this group alphabetically (by family name).
+        ''' </summary>
+        Public Sub Sort()
+            allPlaces.Sort(New Comparison(Of Place)(Function(p1, p2)
+                                                        If p1.room = p2.room Then
+                                                            If p1.col == p2.col Then
+                                                                Return p1.row <= p2.row
+                                                            Else
+                                                                Return p1.col < p2.col
+                                                            End If
+                                                        Else
+                                                            Return p1.room <= p2.room
+                                                        End If
+                                                    End Function))
+        End Sub
+
+    End Class
+
+    Public Structure Table
+        Public place As Place
+        Public student As Student
+
+        Sub New(student As Student, place As Place)
+            Me.place = place
+            Me.student = student
+        End Sub
+        Sub New(place As Place, student As Student)
+            Me.place = place
+            Me.student = student
+        End Sub
+    End Structure
+
+
     ''' <summary>
     ''' This class represent a placement with mutiples classes and classrooms. This placement is not calculated but this is the purpose of the class.
     ''' </summary>
     Public Class Placement
-        ''' <summary>
-        ''' The array of all Student Values files used to make the placement.
-        ''' </summary>
-        Dim svFilePaths As String()
-        ''' <summary>
-        ''' The array of all Desktop Disposition of rooms used for this exam.
-        ''' </summary>
-        Dim ddFilePaths As String()
 
         ''' <summary>
-        ''' The array of all placed stdents. They will have their .place set.
+        ''' The array of all placed students. They will have their .place set.
         ''' </summary>
-        Public placed As List(Of Student)
+        Public placedMapping As List(Of Table)
         ''' <summary>
         ''' The array of all not placed students
         ''' </summary>
-        Public notPlaced As List(Of Student)
+        Public notPlaced As StudentGroup
         ''' <summary>
         ''' The places that doesn't have students in them.
         ''' </summary>
         Public placesLeft As List(Of Place)
 
+        Private svFilePaths As String()
+        Private ddFilePaths As String()
+
         ' New 
 
-        ''' <summary>
-        ''' Creates a new placement with no room/students.
-        ''' You MUST add them before doing anything.
-        ''' </summary>
-        Sub New()
-            svFilePaths = {}
-            ddFilePaths = {}
-        End Sub
-        ''' <summary>
-        ''' Creates a new placement with one room and one class
-        ''' </summary>
-        ''' <param name="svFilePath">The students sv file path</param>
-        ''' <param name="ddFilePath">The room dd file path</param>
-        Sub New(svFilePath As String, ddFilePath As String)
-            Me.New({svFilePath}, {ddFilePath})
-        End Sub
         ''' <summary>
         ''' Create a new placement with two arrays of classes and classerooms.
         ''' </summary>
         ''' <param name="svFilePaths">An array with the pathes to the sv files.</param>
         ''' <param name="ddFilePaths">An array of the pathes to the dd files.</param>
         Sub New(svFilePaths As String(), ddFilePaths As String())
-            Me.svFilePaths = svFilePaths
             Me.ddFilePaths = ddFilePaths
+            Me.svFilePaths = svFilePaths
+
+            Me.Reset()
+        End Sub
+
+        Public Sub Reset()
+            Me.placedMapping = New List(Of Table)
+            Me.notPlaced = New StudentGroup(svFilePaths)
+            Me.placesLeft = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
         End Sub
 
         ' Save
@@ -511,40 +651,15 @@
         ''' Get all the students in a 1D list. You can not suppose they are sorted, either by class or by name or by number of hair.
         ''' </summary>
         ''' <returns>A list of the students in every sv file of the Placement.</returns>
-        Private Function GetAllStudents1D() As Student()
+        Private Function GetAllStudents() As List(Of Student)
             Dim allStudents = New List(Of Student)
 
-            ' We get a list of students from each file, and concatenate them every times
-            For Each svPath In Me.svFilePaths
-                allStudents.AddRange(DataAccessLayer.SV.GetStudents(svPath))
-            Next
+            allStudents.AddRange(placed)
+            allStudents.AddRange(notPlaced)
 
-            Return allStudents.ToArray
+            Return allStudents
 
         End Function
-        ''' <summary>
-        ''' Get a dictionnary of the students in each class. In each class students are not sorted. They are just separated by class.
-        ''' </summary>
-        ''' <returns>A dictionnary(classUnit) = List(of Student)</returns>
-        Private Function GetAllStudentsByClass() As Dictionary(Of ClassUnit, List(Of Student))
-
-            Dim studByClass = New Dictionary(Of ClassUnit, List(Of Student))
-
-            ' We go through the flat student array
-            For Each stud In GetAllStudents1D()
-
-                If studByClass.ContainsKey(stud.classUnit) Then
-                    ' If the class is in the dict, we just add the student to this class
-                    studByClass(stud.classUnit).Add(stud)
-                Else
-                    ' Or we create a new class for him
-                    studByClass(stud.classUnit) = New List(Of Student)({stud})
-                End If
-            Next
-
-            Return studByClass
-        End Function
-
 
         ' Get placement 
 
@@ -587,22 +702,6 @@
         Public Sub MakePlacement()
 
             ' Reinitialize arrays
-            placed = New List(Of Student)
-            notPlaced = New List(Of Student)
-            placesLeft = New List(Of Place)
-
-            Dim allStudents As Student() = {}
-            Dim allPlaces As Place() = {}
-
-            ' We get a list of students from each file, and concatenate them every times
-            For Each svPath In Me.svFilePaths
-                allStudents = allStudents.Union(DataAccessLayer.SV.GetStudents(svPath)).ToArray
-            Next
-
-            ' Likewise a list of the tables
-            For Each ddPath In ddFilePaths
-                allPlaces = allPlaces.Union(DataAccessLayer.DD.LoadRoom(ddPath).GetPlaces1DArray).ToArray
-            Next
 
             Dim studentNb = allStudents.Length
             Dim placesNb = allPlaces.Length
@@ -643,6 +742,75 @@
             Return True
         End Function
 
+
+        ' Kind functions
+
+
+        Public Sub Meuh()
+
+            Dim ShuffleOption = False
+
+            SortPlacesByRoom()
+
+            ' For each subject in non placed students            ' 
+            For Each subject In notPlaced.GetStudentsBySubject.Values
+
+                ' For each class in each subject
+                For Each clss In subject.GetStudentsByClass.Values
+
+                    ' We shuffle or sort the class if we want
+                    If ShuffleOption Then
+                        clss.Shuffle()
+                    Else
+                        clss.Sort()
+                    End If
+
+                    ' We place each student 
+                    For Each stud In clss.allStudents
+
+                        ' If all places are used, stup the process
+                        If placesLeft.Count = 0 Then
+                            Return
+                        End If
+
+                        ' We take the first place in the list and remove it from the unused ones
+                        Dim place = placesLeft(0)
+                        placesLeft.RemoveAt(0)
+
+                        ' We add the pair to the placed list
+                        placedMapping.Add(New Table(stud, place))
+
+                    Next
+                Next
+            Next
+
+        End Sub
+
+        ''' <summary>
+        ''' Sorts placesLeft so places of the same room are together
+        ''' </summary>
+        Public Sub SortPlacesByRoom()
+            Dim mapping = New Dictionary(Of String, List(Of Place))
+
+            For Each p In placesLeft
+                If mapping.ContainsKey(p.room) Then
+                    mapping(p.room).Add(p)
+                Else
+                    mapping(p.room) = New List(Of Place)({p})
+                End If
+            Next
+
+            ' We reintialise the places
+            placesLeft = New List(Of Place)
+
+            ' Add add each room one by one
+            For Each key In mapping.Keys
+                Dim places = mapping(key)
+                places.Sort()
+                placesLeft.AddRange(places)
+            Next
+
+        End Sub
     End Class
 
 End Module
