@@ -81,11 +81,7 @@
             End If
         End If
 
-        PlacementBox.ResetText()
-        ' Show the placement on the screen
-        PlacementBox.Text = placement.GetPlacementFormatedString()
-        ' Highlighting sections
-        HighLightSectionPlacementBox()
+        HighLightSectionPlacementBoxWith(placement.GetPlacementFormatedString())
 
         ' Allow the user to save this placement
         SaveButton.Visible = True
@@ -281,27 +277,34 @@
         Return True
     End Function
 
-    Sub HighLightSectionPlacementBox()
-        ' Thanks !
-        ' https://social.msdn.microsoft.com/Forums/vstudio/en-US/89355ca9-d026-4140-8326-354a95706365/making-specific-lines-bold-in-a-richtextbox-vbnet?forum=vbgeneral
+    Sub HighLightSectionPlacementBoxWith(text As String)
 
-        PlacementBox.SuspendLayout()
+        PlacementBox.ResetText()
+        ' Show the placement on the screen
 
         PlacementBox.SelectionStart = 0
         PlacementBox.SelectionLength = PlacementBox.TextLength
         PlacementBox.Font = New Font(PlacementBox.Font, FontStyle.Regular)
+        PlacementBox.Text = text
+        ' Highlighting sections
 
         For iLine = 0 To PlacementBox.Lines.Length - 1
             PlacementBox.SelectionStart = PlacementBox.GetFirstCharIndexFromLine(iLine)
             PlacementBox.SelectionLength = PlacementBox.Lines(iLine).Length
 
             If PlacementBox.Lines(iLine).StartsWith(" ") Then
+                PlacementBox.SelectionStart += 1
+                PlacementBox.SelectionLength -= 2
                 PlacementBox.SelectionFont = New Font(PlacementBox.SelectionFont, FontStyle.Bold)
 
                 If PlacementBox.Lines(iLine).StartsWith("  ") Then
+                    PlacementBox.SelectionStart += 1
+                    PlacementBox.SelectionLength -= 2
                     PlacementBox.SelectionFont = New Font(PlacementBox.SelectionFont, FontStyle.Bold Or FontStyle.Underline)
 
                     If PlacementBox.Lines(iLine).StartsWith("   ") Then
+                        PlacementBox.SelectionStart += 1
+                        PlacementBox.SelectionLength -= 2
                         PlacementBox.SelectionAlignment = HorizontalAlignment.Center
                     End If
                 End If
@@ -311,7 +314,6 @@
         PlacementBox.SelectionStart = 0
         PlacementBox.SelectionLength = 0
 
-        PlacementBox.ResumeLayout()
     End Sub
 
 End Class
