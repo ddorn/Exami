@@ -82,6 +82,12 @@
       <DependentUpon>Exami.vb</DependentUpon>
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Visual Layer\Exami2.Designer.vb">
+      <DependentUpon>Exami2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\Exami2.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Visual Layer\RoomDesigner.Designer.vb">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
     </Compile>
@@ -108,6 +114,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Visual Layer\Exami.resx">
       <DependentUpon>Exami.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\Exami2.resx">
+      <DependentUpon>Exami2.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\RoomDesigner.resx">
       <DependentUpon>RoomDesigner.vb</DependentUpon>

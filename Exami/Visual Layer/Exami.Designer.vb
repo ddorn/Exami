@@ -22,6 +22,7 @@ Partial Class ExamiForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(ExamiForm))
         Me.ConvertButton = New System.Windows.Forms.Button()
         Me.FolderChooseWidget = New System.Windows.Forms.FolderBrowserDialog()
         Me.Label1 = New System.Windows.Forms.Label()
@@ -31,8 +32,18 @@ Partial Class ExamiForm
         Me.ddListBox = New System.Windows.Forms.CheckedListBox()
         Me.CreateRoomButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
-        Me.PlacementBox = New System.Windows.Forms.RichTextBox()
         Me.PrintButton = New System.Windows.Forms.Button()
+        Me.ToolStrip1 = New System.Windows.Forms.ToolStrip()
+        Me.ToolStripButton1 = New System.Windows.Forms.ToolStripButton()
+        Me.BottomToolStripPanel = New System.Windows.Forms.ToolStripPanel()
+        Me.TopToolStripPanel = New System.Windows.Forms.ToolStripPanel()
+        Me.RightToolStripPanel = New System.Windows.Forms.ToolStripPanel()
+        Me.LeftToolStripPanel = New System.Windows.Forms.ToolStripPanel()
+        Me.ContentPanel = New System.Windows.Forms.ToolStripContentPanel()
+        Me.PlacementBox = New System.Windows.Forms.RichTextBox()
+        Me.Splitter1 = New System.Windows.Forms.Splitter()
+        Me.Splitter2 = New System.Windows.Forms.Splitter()
+        Me.ToolStrip1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ConvertButton
@@ -72,7 +83,7 @@ Partial Class ExamiForm
         'ChooseFolderButton
         '
         Me.ChooseFolderButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ChooseFolderButton.Location = New System.Drawing.Point(933, 12)
+        Me.ChooseFolderButton.Location = New System.Drawing.Point(933, 34)
         Me.ChooseFolderButton.Name = "ChooseFolderButton"
         Me.ChooseFolderButton.Size = New System.Drawing.Size(257, 32)
         Me.ChooseFolderButton.TabIndex = 0
@@ -88,9 +99,9 @@ Partial Class ExamiForm
         Me.svListBox.HorizontalScrollbar = True
         Me.svListBox.IntegralHeight = False
         Me.svListBox.Items.AddRange(New Object() {"First select a folder", "Then convert the .vass files", "Select one or more classes", "And create the a class plan", "Finaly create the placement"})
-        Me.svListBox.Location = New System.Drawing.Point(933, 50)
+        Me.svListBox.Location = New System.Drawing.Point(933, 72)
         Me.svListBox.Name = "svListBox"
-        Me.svListBox.Size = New System.Drawing.Size(257, 230)
+        Me.svListBox.Size = New System.Drawing.Size(257, 208)
         Me.svListBox.TabIndex = 1
         '
         'ddListBox
@@ -130,20 +141,6 @@ Partial Class ExamiForm
         Me.SaveButton.UseVisualStyleBackColor = True
         Me.SaveButton.Visible = False
         '
-        'PlacementBox
-        '
-        Me.PlacementBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox.BackColor = System.Drawing.SystemColors.Control
-        Me.PlacementBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.PlacementBox.HideSelection = False
-        Me.PlacementBox.Location = New System.Drawing.Point(12, 12)
-        Me.PlacementBox.Name = "PlacementBox"
-        Me.PlacementBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.PlacementBox.Size = New System.Drawing.Size(780, 566)
-        Me.PlacementBox.TabIndex = 9
-        Me.PlacementBox.Text = "Made with love by Diego <3"
-        '
         'PrintButton
         '
         Me.PrintButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -155,12 +152,99 @@ Partial Class ExamiForm
         Me.PrintButton.UseVisualStyleBackColor = True
         Me.PrintButton.Visible = False
         '
+        'ToolStrip1
+        '
+        Me.ToolStrip1.ImageScalingSize = New System.Drawing.Size(24, 24)
+        Me.ToolStrip1.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripButton1})
+        Me.ToolStrip1.Location = New System.Drawing.Point(774, 0)
+        Me.ToolStrip1.Name = "ToolStrip1"
+        Me.ToolStrip1.Size = New System.Drawing.Size(428, 31)
+        Me.ToolStrip1.TabIndex = 11
+        Me.ToolStrip1.Text = "ToolStrip1"
+        '
+        'ToolStripButton1
+        '
+        Me.ToolStripButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image
+        Me.ToolStripButton1.Image = CType(resources.GetObject("ToolStripButton1.Image"), System.Drawing.Image)
+        Me.ToolStripButton1.ImageTransparentColor = System.Drawing.Color.Magenta
+        Me.ToolStripButton1.Name = "ToolStripButton1"
+        Me.ToolStripButton1.Size = New System.Drawing.Size(28, 28)
+        Me.ToolStripButton1.Text = "ToolStripButton1"
+        '
+        'BottomToolStripPanel
+        '
+        Me.BottomToolStripPanel.Location = New System.Drawing.Point(0, 0)
+        Me.BottomToolStripPanel.Name = "BottomToolStripPanel"
+        Me.BottomToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal
+        Me.BottomToolStripPanel.RowMargin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.BottomToolStripPanel.Size = New System.Drawing.Size(0, 0)
+        '
+        'TopToolStripPanel
+        '
+        Me.TopToolStripPanel.Location = New System.Drawing.Point(0, 0)
+        Me.TopToolStripPanel.Name = "TopToolStripPanel"
+        Me.TopToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal
+        Me.TopToolStripPanel.RowMargin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.TopToolStripPanel.Size = New System.Drawing.Size(0, 0)
+        '
+        'RightToolStripPanel
+        '
+        Me.RightToolStripPanel.Location = New System.Drawing.Point(0, 0)
+        Me.RightToolStripPanel.Name = "RightToolStripPanel"
+        Me.RightToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal
+        Me.RightToolStripPanel.RowMargin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.RightToolStripPanel.Size = New System.Drawing.Size(0, 0)
+        '
+        'LeftToolStripPanel
+        '
+        Me.LeftToolStripPanel.Location = New System.Drawing.Point(0, 0)
+        Me.LeftToolStripPanel.Name = "LeftToolStripPanel"
+        Me.LeftToolStripPanel.Orientation = System.Windows.Forms.Orientation.Horizontal
+        Me.LeftToolStripPanel.RowMargin = New System.Windows.Forms.Padding(3, 0, 0, 0)
+        Me.LeftToolStripPanel.Size = New System.Drawing.Size(0, 0)
+        '
+        'ContentPanel
+        '
+        Me.ContentPanel.Size = New System.Drawing.Size(588, 544)
+        '
+        'PlacementBox
+        '
+        Me.PlacementBox.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox.BackColor = System.Drawing.SystemColors.Control
+        Me.PlacementBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PlacementBox.HideSelection = False
+        Me.PlacementBox.Location = New System.Drawing.Point(135, 78)
+        Me.PlacementBox.Name = "PlacementBox"
+        Me.PlacementBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
+        Me.PlacementBox.Size = New System.Drawing.Size(382, 303)
+        Me.PlacementBox.TabIndex = 9
+        Me.PlacementBox.Text = "Made with love by Diego <3"
+        '
+        'Splitter1
+        '
+        Me.Splitter1.Location = New System.Drawing.Point(774, 31)
+        Me.Splitter1.Name = "Splitter1"
+        Me.Splitter1.Size = New System.Drawing.Size(3, 559)
+        Me.Splitter1.TabIndex = 12
+        Me.Splitter1.TabStop = False
+        '
+        'Splitter2
+        '
+        Me.Splitter2.Location = New System.Drawing.Point(0, 0)
+        Me.Splitter2.Name = "Splitter2"
+        Me.Splitter2.Size = New System.Drawing.Size(774, 590)
+        Me.Splitter2.TabIndex = 13
+        Me.Splitter2.TabStop = False
+        '
         'ExamiForm
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1202, 590)
+        Me.Controls.Add(Me.Splitter1)
+        Me.Controls.Add(Me.ToolStrip1)
         Me.Controls.Add(Me.PrintButton)
         Me.Controls.Add(Me.PlacementBox)
         Me.Controls.Add(Me.SaveButton)
@@ -171,9 +255,12 @@ Partial Class ExamiForm
         Me.Controls.Add(Me.PlacementButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ConvertButton)
+        Me.Controls.Add(Me.Splitter2)
         Me.Name = "ExamiForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Exami"
+        Me.ToolStrip1.ResumeLayout(False)
+        Me.ToolStrip1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -189,6 +276,15 @@ Partial Class ExamiForm
     Friend WithEvents ddListBox As CheckedListBox
     Friend WithEvents CreateRoomButton As Button
     Friend WithEvents SaveButton As Button
-    Friend WithEvents PlacementBox As RichTextBox
     Friend WithEvents PrintButton As Button
+    Friend WithEvents ToolStrip1 As ToolStrip
+    Friend WithEvents ToolStripButton1 As ToolStripButton
+    Friend WithEvents BottomToolStripPanel As ToolStripPanel
+    Friend WithEvents TopToolStripPanel As ToolStripPanel
+    Friend WithEvents RightToolStripPanel As ToolStripPanel
+    Friend WithEvents LeftToolStripPanel As ToolStripPanel
+    Friend WithEvents ContentPanel As ToolStripContentPanel
+    Friend WithEvents PlacementBox As RichTextBox
+    Friend WithEvents Splitter1 As Splitter
+    Friend WithEvents Splitter2 As Splitter
 End Class
