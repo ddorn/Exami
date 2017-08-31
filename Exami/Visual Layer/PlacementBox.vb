@@ -1,21 +1,15 @@
-﻿Public Class PlacementBox
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+﻿Imports System.ComponentModel
 
-    End Sub
+Public Class PlacementBox
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Public Property Title() As String
+        Get
+            Return NameLabel.Text
+        End Get
+        Set(ByVal value As String)
+            NameLabel.Text = value
+            Invalidate()
+        End Set
+    End Property
 
-    End Sub
-
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
-
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles Button5.Click
-
-    End Sub
-
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-
-    End Sub
 End Class
