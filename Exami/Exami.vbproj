@@ -88,6 +88,12 @@
     <Compile Include="Visual Layer\Exami2.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Visual Layer\PlacementBox.Designer.vb">
+      <DependentUpon>PlacementBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Visual Layer\RoomDesigner.Designer.vb">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
     </Compile>
@@ -117,6 +123,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\Exami2.resx">
       <DependentUpon>Exami2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\PlacementBox.resx">
+      <DependentUpon>PlacementBox.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\RoomDesigner.resx">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
