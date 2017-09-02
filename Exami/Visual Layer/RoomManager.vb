@@ -17,7 +17,7 @@
     ''' </summary>
     Dim folderPath As String
 
-    ' Path to name 
+    ' Convertion between path and names
 
     Private Function RoomNameToPath(roomName As String) As String
         Return IO.Path.Combine(folderPath, roomName + ".dd")
@@ -84,7 +84,7 @@
     ''' <summary>
     ''' Delete the selected rooms, with a confirmation prompt to the user
     ''' </summary>
-    Private Sub DeleteRoomButton_Click(sender As Object, e As EventArgs) Handles DeleteRoomButton.Click
+    Private Sub DeleteRoomButton_Click() Handles DeleteRoomButton.Click
         Dim delCount = RoomsListBox.CheckedIndices.Count
 
         If delCount = 0 Then
@@ -107,6 +107,34 @@
 
         RaiseEvent NewStatusMessage(String.Format("{0}/{1} rooms were moved to the recycle bin.", succes, delCount))
         UpdateRoomList()
+    End Sub
+
+    ''' <summary>
+    ''' Delete the curently checked rooms.
+    ''' </summary>
+    Private Sub CopyRoomButton_Click(sender As Object, e As EventArgs) Handles CopyRoomButton.Click
+
+        Dim toCopy = CheckedNumber()
+        Dim succes = toCopy
+
+        ' Forech selected room path
+        For Each file In GetSelectedRoomFiles()
+            ' we add " - copy" to it
+            Dim newFileName = IO.Path.Combine(IO.Path.GetDirectoryName(file), IO.Path.GetFileNameWithoutExtension(file) + " - copy.dd")
+
+            ' And we copy it
+            Try
+                My.Computer.FileSystem.CopyFile(file, newFileName)
+            Catch ex As Exception
+                succes -= 1
+            End Try
+        Next
+
+        'Don't forget to show the new rooms
+        UpdateRoomList()
+
+        RaiseEvent NewStatusMessage(String.Format("{0}/{1} rooms were copied", succes, toCopy))
+
     End Sub
 
     ' ============== '
@@ -143,4 +171,12 @@
 
         Return roomFiles
     End Function
+
+    ''' <summary>
+    ''' The number of checked rooms
+    ''' </summary>
+    Public Function CheckedNumber() As Integer
+        Return RoomsListBox.CheckedIndices.Count
+    End Function
+
 End Class
