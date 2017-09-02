@@ -17,31 +17,20 @@
     ''' </summary>
     Dim folderPath As String
 
-    ''' <summary>
-    ''' The RoomManager will show the room of the given folder.
-    ''' </summary>
-    ''' <param name="path">The folder to get rooms.</param>
-    Public Sub SetFolder(path As String)
-
-        If path Is Nothing Or path = "" Then
-            Return
-        End If
-
-        ' We update the folder
-        folderPath = path
-        ' And then what we know about it
-        UpdateRoomList()
-        ' If the folder is empty or not, we can always create a room
-        CreateRoomButton.Enabled = True
-    End Sub
+    ' Path to name 
 
     Private Function RoomNameToPath(roomName As String) As String
-        Return IO.Path.Combine(folderPath, roomName)
+        Return IO.Path.Combine(folderPath, roomName + ".dd")
     End Function
     Private Function PathToRoomName(path As String) As String
         Return IO.Path.GetFileNameWithoutExtension(path)
     End Function
 
+    ' Update rooms
+
+    ''' <summary>
+    ''' Reload the folder to update the list of availaible rooms
+    ''' </summary>
     Private Sub UpdateRoomList()
         Dim thereIsRoomsInTheFolder As Boolean = False
         Dim rooms As String() = helperRoomList
@@ -83,10 +72,18 @@
 
     End Sub
 
-    Private Sub CreateRoomButton_Click(sender As Object, e As EventArgs) Handles CreateRoomButton.Click
+    ' Button clicks
+
+    ''' <summary>
+    ''' Show the RoomDesigner
+    ''' </summary>
+    Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
         RaiseEvent CreateRoom()
     End Sub
 
+    ''' <summary>
+    ''' Delete the selected rooms, with a confirmation prompt to the user
+    ''' </summary>
     Private Sub DeleteRoomButton_Click(sender As Object, e As EventArgs) Handles DeleteRoomButton.Click
         Dim delCount = RoomsListBox.CheckedIndices.Count
 
@@ -95,8 +92,55 @@
             Return
         End If
 
-        If MsgBox(String.Format("You are going to delete {0} room templates. This action is NOT reversible. Are you sure to continue ?", delCount), MsgBoxStyle.YesNo Or MsgBoxStyle.DefaultButton2) Then
-
+        If DialogResult.No = MsgBox(String.Format("You are going to delete {0} room templates. This action is NOT reversible. Are you sure to continue ?", delCount), MsgBoxStyle.YesNo Or MsgBoxStyle.DefaultButton2) Then
+            Return
         End If
+
+        Dim succes = delCount
+        For Each file In GetSelectedRoomFiles()
+            Try
+                My.Computer.FileSystem.DeleteFile(file, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin, FileIO.UICancelOption.DoNothing)
+            Catch ex As Exception
+                succes -= 1
+            End Try
+        Next
+
+        RaiseEvent NewStatusMessage(String.Format("{0}/{1} rooms were moved to the recycle bin.", succes, delCount))
+        UpdateRoomList()
     End Sub
+
+    ' ============== '
+    ' Public methods ' 
+    ' ============== '
+
+    ''' <summary>
+    ''' The RoomManager will show the room of the given folder.
+    ''' </summary>
+    ''' <param name="path">The folder to get rooms.</param>
+    Public Sub SetFolder(path As String)
+
+        If path Is Nothing Or path = "" Then
+            Return
+        End If
+
+        ' We update the folder
+        folderPath = path
+        ' And then what we know about it
+        UpdateRoomList()
+        ' If the folder is empty or not, we can always create a room
+        CreateRoomButton.Enabled = True
+    End Sub
+
+    ''' <summary>
+    ''' Get a list of the file paths of the selected rooms. Thie list can be empty.
+    ''' </summary>
+    Public Function GetSelectedRoomFiles() As List(Of String)
+        Dim roomFiles = New List(Of String)
+
+        For Each item In RoomsListBox.CheckedItems
+            roomFiles.Add(RoomNameToPath(item))
+        Next
+
+        Return roomFiles
+    End Function
 End Class

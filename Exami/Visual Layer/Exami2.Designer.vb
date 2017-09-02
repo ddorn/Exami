@@ -271,6 +271,10 @@ Partial Class Exami2
         Me.GeneralStatusLabel.Text = "GeneralStatusLabel"
         Me.GeneralStatusLabel.ToolTipText = "ok"
         '
+        'FolderBrowserDialog1
+        '
+        Me.FolderBrowserDialog1.SelectedPath = "C:\Users\diego\Documents\Programation\Exami\Data"
+        '
         'RoomManager1
         '
         Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
@@ -289,7 +293,7 @@ Partial Class Exami2
         Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
         Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
         Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(275, 508)
+        Me.PlacementBox3.Size = New System.Drawing.Size(308, 508)
         Me.PlacementBox3.Students = Nothing
         Me.PlacementBox3.TabIndex = 2
         Me.PlacementBox3.Title = "Name"
