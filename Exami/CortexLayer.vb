@@ -1,6 +1,6 @@
 ﻿Imports Exami
 
-Module CortexLayer
+Public Module CortexLayer
 
     ''' <summary>
     ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !

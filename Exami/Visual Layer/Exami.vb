@@ -316,7 +316,4 @@
 
     End Sub
 
-    Private Sub PlacementBox_TextChanged(sender As Object, e As EventArgs) Handles PlacementBox.TextChanged
-
-    End Sub
 End Class

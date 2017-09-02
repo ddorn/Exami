@@ -1,6 +1,6 @@
 ﻿Imports Exami
 
-Module DataAccessLayer
+Public Module DataAccessLayer
 
     Enum SvKeys
         ' Student
