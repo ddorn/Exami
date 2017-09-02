@@ -20,8 +20,8 @@
     End Sub
 
     Private Sub RoomDesigner_Closed() Handles Me.Closed
-        ExamiForm.Show()
-        ExamiForm.UpdateAvailaibleFiles()
+        Exami2.Show()
+        Exami2.ReloadWorkingFolderFolder()
     End Sub
 
     Private Sub CancelButton_Click() Handles CancelButton.Click
@@ -29,7 +29,7 @@
 
         If response = MsgBoxResult.Ok Then
             Me.Close()
-            ExamiForm.Show()
+            Exami2.Show()
         End If
     End Sub
 
@@ -44,14 +44,14 @@
         End While
 
         ' Save the room
-        If Not DataAccessLayer.DD.TrySaveRoom(preview, IO.Path.Combine(ExamiForm.WorkingFolder, result + ".dd")) Then
+        If Not DataAccessLayer.DD.TrySaveRoom(preview, IO.Path.Combine(Exami2.WorkingFolder, result + ".dd")) Then
             MsgBox("Error while saving the room. The name could be invalid, or you don have write access here...")
             Return
         End If
 
         ' Go back tothe main form
         Me.Close()
-        ExamiForm.Show()
+        Exami2.Show()
     End Sub
 
 End Class

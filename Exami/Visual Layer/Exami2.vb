@@ -8,7 +8,18 @@
     Public Event FolderSelected(path As String)
     Public Event NewStatusMessage(msg As String)
 
-    Private WorkingFolder As String
+    Public WorkingFolder As String
+
+
+    ' Create room
+
+    Private Sub CreateRoom() Handles RoomManager1.CreateRoom
+
+        ' Just switch to the room designer form
+        Me.Hide()
+        RoomDesigner.Show()
+
+    End Sub
 
     ' ############## '
     ' Folder  Select '
@@ -25,10 +36,7 @@
             Return
         End If
 
-        RaiseEvent FolderSelected(FolderBrowserDialog1.SelectedPath)
-    End Sub
-
-    Private Sub WhenFolderSelected(path As String) Handles Me.FolderSelected
+        Dim path = FolderBrowserDialog1.SelectedPath
 
         ' The selected folder path
         WorkingFolder = path
@@ -36,9 +44,14 @@
         ' Show the folder in the status bar for feedback
         RaiseEvent NewStatusMessage(path)
 
+        ' We actualize everything because the folder has changed
+        ReloadWorkingFolderFolder()
+
+    End Sub
+
+    Public Sub ReloadWorkingFolderFolder()
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
-
     End Sub
 
     ' ############## '
