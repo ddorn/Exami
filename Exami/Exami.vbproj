@@ -94,6 +94,12 @@
     <Compile Include="Visual Layer\PlacementBox.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Visual Layer\PlacementViewBySelector.Designer.vb">
+      <DependentUpon>PlacementViewBySelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementViewBySelector.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Visual Layer\RoomDesigner.Designer.vb">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
     </Compile>
@@ -138,6 +144,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\PlacementBox.resx">
       <DependentUpon>PlacementBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\PlacementViewBySelector.resx">
+      <DependentUpon>PlacementViewBySelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\RoomDesigner.resx">
       <DependentUpon>RoomDesigner.vb</DependentUpon>

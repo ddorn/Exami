@@ -38,8 +38,6 @@ Partial Class ExamiForm
         Me.LeftToolStripPanel = New System.Windows.Forms.ToolStripPanel()
         Me.ContentPanel = New System.Windows.Forms.ToolStripContentPanel()
         Me.PlacementBox = New System.Windows.Forms.RichTextBox()
-        Me.Splitter1 = New System.Windows.Forms.Splitter()
-        Me.Splitter2 = New System.Windows.Forms.Splitter()
         Me.SuspendLayout()
         '
         'ConvertButton
@@ -191,28 +189,12 @@ Partial Class ExamiForm
         Me.PlacementBox.BackColor = System.Drawing.SystemColors.Control
         Me.PlacementBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.PlacementBox.HideSelection = False
-        Me.PlacementBox.Location = New System.Drawing.Point(12, 40)
+        Me.PlacementBox.Location = New System.Drawing.Point(12, 12)
         Me.PlacementBox.Name = "PlacementBox"
         Me.PlacementBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.Vertical
-        Me.PlacementBox.Size = New System.Drawing.Size(756, 538)
+        Me.PlacementBox.Size = New System.Drawing.Size(760, 566)
         Me.PlacementBox.TabIndex = 9
         Me.PlacementBox.Text = "Made with love by Diego <3"
-        '
-        'Splitter1
-        '
-        Me.Splitter1.Location = New System.Drawing.Point(774, 0)
-        Me.Splitter1.Name = "Splitter1"
-        Me.Splitter1.Size = New System.Drawing.Size(3, 590)
-        Me.Splitter1.TabIndex = 12
-        Me.Splitter1.TabStop = False
-        '
-        'Splitter2
-        '
-        Me.Splitter2.Location = New System.Drawing.Point(0, 0)
-        Me.Splitter2.Name = "Splitter2"
-        Me.Splitter2.Size = New System.Drawing.Size(774, 590)
-        Me.Splitter2.TabIndex = 13
-        Me.Splitter2.TabStop = False
         '
         'ExamiForm
         '
@@ -220,7 +202,6 @@ Partial Class ExamiForm
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.BackColor = System.Drawing.SystemColors.Control
         Me.ClientSize = New System.Drawing.Size(1202, 590)
-        Me.Controls.Add(Me.Splitter1)
         Me.Controls.Add(Me.PrintButton)
         Me.Controls.Add(Me.PlacementBox)
         Me.Controls.Add(Me.SaveButton)
@@ -231,7 +212,6 @@ Partial Class ExamiForm
         Me.Controls.Add(Me.PlacementButton)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ConvertButton)
-        Me.Controls.Add(Me.Splitter2)
         Me.Name = "ExamiForm"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Exami"
@@ -257,6 +237,4 @@ Partial Class ExamiForm
     Friend WithEvents LeftToolStripPanel As ToolStripPanel
     Friend WithEvents ContentPanel As ToolStripContentPanel
     Friend WithEvents PlacementBox As RichTextBox
-    Friend WithEvents Splitter1 As Splitter
-    Friend WithEvents Splitter2 As Splitter
 End Class

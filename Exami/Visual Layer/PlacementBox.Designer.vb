@@ -57,18 +57,20 @@ Partial Class PlacementBox
         Me.PrintButton.BackColor = System.Drawing.SystemColors.Control
         Me.PrintButton.BackgroundImage = CType(resources.GetObject("PrintButton.BackgroundImage"), System.Drawing.Image)
         Me.PrintButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PrintButton.Enabled = False
         Me.PrintButton.Location = New System.Drawing.Point(52, 347)
         Me.PrintButton.Name = "PrintButton"
         Me.PrintButton.Size = New System.Drawing.Size(42, 42)
         Me.PrintButton.TabIndex = 2
         Me.PrintButton.Tag = "Print this part of the placement"
-        Me.PrintButton.UseVisualStyleBackColor = False
+        Me.PrintButton.UseVisualStyleBackColor = True
         '
         'ShuffleButton
         '
         Me.ShuffleButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.ShuffleButton.BackgroundImage = CType(resources.GetObject("ShuffleButton.BackgroundImage"), System.Drawing.Image)
         Me.ShuffleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ShuffleButton.Enabled = False
         Me.ShuffleButton.Location = New System.Drawing.Point(100, 347)
         Me.ShuffleButton.Name = "ShuffleButton"
         Me.ShuffleButton.Size = New System.Drawing.Size(42, 42)
@@ -81,6 +83,7 @@ Partial Class PlacementBox
         Me.ByClassButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.ByClassButton.BackgroundImage = CType(resources.GetObject("ByClassButton.BackgroundImage"), System.Drawing.Image)
         Me.ByClassButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ByClassButton.Enabled = False
         Me.ByClassButton.Location = New System.Drawing.Point(196, 347)
         Me.ByClassButton.Name = "ByClassButton"
         Me.ByClassButton.Size = New System.Drawing.Size(42, 42)
@@ -93,6 +96,7 @@ Partial Class PlacementBox
         Me.SaveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.SaveButton.BackgroundImage = CType(resources.GetObject("SaveButton.BackgroundImage"), System.Drawing.Image)
         Me.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SaveButton.Enabled = False
         Me.SaveButton.Location = New System.Drawing.Point(4, 347)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(42, 42)
@@ -105,6 +109,7 @@ Partial Class PlacementBox
         Me.AzButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.AzButton.BackgroundImage = CType(resources.GetObject("AzButton.BackgroundImage"), System.Drawing.Image)
         Me.AzButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.AzButton.Enabled = False
         Me.AzButton.Location = New System.Drawing.Point(148, 347)
         Me.AzButton.Name = "AzButton"
         Me.AzButton.Size = New System.Drawing.Size(42, 42)
@@ -120,7 +125,7 @@ Partial Class PlacementBox
         Me.NameLabel.Name = "NameLabel"
         Me.NameLabel.Size = New System.Drawing.Size(242, 36)
         Me.NameLabel.TabIndex = 6
-        Me.NameLabel.Text = "Name"
+        Me.NameLabel.Text = "Title"
         Me.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         '
         'PlacementBox
