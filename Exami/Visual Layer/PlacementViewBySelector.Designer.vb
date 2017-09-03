@@ -32,8 +32,6 @@ Partial Class PlacementViewBySelector
         'AllCheckBox
         '
         Me.AllCheckBox.AutoSize = True
-        Me.AllCheckBox.Checked = True
-        Me.AllCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.AllCheckBox.Location = New System.Drawing.Point(152, 21)
         Me.AllCheckBox.Name = "AllCheckBox"
         Me.AllCheckBox.Size = New System.Drawing.Size(52, 24)
@@ -56,8 +54,6 @@ Partial Class PlacementViewBySelector
         'RoomCheckBox
         '
         Me.RoomCheckBox.AutoSize = True
-        Me.RoomCheckBox.Checked = True
-        Me.RoomCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.RoomCheckBox.Location = New System.Drawing.Point(72, 21)
         Me.RoomCheckBox.Name = "RoomCheckBox"
         Me.RoomCheckBox.Size = New System.Drawing.Size(78, 24)
@@ -68,8 +64,6 @@ Partial Class PlacementViewBySelector
         'ClassCheckBox
         '
         Me.ClassCheckBox.AutoSize = True
-        Me.ClassCheckBox.Checked = True
-        Me.ClassCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ClassCheckBox.Location = New System.Drawing.Point(72, 0)
         Me.ClassCheckBox.Name = "ClassCheckBox"
         Me.ClassCheckBox.Size = New System.Drawing.Size(74, 24)
@@ -103,9 +97,9 @@ Partial Class PlacementViewBySelector
 
     End Sub
 
-    Friend WithEvents AllCheckBox As CheckBox
-    Friend WithEvents SubjectCheckBox As CheckBox
-    Friend WithEvents RoomCheckBox As CheckBox
-    Friend WithEvents ClassCheckBox As CheckBox
-    Friend WithEvents Label2 As Label
+    Private WithEvents AllCheckBox As CheckBox
+    Private WithEvents SubjectCheckBox As CheckBox
+    Private WithEvents RoomCheckBox As CheckBox
+    Private WithEvents ClassCheckBox As CheckBox
+    Private WithEvents Label2 As Label
 End Class

@@ -1,14 +1,5 @@
 ﻿Public Class PlacementViewBySelector
 
-    <Flags()>
-    Public Enum ViewBy
-        None = 0
-        Classe = 1
-        Room = 2
-        Subject = 4
-        All = ViewBy.Classe Or ViewBy.Room Or ViewBy.Subject
-    End Enum
-
     Public CurrentViewBy As ViewBy = ViewBy.None
 
     Private Sub AllCheckBox_CheckedChanged() Handles AllCheckBox.Click

@@ -34,7 +34,7 @@
     End Sub
 
     Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-        Dim result As String
+        Dim result As String = Nothing
 
         ' We ask until you answer niark
         Dim prompt = "What is the name of this room ?"

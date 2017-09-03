@@ -102,14 +102,14 @@
     ''' <summary>
     ''' Get a list of the file paths of the selected subjects. Thie list can be empty.
     ''' </summary>
-    Public Function GetSelectedSubjectPaths() As List(Of String)
+    Public Function GetSelectedSubjectPaths() As String()
         Dim subjectPaths = New List(Of String)
 
         For Each item In SubjectListBox.CheckedItems
             subjectPaths.Add(SubjectToPath(item))
         Next
 
-        Return subjectPaths
+        Return subjectPaths.ToArray
     End Function
 
     ''' <summary>

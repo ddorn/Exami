@@ -43,6 +43,7 @@ Public Module DataAccessLayer
         Public secondName As String
         Public studentNumber As String
         Public classUnit As ClassUnit
+        Public place As Place
 
         Sub New(studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
             With Me
@@ -273,7 +274,7 @@ Public Module DataAccessLayer
 
             ' It is -2 because of the header and the last blank line
             Dim Students = New List(Of Student)(lines.Length - 2)
-            Dim stud As Student
+            Dim stud As Student = Nothing
 
             ' -1 cos we skip the first line and then it is zero and it is aligned with the indices of Students
             pos = -1
@@ -340,7 +341,7 @@ Public Module DataAccessLayer
 
             ' The lines of the .vass file to convert
             Dim lines As String() = IO.File.ReadAllLines(vassFilePath)
-            Dim student As Student
+            Dim student As Student = Nothing
 
             For Each line As String In lines
 

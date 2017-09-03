@@ -60,7 +60,7 @@
 
     Private Sub PlacementButton_Click() Handles PlacementButton.Click
 
-        Dim placement As Placement
+        Dim placement As Placement = Nothing
 
         If Not TryGetPlacementFromSelectedOrWarn(placement) Then
             ' We already warned about the selected stuff in the TryGetBlabla so we just go back
@@ -96,10 +96,10 @@
     End Sub
 
     Private Sub SaveButton_Click() Handles SaveButton.Click
-        Dim fileName As String
-        Dim filePath As String
+        Dim fileName As String = Nothing
+        Dim filePath As String = Nothing
 
-        Dim placement As Placement
+        Dim placement As Placement = Nothing
         If TryGetPlacementFromSelectedOrWarn(placement) = False Then
             'We have already worn
             Return

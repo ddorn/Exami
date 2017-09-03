@@ -24,11 +24,6 @@ Partial Class Exami2
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.SubjectManager1 = New Exami.SubjectManager()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBox3 = New Exami.PlacementBox()
-        Me.PlacementBox2 = New Exami.PlacementBox()
-        Me.PlacementBox1 = New Exami.PlacementBox()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ConvertFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
@@ -44,9 +39,10 @@ Partial Class Exami2
         Me.GeneralStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
+        Me.SubjectManager1 = New Exami.SubjectManager()
+        Me.RoomManager1 = New Exami.RoomManager()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
-        Me.SplitContainer1.Panel2.SuspendLayout()
         Me.SplitContainer1.SuspendLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer2.Panel1.SuspendLayout()
@@ -69,14 +65,8 @@ Partial Class Exami2
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.SplitContainer2)
         Me.SplitContainer1.Panel1MinSize = 254
-        '
-        'SplitContainer1.Panel2
-        '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox3)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox2)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox1)
         Me.SplitContainer1.Panel2MinSize = 100
-        Me.SplitContainer1.Size = New System.Drawing.Size(1178, 471)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1147, 471)
         Me.SplitContainer1.SplitterDistance = 254
         Me.SplitContainer1.SplitterIncrement = 3
         Me.SplitContainer1.SplitterWidth = 8
@@ -103,58 +93,6 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 215
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
-        '
-        'SubjectManager1
-        '
-        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectManager1.Name = "SubjectManager1"
-        Me.SubjectManager1.Size = New System.Drawing.Size(246, 207)
-        Me.SubjectManager1.TabIndex = 3
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
-        Me.RoomManager1.TabIndex = 1
-        '
-        'PlacementBox3
-        '
-        Me.PlacementBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
-        Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(284, 471)
-        Me.PlacementBox3.TabIndex = 2
-        Me.PlacementBox3.Title = "Name"
-        '
-        'PlacementBox2
-        '
-        Me.PlacementBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox2.Location = New System.Drawing.Point(310, 0)
-        Me.PlacementBox2.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox2.Name = "PlacementBox2"
-        Me.PlacementBox2.Size = New System.Drawing.Size(309, 471)
-        Me.PlacementBox2.TabIndex = 1
-        Me.PlacementBox2.Title = "Name"
-        '
-        'PlacementBox1
-        '
-        Me.PlacementBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox1.Location = New System.Drawing.Point(3, 0)
-        Me.PlacementBox1.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox1.Name = "PlacementBox1"
-        Me.PlacementBox1.Size = New System.Drawing.Size(301, 471)
-        Me.PlacementBox1.TabIndex = 0
-        Me.PlacementBox1.Title = "Name"
         '
         'SelectFolderButton
         '
@@ -214,7 +152,7 @@ Partial Class Exami2
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(619, 21)
+        Me.Label1.Location = New System.Drawing.Point(588, 21)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(144, 20)
         Me.Label1.TabIndex = 8
@@ -229,7 +167,7 @@ Partial Class Exami2
         Me.PlacementOptionsCheckedListBox.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.PlacementOptionsCheckedListBox.FormattingEnabled = True
         Me.PlacementOptionsCheckedListBox.Items.AddRange(New Object() {"Group subjects", "Group classes"})
-        Me.PlacementOptionsCheckedListBox.Location = New System.Drawing.Point(769, 12)
+        Me.PlacementOptionsCheckedListBox.Location = New System.Drawing.Point(738, 12)
         Me.PlacementOptionsCheckedListBox.Name = "PlacementOptionsCheckedListBox"
         Me.PlacementOptionsCheckedListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
         Me.PlacementOptionsCheckedListBox.Size = New System.Drawing.Size(142, 42)
@@ -240,7 +178,7 @@ Partial Class Exami2
         Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BackColor = System.Drawing.SystemColors.ControlDark
         Me.TextBox1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.TextBox1.Location = New System.Drawing.Point(917, 18)
+        Me.TextBox1.Location = New System.Drawing.Point(886, 18)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(2, 26)
         Me.TextBox1.TabIndex = 12
@@ -251,7 +189,7 @@ Partial Class Exami2
         Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox2.BackColor = System.Drawing.SystemColors.ControlDark
         Me.TextBox2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.TextBox2.Location = New System.Drawing.Point(611, 18)
+        Me.TextBox2.Location = New System.Drawing.Point(580, 18)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(2, 26)
         Me.TextBox2.TabIndex = 13
@@ -268,14 +206,14 @@ Partial Class Exami2
         Me.StatusBar.Items.AddRange(New System.Windows.Forms.ToolStripItem() {Me.ToolStripStatusLabel2, Me.HoverStatusLabel, Me.GeneralStatusLabel})
         Me.StatusBar.Location = New System.Drawing.Point(0, 531)
         Me.StatusBar.Name = "StatusBar"
-        Me.StatusBar.Size = New System.Drawing.Size(1178, 30)
+        Me.StatusBar.Size = New System.Drawing.Size(1147, 30)
         Me.StatusBar.TabIndex = 0
         Me.StatusBar.Text = "StatusStrip1"
         '
         'HoverStatusLabel
         '
         Me.HoverStatusLabel.Name = "HoverStatusLabel"
-        Me.HoverStatusLabel.Size = New System.Drawing.Size(952, 25)
+        Me.HoverStatusLabel.Size = New System.Drawing.Size(921, 25)
         Me.HoverStatusLabel.Spring = True
         Me.HoverStatusLabel.Text = "Hover a control for help"
         Me.HoverStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -295,17 +233,35 @@ Partial Class Exami2
         'PlacementViewBySelector1
         '
         Me.PlacementViewBySelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(925, 12)
+        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(894, 12)
         Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(241, 51)
         Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
         Me.PlacementViewBySelector1.Size = New System.Drawing.Size(241, 51)
         Me.PlacementViewBySelector1.TabIndex = 3
         '
+        'SubjectManager1
+        '
+        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectManager1.Name = "SubjectManager1"
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 207)
+        Me.SubjectManager1.TabIndex = 3
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
+        Me.RoomManager1.TabIndex = 1
+        '
         'Exami2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.ClientSize = New System.Drawing.Size(1147, 561)
         Me.Controls.Add(Me.PlacementViewBySelector1)
         Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
@@ -318,11 +274,10 @@ Partial Class Exami2
         Me.Controls.Add(Me.SelectFolderButton)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.StatusBar)
-        Me.MinimumSize = New System.Drawing.Size(1187, 56)
+        Me.MinimumSize = New System.Drawing.Size(1169, 56)
         Me.Name = "Exami2"
         Me.Text = "Exami2"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
-        Me.SplitContainer1.Panel2.ResumeLayout(False)
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.SplitContainer2.Panel1.ResumeLayout(False)
@@ -348,11 +303,8 @@ Partial Class Exami2
     Friend WithEvents TextBox2 As TextBox
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents StatusBar As StatusStrip
-    Friend WithEvents PlacementBox2 As PlacementBox
-    Friend WithEvents PlacementBox1 As PlacementBox
     Friend WithEvents HoverStatusLabel As ToolStripStatusLabel
     Friend WithEvents GeneralStatusLabel As ToolStripStatusLabel
-    Friend WithEvents PlacementBox3 As PlacementBox
     Friend WithEvents RoomManager1 As Exami.RoomManager
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents SubjectManager1 As SubjectManager

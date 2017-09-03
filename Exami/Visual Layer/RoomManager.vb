@@ -99,7 +99,7 @@
         End If
 
         Dim succes = delCount
-        For Each file In GetSelectedRoomFiles()
+        For Each file In GetSelectedRoomPaths()
             Try
                 My.Computer.FileSystem.DeleteFile(file, FileIO.UIOption.OnlyErrorDialogs, FileIO.RecycleOption.SendToRecycleBin, FileIO.UICancelOption.DoNothing)
             Catch ex As Exception
@@ -120,7 +120,7 @@
         Dim succes = toCopy
 
         ' Forech selected room path
-        For Each file In GetSelectedRoomFiles()
+        For Each file In GetSelectedRoomPaths()
             ' we add " - copy" to it
             Dim newFileName = IO.Path.Combine(IO.Path.GetDirectoryName(file), IO.Path.GetFileNameWithoutExtension(file) + " - copy.dd")
 
@@ -150,7 +150,7 @@
         End If
 
         ' There is exactly one so it is index 0
-        Dim currentFileName = GetSelectedRoomFiles()(0)
+        Dim currentFileName = GetSelectedRoomPaths()(0)
 
         Dim newName As String = InputBox("Choose the new name for " + PathToRoomName(currentFileName))
 
@@ -207,14 +207,14 @@
     ''' <summary>
     ''' Get a list of the file paths of the selected rooms. Thie list can be empty.
     ''' </summary>
-    Public Function GetSelectedRoomFiles() As List(Of String)
+    Public Function GetSelectedRoomPaths() As String()
         Dim roomFiles = New List(Of String)
 
         For Each item In RoomsListBox.CheckedItems
             roomFiles.Add(RoomNameToPath(item))
         Next
 
-        Return roomFiles
+        Return roomFiles.ToArray
     End Function
 
     ''' <summary>

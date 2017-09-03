@@ -10,7 +10,6 @@
 
     Public WorkingFolder As String
 
-
     ' Create room
 
     Private Sub CreateRoom() Handles RoomManager1.CreateRoom
@@ -153,4 +152,50 @@
         GeneralStatusLabel.Text = msg
     End Sub
 
+    Private Sub MakePlacementButton_Click(sender As Object, e As EventArgs) Handles MakePlacementButton.Click
+
+        Dim places = DataAccessLayer.DD.LoadAllPlaces1D(RoomManager1.GetSelectedRoomPaths)
+        Dim students = New StudentGroup(SubjectManager1.GetSelectedSubjectPaths)
+
+        If students.Count > places.Count Then
+            RaiseEvent NewStatusMessage("There is more students than places.")
+            Return
+        End If
+
+        ' This is just removing the Room flag
+        Dim groupBy = PlacementViewBySelector1.CurrentViewBy Or ViewBy.Room Xor ViewBy.Room
+
+        Dim groups = students.Separate(groupBy)
+
+        Dim placed = New List(Of Student)
+
+        Dim pos = 0
+        For Each group In groups
+            For studPos = 0 To group.Count - 1
+                group.allStudents(studPos).place = places(pos)
+                placed.Add(group.allStudents(studPos))
+                pos += 1
+            Next
+        Next
+
+        groups = New StudentGroup(placed).Separate(PlacementViewBySelector1.CurrentViewBy)
+        For Each group In groups
+            Dim str = ""
+            For Each student In group.allStudents
+                str += student.place.ToString + " " + student.ToString + Environment.NewLine
+            Next
+            MsgBox(str)
+        Next
+
+    End Sub
 End Class
+
+
+<Flags()>
+Public Enum ViewBy
+    None = 0
+    Classe = 1
+    Room = 2
+    Subject = 4
+    All = ViewBy.Classe Or ViewBy.Room Or ViewBy.Subject
+End Enum

@@ -409,6 +409,59 @@ Public Module CortexLayer
                                        End Function)
 
         End Function
+        ''' <summary>
+        ''' Get the students categorized by their rooms.
+        ''' </summary>
+        ''' <returns>A dict with the room name as key and a list of the students for the corresponding room as values.</returns>
+        Public Function GetStudentsByRoom() As Dictionary(Of String, StudentGroup)
+
+            Return GetBy(Of String)(Function(s As Student) As String
+                                        Return s.place.room
+                                    End Function)
+
+        End Function
+
+        ''' <summary>
+        ''' Separate the students by subject and/or class and/or room (in this order) depending on the <paramref name="groupBy"/>.
+        ''' </summary>
+        ''' <param name="groupBy"></param>
+        ''' <returns></returns>
+        Public Function Separate(groupBy As ViewBy) As List(Of StudentGroup)
+            Dim groupList = {Me}
+            Dim tempGroupList = New List(Of StudentGroup)
+
+            ' If we want to separate the subjects
+            If groupBy And ViewBy.Subject Then
+                ' For each differnet group (there will be only one here but anyway
+                For Each group In groupList
+                    ' We add the sub groups to the temp list
+                    tempGroupList.AddRange(group.GetStudentsBySubject().Values)
+                Next
+
+                ' And then we override the group with the subgroups
+                groupList = tempGroupList.ToArray
+                tempGroupList.Clear()
+            End If
+
+            If groupBy And ViewBy.Classe Then
+                For Each group In groupList
+                    tempGroupList.AddRange(group.GetStudentsByClass.Values)
+                Next
+                groupList = tempGroupList.ToArray
+                tempGroupList.Clear()
+            End If
+
+            If groupBy And ViewBy.Room Then
+                For Each group In groupList
+                    tempGroupList.AddRange(group.GetStudentsByRoom.Values)
+                Next
+                groupList = tempGroupList.ToArray
+                tempGroupList.Clear()
+            End If
+
+            Return groupList.ToList
+
+        End Function
 
         ' Order students (or not)
 
