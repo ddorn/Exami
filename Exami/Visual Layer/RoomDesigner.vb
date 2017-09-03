@@ -21,7 +21,7 @@
 
     Private Sub RoomDesigner_Closed() Handles Me.Closed
         Exami2.Show()
-        Exami2.ReloadWorkingFolderFolder()
+        Exami2.ReloadWorkingFolder()
     End Sub
 
     Private Sub CancelButton_Click() Handles CancelButton.Click

@@ -45,13 +45,14 @@
         RaiseEvent NewStatusMessage(path)
 
         ' We actualize everything because the folder has changed
-        ReloadWorkingFolderFolder()
+        ReloadWorkingFolder()
 
     End Sub
 
-    Public Sub ReloadWorkingFolderFolder()
+    Public Sub ReloadWorkingFolder()
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
+        SubjectManager1.SetFolder(WorkingFolder)
     End Sub
 
     ' ############## '

@@ -49,6 +49,7 @@ Partial Class RoomManager
         Me.RoomsListBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.RoomsListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.RoomsListBox.CheckOnClick = True
         Me.RoomsListBox.Enabled = False
         Me.RoomsListBox.FormattingEnabled = True

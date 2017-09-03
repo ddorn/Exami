@@ -5,7 +5,7 @@
 
     ' Tutorial shown until somthing is selected
     Dim helperRoomList = New String() {
-            "Once you've selectedthe folder",
+            "Once you've selected a folder",
             "You can create a classroom",
             "By clicking the + button",
             "Then select it",
