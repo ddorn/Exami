@@ -61,6 +61,7 @@ Partial Class PlacementBox
         Me.PrintButton.Name = "PrintButton"
         Me.PrintButton.Size = New System.Drawing.Size(42, 42)
         Me.PrintButton.TabIndex = 2
+        Me.PrintButton.Tag = "Print this part of the placement"
         Me.PrintButton.UseVisualStyleBackColor = False
         '
         'ShuffleButton
@@ -72,6 +73,7 @@ Partial Class PlacementBox
         Me.ShuffleButton.Name = "ShuffleButton"
         Me.ShuffleButton.Size = New System.Drawing.Size(42, 42)
         Me.ShuffleButton.TabIndex = 3
+        Me.ShuffleButton.Tag = "Place the students in a random order"
         Me.ShuffleButton.UseVisualStyleBackColor = True
         '
         'ByClassButton
@@ -83,6 +85,7 @@ Partial Class PlacementBox
         Me.ByClassButton.Name = "ByClassButton"
         Me.ByClassButton.Size = New System.Drawing.Size(42, 42)
         Me.ByClassButton.TabIndex = 5
+        Me.ByClassButton.Tag = "Group the students by class"
         Me.ByClassButton.UseVisualStyleBackColor = True
         '
         'SaveButton
@@ -94,6 +97,7 @@ Partial Class PlacementBox
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(42, 42)
         Me.SaveButton.TabIndex = 1
+        Me.SaveButton.Tag = "Save this part of the placement"
         Me.SaveButton.UseVisualStyleBackColor = True
         '
         'AzButton
@@ -105,6 +109,7 @@ Partial Class PlacementBox
         Me.AzButton.Name = "AzButton"
         Me.AzButton.Size = New System.Drawing.Size(42, 42)
         Me.AzButton.TabIndex = 4
+        Me.AzButton.Tag = "Place students in alphabetic order"
         Me.AzButton.UseVisualStyleBackColor = True
         '
         'NameLabel

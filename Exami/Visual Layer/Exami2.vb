@@ -82,6 +82,7 @@
     ''' <seealso cref="SetToolTipHelp(Object, EventArgs)"/>
     Sub SetUpHoverHandler(control As Control)
         AddHandler control.MouseEnter, AddressOf SetToolTipHelp
+        AddHandler control.Enter, AddressOf SetToolTipHelp
 
         For Each con In control.Controls
             SetUpHoverHandler(con)
@@ -96,4 +97,5 @@
     Sub SetStatusMessage(msg As String) Handles Me.NewStatusMessage, RoomManager1.NewStatusMessage
         GeneralStatusLabel.Text = msg
     End Sub
+
 End Class

@@ -11,13 +11,12 @@
             "Then select it",
             "And create a placement"
         }
-
     ''' <summary> 
     ''' The folder from where the rooms are shown
     ''' </summary>
     Dim folderPath As String
 
-    ' Convertion between path and names
+    ' Conversion between path and names
 
     Private Function RoomNameToPath(roomName As String) As String
         Return IO.Path.Combine(folderPath, roomName + ".dd")
@@ -26,7 +25,7 @@
         Return IO.Path.GetFileNameWithoutExtension(path)
     End Function
 
-    ' Update rooms
+    ' Update visible rooms
 
     ''' <summary>
     ''' Reload the folder to update the list of availaible rooms
@@ -72,7 +71,9 @@
 
     End Sub
 
-    ' Button clicks
+    ' ============= '
+    ' Button clicks '
+    ' ============= '
 
     ''' <summary>
     ''' Show the RoomDesigner
@@ -137,6 +138,38 @@
 
     End Sub
 
+    ''' <summary>
+    ''' Rename the selected room.
+    ''' </summary>
+    Private Sub RenameRoomButton_Click() Handles RenameRoomButton.Click
+        If CheckedNumber() <> 1 Then
+            MsgBox("You can rename rooms only one by one.")
+            RaiseEvent NewStatusMessage("You can rename rooms only one by one")
+            Return
+        End If
+
+        ' There is exactly one so it is index 0
+        Dim currentFileName = GetSelectedRoomFiles()(0)
+
+        Dim newName As String = InputBox("Choose the new name for " + PathToRoomName(currentFileName))
+
+        ' If the name i not valid, say it and do nothing
+        If Not File.IsValidFileName(newName) Then
+            RaiseEvent NewStatusMessage("I can't rename the room, the name is invalid")
+            Return
+        End If
+
+        Try
+            My.Computer.FileSystem.RenameFile(currentFileName, newName + ".dd")
+            RaiseEvent NewStatusMessage(String.Format("{0} where renamed to {1}", PathToRoomName(currentFileName), newName))
+        Catch ex As Exception
+            RaiseEvent NewStatusMessage("The rename has failed for an unknown reason.")
+        End Try
+
+        UpdateRoomList()
+
+    End Sub
+
     ' ============== '
     ' Public methods ' 
     ' ============== '
@@ -179,32 +212,4 @@
         Return RoomsListBox.CheckedIndices.Count
     End Function
 
-    Private Sub RenameRoomButton_Click() Handles RenameRoomButton.Click
-        If CheckedNumber() <> 1 Then
-            MsgBox("You can rename rooms only one by one.")
-            RaiseEvent NewStatusMessage("You can rename rooms only one by one")
-            Return
-        End If
-
-        ' There is exactly one so it is index 0
-        Dim currentFileName = GetSelectedRoomFiles()(0)
-
-        Dim newName As String = InputBox("Choose the new name for " + PathToRoomName(currentFileName))
-
-        ' If the name i not valid, say it and do nothing
-        If Not File.IsValidFileName(newName) Then
-            RaiseEvent NewStatusMessage("I can't rename the room, the name is invalid")
-            Return
-        End If
-
-        Try
-            My.Computer.FileSystem.RenameFile(currentFileName, newName + ".dd")
-            RaiseEvent NewStatusMessage(String.Format("{0} where renamed to {1}", PathToRoomName(currentFileName), newName))
-        Catch ex As Exception
-            RaiseEvent NewStatusMessage("The rename has failed for an unknown reason.")
-        End Try
-
-        UpdateRoomList()
-
-    End Sub
 End Class

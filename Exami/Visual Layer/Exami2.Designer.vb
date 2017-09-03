@@ -24,7 +24,6 @@ Partial Class Exami2
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.svListBox = New System.Windows.Forms.CheckedListBox()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ConvertFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
@@ -45,6 +44,7 @@ Partial Class Exami2
         Me.PlacementBox3 = New Exami.PlacementBox()
         Me.PlacementBox2 = New Exami.PlacementBox()
         Me.PlacementBox1 = New Exami.PlacementBox()
+        Me.SubjectManager1 = New Exami.SubjectManager()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -69,7 +69,7 @@ Partial Class Exami2
         'SplitContainer1.Panel1
         '
         Me.SplitContainer1.Panel1.Controls.Add(Me.SplitContainer2)
-        Me.SplitContainer1.Panel1MinSize = 100
+        Me.SplitContainer1.Panel1MinSize = 254
         '
         'SplitContainer1.Panel2
         '
@@ -78,8 +78,9 @@ Partial Class Exami2
         Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox1)
         Me.SplitContainer1.Panel2MinSize = 100
         Me.SplitContainer1.Size = New System.Drawing.Size(1202, 508)
-        Me.SplitContainer1.SplitterDistance = 256
-        Me.SplitContainer1.SplitterWidth = 10
+        Me.SplitContainer1.SplitterDistance = 254
+        Me.SplitContainer1.SplitterIncrement = 3
+        Me.SplitContainer1.SplitterWidth = 8
         Me.SplitContainer1.TabIndex = 7
         Me.SplitContainer1.TabStop = False
         '
@@ -93,32 +94,16 @@ Partial Class Exami2
         '
         'SplitContainer2.Panel1
         '
-        Me.SplitContainer2.Panel1.Controls.Add(Me.svListBox)
+        Me.SplitContainer2.Panel1.Controls.Add(Me.SubjectManager1)
         Me.SplitContainer2.Panel1.Padding = New System.Windows.Forms.Padding(3)
         '
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.RoomManager1)
-        Me.SplitContainer2.Size = New System.Drawing.Size(256, 508)
+        Me.SplitContainer2.Size = New System.Drawing.Size(254, 508)
         Me.SplitContainer2.SplitterDistance = 233
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
-        '
-        'svListBox
-        '
-        Me.svListBox.BackColor = System.Drawing.SystemColors.Window
-        Me.svListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.svListBox.CheckOnClick = True
-        Me.svListBox.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.svListBox.Enabled = False
-        Me.svListBox.FormattingEnabled = True
-        Me.svListBox.HorizontalScrollbar = True
-        Me.svListBox.IntegralHeight = False
-        Me.svListBox.Items.AddRange(New Object() {"First select a folder", "Then convert the .vass files", "Select one or more classes", "And create the a class plan", "Finaly create the placement"})
-        Me.svListBox.Location = New System.Drawing.Point(3, 3)
-        Me.svListBox.Name = "svListBox"
-        Me.svListBox.Size = New System.Drawing.Size(248, 225)
-        Me.svListBox.TabIndex = 2
         '
         'SelectFolderButton
         '
@@ -200,7 +185,7 @@ Partial Class Exami2
         'ViewByComboBox
         '
         Me.ViewByComboBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ViewByComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest
+        Me.ViewByComboBox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend
         Me.ViewByComboBox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems
         Me.ViewByComboBox.Items.AddRange(New Object() {"All", "Class", "Subject", "Class and subject", "Room", "Class and room", "Class Room and subject"})
         Me.ViewByComboBox.Location = New System.Drawing.Point(1002, 18)
@@ -258,7 +243,7 @@ Partial Class Exami2
         'HoverStatusLabel
         '
         Me.HoverStatusLabel.Name = "HoverStatusLabel"
-        Me.HoverStatusLabel.Size = New System.Drawing.Size(1027, 25)
+        Me.HoverStatusLabel.Size = New System.Drawing.Size(976, 25)
         Me.HoverStatusLabel.Spring = True
         Me.HoverStatusLabel.Text = "Hover a control for help"
         Me.HoverStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -267,8 +252,8 @@ Partial Class Exami2
         'GeneralStatusLabel
         '
         Me.GeneralStatusLabel.Name = "GeneralStatusLabel"
-        Me.GeneralStatusLabel.Size = New System.Drawing.Size(160, 25)
-        Me.GeneralStatusLabel.Text = "GeneralStatusLabel"
+        Me.GeneralStatusLabel.Size = New System.Drawing.Size(211, 25)
+        Me.GeneralStatusLabel.Text = "Made with love by Diego"
         Me.GeneralStatusLabel.ToolTipText = "ok"
         '
         'FolderBrowserDialog1
@@ -293,7 +278,7 @@ Partial Class Exami2
         Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
         Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
         Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(308, 508)
+        Me.PlacementBox3.Size = New System.Drawing.Size(298, 508)
         Me.PlacementBox3.Students = Nothing
         Me.PlacementBox3.TabIndex = 2
         Me.PlacementBox3.Title = "Name"
@@ -321,6 +306,14 @@ Partial Class Exami2
         Me.PlacementBox1.Students = Nothing
         Me.PlacementBox1.TabIndex = 0
         Me.PlacementBox1.Title = "Name"
+        '
+        'SubjectManager1
+        '
+        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectManager1.Name = "SubjectManager1"
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 225)
+        Me.SubjectManager1.TabIndex = 3
         '
         'Exami2
         '
@@ -359,7 +352,6 @@ Partial Class Exami2
     End Sub
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents SplitContainer2 As SplitContainer
-    Friend WithEvents svListBox As CheckedListBox
     Friend WithEvents SelectFolderButton As Button
     Friend WithEvents ConvertFolderButton As Button
     Friend WithEvents PrintAllButton As Button
@@ -380,4 +372,5 @@ Partial Class Exami2
     Friend WithEvents PlacementBox3 As PlacementBox
     Friend WithEvents RoomManager1 As Exami.RoomManager
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
+    Friend WithEvents SubjectManager1 As SubjectManager
 End Class

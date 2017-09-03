@@ -122,6 +122,12 @@
     <Compile Include="Visual Layer\RoomManager.vb">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Visual Layer\SubjectManager.Designer.vb">
+      <DependentUpon>SubjectManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\SubjectManager.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Visual Layer\Exami.resx">
@@ -144,6 +150,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\RoomManager.resx">
       <DependentUpon>RoomManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\SubjectManager.resx">
+      <DependentUpon>SubjectManager.vb</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
