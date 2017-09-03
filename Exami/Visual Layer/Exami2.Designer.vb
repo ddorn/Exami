@@ -24,6 +24,11 @@ Partial Class Exami2
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.SubjectManager1 = New Exami.SubjectManager()
+        Me.RoomManager1 = New Exami.RoomManager()
+        Me.PlacementBox3 = New Exami.PlacementBox()
+        Me.PlacementBox2 = New Exami.PlacementBox()
+        Me.PlacementBox1 = New Exami.PlacementBox()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ConvertFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
@@ -40,11 +45,6 @@ Partial Class Exami2
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GeneralStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBox3 = New Exami.PlacementBox()
-        Me.PlacementBox2 = New Exami.PlacementBox()
-        Me.PlacementBox1 = New Exami.PlacementBox()
-        Me.SubjectManager1 = New Exami.SubjectManager()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -104,6 +104,61 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 233
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
+        '
+        'SubjectManager1
+        '
+        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectManager1.Name = "SubjectManager1"
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 225)
+        Me.SubjectManager1.TabIndex = 3
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 269)
+        Me.RoomManager1.TabIndex = 1
+        '
+        'PlacementBox3
+        '
+        Me.PlacementBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
+        Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
+        Me.PlacementBox3.Name = "PlacementBox3"
+        Me.PlacementBox3.Size = New System.Drawing.Size(294, 508)
+        Me.PlacementBox3.Students = Nothing
+        Me.PlacementBox3.TabIndex = 2
+        Me.PlacementBox3.Title = "Name"
+        '
+        'PlacementBox2
+        '
+        Me.PlacementBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox2.Location = New System.Drawing.Point(310, 0)
+        Me.PlacementBox2.MinimumSize = New System.Drawing.Size(242, 2)
+        Me.PlacementBox2.Name = "PlacementBox2"
+        Me.PlacementBox2.Size = New System.Drawing.Size(309, 508)
+        Me.PlacementBox2.Students = Nothing
+        Me.PlacementBox2.TabIndex = 1
+        Me.PlacementBox2.Title = "Name"
+        '
+        'PlacementBox1
+        '
+        Me.PlacementBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBox1.Location = New System.Drawing.Point(3, 0)
+        Me.PlacementBox1.MinimumSize = New System.Drawing.Size(242, 2)
+        Me.PlacementBox1.Name = "PlacementBox1"
+        Me.PlacementBox1.Size = New System.Drawing.Size(301, 508)
+        Me.PlacementBox1.Students = Nothing
+        Me.PlacementBox1.TabIndex = 0
+        Me.PlacementBox1.Title = "Name"
         '
         'SelectFolderButton
         '
@@ -260,61 +315,6 @@ Partial Class Exami2
         'FolderBrowserDialog1
         '
         Me.FolderBrowserDialog1.SelectedPath = "C:\Users\diego\Documents\Programation\Exami\Data"
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 269)
-        Me.RoomManager1.TabIndex = 1
-        '
-        'PlacementBox3
-        '
-        Me.PlacementBox3.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
-        Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(298, 508)
-        Me.PlacementBox3.Students = Nothing
-        Me.PlacementBox3.TabIndex = 2
-        Me.PlacementBox3.Title = "Name"
-        '
-        'PlacementBox2
-        '
-        Me.PlacementBox2.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox2.Location = New System.Drawing.Point(310, 0)
-        Me.PlacementBox2.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox2.Name = "PlacementBox2"
-        Me.PlacementBox2.Size = New System.Drawing.Size(309, 508)
-        Me.PlacementBox2.Students = Nothing
-        Me.PlacementBox2.TabIndex = 1
-        Me.PlacementBox2.Title = "Name"
-        '
-        'PlacementBox1
-        '
-        Me.PlacementBox1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBox1.Location = New System.Drawing.Point(3, 0)
-        Me.PlacementBox1.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox1.Name = "PlacementBox1"
-        Me.PlacementBox1.Size = New System.Drawing.Size(301, 508)
-        Me.PlacementBox1.Students = Nothing
-        Me.PlacementBox1.TabIndex = 0
-        Me.PlacementBox1.Title = "Name"
-        '
-        'SubjectManager1
-        '
-        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectManager1.Name = "SubjectManager1"
-        Me.SubjectManager1.Size = New System.Drawing.Size(246, 225)
-        Me.SubjectManager1.TabIndex = 3
         '
         'Exami2
         '

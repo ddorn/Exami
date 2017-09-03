@@ -2,6 +2,7 @@
 
     Public Event CreateRoom()
     Public Event NewStatusMessage(msg As String)
+    Public Event SelectionChanged()
 
     ' Tutorial shown until somthing is selected
     Dim helperRoomList = New String() {
@@ -168,6 +169,13 @@
 
         UpdateRoomList()
 
+    End Sub
+
+    ''' <summary>
+    ''' Tell the world that the checked rooms has changed
+    ''' </summary>
+    Private Sub SelectionChange() Handles RoomsListBox.ItemCheck
+        RaiseEvent SelectionChanged()
     End Sub
 
     ' ============== '

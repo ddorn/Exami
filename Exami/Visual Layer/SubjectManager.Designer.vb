@@ -38,8 +38,7 @@ Partial Class SubjectManager
         Me.SubjectListBox.Items.AddRange(New Object() {"First select a folder", "Then convert the .vass files", "Select one or more classes", "And create the a class plan", "Finaly create the placement"})
         Me.SubjectListBox.Location = New System.Drawing.Point(0, 0)
         Me.SubjectListBox.Name = "SubjectListBox"
-        Me.SubjectListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
-        Me.SubjectListBox.Size = New System.Drawing.Size(243, 259)
+        Me.SubjectListBox.Size = New System.Drawing.Size(264, 238)
         Me.SubjectListBox.TabIndex = 3
         '
         'SubjectManager
@@ -48,7 +47,7 @@ Partial Class SubjectManager
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.SubjectListBox)
         Me.Name = "SubjectManager"
-        Me.Size = New System.Drawing.Size(243, 259)
+        Me.Size = New System.Drawing.Size(264, 238)
         Me.ResumeLayout(False)
 
     End Sub

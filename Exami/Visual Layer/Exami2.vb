@@ -22,7 +22,7 @@
     End Sub
 
     ' ############## '
-    ' Folder  Select '
+    ' Folder  Manage '
     ' ############## '
 
     Private Sub SelectFolder() Handles SelectFolderButton.Click
@@ -57,6 +57,34 @@
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
         SubjectManager1.SetFolder(WorkingFolder)
+
+    End Sub
+
+    Private Sub ConvertFolder() Handles ConvertFolderButton.Click
+        Dim nbFilesConverted = 0
+        Dim nbFilesFailed = 0
+
+        ' We convert each .vass file in the WorkingFolder
+        For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
+            ' Keeping track of the number converted / failed
+            If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
+                nbFilesConverted += 1
+            Else
+                nbFilesFailed += 1
+            End If
+        Next
+
+        ' Be kind, tell her what happend
+        If nbFilesConverted = 0 Then
+            RaiseEvent NewStatusMessage("There is no .vass files to convert in this folder :/")
+        ElseIf nbFilesFailed = 0 Then
+            RaiseEvent NewStatusMessage("All data processed")
+        Else
+            MsgBox(String.Format("{} files where processed but {} failed", nbFilesConverted, nbFilesFailed))
+        End If
+
+        ' Show new files 
+        ReloadWorkingFolder()
 
     End Sub
 
@@ -104,31 +132,4 @@
         GeneralStatusLabel.Text = msg
     End Sub
 
-    Private Sub ConvertFolder() Handles ConvertFolderButton.Click
-        Dim nbFilesConverted = 0
-        Dim nbFilesFailed = 0
-
-        ' We convert each .vass file in the WorkingFolder
-        For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
-            ' Keeping track of the number converted / failed
-            If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
-                nbFilesConverted += 1
-            Else
-                nbFilesFailed += 1
-            End If
-        Next
-
-        ' Be kind, tell her what happend
-        If nbFilesConverted = 0 Then
-            RaiseEvent NewStatusMessage("There is no .vass files to convert in this folder :/")
-        ElseIf nbFilesFailed = 0 Then
-            RaiseEvent NewStatusMessage("All data processed")
-        Else
-            MsgBox(String.Format("{} files where processed but {} failed", nbFilesConverted, nbFilesFailed))
-        End If
-
-        ' Show new files 
-        ReloadWorkingFolder()
-
-    End Sub
 End Class

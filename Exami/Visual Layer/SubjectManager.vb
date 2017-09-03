@@ -1,6 +1,7 @@
 ﻿Public Class SubjectManager
 
     Public Event NewStatusMessage(msg As String)
+    Public Event SelectionChanged()
 
     ' Tutorial shown until somthing is selected
     Dim helperSubjectList = New String() {
@@ -66,6 +67,14 @@
 
     End Sub
 
+    ' ============= '
+    ' Button clicks '
+    ' ============= '
+
+    Private Sub SelectionChange() Handles SubjectListBox.SelectedIndexChanged
+        RaiseEvent SelectionChanged()
+    End Sub
+
     ' ============== '
     ' Public methods ' 
     ' ============== '
@@ -105,6 +114,5 @@
     Public Function CheckedNumber() As Integer
         Return SubjectListBox.CheckedIndices.Count
     End Function
-
 
 End Class
