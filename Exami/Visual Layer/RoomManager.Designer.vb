@@ -58,6 +58,7 @@ Partial Class RoomManager
         Me.RoomsListBox.Items.AddRange(New Object() {"First select a folder", "Then create a room setup", "Select one or more classes", "Create the placement"})
         Me.RoomsListBox.Location = New System.Drawing.Point(0, 0)
         Me.RoomsListBox.Name = "RoomsListBox"
+        Me.RoomsListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
         Me.RoomsListBox.Size = New System.Drawing.Size(254, 204)
         Me.RoomsListBox.TabIndex = 7
         '

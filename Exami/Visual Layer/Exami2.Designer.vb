@@ -179,6 +179,7 @@ Partial Class Exami2
         Me.PlacementOptionsCheckedListBox.Items.AddRange(New Object() {"Group subjects", "Group classes"})
         Me.PlacementOptionsCheckedListBox.Location = New System.Drawing.Point(777, 12)
         Me.PlacementOptionsCheckedListBox.Name = "PlacementOptionsCheckedListBox"
+        Me.PlacementOptionsCheckedListBox.SelectionMode = System.Windows.Forms.SelectionMode.None
         Me.PlacementOptionsCheckedListBox.Size = New System.Drawing.Size(142, 42)
         Me.PlacementOptionsCheckedListBox.TabIndex = 5
         '
