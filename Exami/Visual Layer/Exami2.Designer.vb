@@ -131,7 +131,7 @@ Partial Class Exami2
         Me.PlacementBox3.Location = New System.Drawing.Point(625, 0)
         Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
         Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(294, 508)
+        Me.PlacementBox3.Size = New System.Drawing.Size(312, 508)
         Me.PlacementBox3.Students = Nothing
         Me.PlacementBox3.TabIndex = 2
         Me.PlacementBox3.Title = "Name"
@@ -229,6 +229,7 @@ Partial Class Exami2
         Me.PlacementOptionsCheckedListBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PlacementOptionsCheckedListBox.BackColor = System.Drawing.SystemColors.Control
         Me.PlacementOptionsCheckedListBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PlacementOptionsCheckedListBox.CheckOnClick = True
         Me.PlacementOptionsCheckedListBox.Cursor = System.Windows.Forms.Cursors.Arrow
         Me.PlacementOptionsCheckedListBox.FormattingEnabled = True
         Me.PlacementOptionsCheckedListBox.Items.AddRange(New Object() {"Group subjects", "Group classes"})

@@ -1,7 +1,7 @@
 ﻿Public Class SubjectManager
 
     Public Event NewStatusMessage(msg As String)
-    Public Event SelectionChanged()
+    Public Event SelectionChanged(selectedCount As Integer)
 
     ' Tutorial shown until somthing is selected
     Dim helperSubjectList = New String() {
@@ -71,8 +71,12 @@
     ' Button clicks '
     ' ============= '
 
-    Private Sub SelectionChange() Handles SubjectListBox.SelectedIndexChanged
-        RaiseEvent SelectionChanged()
+    Private Sub SelectionChange(sender As Object, e As ItemCheckEventArgs) Handles SubjectListBox.ItemCheck
+        If e.NewValue = CheckState.Checked Then
+            RaiseEvent SelectionChanged(CheckedNumber() + 1)
+        Else
+            RaiseEvent SelectionChanged(CheckedNumber() - 1)
+        End If
     End Sub
 
     ' ============== '

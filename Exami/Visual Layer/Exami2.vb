@@ -88,6 +88,27 @@
 
     End Sub
 
+
+    ' ############## '
+    '   Placement    '
+    ' ############## '
+
+    ' Enable MakePlacementButton when the selected stuff changes
+    Private Sub EnablePlacementFromRoom(checkedCount As Integer) Handles RoomManager1.SelectionChanged
+        If checkedCount > 0 And SubjectManager1.CheckedNumber > 0 Then
+            MakePlacementButton.Enabled = True
+        Else
+            MakePlacementButton.Enabled = False
+        End If
+    End Sub
+    Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
+        If checkedCount > 0 And RoomManager1.CheckedNumber > 0 Then
+            MakePlacementButton.Enabled = True
+        Else
+            MakePlacementButton.Enabled = False
+        End If
+    End Sub
+
     ' ############## '
     ' Hover Tool Tip '
     ' ############## '
