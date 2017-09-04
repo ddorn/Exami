@@ -26,9 +26,7 @@ Partial Class Exami2
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.SubjectManager1 = New Exami.SubjectManager()
         Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBox3 = New Exami.PlacementBox()
-        Me.PlacementBox2 = New Exami.PlacementBox()
-        Me.PlacementBox1 = New Exami.PlacementBox()
+        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ConvertFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
@@ -72,9 +70,7 @@ Partial Class Exami2
         '
         'SplitContainer1.Panel2
         '
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox3)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox2)
-        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBox1)
+        Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBoxes1)
         Me.SplitContainer1.Panel2MinSize = 100
         Me.SplitContainer1.Size = New System.Drawing.Size(1147, 471)
         Me.SplitContainer1.SplitterDistance = 254
@@ -122,32 +118,13 @@ Partial Class Exami2
         Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
         Me.RoomManager1.TabIndex = 1
         '
-        'PlacementBox3
+        'PlacementBoxes1
         '
-        Me.PlacementBox3.Location = New System.Drawing.Point(605, 0)
-        Me.PlacementBox3.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox3.Name = "PlacementBox3"
-        Me.PlacementBox3.Size = New System.Drawing.Size(277, 471)
-        Me.PlacementBox3.TabIndex = 2
-        Me.PlacementBox3.Title = "Title"
-        '
-        'PlacementBox2
-        '
-        Me.PlacementBox2.Location = New System.Drawing.Point(314, 0)
-        Me.PlacementBox2.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox2.Name = "PlacementBox2"
-        Me.PlacementBox2.Size = New System.Drawing.Size(285, 471)
-        Me.PlacementBox2.TabIndex = 1
-        Me.PlacementBox2.Title = "Title"
-        '
-        'PlacementBox1
-        '
-        Me.PlacementBox1.Location = New System.Drawing.Point(-1, 0)
-        Me.PlacementBox1.MinimumSize = New System.Drawing.Size(242, 2)
-        Me.PlacementBox1.Name = "PlacementBox1"
-        Me.PlacementBox1.Size = New System.Drawing.Size(309, 471)
-        Me.PlacementBox1.TabIndex = 0
-        Me.PlacementBox1.Title = "Title"
+        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
+        Me.PlacementBoxes1.Name = "PlacementBoxes1"
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(885, 471)
+        Me.PlacementBoxes1.TabIndex = 14
         '
         'SelectFolderButton
         '
@@ -200,7 +177,7 @@ Partial Class Exami2
         Me.MakePlacementButton.Size = New System.Drawing.Size(135, 34)
         Me.MakePlacementButton.TabIndex = 4
         Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
-        Me.MakePlacementButton.Text = "Make placement"
+        Me.MakePlacementButton.Text = "&Make placement"
         Me.MakePlacementButton.UseVisualStyleBackColor = True
         '
         'Label1
@@ -347,7 +324,5 @@ Partial Class Exami2
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents SubjectManager1 As SubjectManager
     Friend WithEvents PlacementViewBySelector1 As PlacementViewBySelector
-    Friend WithEvents PlacementBox3 As PlacementBox
-    Friend WithEvents PlacementBox2 As PlacementBox
-    Friend WithEvents PlacementBox1 As PlacementBox
+    Friend WithEvents PlacementBoxes1 As PlacementBoxes
 End Class

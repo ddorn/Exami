@@ -426,12 +426,12 @@ Public Module CortexLayer
         ''' </summary>
         ''' <param name="groupBy"></param>
         ''' <returns></returns>
-        Public Function Separate(groupBy As ViewBy) As List(Of StudentGroup)
+        Public Function Separate(groupBy As GroupType) As List(Of StudentGroup)
             Dim groupList = {Me}
             Dim tempGroupList = New List(Of StudentGroup)
 
             ' If we want to separate the subjects
-            If groupBy And ViewBy.Subject Then
+            If groupBy And GroupType.Subject Then
                 ' For each differnet group (there will be only one here but anyway
                 For Each group In groupList
                     ' We add the sub groups to the temp list
@@ -443,7 +443,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And ViewBy.Classe Then
+            If groupBy And GroupType.Classe Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByClass.Values)
                 Next
@@ -451,7 +451,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And ViewBy.Room Then
+            If groupBy And GroupType.Room Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByRoom.Values)
                 Next
@@ -513,6 +513,30 @@ Public Module CortexLayer
                 Return allStudents.Count
             End Get
         End Property
+
+        ' 
+
+        Public Function GetNameAs(by As GroupType) As String
+            Dim parts = New List(Of String)
+
+            If by And GroupType.Subject Then
+                parts.Add(allStudents(0).classUnit.subject)
+            End If
+
+            If by And GroupType.Classe Then
+                parts.Add(allStudents(0).classUnit.GetTeacherFullName)
+            End If
+
+            If by And GroupType.Room Then
+                parts.Add(allStudents(0).place.room)
+            End If
+
+            If parts.Count > 0 Then
+                Return String.Join(" - ", parts)
+            Else
+                Return "All"
+            End If
+        End Function
 
     End Class
 

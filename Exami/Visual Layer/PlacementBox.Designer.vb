@@ -23,33 +23,14 @@ Partial Class PlacementBox
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlacementBox))
-        Me.TextBox = New System.Windows.Forms.RichTextBox()
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.ShuffleButton = New System.Windows.Forms.Button()
         Me.ByClassButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.AzButton = New System.Windows.Forms.Button()
-        Me.NameLabel = New System.Windows.Forms.Label()
+        Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
+        Me.TitleLabel = New System.Windows.Forms.TextBox()
         Me.SuspendLayout()
-        '
-        'TextBox
-        '
-        Me.TextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox.BackColor = System.Drawing.SystemColors.Window
-        Me.TextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TextBox.HideSelection = False
-        Me.TextBox.Location = New System.Drawing.Point(0, 39)
-        Me.TextBox.Name = "TextBox"
-        Me.TextBox.ReadOnly = True
-        Me.TextBox.RightMargin = 4
-        Me.TextBox.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None
-        Me.TextBox.Size = New System.Drawing.Size(242, 302)
-        Me.TextBox.TabIndex = 0
-        Me.TextBox.TabStop = False
-        Me.TextBox.Text = ""
-        Me.TextBox.WordWrap = False
         '
         'PrintButton
         '
@@ -117,40 +98,59 @@ Partial Class PlacementBox
         Me.AzButton.Tag = "Place students in alphabetic order"
         Me.AzButton.UseVisualStyleBackColor = True
         '
-        'NameLabel
+        'PlacementTextBox
         '
-        Me.NameLabel.Dock = System.Windows.Forms.DockStyle.Top
-        Me.NameLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.NameLabel.Location = New System.Drawing.Point(0, 0)
-        Me.NameLabel.Name = "NameLabel"
-        Me.NameLabel.Size = New System.Drawing.Size(242, 36)
-        Me.NameLabel.TabIndex = 6
-        Me.NameLabel.Text = "Title"
-        Me.NameLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
+        Me.PlacementTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.PlacementTextBox.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.PlacementTextBox.Location = New System.Drawing.Point(0, 39)
+        Me.PlacementTextBox.Name = "PlacementTextBox"
+        Me.PlacementTextBox.Size = New System.Drawing.Size(242, 302)
+        Me.PlacementTextBox.TabIndex = 8
+        Me.PlacementTextBox.Text = ""
+        Me.PlacementTextBox.WordWrap = False
+        '
+        'TitleLabel
+        '
+        Me.TitleLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
+            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.TitleLabel.BackColor = System.Drawing.SystemColors.Control
+        Me.TitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.None
+        Me.TitleLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.TitleLabel.Location = New System.Drawing.Point(0, 8)
+        Me.TitleLabel.Name = "TitleLabel"
+        Me.TitleLabel.Size = New System.Drawing.Size(242, 25)
+        Me.TitleLabel.TabIndex = 9
+        Me.TitleLabel.TabStop = False
+        Me.TitleLabel.Text = "Title"
+        Me.TitleLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
+        Me.TitleLabel.WordWrap = False
         '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.Controls.Add(Me.NameLabel)
+        Me.Controls.Add(Me.TitleLabel)
+        Me.Controls.Add(Me.PlacementTextBox)
         Me.Controls.Add(Me.AzButton)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.ByClassButton)
         Me.Controls.Add(Me.ShuffleButton)
         Me.Controls.Add(Me.PrintButton)
-        Me.Controls.Add(Me.TextBox)
         Me.MinimumSize = New System.Drawing.Size(242, 2)
         Me.Name = "PlacementBox"
         Me.Size = New System.Drawing.Size(242, 392)
         Me.ResumeLayout(False)
+        Me.PerformLayout()
 
     End Sub
-
-    Friend WithEvents TextBox As RichTextBox
     Friend WithEvents PrintButton As Button
     Friend WithEvents ShuffleButton As Button
     Friend WithEvents ByClassButton As Button
     Friend WithEvents SaveButton As Button
     Friend WithEvents AzButton As Button
-    Friend WithEvents NameLabel As Label
+    Friend WithEvents PlacementTextBox As RichTextBox
+    Friend WithEvents TitleLabel As TextBox
 End Class
