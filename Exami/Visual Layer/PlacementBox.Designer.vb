@@ -105,26 +105,26 @@ Partial Class PlacementBox
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.PlacementTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.PlacementTextBox.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PlacementTextBox.Location = New System.Drawing.Point(0, 39)
+        Me.PlacementTextBox.Location = New System.Drawing.Point(0, 71)
         Me.PlacementTextBox.Name = "PlacementTextBox"
-        Me.PlacementTextBox.Size = New System.Drawing.Size(242, 302)
+        Me.PlacementTextBox.Size = New System.Drawing.Size(242, 270)
         Me.PlacementTextBox.TabIndex = 8
         Me.PlacementTextBox.Text = ""
         Me.PlacementTextBox.WordWrap = False
         '
         'TitleLabel
         '
-        Me.TitleLabel.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TitleLabel.BackColor = System.Drawing.SystemColors.Control
         Me.TitleLabel.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.TitleLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 11.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.TitleLabel.Location = New System.Drawing.Point(0, 8)
+        Me.TitleLabel.Dock = System.Windows.Forms.DockStyle.Top
+        Me.TitleLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle))
+        Me.TitleLabel.Location = New System.Drawing.Point(0, 0)
+        Me.TitleLabel.Multiline = True
         Me.TitleLabel.Name = "TitleLabel"
-        Me.TitleLabel.Size = New System.Drawing.Size(242, 25)
-        Me.TitleLabel.TabIndex = 9
+        Me.TitleLabel.Size = New System.Drawing.Size(242, 65)
+        Me.TitleLabel.TabIndex = 0
         Me.TitleLabel.TabStop = False
-        Me.TitleLabel.Text = "Title"
+        Me.TitleLabel.Text = "Subject" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Teacher" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Room"
         Me.TitleLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.TitleLabel.WordWrap = False
         '

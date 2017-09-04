@@ -13,6 +13,8 @@
         End Set
     End Property
 
+
+
     Public Sub SetContents(students As StudentGroup, places As List(Of Place))
         Me.places = places
         Me.students = students
@@ -80,4 +82,5 @@
         Me.places.Sort()
         UpdateDisplay()
     End Sub
+
 End Class

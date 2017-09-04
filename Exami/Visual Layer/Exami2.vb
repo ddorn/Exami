@@ -1,11 +1,5 @@
 ﻿Public Class Exami2
 
-    Public Event CreateRoomEvent()
-    Public Event DeleteRoomEvent()
-    Public Event PrintAllEvent()
-    Public Event SaveAllEvent()
-    Public Event MakePlacementEvent()
-    Public Event FolderSelected(path As String)
     Public Event NewStatusMessage(msg As String)
 
     Public WorkingFolder As String
@@ -24,6 +18,9 @@
     ' Folder  Manage '
     ' ############## '
 
+    ''' <summary>
+    ''' Shows the FolderDialog, sets the WorkingFolder and loads it.
+    ''' </summary>
     Private Sub SelectFolder() Handles SelectFolderButton.Click
 
         ' Prompt the user for a folder
@@ -51,6 +48,9 @@
 
     End Sub
 
+    ''' <summary>
+    ''' (Re)load the WorkingFolder, and then the room and subjects managers.
+    ''' </summary>
     Public Sub ReloadWorkingFolder()
 
         ' Update the class and rooms managers
@@ -59,6 +59,9 @@
 
     End Sub
 
+    ''' <summary>
+    ''' Converts the all the vass files in the workingFolder to sv ones. Informs the user of the succes of the operation
+    ''' </summary>
     Private Sub ConvertFolder() Handles ConvertFolderButton.Click
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
@@ -74,12 +77,12 @@
         Next
 
         ' Be kind, tell her what happend
-        If nbFilesConverted = 0 Then
+        If nbFilesConverted = 0 And nbFilesFailed = 0 Then
             RaiseEvent NewStatusMessage("There is no .vass files to convert in this folder :/")
         ElseIf nbFilesFailed = 0 Then
             RaiseEvent NewStatusMessage("All data processed")
         Else
-            MsgBox(String.Format("{} files where processed but {} failed", nbFilesConverted, nbFilesFailed))
+            RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", nbFilesConverted, nbFilesFailed))
         End If
 
         ' Show new files 
@@ -94,6 +97,8 @@
 
     ' Enable MakePlacementButton when the selected stuff changes
     Private Sub EnablePlacementFromRoom(checkedCount As Integer) Handles RoomManager1.SelectionChanged
+        ' When the user selects an item in the RoomManager that makes more than 0 items selected and there is some subject selected too
+        ' Aka both have selected subject/room now
         If checkedCount > 0 And SubjectManager1.CheckedNumber > 0 Then
             MakePlacementButton.Enabled = True
         Else
@@ -108,7 +113,10 @@
         End If
     End Sub
 
-    Private Sub MakePlacementButton_Click(sender As Object, e As EventArgs) Handles MakePlacementButton.Click
+    ''' <summary>
+    ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
+    ''' </summary>
+    Private Sub MakePlacement() Handles MakePlacementButton.Click
 
         Dim places = DataAccessLayer.DD.LoadAllPlaces1D(RoomManager1.GetSelectedRoomPaths)
         Dim students = New StudentGroup(SubjectManager1.GetSelectedSubjectPaths)
@@ -146,20 +154,6 @@
         Next
 
         PlacementBoxes1.SetPlacements(studDict, placeDict)
-
-
-        Return
-
-        ' Show the placement in msgboxes
-
-        groups = New StudentGroup(placed).Separate(PlacementViewBySelector1.CurrentViewBy)
-        For Each group In groups
-            Dim str = ""
-            For Each student In group.allStudents
-                str += student.place.ToString + " " + student.ToString + Environment.NewLine
-            Next
-            MsgBox(str)
-        Next
 
     End Sub
 
@@ -211,6 +205,9 @@
 End Class
 
 
+''' <summary>
+''' This enumeration represents the possibilities for grouping students.
+''' </summary>
 <Flags()>
 Public Enum GroupType
     None = 0
