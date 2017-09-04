@@ -199,7 +199,7 @@
     ''' Recursively add handler for when the mouse passes over a control to SetToolTipHelp.
     ''' </summary>
     ''' <param name="control">The control to add to the ToolTipHelp</param>
-    ''' <seealso cref="SetToolTipHelp(Object, EventArgs)"/>
+    ''' <seealso cref="SetToolTipHelp(Control, EventArgs)"/>
     Sub SetUpHoverHandler(control As Control)
 
         ' We add the handler

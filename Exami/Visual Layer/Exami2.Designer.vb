@@ -24,6 +24,9 @@ Partial Class Exami2
     Private Sub InitializeComponent()
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.SubjectManager1 = New Exami.SubjectManager()
+        Me.RoomManager1 = New Exami.RoomManager()
+        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ConvertFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
@@ -39,9 +42,6 @@ Partial Class Exami2
         Me.GeneralStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
-        Me.SubjectManager1 = New Exami.SubjectManager()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -99,6 +99,32 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 215
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
+        '
+        'SubjectManager1
+        '
+        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectManager1.Name = "SubjectManager1"
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 207)
+        Me.SubjectManager1.TabIndex = 3
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
+        Me.RoomManager1.TabIndex = 1
+        '
+        'PlacementBoxes1
+        '
+        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
+        Me.PlacementBoxes1.Name = "PlacementBoxes1"
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(885, 471)
+        Me.PlacementBoxes1.TabIndex = 14
         '
         'SelectFolderButton
         '
@@ -244,32 +270,6 @@ Partial Class Exami2
         Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
         Me.PlacementViewBySelector1.Size = New System.Drawing.Size(241, 51)
         Me.PlacementViewBySelector1.TabIndex = 3
-        '
-        'SubjectManager1
-        '
-        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectManager1.Name = "SubjectManager1"
-        Me.SubjectManager1.Size = New System.Drawing.Size(246, 207)
-        Me.SubjectManager1.TabIndex = 3
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
-        Me.RoomManager1.TabIndex = 1
-        '
-        'PlacementBoxes1
-        '
-        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
-        Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(885, 471)
-        Me.PlacementBoxes1.TabIndex = 14
         '
         'Exami2
         '

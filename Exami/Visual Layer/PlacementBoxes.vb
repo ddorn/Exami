@@ -8,7 +8,7 @@
 
         Dim boxWidth = Me.Width / students.Count - 3
         Dim curPosX = 0
-        Dim box As PlacementBox
+        Dim box As PlacementBox = Nothing
 
         For Each boxName In students.Keys
             box = New PlacementBox()
@@ -28,8 +28,6 @@
         Next
 
         box.Anchor = box.Anchor Or AnchorStyles.Right
-
-
 
     End Sub
 
