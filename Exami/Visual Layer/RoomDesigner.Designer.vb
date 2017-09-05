@@ -36,7 +36,7 @@ Partial Class RoomDesigner
         'RowNumericUpDown
         '
         Me.RowNumericUpDown.Location = New System.Drawing.Point(527, 246)
-        Me.RowNumericUpDown.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.RowNumericUpDown.Maximum = New Decimal(New Integer() {26, 0, 0, 0})
         Me.RowNumericUpDown.Name = "RowNumericUpDown"
         Me.RowNumericUpDown.Size = New System.Drawing.Size(120, 26)
         Me.RowNumericUpDown.TabIndex = 0

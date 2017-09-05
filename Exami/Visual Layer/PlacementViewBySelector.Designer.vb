@@ -64,6 +64,8 @@ Partial Class PlacementViewBySelector
         'ClassCheckBox
         '
         Me.ClassCheckBox.AutoSize = True
+        Me.ClassCheckBox.Checked = True
+        Me.ClassCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
         Me.ClassCheckBox.Location = New System.Drawing.Point(72, 0)
         Me.ClassCheckBox.Name = "ClassCheckBox"
         Me.ClassCheckBox.Size = New System.Drawing.Size(74, 24)

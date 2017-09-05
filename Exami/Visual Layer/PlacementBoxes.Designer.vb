@@ -29,7 +29,7 @@ Partial Class PlacementBoxes
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Name = "PlacementBoxes"
-        Me.Size = New System.Drawing.Size(809, 437)
+        Me.Size = New System.Drawing.Size(552, 316)
         Me.ResumeLayout(False)
 
     End Sub
