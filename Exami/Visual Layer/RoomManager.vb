@@ -242,7 +242,7 @@ Public Class RoomManager
     Public Sub SetFolder(path As String)
 
         If path Is Nothing Or path = "" Then
-            Debug.Print("The path in RoomManager.SetFolder was Nothing or "".")
+            Debug.Print("The path in RoomManager.SetFolder was Nothing or """".")
             Return
         End If
 

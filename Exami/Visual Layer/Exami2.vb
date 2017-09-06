@@ -99,7 +99,7 @@
     Private Sub EnablePlacementFromRoom(checkedCount As Integer) Handles RoomManager1.SelectionChanged
         ' When the user selects an item in the RoomManager that makes more than 0 items selected and there is some subject selected too
         ' Aka both have selected subject/room now
-        If checkedCount > 0 And SubjectManager1.CheckedNumber > 0 Then
+        If checkedCount > 0 And SubjectManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
             MakePlacementButton.Enabled = False

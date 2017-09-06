@@ -1,10 +1,16 @@
-﻿Public Class SubjectManager
+﻿''' <summary>
+''' This control wraps a CheckedListBox to select subjects in a folder.
+''' </summary>
+Public Class SubjectManager
+
+    ' This class has lot of similarities with RoomManager and there is lot of duplicated code.
+    ' It is maybe a good idea to make a special class inheriting CheckedTextBox for the use i'm doing of it
 
     Public Event NewStatusMessage(msg As String)
     Public Event SelectionChanged(selectedCount As Integer)
 
     ' Tutorial shown until somthing is selected
-    Dim helperSubjectList = New String() {
+    Private helperSubjectList = New String() {
             "Once you've selected a folder",
             "Convert the vass files",
             "By clicking 'Convert Files'",
@@ -14,7 +20,17 @@
     ''' <summary> 
     ''' The folder from where the subjects are shown
     ''' </summary>
-    Dim folderPath As String
+    Private folderPath As String
+
+    Sub New()
+
+        ' This call is required by the designer.
+        InitializeComponent()
+
+        ' Add any initialization after the InitializeComponent() call.
+        UpdateSubjectList()
+
+    End Sub
 
     ' Conversion between path and names
 
@@ -31,6 +47,7 @@
     ''' Reload the folder to update the list of availaible subjects
     ''' </summary>
     Private Sub UpdateSubjectList()
+
         Dim thereIsSubjectsInTheFolder As Boolean = False
         Dim subjects As String() = helperSubjectList
 
@@ -52,6 +69,7 @@
 
         ' Put subjects in the CheckedListBox
 
+        ' Begin and EndUpdate makes the box not flicker and update in one step instead of updating Items.Count +1 times.
         SubjectListBox.BeginUpdate()
         SubjectListBox.Items.Clear()
         ' We add each file name (without folder/extension)
@@ -71,12 +89,19 @@
     ' Button clicks '
     ' ============= '
 
+    ''' <summary>
+    ''' Tell the world that the checked rooms has changed, this just raises an event with the current number of checked rooms.
+    ''' </summary>
     Private Sub SelectionChange(sender As Object, e As ItemCheckEventArgs) Handles SubjectListBox.ItemCheck
+
         If e.NewValue = CheckState.Checked Then
-            RaiseEvent SelectionChanged(CheckedNumber() + 1)
+            ' There is one more room if now it is checked
+            RaiseEvent SelectionChanged(CheckedCount() + 1)
         Else
-            RaiseEvent SelectionChanged(CheckedNumber() - 1)
+            ' There is one less if it was unchecked
+            RaiseEvent SelectionChanged(CheckedCount() - 1)
         End If
+
     End Sub
 
     ' ============== '
@@ -84,18 +109,19 @@
     ' ============== '
 
     ''' <summary>
-    ''' The SubjectManager will show the subjects of the given folder.
+    ''' The SubjectManager will now show the subjects of the given folder.
     ''' </summary>
     ''' <param name="path">The folder to get subjects from.</param>
     Public Sub SetFolder(path As String)
 
         If path Is Nothing Or path = "" Then
+            Debug.Print("The path in SubjectManager.SetFolder was """" or Nothing.")
             Return
         End If
 
         ' We update the folder
         folderPath = path
-        ' And then what we know about it
+
         UpdateSubjectList()
     End Sub
 
@@ -103,6 +129,7 @@
     ''' Get a list of the file paths of the selected subjects. Thie list can be empty.
     ''' </summary>
     Public Function GetSelectedSubjectPaths() As String()
+
         Dim subjectPaths = New List(Of String)
 
         For Each item In SubjectListBox.CheckedItems
@@ -110,12 +137,13 @@
         Next
 
         Return subjectPaths.ToArray
+
     End Function
 
     ''' <summary>
     ''' The number of checked subjects
     ''' </summary>
-    Public Function CheckedNumber() As Integer
+    Public Function CheckedCount() As Integer
         Return SubjectListBox.CheckedIndices.Count
     End Function
 

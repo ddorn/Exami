@@ -514,7 +514,7 @@ Public Module DataAccessLayer
     Class File
 
         ''' <summary>
-        ''' Get an array of all files with a specific extention in a givem folder
+        ''' Get an array of all files with a specific extention in a given folder
         ''' </summary>
         ''' <param name="path">The path to the folder</param>
         ''' <param name="extention">The extention of files to return (ex: ".vass")</param>
