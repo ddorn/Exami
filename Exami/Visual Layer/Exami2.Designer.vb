@@ -22,6 +22,7 @@ Partial Class Exami2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Exami2))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
         Me.SubjectManager1 = New Exami.SubjectManager()
@@ -32,10 +33,8 @@ Partial Class Exami2
         Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.SaveAllButton = New System.Windows.Forms.Button()
         Me.MakePlacementButton = New System.Windows.Forms.Button()
-        Me.Label1 = New System.Windows.Forms.Label()
         Me.PlacementOptionsCheckedListBox = New System.Windows.Forms.CheckedListBox()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
@@ -128,18 +127,20 @@ Partial Class Exami2
         '
         'SelectFolderButton
         '
+        Me.SelectFolderButton.Image = CType(resources.GetObject("SelectFolderButton.Image"), System.Drawing.Image)
         Me.SelectFolderButton.Location = New System.Drawing.Point(12, 14)
         Me.SelectFolderButton.Name = "SelectFolderButton"
-        Me.SelectFolderButton.Size = New System.Drawing.Size(123, 34)
+        Me.SelectFolderButton.Size = New System.Drawing.Size(148, 34)
         Me.SelectFolderButton.TabIndex = 0
         Me.SelectFolderButton.Tag = "Select the folder containing the .vass files"
         Me.SelectFolderButton.Text = "Select Folder"
+        Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.SelectFolderButton.UseVisualStyleBackColor = True
         '
         'ConvertFolderButton
         '
         Me.ConvertFolderButton.Enabled = False
-        Me.ConvertFolderButton.Location = New System.Drawing.Point(141, 14)
+        Me.ConvertFolderButton.Location = New System.Drawing.Point(161, 14)
         Me.ConvertFolderButton.Name = "ConvertFolderButton"
         Me.ConvertFolderButton.Size = New System.Drawing.Size(123, 34)
         Me.ConvertFolderButton.TabIndex = 1
@@ -150,7 +151,7 @@ Partial Class Exami2
         'PrintAllButton
         '
         Me.PrintAllButton.Enabled = False
-        Me.PrintAllButton.Location = New System.Drawing.Point(270, 14)
+        Me.PrintAllButton.Location = New System.Drawing.Point(290, 14)
         Me.PrintAllButton.Name = "PrintAllButton"
         Me.PrintAllButton.Size = New System.Drawing.Size(76, 34)
         Me.PrintAllButton.TabIndex = 2
@@ -161,7 +162,7 @@ Partial Class Exami2
         'SaveAllButton
         '
         Me.SaveAllButton.Enabled = False
-        Me.SaveAllButton.Location = New System.Drawing.Point(352, 14)
+        Me.SaveAllButton.Location = New System.Drawing.Point(372, 14)
         Me.SaveAllButton.Name = "SaveAllButton"
         Me.SaveAllButton.Size = New System.Drawing.Size(77, 34)
         Me.SaveAllButton.TabIndex = 3
@@ -172,23 +173,13 @@ Partial Class Exami2
         'MakePlacementButton
         '
         Me.MakePlacementButton.Enabled = False
-        Me.MakePlacementButton.Location = New System.Drawing.Point(435, 14)
+        Me.MakePlacementButton.Location = New System.Drawing.Point(455, 14)
         Me.MakePlacementButton.Name = "MakePlacementButton"
         Me.MakePlacementButton.Size = New System.Drawing.Size(135, 34)
         Me.MakePlacementButton.TabIndex = 4
         Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
         Me.MakePlacementButton.Text = "&Make placement"
         Me.MakePlacementButton.UseVisualStyleBackColor = True
-        '
-        'Label1
-        '
-        Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(588, 21)
-        Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(144, 20)
-        Me.Label1.TabIndex = 8
-        Me.Label1.Text = "Placement options:"
         '
         'PlacementOptionsCheckedListBox
         '
@@ -215,17 +206,6 @@ Partial Class Exami2
         Me.TextBox1.Size = New System.Drawing.Size(2, 26)
         Me.TextBox1.TabIndex = 12
         Me.TextBox1.TabStop = False
-        '
-        'TextBox2
-        '
-        Me.TextBox2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox2.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.TextBox2.Cursor = System.Windows.Forms.Cursors.Default
-        Me.TextBox2.Location = New System.Drawing.Point(580, 18)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(2, 26)
-        Me.TextBox2.TabIndex = 13
-        Me.TextBox2.TabStop = False
         '
         'ToolStripStatusLabel2
         '
@@ -277,10 +257,8 @@ Partial Class Exami2
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1147, 561)
         Me.Controls.Add(Me.PlacementViewBySelector1)
-        Me.Controls.Add(Me.TextBox2)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.PlacementOptionsCheckedListBox)
-        Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.MakePlacementButton)
         Me.Controls.Add(Me.SaveAllButton)
         Me.Controls.Add(Me.PrintAllButton)
@@ -312,10 +290,8 @@ Partial Class Exami2
     Friend WithEvents PrintAllButton As Button
     Friend WithEvents SaveAllButton As Button
     Friend WithEvents MakePlacementButton As Button
-    Friend WithEvents Label1 As Label
     Friend WithEvents PlacementOptionsCheckedListBox As CheckedListBox
     Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents StatusBar As StatusStrip
     Friend WithEvents HoverStatusLabel As ToolStripStatusLabel
