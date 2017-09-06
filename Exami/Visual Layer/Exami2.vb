@@ -106,7 +106,7 @@
         End If
     End Sub
     Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
-        If checkedCount > 0 And RoomManager1.CheckedNumber > 0 Then
+        If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
             MakePlacementButton.Enabled = False
