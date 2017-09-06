@@ -523,6 +523,10 @@ Public Module DataAccessLayer
             Dim NamesArray = New List(Of String)
             Dim fullName As String
 
+            If Not IO.Directory.Exists(path) Then
+                Return {}
+            End If
+
             For Each file In IO.Directory.EnumerateFiles(path)
                 If IO.Path.GetExtension(file) = extention Then
 
