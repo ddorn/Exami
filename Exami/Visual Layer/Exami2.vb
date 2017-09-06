@@ -43,9 +43,10 @@
         ' We actualize everything because the folder has changed
         ReloadWorkingFolder()
 
-        ' Allow to convert the selected folder
-        ConvertFolderButton.Enabled = True
-
+        ' We automatically convert the folder every time
+        ' On click less for this user that will do that automatically
+        ' And more room in the screen for other buttons
+        ConvertFolder()
     End Sub
 
     ''' <summary>
@@ -62,7 +63,7 @@
     ''' <summary>
     ''' Converts the all the vass files in the workingFolder to sv ones. Informs the user of the succes of the operation
     ''' </summary>
-    Private Sub ConvertFolder() Handles ConvertFolderButton.Click
+    Private Sub ConvertFolder()
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
 
