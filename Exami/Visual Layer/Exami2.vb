@@ -63,7 +63,7 @@
     ''' <summary>
     ''' Converts the all the vass files in the workingFolder to sv ones. Informs the user of the succes of the operation
     ''' </summary>
-    Private Sub ConvertFolder()
+    Private Sub ConvertFolder() Handles ReloadFolderButton.Click
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
 
@@ -79,9 +79,9 @@
 
         ' Be kind, tell her what happend
         If nbFilesConverted = 0 And nbFilesFailed = 0 Then
-            RaiseEvent NewStatusMessage("There is no .vass files to convert in this folder :/")
+            RaiseEvent NewStatusMessage("There is no files to convert in this folder :/")
         ElseIf nbFilesFailed = 0 Then
-            RaiseEvent NewStatusMessage("All data processed")
+
         Else
             RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", nbFilesConverted, nbFilesFailed))
         End If

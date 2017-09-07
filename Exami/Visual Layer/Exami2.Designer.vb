@@ -39,6 +39,7 @@ Partial Class Exami2
         Me.GeneralStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
+        Me.ReloadFolderButton = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -138,7 +139,7 @@ Partial Class Exami2
         'PrintAllButton
         '
         Me.PrintAllButton.Enabled = False
-        Me.PrintAllButton.Location = New System.Drawing.Point(166, 14)
+        Me.PrintAllButton.Location = New System.Drawing.Point(199, 14)
         Me.PrintAllButton.Name = "PrintAllButton"
         Me.PrintAllButton.Size = New System.Drawing.Size(76, 34)
         Me.PrintAllButton.TabIndex = 2
@@ -149,7 +150,7 @@ Partial Class Exami2
         'SaveAllButton
         '
         Me.SaveAllButton.Enabled = False
-        Me.SaveAllButton.Location = New System.Drawing.Point(248, 14)
+        Me.SaveAllButton.Location = New System.Drawing.Point(281, 14)
         Me.SaveAllButton.Name = "SaveAllButton"
         Me.SaveAllButton.Size = New System.Drawing.Size(77, 34)
         Me.SaveAllButton.TabIndex = 3
@@ -160,12 +161,15 @@ Partial Class Exami2
         'MakePlacementButton
         '
         Me.MakePlacementButton.Enabled = False
-        Me.MakePlacementButton.Location = New System.Drawing.Point(331, 14)
+        Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
+        Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MakePlacementButton.Location = New System.Drawing.Point(364, 14)
         Me.MakePlacementButton.Name = "MakePlacementButton"
-        Me.MakePlacementButton.Size = New System.Drawing.Size(135, 34)
+        Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
         Me.MakePlacementButton.TabIndex = 4
         Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
         Me.MakePlacementButton.Text = "&Make placement"
+        Me.MakePlacementButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.MakePlacementButton.UseVisualStyleBackColor = True
         '
         'TextBox1
@@ -197,7 +201,7 @@ Partial Class Exami2
         'HoverStatusLabel
         '
         Me.HoverStatusLabel.Name = "HoverStatusLabel"
-        Me.HoverStatusLabel.Size = New System.Drawing.Size(921, 25)
+        Me.HoverStatusLabel.Size = New System.Drawing.Size(952, 25)
         Me.HoverStatusLabel.Spring = True
         Me.HoverStatusLabel.Text = "Hover a control for help"
         Me.HoverStatusLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft
@@ -223,11 +227,21 @@ Partial Class Exami2
         Me.PlacementViewBySelector1.Size = New System.Drawing.Size(241, 51)
         Me.PlacementViewBySelector1.TabIndex = 3
         '
+        'ReloadFolderButton
+        '
+        Me.ReloadFolderButton.Image = CType(resources.GetObject("ReloadFolderButton.Image"), System.Drawing.Image)
+        Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 14)
+        Me.ReloadFolderButton.Name = "ReloadFolderButton"
+        Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
+        Me.ReloadFolderButton.TabIndex = 13
+        Me.ReloadFolderButton.UseVisualStyleBackColor = True
+        '
         'Exami2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.ReloadFolderButton)
         Me.Controls.Add(Me.PlacementViewBySelector1)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MakePlacementButton)
@@ -269,4 +283,5 @@ Partial Class Exami2
     Friend WithEvents SubjectManager1 As SubjectManager
     Friend WithEvents PlacementViewBySelector1 As PlacementViewBySelector
     Friend WithEvents PlacementBoxes1 As PlacementBoxes
+    Friend WithEvents ReloadFolderButton As Button
 End Class
