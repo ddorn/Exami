@@ -119,6 +119,8 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click
 
+        Dim placement As New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+
         Dim places = DataAccessLayer.DD.LoadAllPlaces1D(RoomManager1.GetSelectedRoomPaths)
         Dim students = New StudentGroup(SubjectManager1.GetSelectedSubjectPaths)
 

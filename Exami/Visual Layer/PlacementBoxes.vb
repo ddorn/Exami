@@ -3,7 +3,7 @@
 ''' </summary>
 Public Class PlacementBoxes
 
-    Public Event NewMessage(nsg As String)
+    Public Event NewMessage(msg As String)
 
     ''' <summary>
     ''' Creates a PlacementBox for each keys of the two dictionnaries.

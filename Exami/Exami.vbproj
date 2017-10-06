@@ -75,13 +75,6 @@
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
     <Compile Include="Helper.vb" />
-    <Compile Include="Visual Layer\Exami.vb">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Visual Layer\Exami.Designer.vb">
-      <DependentUpon>Exami.vb</DependentUpon>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="Visual Layer\Exami2.Designer.vb">
       <DependentUpon>Exami2.vb</DependentUpon>
     </Compile>
@@ -142,9 +135,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Visual Layer\Exami.resx">
-      <DependentUpon>Exami.vb</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\Exami2.resx">
       <DependentUpon>Exami2.vb</DependentUpon>
     </EmbeddedResource>
