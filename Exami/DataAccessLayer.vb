@@ -593,11 +593,16 @@ Public Module DataAccessLayer
 
             ' placement.subPlacements
             For Each subPla In placement.subPlacements
+                ' size
                 file.WriteLine(subPla.students.Count)
+                ' name
+                file.WriteLine(subPla.name)
+                ' places
                 For Each plac In subPla.places
                     Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
                     file.WriteLine(str)
                 Next
+                ' students
                 For Each stud In subPla.students.allStudents
                     file.Write(stud.ToSvLine)
                 Next
@@ -624,6 +629,7 @@ Public Module DataAccessLayer
             Next
 
             ' placement.students
+            pos += 1
             Dim studs = New List(Of Student)(nbStudents)
             For pos = pos To pos + nbStudents
                 studs.Add(Student.ParseFromSv(file(pos)))
@@ -636,6 +642,9 @@ Public Module DataAccessLayer
                 pos += 1
 
                 Dim nbstuds = Integer.Parse(file(pos))
+                pos += 1
+                Dim name = file(pos)
+                pos += 1
                 Dim places = New List(Of Place)(nbstuds)
                 studs = New List(Of Student)(nbstuds)
 
@@ -649,7 +658,7 @@ Public Module DataAccessLayer
                 For pos = pos To pos + nbstuds
                     studs.Add(Student.ParseFromSv(file(pos)))
                 Next
-                subplacements.Add(New SubPlacement(places, New StudentGroup(studs)))
+                subplacements.Add(New SubPlacement(places, New StudentGroup(studs), name))
             Next
 
             Return New Placement(students, placesLeft, subplacements)

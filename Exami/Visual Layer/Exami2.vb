@@ -119,57 +119,10 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click
 
-        Dim places = DataAccessLayer.DD.LoadAllPlaces1D(RoomManager1.GetSelectedRoomPaths)
-        Dim students = New StudentGroup(SubjectManager1.GetSelectedSubjectPaths)
+        Dim placement = New Placement(RoomManager1.GetSelectedRoomPaths, SubjectManager1.GetSelectedSubjectPaths)
+        placement.MakePlacement(PlacementViewBySelector1.CurrentViewBy)
 
-        ' We really want to have enough places
-        If students.Count > places.Count Then
-            RaiseEvent NewStatusMessage("There is more students than places.")
-            MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
-            Return
-        End If
-
-        ' This is just removing the Room flag
-        Dim groupBy = PlacementViewBySelector1.CurrentViewBy Or GroupType.Room Xor GroupType.Room
-
-        ' The idea is to do a virtual placement 
-        ' So sudents will have a room
-        ' And then we can separate them by room
-
-        Dim groups = students.Separate(groupBy)
-
-        Dim pos = 0
-        For Each group In groups
-            For studPos = 0 To group.Count - 1
-                group.allStudents(studPos).place = places(pos)
-                pos += 1
-            Next
-        Next
-
-        ' So we separate the sudents and alocating the places by chunck like u=in the previous for
-        ' it is likely that sudents wont have this place at the end, but the goal are 
-        '   1. to be able to already separate the clas
-        '   2. to have the same group in the same 'chunk' of places
-        '   3. I'm soory for not beiing clear
-
-        ' Thus dicts have the category name as key and a chunk of students or corresponding places as values
-        Dim studDict = New Dictionary(Of String, StudentGroup)
-        Dim placeDict = New Dictionary(Of String, List(Of Place))
-
-        ' The real groups with the rooms
-        groups = New StudentGroup(students.allStudents).Separate(PlacementViewBySelector1.CurrentViewBy)
-        For Each group In groups
-            Dim name = group.GetNameAs(PlacementViewBySelector1.CurrentViewBy)
-            studDict(name) = group
-            ' We take the same number of places than of students
-            ' We take them in the list order
-            placeDict(name) = places.Take(group.Count).ToList
-            ' And then remove them, they are used.
-            places.RemoveRange(0, group.Count)
-        Next
-
-        ' Finally we can send those two dicts to the placementBoxes wo will add one PlacementBox for each category
-        PlacementBoxes1.SetPlacements(studDict, placeDict)
+        PlacementBoxes1.SetPlacements(placement)
 
     End Sub
 

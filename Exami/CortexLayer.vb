@@ -544,10 +544,12 @@ Public Module CortexLayer
     Public Class SubPlacement
         Public places As List(Of Place)
         Public students As StudentGroup
+        Public name As String
 
-        Sub New(places As List(Of Place), students As StudentGroup)
+        Sub New(places As List(Of Place), students As StudentGroup, name As String)
             Me.places = places
             Me.students = students
+            Me.name = name
         End Sub
 
     End Class
@@ -627,37 +629,49 @@ Public Module CortexLayer
         ''' <summary>
         ''' Give the places left to the students that deosn't have one
         ''' </summary>
-        Public Sub MakePlacement(Optional order As Order = Order.None, Optional groupBy As GroupType = GroupType.None)
+        Public Sub MakePlacement(Optional groupBy As GroupType = GroupType.None)
 
-            Dim groups = Me.students.Separate(groupBy)
-            Me.students = New StudentGroup
+            ' We really want to have enough places
 
-            ' This for loop separate students and tables in groups with the same number of each (untill we run out of one)
+            If students.Count > placesLeft.Count Then
+                MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
+                Return
+            End If
+
+            ' This is just removing the Room flag
+            Dim groupByWithoutRoom = groupBy Or GroupType.Room Xor GroupType.Room
+
+            ' The idea is to do a virtual placement 
+            ' So sudents will have a room
+            ' And then we can separate them by room
+
+            Dim groups = Me.students.Separate(groupByWithoutRoom)
+
+            Dim pos = 0
             For Each group In groups
-                If group.Count <= Me.placesLeft.Count Then
+                For studPos = 0 To group.Count - 1
+                    group.allStudents(studPos).place = placesLeft(pos)
+                    pos += 1
+                Next
+            Next
 
-                    ' We take the right number of places for this group
-                    Dim placesForThisGroup = Me.placesLeft.Take(group.Count)
-                    ' And remove them from the remaining places
-                    Me.placesLeft.RemoveRange(0, group.Count)
+            ' So we separate the sudents and allocating the places by chunck like in the previous ForEach
+            ' it is likely that sudents won't have this place at the end, but the goals are
+            '   1. to be able to already separate by classroom
+            '   2. to have the same group in the same 'chunk' of places
+            '   3. I'm soory for not beiing clear
 
-                    Me.subPlacements.Add(New SubPlacement(placesForThisGroup, group))
+            groups = Me.students.Separate(groupBy)
+            For Each group In groups
 
-                ElseIf Me.placesLeft.Count > 0 Then
+                Dim name = group.GetNameAs(groupBy)
+                ' We take the same number of places than of students
+                ' We take them in the list 
+                Dim places = placesLeft.Take(group.Count).ToList
+                ' And then remove them, they are used.
+                placesLeft.RemoveRange(0, group.Count)
 
-                    ' We take the same number as places
-                    Dim lastPlacedStudents = group.allStudents.Take(Me.placesLeft.Count)
-                    ' Students that won't have a place are put back in the students list
-                    Me.students.allStudents.AddRange(group.allStudents.Skip(Me.placesLeft.Count))
-
-                    Me.subPlacements.Add(New SubPlacement(Me.placesLeft, lastPlacedStudents))
-
-                Else
-
-                    ' There is no more places we put them back 
-                    Me.students.allStudents.AddRange(group.allStudents)
-
-                End If
+                Me.subPlacements.Add(New SubPlacement(places, group, name))
             Next
 
         End Sub
