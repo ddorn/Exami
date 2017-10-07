@@ -161,6 +161,15 @@
         End If
 
     End Sub
+    Private Sub OpenButton_Click() Handles OpenButton.Click
+        If OpenFileDialog1.ShowDialog() = DialogResult.OK Then
+            CurrentPLacement = MP.LoadPlacement(OpenFileDialog1.FileName)
+            RaiseEvent NewStatusMessage("Placement loaded !")
+        Else
+            RaiseEvent NewStatusMessage("You canceled the operation. The placement isn't loaded.")
+        End If
+    End Sub
+
     ' ############## '
     ' Hover Tool Tip '
     ' ############## '
