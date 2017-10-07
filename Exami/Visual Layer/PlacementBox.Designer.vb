@@ -30,6 +30,7 @@ Partial Class PlacementBox
         Me.AzButton = New System.Windows.Forms.Button()
         Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.SuspendLayout()
         '
         'PrintButton
@@ -128,6 +129,11 @@ Partial Class PlacementBox
         Me.TitleLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.TitleLabel.WordWrap = False
         '
+        'SaveFileDialog1
+        '
+        Me.SaveFileDialog1.DefaultExt = "mp"
+        Me.SaveFileDialog1.Filter = "Placement files|*.mp"
+        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -153,4 +159,5 @@ Partial Class PlacementBox
     Friend WithEvents AzButton As Button
     Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
+    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 End Class

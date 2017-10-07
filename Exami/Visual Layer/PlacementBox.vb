@@ -5,6 +5,8 @@ Public Class PlacementBox
 
     Private subPlacement As SubPlacement
 
+    ' Title
+
     ''' <summary>
     ''' The title that is shown in bold underline of the box.
     ''' 
@@ -20,7 +22,11 @@ Public Class PlacementBox
             Invalidate()
         End Set
     End Property
-    Private Sub TitleLabel_TextChanged(sender As Object, e As EventArgs) Handles TitleLabel.TextChanged
+    ''' <summary>
+    ''' Update the name of the subplacement when the title is changed (usually by the user)
+    ''' </summary>
+    Private Sub TitleLabel_TextChanged() Handles TitleLabel.TextChanged
+        ' Avoid nullReferenceException
         If TitleLabel.Text Is Nothing Or Me.subPlacement Is Nothing Then
             Return
         End If
@@ -39,6 +45,7 @@ Public Class PlacementBox
         ' Enable the options
         AzButton.Enabled = True
         ShuffleButton.Enabled = True
+        SaveButton.Enabled = True
 
         ' And updat everything
         UpdateDisplay()
@@ -67,6 +74,8 @@ Public Class PlacementBox
 
     End Sub
 
+    ' Buttons
+
     ''' <summary>
     ''' Shuffle the places and keep the students in the same order. Thus They are at a random place now.
     ''' Updates the screen.
@@ -75,7 +84,6 @@ Public Class PlacementBox
         Helper.Shuffle(Of Place)(subPlacement.places)
         UpdateDisplay()
     End Sub
-
     ''' <summary>
     ''' Sort the places and leave the students as they are so they are by alphabetical order now.
     ''' Updates the screen.
@@ -83,6 +91,15 @@ Public Class PlacementBox
     Private Sub AzButton_Click() Handles AzButton.Click
         subPlacement.places.Sort()
         UpdateDisplay()
+    End Sub
+
+    Private Sub SaveButton_Click() Handles SaveButton.Click
+        If SaveFileDialog1.InitialDirectory Is Nothing Then
+            SaveFileDialog1.InitialDirectory = Exami2.WorkingFolder
+        End If
+        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
+            MP.SavePlacement(Me.subPlacement, SaveFileDialog1.FileName)
+        End If
     End Sub
 
 End Class

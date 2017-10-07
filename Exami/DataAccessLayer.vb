@@ -567,6 +567,7 @@ Public Module DataAccessLayer
 
             Return True
         End Function
+
     End Class
 
     ''' <summary>
@@ -610,6 +611,33 @@ Public Module DataAccessLayer
             Next
 
             file.Close()
+        End Sub
+
+        Shared Sub SavePlacement(subplacement As SubPlacement, mpFilePath As String)
+
+            Dim file = IO.File.CreateText(mpFilePath)
+
+            file.WriteLine("v0")
+            file.WriteLine(0)
+            file.WriteLine(0)
+            file.WriteLine(1)
+
+            ' size
+            file.WriteLine(subplacement.students.Count)
+            ' name
+            file.WriteLine(subplacement.name)
+            ' places
+            For Each plac In subplacement.places
+                Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
+                file.WriteLine(str)
+            Next
+            ' students
+            For Each stud In subplacement.students.allStudents
+                file.WriteLine(stud.ToSvLine)
+            Next
+
+            file.Close()
+
         End Sub
 
         Shared Function LoadPlacement(mpFilePath As String) As Placement
