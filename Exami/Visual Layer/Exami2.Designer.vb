@@ -25,6 +25,9 @@ Partial Class Exami2
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Exami2))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.SubjectManager1 = New Exami.SubjectManager()
+        Me.RoomManager1 = New Exami.RoomManager()
+        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.SaveAllButton = New System.Windows.Forms.Button()
@@ -42,9 +45,6 @@ Partial Class Exami2
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
-        Me.SubjectManager1 = New Exami.SubjectManager()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -102,6 +102,32 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 210
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
+        '
+        'SubjectManager1
+        '
+        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectManager1.Name = "SubjectManager1"
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 202)
+        Me.SubjectManager1.TabIndex = 3
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
+        Me.RoomManager1.TabIndex = 1
+        '
+        'PlacementBoxes1
+        '
+        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
+        Me.PlacementBoxes1.Name = "PlacementBoxes1"
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 479)
+        Me.PlacementBoxes1.TabIndex = 14
         '
         'SelectFolderButton
         '
@@ -238,6 +264,7 @@ Partial Class Exami2
         '
         'PrintDocument1
         '
+        Me.PrintDocument1.OriginAtMargins = True
         '
         'PlacementViewBySelector1
         '
@@ -247,32 +274,6 @@ Partial Class Exami2
         Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
         Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
         Me.PlacementViewBySelector1.TabIndex = 3
-        '
-        'SubjectManager1
-        '
-        Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectManager1.Name = "SubjectManager1"
-        Me.SubjectManager1.Size = New System.Drawing.Size(246, 202)
-        Me.SubjectManager1.TabIndex = 3
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
-        Me.RoomManager1.TabIndex = 1
-        '
-        'PlacementBoxes1
-        '
-        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
-        Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 479)
-        Me.PlacementBoxes1.TabIndex = 14
         '
         'Exami2
         '

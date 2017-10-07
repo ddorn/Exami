@@ -4,10 +4,12 @@
 Public Class PlacementBoxes
 
     Public Event NewStatusMessage(msg As String)
+    Public boxes As New List(Of PlacementBox)
 
     Public Sub SetPlacements(placement As Placement)
 
         Controls.Clear()
+        boxes.Clear()
 
         ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
         Dim boxWidth = Math.Max(Me.Width / placement.subPlacements.Count - 3, 300)
@@ -25,6 +27,7 @@ Public Class PlacementBoxes
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Bottom
             End With
             Me.Controls.Add(box)
+            Me.boxes.Add(box)
             box.SetContents(subpla)
             curPosX += boxWidth + 3  ' This is the offset between the boxes.
 
@@ -46,5 +49,20 @@ Public Class PlacementBoxes
             RaiseEvent NewStatusMessage("You canceled the saving.")
         End If
 
+    End Sub
+
+    Public Sub Print(sender As Object, e As Printing.PrintPageEventArgs)
+        Static iSubPlacement = 0
+
+        boxes(iSubPlacement).PrintPage(sender, e)
+        If Not e.HasMorePages Then
+            iSubPlacement += 1
+            e.HasMorePages = True
+        End If
+
+        If iSubPlacement >= boxes.Count Then
+            e.HasMorePages = False
+            iSubPlacement = 0
+        End If
     End Sub
 End Class

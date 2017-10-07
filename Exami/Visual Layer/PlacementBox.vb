@@ -114,12 +114,11 @@ Public Class PlacementBox
 
     End Sub
 
-    Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
+    Public Sub PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Static currentLine = 0
-        Static pagenumber = 0
 
         Dim bigfont = New Font("segoe ui black", 14)
-        Dim font = New Font("segoe ui", 14)
+        Dim font = New Font("segoe ui", 11)
 
         Dim h, w As Integer
         Dim left, top As Integer
@@ -137,28 +136,27 @@ Public Class PlacementBox
             w = a
         End If
 
-        Dim lines As Integer = CInt(Math.Round(h / font.Height))
 
         ' Print the header
         Dim headerlines = TitleLabel.Lines.Count
+        Dim headerSize = headerlines * bigfont.Height + 20
         For i = 0 To headerlines - 1
             Dim size = e.Graphics.MeasureString(TitleLabel.Lines(i), bigfont)
-            e.Graphics.DrawString(TitleLabel.Lines(i), bigfont, Brushes.Black, left + (w - size.Width) / 2, top + font.Height * i)
+            e.Graphics.DrawString(TitleLabel.Lines(i), bigfont, Brushes.Black, left + (w - size.Width) / 2, top + bigfont.Height * i)
         Next
+
+        Dim lines As Integer = CInt(Math.Round((h - headerSize) / font.Height))
 
         ' Print the placement
-        For i = currentLine To Math.Min(currentLine + lines, Me.subPlacement.students.Count) - headerlines - 1
-            Dim str = Me.subPlacement.places(i).ToString & vbTab & Me.subPlacement.students.allStudents(i).ToString
-            e.Graphics.DrawString(str, font, Brushes.Black, New RectangleF(left, top + font.Height * (i + headerlines - currentLine), w, font.Height))
+        For i = currentLine To Math.Min(currentLine + lines, Me.subPlacement.students.Count) - 1
+            e.Graphics.DrawString(Me.PlacementTextBox.Lines(i), font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
         Next
 
-        currentLine += lines - headerlines
-        pagenumber += 1
+        currentLine += lines
 
-        If currentLine > Me.subPlacement.students.Count + pagenumber * headerlines Then
+        If currentLine >= Me.subPlacement.students.Count Then
             e.HasMorePages = False
             currentLine = 0
-            pagenumber = 0
         Else
             e.HasMorePages = True
         End If

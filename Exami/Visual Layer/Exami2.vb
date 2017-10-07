@@ -233,32 +233,7 @@
     End Sub
 
     Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
-        Static currentLine = 0
-
-        Dim bigfont = New Font("segoe ui black", 16)
-        Dim font = New Font("segoe ui", 14)
-
-        Dim h, w As Integer
-        Dim left, top As Integer
-        With PrintDocument1.DefaultPageSettings
-            h = .PaperSize.Height - .Margins.Top - .Margins.Bottom
-            w = .PaperSize.Width - .Margins.Left - .Margins.Right
-            left = PrintDocument1.DefaultPageSettings.Margins.Left
-            top = PrintDocument1.DefaultPageSettings.Margins.Top
-        End With
-
-        e.Graphics.DrawRectangle(Pens.Blue, New Rectangle(left, top, w, h))
-
-        If PrintDocument1.DefaultPageSettings.Landscape Then
-            Dim a As Integer
-            a = h
-            h = w
-            w = a
-        End If
-
-
-        e.HasMorePages = False
-
+        Me.PlacementBoxes1.print(sender, e)
     End Sub
 End Class
 
