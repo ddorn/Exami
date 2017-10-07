@@ -612,7 +612,7 @@ Public Module CortexLayer
         ''' <param name="subPlacements">List of subplacement representing the placed students</param>
         Sub New(students As StudentGroup, placesLeft As List(Of Place), subPlacements As List(Of SubPlacement))
             Me.students = students
-            Me.subPlacements = Me.subPlacements
+            Me.subPlacements = subPlacements
             Me.placesLeft = placesLeft
         End Sub
         ''' <summary>
