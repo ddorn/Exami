@@ -650,38 +650,38 @@ Public Module DataAccessLayer
 
             ' placement.placesLeft
             Dim placesLeft = New List(Of Place)(nbPlaces)
-            For pos = 0 To nbPlaces
+            For pos = 0 To nbPlaces - 1
                 Dim parts = file.ReadLine.Split(",")
                 Dim row = Integer.Parse(parts(0))
                 Dim col = Integer.Parse(parts(1))
-                Dim room = Integer.Parse(parts(2))
+                Dim room = parts(2)
                 placesLeft.Add(New Place(row, col, room))
             Next
 
             ' placement.students
             Dim studs = New List(Of Student)(nbStudents)
-            For pos = 0 To nbStudents
+            For pos = 0 To nbStudents - 1
                 studs.Add(Student.ParseFromSv(file.ReadLine))
             Next
             Dim students = New StudentGroup(studs)
 
             ' placement.subPlacements
             Dim subplacements = New List(Of SubPlacement)(nbSubPlacements)
-            For i = 0 To nbSubPlacements
+            For i = 0 To nbSubPlacements - 1
 
                 Dim nbstuds = Integer.Parse(file.ReadLine)
                 Dim name = file.ReadLine
                 Dim places = New List(Of Place)(nbstuds)
                 studs = New List(Of Student)(nbstuds)
 
-                For pos = 0 To nbstuds
+                For pos = 0 To nbstuds - 1
                     Dim parts = file.ReadLine.Split(",")
                     Dim row = Integer.Parse(parts(0))
                     Dim col = Integer.Parse(parts(1))
-                    Dim room = Integer.Parse(parts(2))
+                    Dim room = parts(2)
                     places.Add(New Place(row, col, room))
                 Next
-                For pos = 0 To nbstuds
+                For pos = 0 To nbstuds - 1
                     studs.Add(Student.ParseFromSv(file.ReadLine))
                 Next
                 subplacements.Add(New SubPlacement(places, New StudentGroup(studs), name))
