@@ -20,6 +20,12 @@ Public Class PlacementBox
             Invalidate()
         End Set
     End Property
+    Private Sub TitleLabel_TextChanged(sender As Object, e As EventArgs) Handles TitleLabel.TextChanged
+        If TitleLabel.Text Is Nothing Or Me.subPlacement Is Nothing Then
+            Return
+        End If
+        Me.subPlacement.name = TitleLabel.Text.Replace(vbNewLine, " - ")
+    End Sub
 
     ''' <summary>
     ''' Set the places and students of the box. The two list must have the same length.

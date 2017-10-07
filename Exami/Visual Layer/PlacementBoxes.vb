@@ -5,12 +5,6 @@ Public Class PlacementBoxes
 
     Public Event NewMessage(msg As String)
 
-    ''' <summary>
-    ''' Creates a PlacementBox for each keys of the two dictionnaries.
-    ''' </summary>
-    ''' <param name="students">A dictionnary of the names of the Boxes as key and a student group as key. The Keys must be the same as the <paramref name="places"/>...
-    ''' and the number of students by student group se same as the corresponding list of places.</param>
-    ''' <param name="places">A dictionnary with the exact same structure as <paramref name="students"/>.</param>
     Public Sub SetPlacements(placement As Placement)
 
         Controls.Clear()

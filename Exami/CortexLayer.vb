@@ -634,8 +634,7 @@ Public Module CortexLayer
             ' We really want to have enough places
 
             If students.Count > placesLeft.Count Then
-                MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
-                Return
+                Throw New OverflowException("There is more students than places")
             End If
 
             ' This is just removing the Room flag
@@ -673,6 +672,7 @@ Public Module CortexLayer
 
                 Me.subPlacements.Add(New SubPlacement(places, group, name))
             Next
+            Me.students = New StudentGroup
 
         End Sub
         ''' <summary>
@@ -680,9 +680,9 @@ Public Module CortexLayer
         ''' A return value indicates wether it worked or not.
         ''' </summary>
         ''' <returns>True if the placement was effected else false.</returns>
-        Public Function TryMakePlacement(Optional order As Order = Order.None) As Boolean
+        Public Function TryMakePlacement(Optional groupby As GroupType = GroupType.None) As Boolean
             Try
-                MakePlacement(order)
+                MakePlacement(groupby)
             Catch ex As Exception
                 Return False
             End Try

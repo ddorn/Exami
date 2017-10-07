@@ -576,9 +576,10 @@ Public Module DataAccessLayer
         Shared Sub SavePlacement(placement As Placement, mpFilePath As String)
             Dim file = IO.File.CreateText(mpFilePath)
 
-            file.WriteLine("0")
+            file.WriteLine("v0")
             file.WriteLine(placement.placesLeft.Count)
             file.WriteLine(placement.students.Count)
+            file.WriteLine(placement.subPlacements.Count)
 
             ' placement.placesLeft
             For Each plac In placement.placesLeft
@@ -604,15 +605,17 @@ Public Module DataAccessLayer
                 Next
                 ' students
                 For Each stud In subPla.students.allStudents
-                    file.Write(stud.ToSvLine)
+                    file.WriteLine(stud.ToSvLine)
                 Next
             Next
+
+            file.Close()
         End Sub
 
         Shared Function LoadPlacement(mpFilePath As String) As Placement
 
             Dim file = IO.File.OpenText(mpFilePath)
-            Dim version = Integer.Parse(file.ReadLine)
+            Dim version = Integer.Parse(file.ReadLine.Substring(1))
             Dim nbPlaces = Integer.Parse(file.ReadLine)
             Dim nbStudents = Integer.Parse(file.ReadLine)
             Dim nbSubPlacements = Integer.Parse(file.ReadLine)
@@ -655,6 +658,8 @@ Public Module DataAccessLayer
                 Next
                 subplacements.Add(New SubPlacement(places, New StudentGroup(studs), name))
             Next
+
+            file.Close()
 
             Return New Placement(students, placesLeft, subplacements)
         End Function

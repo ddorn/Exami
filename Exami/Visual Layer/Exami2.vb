@@ -3,6 +3,7 @@
     Public Event NewStatusMessage(msg As String)
 
     Public WorkingFolder As String
+    Private CurentPlacement As Placement
 
     ' Create room
 
@@ -120,12 +121,24 @@
     Private Sub MakePlacement() Handles MakePlacementButton.Click
 
         Dim placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
-        placement.MakePlacement(PlacementViewBySelector1.CurrentViewBy)
+        If Not placement.TryMakePlacement(PlacementViewBySelector1.CurrentViewBy) Then
+            MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
+            RaiseEvent NewStatusMessage("There was more students than places, the placement aborted.")
+            Return
+        End If
 
         PlacementBoxes1.SetPlacements(placement)
 
+        CurentPlacement = placement
+        SaveAllButton.Enabled = True
     End Sub
 
+
+    Private Sub SaveAllButton_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
+        Dim path = IO.Path.Combine(WorkingFolder, "placement.mp")
+        MP.SavePlacement(CurentPlacement, path)
+        RaiseEvent NewStatusMessage(String.Format("Placement saved at {0}", path))
+    End Sub
     ' ############## '
     ' Hover Tool Tip '
     ' ############## '
