@@ -249,7 +249,7 @@ Public Module DataAccessLayer
     End Class
 
     ''' <summary>
-    ''' A class to manipulate .sv files, extract, convert and save content
+    ''' A class to manipulate .sv files (students), extract, convert and save content
     ''' </summary>
     Class SV
 
@@ -373,7 +373,7 @@ Public Module DataAccessLayer
 
 
     ''' <summary>
-    ''' A class to save and load rooms.
+    ''' A class to manipulate .dd files (desktops), extract, convert and save content
     ''' </summary>
     Class DD
 
@@ -569,5 +569,90 @@ Public Module DataAccessLayer
         End Function
     End Class
 
+    ''' <summary>
+    ''' A class to manipulate .mp files (placement), extract and save content.
+    ''' </summary>
+    Class MP
+        Shared Sub SavePlacement(placement As Placement, mpFilePath As String)
+            Dim file = IO.File.CreateText(mpFilePath)
 
+            file.WriteLine("0")
+            file.WriteLine(placement.placesLeft.Count)
+            file.WriteLine(placement.students.Count)
+
+            ' placement.placesLeft
+            For Each plac In placement.placesLeft
+                Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
+                file.WriteLine(str)
+            Next
+
+            ' placement.students
+            For Each stud In placement.students.allStudents
+                file.WriteLine(stud.ToSvLine)
+            Next
+
+            ' placement.subPlacements
+            For Each subPla In placement.subPlacements
+                file.WriteLine(subPla.students.Count)
+                For Each plac In subPla.places
+                    Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
+                    file.WriteLine(str)
+                Next
+                For Each stud In subPla.students.allStudents
+                    file.Write(stud.ToSvLine)
+                Next
+            Next
+        End Sub
+
+        Shared Function LoadPlacement(mpFilePath As String) As Placement
+
+            Dim file = IO.File.ReadAllLines(mpFilePath)
+            Dim version = Integer.Parse(file(0))
+            Dim nbPlaces = Integer.Parse(file(1))
+            Dim nbStudents = Integer.Parse(file(2))
+            Dim nbSubPlacements = Integer.Parse(file(3))
+            Dim pos = 4
+
+            ' placement.placesLeft
+            Dim placesLeft = New List(Of Place)(nbPlaces)
+            For pos = pos To pos + nbPlaces
+                Dim parts = file(pos).Split(",")
+                Dim row = Integer.Parse(parts(0))
+                Dim col = Integer.Parse(parts(1))
+                Dim room = Integer.Parse(parts(2))
+                placesLeft.Add(New Place(row, col, Room))
+            Next
+
+            ' placement.students
+            Dim studs = New List(Of Student)(nbStudents)
+            For pos = pos To pos + nbStudents
+                studs.Add(Student.ParseFromSv(file(pos)))
+            Next
+            Dim students = New StudentGroup(studs)
+
+            ' placement.subPlacements
+            Dim subplacements = New List(Of SubPlacement)(nbSubPlacements)
+            For i = 0 To nbSubPlacements
+                pos += 1
+
+                Dim nbstuds = Integer.Parse(file(pos))
+                Dim places = New List(Of Place)(nbstuds)
+                studs = New List(Of Student)(nbstuds)
+
+                For pos = pos To pos + nbstuds
+                    Dim parts = file(pos).Split(",")
+                    Dim row = Integer.Parse(parts(0))
+                    Dim col = Integer.Parse(parts(1))
+                    Dim room = Integer.Parse(parts(2))
+                    places.Add(New Place(row, col, room))
+                Next
+                For pos = pos To pos + nbstuds
+                    studs.Add(Student.ParseFromSv(file(pos)))
+                Next
+                subplacements.Add(New SubPlacement(places, New StudentGroup(studs)))
+            Next
+
+            Return New Placement(students, placesLeft, subplacements)
+        End Function
+    End Class
 End Module

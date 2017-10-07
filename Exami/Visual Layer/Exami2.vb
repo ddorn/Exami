@@ -119,8 +119,6 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click
 
-        Dim placement As New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
-
         Dim places = DataAccessLayer.DD.LoadAllPlaces1D(RoomManager1.GetSelectedRoomPaths)
         Dim students = New StudentGroup(SubjectManager1.GetSelectedSubjectPaths)
 
@@ -154,7 +152,7 @@
         '   2. to have the same group in the same 'chunk' of places
         '   3. I'm soory for not beiing clear
 
-        ' Thos dicts have the category name as key and a chunk of students or corresponding places as values
+        ' Thus dicts have the category name as key and a chunk of students or corresponding places as values
         Dim studDict = New Dictionary(Of String, StudentGroup)
         Dim placeDict = New Dictionary(Of String, List(Of Place))
 

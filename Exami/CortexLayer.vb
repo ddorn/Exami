@@ -542,8 +542,8 @@ Public Module CortexLayer
 
 
     Public Class SubPlacement
-        Private places As List(Of Place)
-        Private students As StudentGroup
+        Public places As List(Of Place)
+        Public students As StudentGroup
 
         Sub New(places As List(Of Place), students As StudentGroup)
             Me.places = places
@@ -601,6 +601,17 @@ Public Module CortexLayer
             Me.svFilePaths = svFilePaths
 
             Me.Reset()
+        End Sub
+        ''' <summary>
+        ''' Create a new placement.
+        ''' </summary>
+        ''' <param name="students">Group of not placed students</param>
+        ''' <param name="placesLeft">List of not used places</param>
+        ''' <param name="subPlacements">List of subplacement representing the placed students</param>
+        Sub New(students As StudentGroup, placesLeft As List(Of Place), subPlacements As List(Of SubPlacement))
+            Me.students = students
+            Me.subPlacements = Me.subPlacements
+            Me.placesLeft = placesLeft
         End Sub
         ''' <summary>
         ''' Reloads all the students and places from the files and put them all as not placed/occupied
