@@ -41,6 +41,8 @@ Partial Class Exami2
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
         Me.ReloadFolderButton = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
+        Me.OpenButton = New System.Windows.Forms.Button()
+        Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -58,7 +60,7 @@ Partial Class Exami2
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SplitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1
-        Me.SplitContainer1.Location = New System.Drawing.Point(0, 60)
+        Me.SplitContainer1.Location = New System.Drawing.Point(0, 52)
         Me.SplitContainer1.MinimumSize = New System.Drawing.Size(100, 0)
         Me.SplitContainer1.Name = "SplitContainer1"
         '
@@ -71,7 +73,7 @@ Partial Class Exami2
         '
         Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBoxes1)
         Me.SplitContainer1.Panel2MinSize = 100
-        Me.SplitContainer1.Size = New System.Drawing.Size(1178, 471)
+        Me.SplitContainer1.Size = New System.Drawing.Size(1178, 479)
         Me.SplitContainer1.SplitterDistance = 254
         Me.SplitContainer1.SplitterIncrement = 3
         Me.SplitContainer1.SplitterWidth = 8
@@ -94,8 +96,8 @@ Partial Class Exami2
         'SplitContainer2.Panel2
         '
         Me.SplitContainer2.Panel2.Controls.Add(Me.RoomManager1)
-        Me.SplitContainer2.Size = New System.Drawing.Size(254, 471)
-        Me.SplitContainer2.SplitterDistance = 215
+        Me.SplitContainer2.Size = New System.Drawing.Size(254, 479)
+        Me.SplitContainer2.SplitterDistance = 210
         Me.SplitContainer2.TabIndex = 0
         Me.SplitContainer2.TabStop = False
         '
@@ -104,7 +106,7 @@ Partial Class Exami2
         Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
         Me.SubjectManager1.Name = "SubjectManager1"
-        Me.SubjectManager1.Size = New System.Drawing.Size(246, 207)
+        Me.SubjectManager1.Size = New System.Drawing.Size(246, 202)
         Me.SubjectManager1.TabIndex = 3
         '
         'RoomManager1
@@ -114,7 +116,7 @@ Partial Class Exami2
         Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
         Me.RoomManager1.Name = "RoomManager1"
         Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 250)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
         Me.RoomManager1.TabIndex = 1
         '
         'PlacementBoxes1
@@ -122,13 +124,13 @@ Partial Class Exami2
         Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
         Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 471)
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 479)
         Me.PlacementBoxes1.TabIndex = 14
         '
         'SelectFolderButton
         '
         Me.SelectFolderButton.Image = CType(resources.GetObject("SelectFolderButton.Image"), System.Drawing.Image)
-        Me.SelectFolderButton.Location = New System.Drawing.Point(12, 14)
+        Me.SelectFolderButton.Location = New System.Drawing.Point(12, 12)
         Me.SelectFolderButton.Name = "SelectFolderButton"
         Me.SelectFolderButton.Size = New System.Drawing.Size(148, 34)
         Me.SelectFolderButton.TabIndex = 0
@@ -140,7 +142,7 @@ Partial Class Exami2
         'PrintAllButton
         '
         Me.PrintAllButton.Enabled = False
-        Me.PrintAllButton.Location = New System.Drawing.Point(199, 14)
+        Me.PrintAllButton.Location = New System.Drawing.Point(365, 12)
         Me.PrintAllButton.Name = "PrintAllButton"
         Me.PrintAllButton.Size = New System.Drawing.Size(76, 34)
         Me.PrintAllButton.TabIndex = 2
@@ -151,7 +153,7 @@ Partial Class Exami2
         'SaveAllButton
         '
         Me.SaveAllButton.Enabled = False
-        Me.SaveAllButton.Location = New System.Drawing.Point(281, 14)
+        Me.SaveAllButton.Location = New System.Drawing.Point(282, 12)
         Me.SaveAllButton.Name = "SaveAllButton"
         Me.SaveAllButton.Size = New System.Drawing.Size(77, 34)
         Me.SaveAllButton.TabIndex = 3
@@ -164,7 +166,7 @@ Partial Class Exami2
         Me.MakePlacementButton.Enabled = False
         Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
         Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MakePlacementButton.Location = New System.Drawing.Point(364, 14)
+        Me.MakePlacementButton.Location = New System.Drawing.Point(447, 12)
         Me.MakePlacementButton.Name = "MakePlacementButton"
         Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
         Me.MakePlacementButton.TabIndex = 4
@@ -178,7 +180,7 @@ Partial Class Exami2
         Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.TextBox1.BackColor = System.Drawing.SystemColors.ControlDark
         Me.TextBox1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.TextBox1.Location = New System.Drawing.Point(917, 18)
+        Me.TextBox1.Location = New System.Drawing.Point(921, 16)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(2, 26)
         Me.TextBox1.TabIndex = 12
@@ -222,16 +224,16 @@ Partial Class Exami2
         'PlacementViewBySelector1
         '
         Me.PlacementViewBySelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(925, 12)
-        Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(241, 51)
+        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(929, 8)
+        Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(237, 43)
         Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
-        Me.PlacementViewBySelector1.Size = New System.Drawing.Size(241, 51)
+        Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
         Me.PlacementViewBySelector1.TabIndex = 3
         '
         'ReloadFolderButton
         '
         Me.ReloadFolderButton.Image = CType(resources.GetObject("ReloadFolderButton.Image"), System.Drawing.Image)
-        Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 14)
+        Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 12)
         Me.ReloadFolderButton.Name = "ReloadFolderButton"
         Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
         Me.ReloadFolderButton.TabIndex = 13
@@ -241,12 +243,31 @@ Partial Class Exami2
         '
         Me.SaveFileDialog1.DefaultExt = "mp"
         Me.SaveFileDialog1.Filter = "Placement files|*.mp"
+        Me.SaveFileDialog1.Title = "Choose a file to save the placement"
+        '
+        'OpenButton
+        '
+        Me.OpenButton.Location = New System.Drawing.Point(199, 12)
+        Me.OpenButton.Name = "OpenButton"
+        Me.OpenButton.Size = New System.Drawing.Size(77, 34)
+        Me.OpenButton.TabIndex = 14
+        Me.OpenButton.Tag = "Open a placement I previously did"
+        Me.OpenButton.Text = "Open"
+        Me.OpenButton.UseVisualStyleBackColor = True
+        '
+        'OpenFileDialog1
+        '
+        Me.OpenFileDialog1.DefaultExt = "mp"
+        Me.OpenFileDialog1.FileName = "OpenFileDialog1"
+        Me.OpenFileDialog1.Filter = "Placement files|*.mp"
+        Me.OpenFileDialog1.Title = "Choose a placement to open"
         '
         'Exami2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.OpenButton)
         Me.Controls.Add(Me.ReloadFolderButton)
         Me.Controls.Add(Me.PlacementViewBySelector1)
         Me.Controls.Add(Me.TextBox1)
@@ -291,4 +312,6 @@ Partial Class Exami2
     Friend WithEvents PlacementBoxes1 As PlacementBoxes
     Friend WithEvents ReloadFolderButton As Button
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
+    Friend WithEvents OpenButton As Button
+    Friend WithEvents OpenFileDialog1 As OpenFileDialog
 End Class
