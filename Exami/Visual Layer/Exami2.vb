@@ -3,7 +3,27 @@
     Public Event NewStatusMessage(msg As String)
 
     Public WorkingFolder As String
-    Private CurentPlacement As Placement
+    Private _CurrentPlacement As Placement
+
+    ''' <summary>
+    ''' Update the current placement.
+    ''' </summary>
+    ''' <returns>The current displayed placement</returns>
+    Public Property CurrentPLacement() As Placement
+        Get
+            Return _CurrentPlacement
+        End Get
+        Set(ByVal value As Placement)
+            _CurrentPlacement = value
+
+            If value IsNot Nothing Then
+                PlacementBoxes1.SetPlacements(value)
+                SaveAllButton.Enabled = True
+            Else
+                SaveAllButton.Enabled = False
+            End If
+        End Set
+    End Property
 
     ' Create room
 
@@ -127,17 +147,14 @@
             Return
         End If
 
-        PlacementBoxes1.SetPlacements(placement)
-
-        CurentPlacement = placement
-        SaveAllButton.Enabled = True
+        CurrentPLacement = placement
     End Sub
 
 
     Private Sub SaveAllButton_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-            MP.SavePlacement(Me.CurentPlacement, SaveFileDialog1.FileName)
+            MP.SavePlacement(Me.CurrentPLacement, SaveFileDialog1.FileName)
             RaiseEvent NewStatusMessage(String.Format("The placement was saved at {0}", SaveFileDialog1.FileName))
         Else
             RaiseEvent NewStatusMessage("You canceled the saving.")
@@ -151,7 +168,6 @@
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         SetUpHoverHandler(Me)
     End Sub
-
     ''' <summary>
     ''' Set the Status label to the tag of the current control the mouse is in.
     ''' 
@@ -166,7 +182,6 @@
         End If
 
     End Sub
-
     ''' <summary>
     ''' Recursively add handler for when the mouse passes over a control to SetToolTipHelp.
     ''' </summary>
