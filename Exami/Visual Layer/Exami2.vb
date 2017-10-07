@@ -119,7 +119,7 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click
 
-        Dim placement = New Placement(RoomManager1.GetSelectedRoomPaths, SubjectManager1.GetSelectedSubjectPaths)
+        Dim placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
         placement.MakePlacement(PlacementViewBySelector1.CurrentViewBy)
 
         PlacementBoxes1.SetPlacements(placement)

@@ -3,8 +3,7 @@
 ''' </summary>
 Public Class PlacementBox
 
-    Private places As New List(Of Place)
-    Private students As StudentGroup
+    Private subPlacement As SubPlacement
 
     ''' <summary>
     ''' The title that is shown in bold underline of the box.
@@ -28,15 +27,8 @@ Public Class PlacementBox
     ''' </summary>
     ''' <param name="students">List of the students of this part of the placement</param>
     ''' <param name="places">List of the ascoiated places</param>
-    Public Sub SetContents(students As StudentGroup, places As List(Of Place))
-
-        ' Better to warn you know that let you debug the code in some other place. You should thank Diego from the 4/09/2017
-        If places.Count <> students.Count Then
-            MsgBox("This should not happen. the students and room list length are different in PlacementBox.SetContent.")
-        End If
-
-        Me.places = places
-        Me.students = students
+    Public Sub SetContents(ByRef subplacement As SubPlacement)
+        Me.subPlacement = subplacement
 
         ' Enable the options
         AzButton.Enabled = True
@@ -56,12 +48,12 @@ Public Class PlacementBox
 
         PlacementTextBox.ResetText()
 
-        For pos = 0 To students.Count - 1
+        For pos = 0 To subPlacement.students.Count - 1
             ' We set the place of the student... in case of
-            students.allStudents(pos).place = places(pos)
+            subPlacement.students.allStudents(pos).place = subPlacement.places(pos)
 
             ' The place then the name, aligned
-            Dim line = places(pos).ToString & vbTab & students.allStudents(pos).ToString
+            Dim line = subPlacement.places(pos).ToString & vbTab & subPlacement.students.allStudents(pos).ToString
 
             PlacementTextBox.AppendText(line)
             PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
@@ -74,7 +66,7 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub Shuffle() Handles ShuffleButton.Click
-        Helper.Shuffle(Of Place)(places)
+        Helper.Shuffle(Of Place)(subPlacement.places)
         UpdateDisplay()
     End Sub
 
@@ -83,7 +75,7 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub AzButton_Click() Handles AzButton.Click
-        places.Sort()
+        subPlacement.places.Sort()
         UpdateDisplay()
     End Sub
 
