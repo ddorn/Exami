@@ -40,6 +40,7 @@ Partial Class Exami2
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
         Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
         Me.ReloadFolderButton = New System.Windows.Forms.Button()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -236,6 +237,11 @@ Partial Class Exami2
         Me.ReloadFolderButton.TabIndex = 13
         Me.ReloadFolderButton.UseVisualStyleBackColor = True
         '
+        'SaveFileDialog1
+        '
+        Me.SaveFileDialog1.DefaultExt = "mp"
+        Me.SaveFileDialog1.Filter = "Placement files|*.mp"
+        '
         'Exami2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -284,4 +290,5 @@ Partial Class Exami2
     Friend WithEvents PlacementViewBySelector1 As PlacementViewBySelector
     Friend WithEvents PlacementBoxes1 As PlacementBoxes
     Friend WithEvents ReloadFolderButton As Button
+    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 End Class

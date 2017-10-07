@@ -22,7 +22,13 @@ Partial Class PlacementBoxes
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.SuspendLayout()
+        '
+        'SaveFileDialog1
+        '
+        Me.SaveFileDialog1.DefaultExt = "mp"
+        Me.SaveFileDialog1.Filter = "Placement files|*.mp"
         '
         'PlacementBoxes
         '
@@ -34,4 +40,5 @@ Partial Class PlacementBoxes
 
     End Sub
 
+    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 End Class

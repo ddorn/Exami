@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class PlacementBox
     Inherits System.Windows.Forms.UserControl
 
     'UserControl overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class PlacementBox
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlacementBox))
         Me.PrintButton = New System.Windows.Forms.Button()
@@ -30,7 +30,6 @@ Partial Class PlacementBox
         Me.AzButton = New System.Windows.Forms.Button()
         Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
-        Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.SuspendLayout()
         '
         'PrintButton
@@ -129,11 +128,6 @@ Partial Class PlacementBox
         Me.TitleLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.TitleLabel.WordWrap = False
         '
-        'SaveFileDialog1
-        '
-        Me.SaveFileDialog1.DefaultExt = "mp"
-        Me.SaveFileDialog1.Filter = "Placement files|*.mp"
-        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -159,5 +153,4 @@ Partial Class PlacementBox
     Friend WithEvents AzButton As Button
     Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
-    Friend WithEvents SaveFileDialog1 As SaveFileDialog
 End Class

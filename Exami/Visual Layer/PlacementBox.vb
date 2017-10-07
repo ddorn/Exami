@@ -3,7 +3,9 @@
 ''' </summary>
 Public Class PlacementBox
 
-    Private subPlacement As SubPlacement
+    Public subPlacement As SubPlacement
+    Public Event NewMessage(msg As String)
+    Public Event NeedSave(subplacement As SubPlacement)
 
     ' Title
 
@@ -32,6 +34,8 @@ Public Class PlacementBox
         End If
         Me.subPlacement.name = TitleLabel.Text.Replace(vbNewLine, " - ")
     End Sub
+
+    '  Contents set and show
 
     ''' <summary>
     ''' Set the places and students of the box. The two list must have the same length.
@@ -92,14 +96,13 @@ Public Class PlacementBox
         subPlacement.places.Sort()
         UpdateDisplay()
     End Sub
-
+    ''' <summary>
+    ''' The Save occurs in PlacementBoxes
+    ''' </summary>
     Private Sub SaveButton_Click() Handles SaveButton.Click
-        If SaveFileDialog1.InitialDirectory Is Nothing Then
-            SaveFileDialog1.InitialDirectory = Exami2.WorkingFolder
-        End If
-        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-            MP.SavePlacement(Me.subPlacement, SaveFileDialog1.FileName)
-        End If
+
+        RaiseEvent NeedSave(Me.subPlacement)
+
     End Sub
 
 End Class

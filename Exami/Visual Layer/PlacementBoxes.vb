@@ -3,7 +3,7 @@
 ''' </summary>
 Public Class PlacementBoxes
 
-    Public Event NewMessage(msg As String)
+    Public Event NewStatusMessage(msg As String)
 
     Public Sub SetPlacements(placement As Placement)
 
@@ -27,6 +27,8 @@ Public Class PlacementBoxes
             Me.Controls.Add(box)
             box.SetContents(subpla)
             curPosX += boxWidth + 3  ' This is the offset between the boxes.
+
+            AddHandler box.NeedSave, AddressOf Save
         Next
 
         ' The last one fills up space to the right in case the user makes a bigger window
@@ -35,4 +37,14 @@ Public Class PlacementBoxes
 
     End Sub
 
+    Private Sub Save(subplacement As SubPlacement)
+
+        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
+            MP.SavePlacement(subplacement, SaveFileDialog1.FileName)
+            RaiseEvent NewStatusMessage(String.Format("This part of the placement was saved at {0}", SaveFileDialog1.FileName))
+        Else
+            RaiseEvent NewStatusMessage("You canceled the saving.")
+        End If
+
+    End Sub
 End Class

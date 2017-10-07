@@ -135,9 +135,14 @@
 
 
     Private Sub SaveAllButton_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
-        Dim path = IO.Path.Combine(WorkingFolder, "placement.mp")
-        MP.SavePlacement(CurentPlacement, path)
-        RaiseEvent NewStatusMessage(String.Format("Placement saved at {0}", path))
+
+        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
+            MP.SavePlacement(Me.CurentPlacement, SaveFileDialog1.FileName)
+            RaiseEvent NewStatusMessage(String.Format("The placement was saved at {0}", SaveFileDialog1.FileName))
+        Else
+            RaiseEvent NewStatusMessage("You canceled the saving.")
+        End If
+
     End Sub
     ' ############## '
     ' Hover Tool Tip '
@@ -185,7 +190,7 @@
     ''' this corner is inteded tobe used for general purpose messages, warnings and jokes ^^
     ''' </summary>
     ''' <param name="msg">The new text of the generak message status</param>
-    Sub SetStatusMessage(msg As String) Handles Me.NewStatusMessage, RoomManager1.NewStatusMessage
+    Sub SetStatusMessage(msg As String) Handles Me.NewStatusMessage, RoomManager1.NewStatusMessage, PlacementBoxes1.NewStatusMessage
         GeneralStatusLabel.Text = msg
     End Sub
 
