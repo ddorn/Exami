@@ -76,7 +76,7 @@ Partial Class PlacementViewBySelector
         'Label2
         '
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(3, 10)
+        Me.Label2.Location = New System.Drawing.Point(3, 11)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(63, 20)
         Me.Label2.TabIndex = 18

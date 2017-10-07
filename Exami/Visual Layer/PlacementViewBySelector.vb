@@ -47,4 +47,5 @@ Public Class PlacementViewBySelector
     Private Sub RoomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RoomCheckBox.CheckedChanged
         CurrentViewBy = CurrentViewBy Xor GroupType.Room
     End Sub
+
 End Class
