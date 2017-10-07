@@ -611,52 +611,47 @@ Public Module DataAccessLayer
 
         Shared Function LoadPlacement(mpFilePath As String) As Placement
 
-            Dim file = IO.File.ReadAllLines(mpFilePath)
-            Dim version = Integer.Parse(file(0))
-            Dim nbPlaces = Integer.Parse(file(1))
-            Dim nbStudents = Integer.Parse(file(2))
-            Dim nbSubPlacements = Integer.Parse(file(3))
-            Dim pos = 4
+            Dim file = IO.File.OpenText(mpFilePath)
+            Dim version = Integer.Parse(file.ReadLine)
+            Dim nbPlaces = Integer.Parse(file.ReadLine)
+            Dim nbStudents = Integer.Parse(file.ReadLine)
+            Dim nbSubPlacements = Integer.Parse(file.ReadLine)
 
             ' placement.placesLeft
             Dim placesLeft = New List(Of Place)(nbPlaces)
-            For pos = pos To pos + nbPlaces
-                Dim parts = file(pos).Split(",")
+            For pos = 0 To nbPlaces
+                Dim parts = file.ReadLine.Split(",")
                 Dim row = Integer.Parse(parts(0))
                 Dim col = Integer.Parse(parts(1))
                 Dim room = Integer.Parse(parts(2))
-                placesLeft.Add(New Place(row, col, Room))
+                placesLeft.Add(New Place(row, col, room))
             Next
 
             ' placement.students
-            pos += 1
             Dim studs = New List(Of Student)(nbStudents)
-            For pos = pos To pos + nbStudents
-                studs.Add(Student.ParseFromSv(file(pos)))
+            For pos = 0 To nbStudents
+                studs.Add(Student.ParseFromSv(file.ReadLine))
             Next
             Dim students = New StudentGroup(studs)
 
             ' placement.subPlacements
             Dim subplacements = New List(Of SubPlacement)(nbSubPlacements)
             For i = 0 To nbSubPlacements
-                pos += 1
 
-                Dim nbstuds = Integer.Parse(file(pos))
-                pos += 1
-                Dim name = file(pos)
-                pos += 1
+                Dim nbstuds = Integer.Parse(file.ReadLine)
+                Dim name = file.ReadLine
                 Dim places = New List(Of Place)(nbstuds)
                 studs = New List(Of Student)(nbstuds)
 
-                For pos = pos To pos + nbstuds
-                    Dim parts = file(pos).Split(",")
+                For pos = 0 To nbstuds
+                    Dim parts = file.ReadLine.Split(",")
                     Dim row = Integer.Parse(parts(0))
                     Dim col = Integer.Parse(parts(1))
                     Dim room = Integer.Parse(parts(2))
                     places.Add(New Place(row, col, room))
                 Next
-                For pos = pos To pos + nbstuds
-                    studs.Add(Student.ParseFromSv(file(pos)))
+                For pos = 0 To nbstuds
+                    studs.Add(Student.ParseFromSv(file.ReadLine))
                 Next
                 subplacements.Add(New SubPlacement(places, New StudentGroup(studs), name))
             Next
