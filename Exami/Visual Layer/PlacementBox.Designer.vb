@@ -30,6 +30,8 @@ Partial Class PlacementBox
         Me.AzButton = New System.Windows.Forms.Button()
         Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
+        Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
+        Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.SuspendLayout()
         '
         'PrintButton
@@ -38,7 +40,6 @@ Partial Class PlacementBox
         Me.PrintButton.BackColor = System.Drawing.SystemColors.Control
         Me.PrintButton.BackgroundImage = CType(resources.GetObject("PrintButton.BackgroundImage"), System.Drawing.Image)
         Me.PrintButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PrintButton.Enabled = False
         Me.PrintButton.Location = New System.Drawing.Point(52, 347)
         Me.PrintButton.Name = "PrintButton"
         Me.PrintButton.Size = New System.Drawing.Size(42, 42)
@@ -128,6 +129,17 @@ Partial Class PlacementBox
         Me.TitleLabel.TextAlign = System.Windows.Forms.HorizontalAlignment.Center
         Me.TitleLabel.WordWrap = False
         '
+        'PrintDialog1
+        '
+        Me.PrintDialog1.AllowSelection = True
+        Me.PrintDialog1.AllowSomePages = True
+        Me.PrintDialog1.Document = Me.PrintDocument1
+        Me.PrintDialog1.UseEXDialog = True
+        '
+        'PrintDocument1
+        '
+        Me.PrintDocument1.OriginAtMargins = True
+        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -153,4 +165,6 @@ Partial Class PlacementBox
     Friend WithEvents AzButton As Button
     Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
+    Friend WithEvents PrintDialog1 As PrintDialog
+    Friend WithEvents PrintDocument1 As Printing.PrintDocument
 End Class

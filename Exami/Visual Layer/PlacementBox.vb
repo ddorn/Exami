@@ -105,4 +105,63 @@ Public Class PlacementBox
 
     End Sub
 
+    Private Sub PrintButton_Click(sender As Object, e As EventArgs) Handles PrintButton.Click
+
+        If PrintDialog1.ShowDialog() = DialogResult.OK Then
+
+            PrintDocument1.Print()
+        End If
+
+    End Sub
+
+    Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
+        Static currentLine = 0
+        Static pagenumber = 0
+
+        Dim bigfont = New Font("segoe ui black", 14)
+        Dim font = New Font("segoe ui", 14)
+
+        Dim h, w As Integer
+        Dim left, top As Integer
+        With PrintDocument1.DefaultPageSettings
+            h = .PaperSize.Height - .Margins.Top - .Margins.Bottom
+            w = .PaperSize.Width - .Margins.Left - .Margins.Right
+            left = 0
+            top = 0
+        End With
+
+        If PrintDocument1.DefaultPageSettings.Landscape Then
+            Dim a As Integer
+            a = h
+            h = w
+            w = a
+        End If
+
+        Dim lines As Integer = CInt(Math.Round(h / font.Height))
+
+        ' Print the header
+        Dim headerlines = TitleLabel.Lines.Count
+        For i = 0 To headerlines - 1
+            Dim size = e.Graphics.MeasureString(TitleLabel.Lines(i), bigfont)
+            e.Graphics.DrawString(TitleLabel.Lines(i), bigfont, Brushes.Black, left + (w - size.Width) / 2, top + font.Height * i)
+        Next
+
+        ' Print the placement
+        For i = currentLine To Math.Min(currentLine + lines, Me.subPlacement.students.Count) - headerlines - 1
+            Dim str = Me.subPlacement.places(i).ToString & vbTab & Me.subPlacement.students.allStudents(i).ToString
+            e.Graphics.DrawString(str, font, Brushes.Black, New RectangleF(left, top + font.Height * (i + headerlines - currentLine), w, font.Height))
+        Next
+
+        currentLine += lines - headerlines
+        pagenumber += 1
+
+        If currentLine > Me.subPlacement.students.Count + pagenumber * headerlines Then
+            e.HasMorePages = False
+            currentLine = 0
+            pagenumber = 0
+        Else
+            e.HasMorePages = True
+        End If
+
+    End Sub
 End Class
