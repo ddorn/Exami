@@ -73,6 +73,7 @@ Partial Class Exami2
         '
         'SplitContainer1.Panel2
         '
+        Me.SplitContainer1.Panel2.AutoScroll = True
         Me.SplitContainer1.Panel2.Controls.Add(Me.PlacementBoxes1)
         Me.SplitContainer1.Panel2MinSize = 100
         Me.SplitContainer1.Size = New System.Drawing.Size(1178, 479)
@@ -123,7 +124,8 @@ Partial Class Exami2
         '
         'PlacementBoxes1
         '
-        Me.PlacementBoxes1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.PlacementBoxes1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
+            Or System.Windows.Forms.AnchorStyles.Left), System.Windows.Forms.AnchorStyles)
         Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
         Me.PlacementBoxes1.Name = "PlacementBoxes1"
         Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 479)

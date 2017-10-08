@@ -38,6 +38,8 @@ Public Class PlacementBoxes
         ' TODO: implement a resize function so they all always have the same size.
         box.Anchor = box.Anchor Or AnchorStyles.Right
 
+        Me.Size = New Size(curPosX, Me.Height)
+
     End Sub
 
     Private Sub Save(subplacement As SubPlacement)
