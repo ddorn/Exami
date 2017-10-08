@@ -11,25 +11,18 @@ Public Class PlacementBoxes
         Controls.Clear()
         boxes.Clear()
 
-        ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
-        Dim boxWidth = Math.Max(Me.Width / placement.subPlacements.Count - 3, 300)
-        ' We progress from left to right increasing the x pos each times
-        Dim curPosX = 0
         Dim box As PlacementBox = Nothing
 
         For Each subpla In placement.subPlacements
             box = New PlacementBox()
 
             With box
-                .Location = New Point(curPosX, 0)
-                .Size = New Size(boxWidth, Me.Height)
                 .Title = subpla.name
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Bottom
             End With
             Me.Controls.Add(box)
             Me.boxes.Add(box)
             box.SetContents(subpla)
-            curPosX += boxWidth + 3  ' This is the offset between the boxes.
 
             AddHandler box.NeedSave, AddressOf Save
         Next
@@ -38,7 +31,8 @@ Public Class PlacementBoxes
         ' TODO: implement a resize function so they all always have the same size.
         box.Anchor = box.Anchor Or AnchorStyles.Right
 
-        Me.Size = New Size(curPosX, Me.Height)
+        ' Set all the positions and sizes
+        Me.PlacementBoxes_Resize()
 
     End Sub
 
@@ -66,5 +60,27 @@ Public Class PlacementBoxes
             e.HasMorePages = False
             iSubPlacement = 0
         End If
+    End Sub
+
+    Private Sub PlacementBoxes_Resize() Handles Me.Resize
+
+        If boxes Is Nothing Or boxes.Count = 0 Then
+            Return
+        End If
+
+        Me.Height = Me.Parent.Height
+        Me.Width = Math.Max(300 * boxes.Count, Parent.Width)
+
+        ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
+        Dim boxWidth = Me.Width \ boxes.Count - 3
+
+        ' We progress from left to right increasing the x pos each times
+        Dim curPosX = 0
+
+        For Each box In boxes
+            box.Location = New Point(curPosX, 0)
+            box.Size = New Size(boxWidth, Me.Height)
+            curPosX += boxWidth + 3
+        Next
     End Sub
 End Class

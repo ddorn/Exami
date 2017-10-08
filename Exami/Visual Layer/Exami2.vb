@@ -235,6 +235,11 @@
     Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
         Me.PlacementBoxes1.print(sender, e)
     End Sub
+
+    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
+        Me.Hide()
+
+    End Sub
 End Class
 
 
