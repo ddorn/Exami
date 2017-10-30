@@ -30,7 +30,7 @@ Public Class PlacementBoxes
         ' The last one fills up space to the right in case the user makes a bigger window
         ' TODO: implement a resize function so they all always have the same size.
         box.Anchor = box.Anchor Or AnchorStyles.Right
-
+        Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
 
@@ -83,4 +83,5 @@ Public Class PlacementBoxes
             curPosX += boxWidth + 3
         Next
     End Sub
+
 End Class
