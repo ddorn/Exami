@@ -38,18 +38,19 @@ Public Class PlacementBox
     '  Contents set and show
 
     ''' <summary>
-    ''' Set the places and students of the box. The two list must have the same length.
+    ''' Set the places and students of the box.
     ''' This actualize the screen.
     ''' </summary>
-    ''' <param name="students">List of the students of this part of the placement</param>
-    ''' <param name="places">List of the ascoiated places</param>
+    ''' <param name="subplacement">The subplacement to show in this box</param>
     Public Sub SetContents(ByRef subplacement As SubPlacement)
         Me.subPlacement = subplacement
+        Me.subPlacement.students.Sort()
 
         ' Enable the options
         AzButton.Enabled = True
         ShuffleButton.Enabled = True
         SaveButton.Enabled = True
+        SortNumberButton.Enabled = True
 
         ' And updat everything
         UpdateDisplay()
@@ -96,6 +97,25 @@ Public Class PlacementBox
         subPlacement.places.Sort()
         UpdateDisplay()
     End Sub
+    ''' <summary>
+    ''' Sort the places by student number and leave the students as they are so they are by alphabetical order now.
+    ''' Updates the screen.
+    ''' </summary>
+    Private Sub SortNumberButton_Click(sender As Object, e As EventArgs) Handles SortNumberButton.Click
+        Me.subPlacement.places.Sort()
+        ' We set the students of each place so we can know wich one it is during the sort
+        For i = 0 To Me.subPlacement.places.Count - 1
+            Me.subPlacement.places(i).student = Me.subPlacement.students.allStudents(i)
+        Next
+
+        Me.subPlacement.places.Sort(New Comparison(Of Place)(Function(p1 As Place, p2 As Place)
+                                                                 Dim s1Number = Integer.Parse(p1.student.studentNumber.Substring(0, 8))
+                                                                 Dim s2Number = Integer.Parse(p2.student.studentNumber.Substring(0, 8))
+                                                                 Return s1Number.CompareTo(s2Number)
+                                                             End Function))
+        UpdateDisplay()
+    End Sub
+
     ''' <summary>
     ''' The Save occurs in PlacementBoxes
     ''' </summary>

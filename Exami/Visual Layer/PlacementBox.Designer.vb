@@ -32,6 +32,7 @@ Partial Class PlacementBox
         Me.TitleLabel = New System.Windows.Forms.TextBox()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
+        Me.SortNumberButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'PrintButton
@@ -66,7 +67,7 @@ Partial Class PlacementBox
         Me.ByClassButton.BackgroundImage = CType(resources.GetObject("ByClassButton.BackgroundImage"), System.Drawing.Image)
         Me.ByClassButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.ByClassButton.Enabled = False
-        Me.ByClassButton.Location = New System.Drawing.Point(196, 347)
+        Me.ByClassButton.Location = New System.Drawing.Point(244, 347)
         Me.ByClassButton.Name = "ByClassButton"
         Me.ByClassButton.Size = New System.Drawing.Size(42, 42)
         Me.ByClassButton.TabIndex = 5
@@ -92,7 +93,7 @@ Partial Class PlacementBox
         Me.AzButton.BackgroundImage = CType(resources.GetObject("AzButton.BackgroundImage"), System.Drawing.Image)
         Me.AzButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.AzButton.Enabled = False
-        Me.AzButton.Location = New System.Drawing.Point(148, 347)
+        Me.AzButton.Location = New System.Drawing.Point(196, 347)
         Me.AzButton.Name = "AzButton"
         Me.AzButton.Size = New System.Drawing.Size(42, 42)
         Me.AzButton.TabIndex = 4
@@ -108,7 +109,7 @@ Partial Class PlacementBox
         Me.PlacementTextBox.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
         Me.PlacementTextBox.Location = New System.Drawing.Point(0, 71)
         Me.PlacementTextBox.Name = "PlacementTextBox"
-        Me.PlacementTextBox.Size = New System.Drawing.Size(242, 270)
+        Me.PlacementTextBox.Size = New System.Drawing.Size(290, 270)
         Me.PlacementTextBox.TabIndex = 8
         Me.PlacementTextBox.Text = ""
         Me.PlacementTextBox.WordWrap = False
@@ -122,7 +123,7 @@ Partial Class PlacementBox
         Me.TitleLabel.Location = New System.Drawing.Point(0, 0)
         Me.TitleLabel.Multiline = True
         Me.TitleLabel.Name = "TitleLabel"
-        Me.TitleLabel.Size = New System.Drawing.Size(242, 65)
+        Me.TitleLabel.Size = New System.Drawing.Size(290, 65)
         Me.TitleLabel.TabIndex = 0
         Me.TitleLabel.TabStop = False
         Me.TitleLabel.Text = "Subject" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Teacher" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "Room"
@@ -140,10 +141,24 @@ Partial Class PlacementBox
         '
         Me.PrintDocument1.OriginAtMargins = True
         '
+        'SortNumberButton
+        '
+        Me.SortNumberButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.SortNumberButton.BackgroundImage = CType(resources.GetObject("SortNumberButton.BackgroundImage"), System.Drawing.Image)
+        Me.SortNumberButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SortNumberButton.Enabled = False
+        Me.SortNumberButton.Location = New System.Drawing.Point(148, 347)
+        Me.SortNumberButton.Name = "SortNumberButton"
+        Me.SortNumberButton.Size = New System.Drawing.Size(42, 42)
+        Me.SortNumberButton.TabIndex = 9
+        Me.SortNumberButton.Tag = "Place students in alphabetic order"
+        Me.SortNumberButton.UseVisualStyleBackColor = True
+        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.Controls.Add(Me.SortNumberButton)
         Me.Controls.Add(Me.TitleLabel)
         Me.Controls.Add(Me.PlacementTextBox)
         Me.Controls.Add(Me.AzButton)
@@ -153,7 +168,7 @@ Partial Class PlacementBox
         Me.Controls.Add(Me.PrintButton)
         Me.MinimumSize = New System.Drawing.Size(242, 2)
         Me.Name = "PlacementBox"
-        Me.Size = New System.Drawing.Size(242, 392)
+        Me.Size = New System.Drawing.Size(290, 392)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -167,4 +182,5 @@ Partial Class PlacementBox
     Friend WithEvents TitleLabel As TextBox
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
+    Friend WithEvents SortNumberButton As Button
 End Class

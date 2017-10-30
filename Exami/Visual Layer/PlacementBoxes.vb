@@ -67,16 +67,15 @@ Public Class PlacementBoxes
             Return
         End If
 
+        ' Adapt the size if there is a scrollbar 
         Dim Par = CType(Parent, Panel)
-
         If Par.HorizontalScroll.Visible Then
             Me.Height = Me.Parent.Height - SystemInformation.HorizontalScrollBarHeight
         Else
             Me.Height = Me.Parent.Height
         End If
+
         Me.Width = Math.Max(300 * boxes.Count, Parent.Width)
-
-
 
         ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
         Dim boxWidth = Me.Width \ boxes.Count - 3
