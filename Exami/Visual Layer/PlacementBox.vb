@@ -88,6 +88,7 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub Shuffle() Handles ShuffleButton.Click
+        Me.subPlacement.students.Sort()
         Helper.Shuffle(Of Place)(subPlacement.places)
         UpdateDisplay()
     End Sub
@@ -96,6 +97,7 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub AzButton_Click() Handles AzButton.Click
+        subPlacement.students.Sort()
         subPlacement.places.Sort()
         UpdateDisplay()
     End Sub
