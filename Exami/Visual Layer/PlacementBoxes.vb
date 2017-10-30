@@ -75,7 +75,7 @@ Public Class PlacementBoxes
             Me.Height = Me.Parent.Height
         End If
 
-        Me.Width = Math.Max(300 * boxes.Count, Parent.Width)
+        Me.Width = Math.Max(350 * boxes.Count, Parent.Width)
 
         ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
         Dim boxWidth = Me.Width \ boxes.Count - 3
