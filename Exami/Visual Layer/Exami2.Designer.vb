@@ -111,7 +111,7 @@ Partial Class Exami2
         Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
         Me.SubjectManager1.Name = "SubjectManager1"
         Me.SubjectManager1.Size = New System.Drawing.Size(246, 202)
-        Me.SubjectManager1.TabIndex = 21
+        Me.SubjectManager1.TabIndex = 0
         '
         'RoomManager1
         '
@@ -121,17 +121,18 @@ Partial Class Exami2
         Me.RoomManager1.Name = "RoomManager1"
         Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
         Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
-        Me.RoomManager1.TabIndex = 22
+        Me.RoomManager1.TabIndex = 0
         '
         'PlacementBoxes1
         '
         Me.PlacementBoxes1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementBoxes1.AutoScroll = True
         Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
         Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(916, 479)
-        Me.PlacementBoxes1.TabIndex = 23
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(884, 479)
+        Me.PlacementBoxes1.TabIndex = 0
         '
         'SelectFolderButton
         '
@@ -151,7 +152,7 @@ Partial Class Exami2
         Me.PrintAllButton.Location = New System.Drawing.Point(365, 12)
         Me.PrintAllButton.Name = "PrintAllButton"
         Me.PrintAllButton.Size = New System.Drawing.Size(76, 34)
-        Me.PrintAllButton.TabIndex = 5
+        Me.PrintAllButton.TabIndex = 4
         Me.PrintAllButton.Tag = "Print the complete placement : every room, subject and class"
         Me.PrintAllButton.Text = "Print all"
         Me.PrintAllButton.UseVisualStyleBackColor = True
@@ -162,20 +163,21 @@ Partial Class Exami2
         Me.SaveAllButton.Location = New System.Drawing.Point(282, 12)
         Me.SaveAllButton.Name = "SaveAllButton"
         Me.SaveAllButton.Size = New System.Drawing.Size(77, 34)
-        Me.SaveAllButton.TabIndex = 4
+        Me.SaveAllButton.TabIndex = 3
         Me.SaveAllButton.Tag = "Save the whole placement in a file."
         Me.SaveAllButton.Text = "Save all"
         Me.SaveAllButton.UseVisualStyleBackColor = True
         '
         'MakePlacementButton
         '
+        Me.MakePlacementButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.MakePlacementButton.Enabled = False
         Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
         Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
         Me.MakePlacementButton.Location = New System.Drawing.Point(447, 12)
         Me.MakePlacementButton.Name = "MakePlacementButton"
         Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
-        Me.MakePlacementButton.TabIndex = 6
+        Me.MakePlacementButton.TabIndex = 5
         Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
         Me.MakePlacementButton.Text = "&Make placement"
         Me.MakePlacementButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
@@ -234,7 +236,7 @@ Partial Class Exami2
         Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 12)
         Me.ReloadFolderButton.Name = "ReloadFolderButton"
         Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
-        Me.ReloadFolderButton.TabIndex = 2
+        Me.ReloadFolderButton.TabIndex = 1
         Me.ReloadFolderButton.UseVisualStyleBackColor = True
         '
         'SaveFileDialog1
@@ -248,7 +250,7 @@ Partial Class Exami2
         Me.OpenButton.Location = New System.Drawing.Point(199, 12)
         Me.OpenButton.Name = "OpenButton"
         Me.OpenButton.Size = New System.Drawing.Size(77, 34)
-        Me.OpenButton.TabIndex = 3
+        Me.OpenButton.TabIndex = 2
         Me.OpenButton.Tag = "Open a placement I previously did"
         Me.OpenButton.Text = "Open"
         Me.OpenButton.UseVisualStyleBackColor = True
@@ -278,7 +280,7 @@ Partial Class Exami2
         Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(237, 43)
         Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
         Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
-        Me.PlacementViewBySelector1.TabIndex = 20
+        Me.PlacementViewBySelector1.TabIndex = 7
         '
         'SettingsButton
         '
@@ -287,8 +289,9 @@ Partial Class Exami2
         Me.SettingsButton.Location = New System.Drawing.Point(621, 12)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
-        Me.SettingsButton.TabIndex = 7
+        Me.SettingsButton.TabIndex = 6
         Me.SettingsButton.UseVisualStyleBackColor = True
+        Me.SettingsButton.Visible = False
         '
         'Exami2
         '
@@ -315,6 +318,7 @@ Partial Class Exami2
         Me.SplitContainer1.ResumeLayout(False)
         Me.SplitContainer2.Panel1.ResumeLayout(False)
         Me.SplitContainer2.Panel2.ResumeLayout(False)
+        Me.SplitContainer2.Panel2.PerformLayout()
         CType(Me.SplitContainer2, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer2.ResumeLayout(False)
         Me.StatusBar.ResumeLayout(False)
