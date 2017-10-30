@@ -107,6 +107,7 @@ Partial Class Exami2
         '
         'SubjectManager1
         '
+        Me.SubjectManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.SubjectManager1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.SubjectManager1.Location = New System.Drawing.Point(3, 3)
         Me.SubjectManager1.Name = "SubjectManager1"
@@ -115,6 +116,8 @@ Partial Class Exami2
         '
         'RoomManager1
         '
+        Me.RoomManager1.AutoSize = True
+        Me.RoomManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
         Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
