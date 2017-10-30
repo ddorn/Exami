@@ -237,8 +237,7 @@
     End Sub
 
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
-        Me.Hide()
-
+        Settings.Show()
     End Sub
 End Class
 
