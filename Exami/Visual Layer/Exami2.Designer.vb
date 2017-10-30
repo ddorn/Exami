@@ -44,8 +44,8 @@ Partial Class Exami2
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
         Me.SettingsButton = New System.Windows.Forms.Button()
+        Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -128,13 +128,11 @@ Partial Class Exami2
         '
         'PlacementBoxes1
         '
-        Me.PlacementBoxes1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementBoxes1.AutoScroll = True
+        Me.PlacementBoxes1.AutoSize = True
+        Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
         Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(884, 479)
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
         Me.PlacementBoxes1.TabIndex = 0
         '
         'SelectFolderButton
@@ -276,15 +274,6 @@ Partial Class Exami2
         '
         Me.PrintDocument1.OriginAtMargins = True
         '
-        'PlacementViewBySelector1
-        '
-        Me.PlacementViewBySelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(929, 8)
-        Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(237, 43)
-        Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
-        Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
-        Me.PlacementViewBySelector1.TabIndex = 7
-        '
         'SettingsButton
         '
         Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
@@ -295,6 +284,15 @@ Partial Class Exami2
         Me.SettingsButton.TabIndex = 6
         Me.SettingsButton.UseVisualStyleBackColor = True
         Me.SettingsButton.Visible = False
+        '
+        'PlacementViewBySelector1
+        '
+        Me.PlacementViewBySelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(929, 8)
+        Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(237, 43)
+        Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
+        Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
+        Me.PlacementViewBySelector1.TabIndex = 7
         '
         'Exami2
         '
@@ -317,6 +315,7 @@ Partial Class Exami2
         Me.Text = "Exami2"
         Me.SplitContainer1.Panel1.ResumeLayout(False)
         Me.SplitContainer1.Panel2.ResumeLayout(False)
+        Me.SplitContainer1.Panel2.PerformLayout()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).EndInit()
         Me.SplitContainer1.ResumeLayout(False)
         Me.SplitContainer2.Panel1.ResumeLayout(False)

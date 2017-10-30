@@ -18,7 +18,7 @@ Public Class PlacementBoxes
 
             With box
                 .Title = subpla.name
-                .Anchor = AnchorStyles.Top Or AnchorStyles.Left Or AnchorStyles.Bottom
+                .Anchor = AnchorStyles.Top Or AnchorStyles.Left
             End With
             Me.Controls.Add(box)
             Me.boxes.Add(box)
@@ -29,7 +29,6 @@ Public Class PlacementBoxes
 
         ' The last one fills up space to the right in case the user makes a bigger window
         ' TODO: implement a resize function so they all always have the same size.
-        box.Anchor = box.Anchor Or AnchorStyles.Right
         Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
@@ -68,8 +67,16 @@ Public Class PlacementBoxes
             Return
         End If
 
-        Me.Height = Me.Parent.Height
+        Dim Par = CType(Parent, Panel)
+
+        If Par.HorizontalScroll.Visible Then
+            Me.Height = Me.Parent.Height - SystemInformation.HorizontalScrollBarHeight
+        Else
+            Me.Height = Me.Parent.Height
+        End If
         Me.Width = Math.Max(300 * boxes.Count, Parent.Width)
+
+
 
         ' We dont want the boxes to small be if we can they should be all the same size and fill the container.
         Dim boxWidth = Me.Width \ boxes.Count - 3

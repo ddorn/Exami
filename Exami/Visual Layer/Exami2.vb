@@ -239,6 +239,7 @@
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
         Settings.Show()
     End Sub
+
 End Class
 
 
