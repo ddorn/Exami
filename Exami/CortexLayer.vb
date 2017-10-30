@@ -603,7 +603,9 @@ Public Module CortexLayer
             Me.ddFilePaths = ddFilePaths
             Me.svFilePaths = svFilePaths
 
-            Me.Reset()
+            Me.students = New StudentGroup(svFilePaths)
+            Me.placesLeft = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
+            Me.subPlacements = New List(Of SubPlacement)
         End Sub
         ''' <summary>
         ''' Create a new placement.
@@ -615,14 +617,6 @@ Public Module CortexLayer
             Me.students = students
             Me.subPlacements = subPlacements
             Me.placesLeft = placesLeft
-        End Sub
-        ''' <summary>
-        ''' Reloads all the students and places from the files and put them all as not placed/occupied
-        ''' </summary>
-        Public Sub Reset()
-            Me.students = New StudentGroup(svFilePaths)
-            Me.placesLeft = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
-            Me.subPlacements = New List(Of SubPlacement)
         End Sub
 
         ' Make the placement
