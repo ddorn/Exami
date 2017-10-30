@@ -71,7 +71,9 @@ Public Class PlacementBox
             subPlacement.students.allStudents(pos).place = subPlacement.places(pos)
 
             ' The place then the name, aligned
-            Dim line = subPlacement.places(pos).ToString & vbTab & subPlacement.students.allStudents(pos).ToString
+            Dim line = subPlacement.places(pos).ToString & vbTab &
+                subPlacement.students.allStudents(pos).studentNumber & vbTab &
+                subPlacement.students.allStudents(pos).ToString()
 
             PlacementTextBox.AppendText(line)
             PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
