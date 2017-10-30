@@ -11,6 +11,7 @@ Public Module CortexLayer
         Public row As Byte
         Public col As Byte
         Public room As String = ""
+        Public student As Student = Nothing
 
         Sub New(row As Byte, col As Byte)
             Me.row = row
@@ -495,9 +496,9 @@ Public Module CortexLayer
         Public Sub Sort()
             allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
                                                             If s1.familyName = s2.familyName Then
-                                                                Return s1.firstName <= s2.firstName
+                                                                Return s1.firstName.CompareTo(s2.firstName)
                                                             Else
-                                                                Return s1.familyName <= s2.familyName
+                                                                Return s1.familyName.CompareTo(s2.familyName)
                                                             End If
                                                         End Function))
         End Sub
