@@ -104,17 +104,21 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub SortNumberButton_Click(sender As Object, e As EventArgs) Handles SortNumberButton.Click
-        Me.subPlacement.places.Sort()
+        'Me.subPlacement.places.Sort()
         ' We set the students of each place so we can know wich one it is during the sort
-        For i = 0 To Me.subPlacement.places.Count - 1
-            Me.subPlacement.places(i).student = Me.subPlacement.students.allStudents(i)
-        Next
+        'For i = 0 To Me.subPlacement.places.Count - 1
+        '    Me.subPlacement.places(i).student = Me.subPlacement.students.allStudents(i)
+        'Next
 
-        Me.subPlacement.places.Sort(New Comparison(Of Place)(Function(p1 As Place, p2 As Place)
-                                                                 Dim s1Number = Integer.Parse(p1.student.studentNumber.Substring(0, 8))
-                                                                 Dim s2Number = Integer.Parse(p2.student.studentNumber.Substring(0, 8))
-                                                                 Return s1Number.CompareTo(s2Number)
-                                                             End Function))
+        'Me.subPlacement.places.Sort(New Comparison(Of Place)(Function(p1 As Place, p2 As Place)
+        '                                                         Dim s1Number = Integer.Parse(p1.student.studentNumber.Substring(0, 8))
+        '                                                         Dim s2Number = Integer.Parse(p2.student.studentNumber.Substring(0, 8))
+        '                                                         Return s1Number.CompareTo(s2Number)
+        '                                                     End Function))
+        Me.subPlacement.places.Sort()
+        Me.subPlacement.students.allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
+                                                                                 Return s1.studentNumber.CompareTo(s2.studentNumber)
+                                                                             End Function))
         UpdateDisplay()
     End Sub
 
