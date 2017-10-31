@@ -91,10 +91,10 @@ Public Class OptionsSelector
         Me.GroupClasses = Not Me.GroupClasses
         If GroupClasses Then
             GroupClassesButton.BackgroundImage = My.Resources.GroupByClassTrue
-            Me.Tag = "Stop groupping classes"
+            GroupClassesButton.Tag = "Stop groupping classes"
         Else
             GroupClassesButton.BackgroundImage = My.Resources.GroupByClassFalse
-            Me.Tag = "Group Students by classes"
+            GroupClassesButton.Tag = "Group Students by classes"
         End If
         RaiseEvent OptionsChanged()
     End Sub
