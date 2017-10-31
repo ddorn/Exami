@@ -81,7 +81,7 @@ Public Module DataAccessLayer
             Return String.Format("{0},{1},{2}", row, col, room)
         End Function
 
-        Public Shared Function FromSvLine(line As String)
+        Public Shared Function ParseFromSv(line As String) As Place
             Dim fields = line.Split(",")
 
             Return New Place(Byte.Parse(fields(0)), Byte.Parse(fields(1)), fields(2))
@@ -631,37 +631,12 @@ Public Module DataAccessLayer
         Shared Sub SavePlacement(placement As Placement, mpFilePath As String)
             Dim file = IO.File.CreateText(mpFilePath)
 
-            file.WriteLine("v0")
-            file.WriteLine(placement.placesLeft.Count)
+            file.WriteLine("v1")
             file.WriteLine(placement.students.Count)
-            file.WriteLine(placement.subPlacements.Count)
 
-            ' placement.placesLeft
-            For Each plac In placement.placesLeft
-                Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
-                file.WriteLine(str)
-            Next
-
-            ' placement.students
-            For Each stud In placement.students.allStudents
-                file.WriteLine(stud.ToSvLine)
-            Next
-
-            ' placement.subPlacements
-            For Each subPla In placement.subPlacements
-                ' size
-                file.WriteLine(subPla.students.Count)
-                ' name
-                file.WriteLine(subPla.name)
-                ' places
-                For Each plac In subPla.places
-                    Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
-                    file.WriteLine(str)
-                Next
-                ' students
-                For Each stud In subPla.students.allStudents
-                    file.WriteLine(stud.ToSvLine)
-                Next
+            For i = 0 To placement.students.Count
+                file.WriteLine(placement.students.allStudents(i).ToSvLine)
+                file.WriteLine(placement.students.allStudents(i).place.ToSvLine)
             Next
 
             file.Close()
@@ -671,23 +646,14 @@ Public Module DataAccessLayer
 
             Dim file = IO.File.CreateText(mpFilePath)
 
-            file.WriteLine("v0")
-            file.WriteLine(0)
-            file.WriteLine(0)
-            file.WriteLine(1)
+            file.WriteLine("v1")
 
             ' size
             file.WriteLine(subplacement.students.Count)
-            ' name
-            file.WriteLine(subplacement.name)
-            ' places
-            For Each plac In subplacement.places
-                Dim str = String.Format("{0},{1},{2}", plac.row, plac.col, plac.room)
-                file.WriteLine(str)
-            Next
-            ' students
-            For Each stud In subplacement.students.allStudents
-                file.WriteLine(stud.ToSvLine)
+
+            For i = 0 To subplacement.students.Count
+                file.WriteLine(subplacement.students.allStudents(i).ToSvLine)
+                file.WriteLine(subplacement.students.allStudents(i).place.ToSvLine)
             Next
 
             file.Close()
@@ -698,52 +664,28 @@ Public Module DataAccessLayer
 
             Dim file = IO.File.OpenText(mpFilePath)
             Dim version = Integer.Parse(file.ReadLine.Substring(1))
-            Dim nbPlaces = Integer.Parse(file.ReadLine)
-            Dim nbStudents = Integer.Parse(file.ReadLine)
-            Dim nbSubPlacements = Integer.Parse(file.ReadLine)
 
-            ' placement.placesLeft
-            Dim placesLeft = New List(Of Place)(nbPlaces)
-            For pos = 0 To nbPlaces - 1
-                Dim parts = file.ReadLine.Split(",")
-                Dim row = Integer.Parse(parts(0))
-                Dim col = Integer.Parse(parts(1))
-                Dim room = parts(2)
-                placesLeft.Add(New Place(row, col, room))
-            Next
+            If version <> 1 Then
+                Throw New VersionNotFoundException
+            End If
 
-            ' placement.students
-            Dim studs = New List(Of Student)(nbStudents)
-            For pos = 0 To nbStudents - 1
-                studs.Add(Student.ParseFromSv(file.ReadLine))
-            Next
-            Dim students = New StudentGroup(studs)
+            Dim students = New StudentGroup
+            Dim places = New List(Of Place)
 
-            ' placement.subPlacements
-            Dim subplacements = New List(Of SubPlacement)(nbSubPlacements)
-            For i = 0 To nbSubPlacements - 1
+            Dim lines = Integer.Parse(file.ReadLine)
 
-                Dim nbstuds = Integer.Parse(file.ReadLine)
-                Dim name = file.ReadLine
-                Dim places = New List(Of Place)(nbstuds)
-                studs = New List(Of Student)(nbstuds)
-
-                For pos = 0 To nbstuds - 1
-                    Dim parts = file.ReadLine.Split(",")
-                    Dim row = Integer.Parse(parts(0))
-                    Dim col = Integer.Parse(parts(1))
-                    Dim room = parts(2)
-                    places.Add(New Place(row, col, room))
-                Next
-                For pos = 0 To nbstuds - 1
-                    studs.Add(Student.ParseFromSv(file.ReadLine))
-                Next
-                subplacements.Add(New SubPlacement(places, New StudentGroup(studs), name))
+            For i = 0 To lines - 1
+                Dim stud = Student.ParseFromSv(file.ReadLine())
+                Dim pla = Place.ParseFromSv(file.ReadLine)
+                stud.place = pla
+                pla.student = stud
+                students.allStudents.Add(stud)
+                places.Add(pla)
             Next
 
             file.Close()
 
-            Return New Placement(students, placesLeft, subplacements)
+            Return New Placement(students, places)
         End Function
     End Class
 End Module
