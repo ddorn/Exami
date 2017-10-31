@@ -18,11 +18,9 @@
 
             If value IsNot Nothing Then
                 PlacementBoxes1.SetPlacements(value)
-                SaveAllButton.Enabled = True
-                PrintAllButton.Enabled = True
+                OptionsSelector1.Enabled = True
             Else
-                SaveAllButton.Enabled = False
-                PrintAllButton.Enabled = False
+                OptionsSelector1.Enabled = False
             End If
         End Set
     End Property
@@ -125,25 +123,30 @@
         ' Aka both have selected subject/room now
         If checkedCount > 0 And SubjectManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
+            OptionsSelector1.Enabled = True
         Else
             MakePlacementButton.Enabled = False
+            OptionsSelector1.Enabled = False
         End If
     End Sub
     Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
         If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
+            OptionsSelector1.Enabled = True
         Else
             MakePlacementButton.Enabled = False
+            OptionsSelector1.Enabled = False
         End If
     End Sub
 
     ''' <summary>
     ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
     ''' </summary>
-    Private Sub MakePlacement() Handles MakePlacementButton.Click
+    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged
 
         Dim placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
-        If Not placement.TryMakePlacement(PlacementViewBySelector1.CurrentViewBy) Then
+
+        If Not placement.TryMakePlacement(OptionsSelector1.Sort, OptionsSelector1.GroupClasses) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
             RaiseEvent NewStatusMessage("There was more students than places, the placement aborted.")
             Return
@@ -154,7 +157,7 @@
 
     ' Save / Load
 
-    Private Sub SaveAllButton_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
+    Private Sub SaveAll() Handles OptionsSelector1.SaveAll
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             MP.SavePlacement(Me.CurrentPLacement, SaveFileDialog1.FileName)
@@ -225,8 +228,7 @@
     '    Printing    '
     ' ############## '
 
-    Private Sub PrintAllButton_Click(sender As Object, e As EventArgs) Handles PrintAllButton.Click
-
+    Private Sub PrintAll() Handles OptionsSelector1.PrintAll
         If PrintDialog1.ShowDialog() = DialogResult.OK Then
             PrintDocument1.Print()
         End If
@@ -247,10 +249,19 @@ End Class
 ''' This enumeration represents the possibilities for grouping students.
 ''' </summary>
 <Flags()>
-Public Enum GroupType
+Public Enum ViewBy
     None = 0
     Classe = 1
     Room = 2
     Subject = 4
-    All = GroupType.Classe Or GroupType.Room Or GroupType.Subject
+    All = ViewBy.Classe Or ViewBy.Room Or ViewBy.Subject
+End Enum
+
+''' <summary>
+''' This enumeration represents the possibilities for sorting students.
+''' </summary>
+Public Enum SortBy
+    Name
+    Number
+    Shuffle
 End Enum
