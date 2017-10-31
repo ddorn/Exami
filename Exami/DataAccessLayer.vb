@@ -35,6 +35,60 @@ Public Module DataAccessLayer
     End Enum
 
     ''' <summary>
+    ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
+    ''' </summary>
+    Public Class Place
+        Implements IComparable(Of Place)
+
+        Public row As Byte
+        Public col As Byte
+        Public room As String = ""
+        Public student As Student = Nothing
+
+        Sub New(row As Byte, col As Byte)
+            Me.row = row
+            Me.col = col
+        End Sub
+
+        Sub New(row As Byte, col As Byte, room As String)
+            Me.row = row
+            Me.col = col
+            Me.room = room
+        End Sub
+
+        ''' <summary>
+        ''' The table number as on the room plan on excel.
+        ''' </summary>
+        ''' <returns>The name string of the place.</returns>
+        Public Overrides Function ToString() As String
+            Dim colChar As Char = Chr(col + Asc("A"))
+            Return String.Format("{0}{1}", colChar, row + 1)
+        End Function
+
+        Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
+            If room <> other.room Then
+                Return room.CompareTo(other.room)
+            End If
+
+            If col <> other.col Then
+                Return col.CompareTo(other.col)
+            End If
+
+            Return row.CompareTo(other.row)
+        End Function
+
+        Public Function ToSvLine() As String
+            Return String.Format("{0},{1},{2}", row, col, room)
+        End Function
+
+        Public Shared Function FromSvLine(line As String)
+            Dim fields = line.Split(",")
+
+            Return New Place(Byte.Parse(fields(0)), Byte.Parse(fields(1)), fields(2))
+        End Function
+    End Class
+
+    ''' <summary>
     ''' Me. Or anybody else that will pass their exam. Gut luck man !
     ''' </summary>
     Class Student
