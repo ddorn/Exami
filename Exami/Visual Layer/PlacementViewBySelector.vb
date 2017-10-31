@@ -6,7 +6,7 @@
 Public Class OptionsSelector
 
     Public CurrentViewBy As ViewBy = ViewBy.None
-    Public GroupClasses As Boolean = False
+    Public GroupClasses As Boolean = True
 
     Public Event OptionsChanged()
     Public Event SaveAll()

@@ -37,7 +37,7 @@ Public Class PlacementBox
 
         ' Enable the options
         AzButton.Enabled = True
-        ShuffleButton.Enabled = True
+        TableSortButton.Enabled = True
         SortNumberButton.Enabled = True
 
         ' And updat everything
@@ -84,73 +84,11 @@ Public Class PlacementBox
         Next
     End Sub
 
-
-    ' Buttons
-
-    ''' <summary>
-    ''' Shuffle the places and keep the students in the same order. Thus They are at a random place now.
-    ''' Updates the screen.
-    ''' </summary>
-    Private Sub Shuffle() Handles ShuffleButton.Click
-        ' We sort the students by name 
-        group.Sort()
-        ' Extract the places
-        Dim places = GetAllPlaces()
-        ' Shuffle them
-        Helper.Shuffle(places)
-        ' And put them back
-        SetAllPlaces(places)
-        ' And actualize everything
-        UpdateDisplay()
-    End Sub
-    ''' <summary>
-    ''' Sort the places and leave the students as they are so they are by alphabetical order now.
-    ''' Updates the screen.
-    ''' </summary>
-    Private Sub AzButton_Click() Handles AzButton.Click
-        ' We sort the students by name 
-        group.Sort()
-        ' Extract the places
-        Dim places = GetAllPlaces()
-        ' Sort them too
-        places.Sort()
-        ' And put them back
-        SetAllPlaces(places)
-        ' And actualize everything
-        UpdateDisplay()
-    End Sub
-    ''' <summary>
-    ''' Sort the places by student number and leave the students as they are so they are by alphabetical order now.
-    ''' Updates the screen.
-    ''' </summary>
-    Private Sub SortNumberButton_Click(sender As Object, e As EventArgs) Handles SortNumberButton.Click
-        'Me.subPlacement.places.Sort()
-        ' We set the students of each place so we can know wich one it is during the sort
-        'For i = 0 To Me.subPlacement.places.Count - 1
-        '    Me.subPlacement.places(i).student = Me.subPlacement.students.allStudents(i)
-        'Next
-
-        'Me.subPlacement.places.Sort(New Comparison(Of Place)(Function(p1 As Place, p2 As Place)
-        '                                                         Dim s1Number = Integer.Parse(p1.student.studentNumber.Substring(0, 8))
-        '                                                         Dim s2Number = Integer.Parse(p2.student.studentNumber.Substring(0, 8))
-        '                                                         Return s1Number.CompareTo(s2Number)
-        '                                                     End Function))
-        ' We sort the students by number 
-        group.SortByNum()
-        ' Extract the places
-        Dim places = GetAllPlaces()
-        ' sort them too 
-        places.Sort()
-        ' And put them back
-        SetAllPlaces(places)
-        ' And actualize everything
-        UpdateDisplay()
-    End Sub
+    ' Print
 
     Private Sub PrintButton_Click(sender As Object, e As EventArgs) Handles PrintButton.Click
 
         If PrintDialog1.ShowDialog() = DialogResult.OK Then
-
             PrintDocument1.Print()
         End If
 
@@ -209,5 +147,34 @@ Public Class PlacementBox
 
     End Sub
 
+    ' Buttons
+
+    ''' <summary>
+    ''' Shuffle the places and keep the students in the same order. Thus They are at a random place now.
+    ''' Updates the screen.
+    ''' </summary>
+    Private Sub TableSort() Handles TableSortButton.Click
+        group.allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
+                                                              Return s1.place.CompareTo(s2.place)
+                                                          End Function))
+        UpdateDisplay()
+    End Sub
+    ''' <summary>
+    ''' Sort the places and leave the students as they are so they are by alphabetical order now.
+    ''' Updates the screen.
+    ''' </summary>
+    Private Sub AzSort() Handles AzButton.Click
+        group.Sort()
+        UpdateDisplay()
+    End Sub
+    ''' <summary>
+    ''' Sort the places by student number and leave the students as they are so they are by alphabetical order now.
+    ''' Updates the screen.
+    ''' </summary>
+    Private Sub SortNumberButton_Click(sender As Object, e As EventArgs) Handles SortNumberButton.Click
+        ' We sort the students by number 
+        group.SortByNum()
+        UpdateDisplay()
+    End Sub
 
 End Class

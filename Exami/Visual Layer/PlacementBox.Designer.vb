@@ -23,54 +23,15 @@ Partial Class PlacementBox
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlacementBox))
-        Me.PrintButton = New System.Windows.Forms.Button()
-        Me.ShuffleButton = New System.Windows.Forms.Button()
-        Me.AzButton = New System.Windows.Forms.Button()
         Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.SortNumberButton = New System.Windows.Forms.Button()
+        Me.AzButton = New System.Windows.Forms.Button()
+        Me.TableSortButton = New System.Windows.Forms.Button()
+        Me.PrintButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
-        '
-        'PrintButton
-        '
-        Me.PrintButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.PrintButton.BackColor = System.Drawing.SystemColors.Control
-        Me.PrintButton.BackgroundImage = CType(resources.GetObject("PrintButton.BackgroundImage"), System.Drawing.Image)
-        Me.PrintButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PrintButton.Location = New System.Drawing.Point(52, 347)
-        Me.PrintButton.Name = "PrintButton"
-        Me.PrintButton.Size = New System.Drawing.Size(42, 42)
-        Me.PrintButton.TabIndex = 2
-        Me.PrintButton.Tag = "Print this part of the placement"
-        Me.PrintButton.UseVisualStyleBackColor = True
-        '
-        'ShuffleButton
-        '
-        Me.ShuffleButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.ShuffleButton.BackgroundImage = CType(resources.GetObject("ShuffleButton.BackgroundImage"), System.Drawing.Image)
-        Me.ShuffleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ShuffleButton.Enabled = False
-        Me.ShuffleButton.Location = New System.Drawing.Point(100, 347)
-        Me.ShuffleButton.Name = "ShuffleButton"
-        Me.ShuffleButton.Size = New System.Drawing.Size(42, 42)
-        Me.ShuffleButton.TabIndex = 3
-        Me.ShuffleButton.Tag = "Place the students in a random order"
-        Me.ShuffleButton.UseVisualStyleBackColor = True
-        '
-        'AzButton
-        '
-        Me.AzButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.AzButton.BackgroundImage = CType(resources.GetObject("AzButton.BackgroundImage"), System.Drawing.Image)
-        Me.AzButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.AzButton.Enabled = False
-        Me.AzButton.Location = New System.Drawing.Point(196, 347)
-        Me.AzButton.Name = "AzButton"
-        Me.AzButton.Size = New System.Drawing.Size(42, 42)
-        Me.AzButton.TabIndex = 4
-        Me.AzButton.Tag = "Place students in alphabetic order"
-        Me.AzButton.UseVisualStyleBackColor = True
         '
         'PlacementTextBox
         '
@@ -126,6 +87,45 @@ Partial Class PlacementBox
         Me.SortNumberButton.Tag = "Place students in alphabetic order"
         Me.SortNumberButton.UseVisualStyleBackColor = True
         '
+        'AzButton
+        '
+        Me.AzButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.AzButton.BackgroundImage = CType(resources.GetObject("AzButton.BackgroundImage"), System.Drawing.Image)
+        Me.AzButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.AzButton.Enabled = False
+        Me.AzButton.Location = New System.Drawing.Point(196, 347)
+        Me.AzButton.Name = "AzButton"
+        Me.AzButton.Size = New System.Drawing.Size(42, 42)
+        Me.AzButton.TabIndex = 4
+        Me.AzButton.Tag = "Place students in alphabetic order"
+        Me.AzButton.UseVisualStyleBackColor = True
+        '
+        'TableSortButton
+        '
+        Me.TableSortButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.TableSortButton.BackgroundImage = Global.Exami.My.Resources.Resources.sorttable
+        Me.TableSortButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.TableSortButton.Enabled = False
+        Me.TableSortButton.Location = New System.Drawing.Point(100, 347)
+        Me.TableSortButton.Name = "TableSortButton"
+        Me.TableSortButton.Size = New System.Drawing.Size(42, 42)
+        Me.TableSortButton.TabIndex = 3
+        Me.TableSortButton.Tag = "See students sorted by table"
+        Me.TableSortButton.UseVisualStyleBackColor = True
+        '
+        'PrintButton
+        '
+        Me.PrintButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
+        Me.PrintButton.BackColor = System.Drawing.SystemColors.Control
+        Me.PrintButton.BackgroundImage = CType(resources.GetObject("PrintButton.BackgroundImage"), System.Drawing.Image)
+        Me.PrintButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PrintButton.Location = New System.Drawing.Point(52, 347)
+        Me.PrintButton.Name = "PrintButton"
+        Me.PrintButton.Size = New System.Drawing.Size(42, 42)
+        Me.PrintButton.TabIndex = 2
+        Me.PrintButton.Tag = "Print this part of the placement"
+        Me.PrintButton.UseVisualStyleBackColor = True
+        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
@@ -134,7 +134,7 @@ Partial Class PlacementBox
         Me.Controls.Add(Me.TitleLabel)
         Me.Controls.Add(Me.PlacementTextBox)
         Me.Controls.Add(Me.AzButton)
-        Me.Controls.Add(Me.ShuffleButton)
+        Me.Controls.Add(Me.TableSortButton)
         Me.Controls.Add(Me.PrintButton)
         Me.MinimumSize = New System.Drawing.Size(242, 2)
         Me.Name = "PlacementBox"
@@ -144,11 +144,11 @@ Partial Class PlacementBox
 
     End Sub
     Friend WithEvents PrintButton As Button
-    Friend WithEvents ShuffleButton As Button
     Friend WithEvents AzButton As Button
     Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents SortNumberButton As Button
+    Friend WithEvents TableSortButton As Button
 End Class
