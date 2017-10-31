@@ -201,5 +201,11 @@
   <ItemGroup>
     <None Include="Resources\icons8-sorttable.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Alphabetical Sorting-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-numeric.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
