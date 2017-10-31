@@ -1,9 +1,18 @@
 ﻿''' <summary>
 ''' This control let the user select set of flags for the GroupType enumeration.
 ''' </summary>
-Public Class PlacementViewBySelector
+Public Class OptionsSelector
 
-    Public CurrentViewBy As GroupType = GroupType.None
+    Public CurrentViewBy As ViewBy = ViewBy.None
+    Public GroupClasses As Boolean = False
+
+    Public AzSortAll As Boolean = False
+    Public NumSortAll As Boolean = False
+    Public ShuffleAll As Boolean = False
+
+    Public Event OptionsChanged()
+    Public Event SaveAll()
+    Public Event PrintAll()
 
     ' Change for the All box
 
@@ -11,11 +20,12 @@ Public Class PlacementViewBySelector
     ''' Change all the boxes when the user clicks the All box.
     ''' </summary>
     Private Sub AllCheckBox_CheckedChanged() Handles AllCheckBox.Click
-        ' We just set erything to the same value
+        ' We just set everything to the same value
 
         ClassCheckBox.Checked = AllCheckBox.Checked
         RoomCheckBox.Checked = AllCheckBox.Checked
         SubjectCheckBox.Checked = AllCheckBox.Checked
+        RaiseEvent OptionsChanged()
 
     End Sub
 
@@ -30,22 +40,60 @@ Public Class PlacementViewBySelector
         Else
             AllCheckBox.Checked = False
         End If
-
+        RaiseEvent OptionsChanged()
     End Sub
 
     ' Change of state
 
     Private Sub SubjectCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SubjectCheckBox.CheckedChanged
         ' The xor operation adds a flag
-        CurrentViewBy = CurrentViewBy Xor GroupType.Subject
+        CurrentViewBy = CurrentViewBy Xor ViewBy.Subject
     End Sub
 
     Private Sub ClassCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ClassCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor GroupType.Classe
+        CurrentViewBy = CurrentViewBy Xor ViewBy.Classe
     End Sub
 
     Private Sub RoomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RoomCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor GroupType.Room
+        CurrentViewBy = CurrentViewBy Xor ViewBy.Room
     End Sub
 
+    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
+        RaiseEvent SaveAll()
+    End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles PrintAllButton.Click
+        RaiseEvent PrintAll()
+    End Sub
+
+    Private Sub ShuffleButton_Click() Handles ShuffleButton.Click
+
+        Me.ShuffleAll = True
+        Me.AzSortAll = False
+        Me.NumSortAll = False
+
+        RaiseEvent OptionsChanged()
+    End Sub
+
+    Private Sub NumSortAllButton_Click() Handles NumSortAllButton.Click
+
+        Me.ShuffleAll = False
+        Me.AzSortAll = False
+        Me.NumSortAll = True
+
+        RaiseEvent OptionsChanged()
+    End Sub
+
+    Private Sub AzSortButton_Click(sender As Object, e As EventArgs) Handles AzSortButton.Click
+        Me.ShuffleAll = False
+        Me.AzSortAll = True
+        Me.NumSortAll = True
+
+        RaiseEvent OptionsChanged()
+    End Sub
+
+    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles GroupClassesButton.Click
+        Me.GroupClasses = Not Me.GroupClasses
+        RaiseEvent OptionsChanged()
+    End Sub
 End Class

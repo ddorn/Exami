@@ -29,10 +29,7 @@ Partial Class Exami2
         Me.RoomManager1 = New Exami.RoomManager()
         Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
-        Me.PrintAllButton = New System.Windows.Forms.Button()
-        Me.SaveAllButton = New System.Windows.Forms.Button()
         Me.MakePlacementButton = New System.Windows.Forms.Button()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
@@ -45,7 +42,7 @@ Partial Class Exami2
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.SettingsButton = New System.Windows.Forms.Button()
-        Me.PlacementViewBySelector1 = New Exami.PlacementViewBySelector()
+        Me.OptionsSelector1 = New Exami.OptionsSelector()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -128,6 +125,7 @@ Partial Class Exami2
         '
         'PlacementBoxes1
         '
+        Me.PlacementBoxes1.AutoScroll = True
         Me.PlacementBoxes1.AutoSize = True
         Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
@@ -147,35 +145,13 @@ Partial Class Exami2
         Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.SelectFolderButton.UseVisualStyleBackColor = True
         '
-        'PrintAllButton
-        '
-        Me.PrintAllButton.Enabled = False
-        Me.PrintAllButton.Location = New System.Drawing.Point(365, 12)
-        Me.PrintAllButton.Name = "PrintAllButton"
-        Me.PrintAllButton.Size = New System.Drawing.Size(76, 34)
-        Me.PrintAllButton.TabIndex = 4
-        Me.PrintAllButton.Tag = "Print the complete placement : every room, subject and class"
-        Me.PrintAllButton.Text = "Print all"
-        Me.PrintAllButton.UseVisualStyleBackColor = True
-        '
-        'SaveAllButton
-        '
-        Me.SaveAllButton.Enabled = False
-        Me.SaveAllButton.Location = New System.Drawing.Point(282, 12)
-        Me.SaveAllButton.Name = "SaveAllButton"
-        Me.SaveAllButton.Size = New System.Drawing.Size(77, 34)
-        Me.SaveAllButton.TabIndex = 3
-        Me.SaveAllButton.Tag = "Save the whole placement in a file."
-        Me.SaveAllButton.Text = "Save all"
-        Me.SaveAllButton.UseVisualStyleBackColor = True
-        '
         'MakePlacementButton
         '
         Me.MakePlacementButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.MakePlacementButton.Enabled = False
         Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
         Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MakePlacementButton.Location = New System.Drawing.Point(447, 12)
+        Me.MakePlacementButton.Location = New System.Drawing.Point(282, 12)
         Me.MakePlacementButton.Name = "MakePlacementButton"
         Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
         Me.MakePlacementButton.TabIndex = 5
@@ -183,18 +159,6 @@ Partial Class Exami2
         Me.MakePlacementButton.Text = "&Make placement"
         Me.MakePlacementButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
         Me.MakePlacementButton.UseVisualStyleBackColor = True
-        '
-        'TextBox1
-        '
-        Me.TextBox1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.TextBox1.BackColor = System.Drawing.SystemColors.ControlDark
-        Me.TextBox1.Cursor = System.Windows.Forms.Cursors.Default
-        Me.TextBox1.Location = New System.Drawing.Point(921, 16)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.ReadOnly = True
-        Me.TextBox1.Size = New System.Drawing.Size(2, 26)
-        Me.TextBox1.TabIndex = 12
-        Me.TextBox1.TabStop = False
         '
         'ToolStripStatusLabel2
         '
@@ -278,7 +242,7 @@ Partial Class Exami2
         '
         Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
         Me.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SettingsButton.Location = New System.Drawing.Point(621, 12)
+        Me.SettingsButton.Location = New System.Drawing.Point(456, 12)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
         Me.SettingsButton.TabIndex = 6
@@ -287,26 +251,24 @@ Partial Class Exami2
         '
         'PlacementViewBySelector1
         '
-        Me.PlacementViewBySelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementViewBySelector1.Location = New System.Drawing.Point(929, 8)
-        Me.PlacementViewBySelector1.MinimumSize = New System.Drawing.Size(237, 43)
-        Me.PlacementViewBySelector1.Name = "PlacementViewBySelector1"
-        Me.PlacementViewBySelector1.Size = New System.Drawing.Size(237, 43)
-        Me.PlacementViewBySelector1.TabIndex = 7
+        Me.OptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OptionsSelector1.Enabled = False
+        Me.OptionsSelector1.Location = New System.Drawing.Point(680, 8)
+        Me.OptionsSelector1.MinimumSize = New System.Drawing.Size(237, 43)
+        Me.OptionsSelector1.Name = "PlacementViewBySelector1"
+        Me.OptionsSelector1.Size = New System.Drawing.Size(490, 43)
+        Me.OptionsSelector1.TabIndex = 8
         '
         'Exami2
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.OptionsSelector1)
         Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.OpenButton)
         Me.Controls.Add(Me.ReloadFolderButton)
-        Me.Controls.Add(Me.PlacementViewBySelector1)
-        Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.MakePlacementButton)
-        Me.Controls.Add(Me.SaveAllButton)
-        Me.Controls.Add(Me.PrintAllButton)
         Me.Controls.Add(Me.SelectFolderButton)
         Me.Controls.Add(Me.SplitContainer1)
         Me.Controls.Add(Me.StatusBar)
@@ -332,10 +294,7 @@ Partial Class Exami2
     Friend WithEvents SplitContainer1 As SplitContainer
     Friend WithEvents SplitContainer2 As SplitContainer
     Friend WithEvents SelectFolderButton As Button
-    Friend WithEvents PrintAllButton As Button
-    Friend WithEvents SaveAllButton As Button
     Friend WithEvents MakePlacementButton As Button
-    Friend WithEvents TextBox1 As TextBox
     Friend WithEvents ToolStripStatusLabel2 As ToolStripStatusLabel
     Friend WithEvents StatusBar As StatusStrip
     Friend WithEvents HoverStatusLabel As ToolStripStatusLabel
@@ -343,7 +302,6 @@ Partial Class Exami2
     Friend WithEvents RoomManager1 As Exami.RoomManager
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
     Friend WithEvents SubjectManager1 As SubjectManager
-    Friend WithEvents PlacementViewBySelector1 As PlacementViewBySelector
     Friend WithEvents PlacementBoxes1 As PlacementBoxes
     Friend WithEvents ReloadFolderButton As Button
     Friend WithEvents SaveFileDialog1 As SaveFileDialog
@@ -352,4 +310,5 @@ Partial Class Exami2
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents SettingsButton As Button
+    Friend WithEvents OptionsSelector1 As OptionsSelector
 End Class
