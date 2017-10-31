@@ -176,7 +176,7 @@ Partial Class OptionsSelector
         Me.SaveAllButton.Tag = "Save the whole seating plan"
         Me.SaveAllButton.UseVisualStyleBackColor = True
         '
-        'PlacementViewBySelector
+        'OptionsSelector
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
@@ -193,7 +193,7 @@ Partial Class OptionsSelector
         Me.Controls.Add(Me.ClassCheckBox)
         Me.Controls.Add(Me.Label2)
         Me.MinimumSize = New System.Drawing.Size(237, 43)
-        Me.Name = "PlacementViewBySelector"
+        Me.Name = "OptionsSelector"
         Me.Size = New System.Drawing.Size(491, 43)
         Me.ResumeLayout(False)
         Me.PerformLayout()
