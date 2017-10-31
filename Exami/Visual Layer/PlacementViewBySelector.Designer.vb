@@ -98,7 +98,7 @@ Partial Class OptionsSelector
         'GroupClassesButton
         '
         Me.GroupClassesButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupClassesButton.BackgroundImage = CType(resources.GetObject("GroupClassesButton.BackgroundImage"), System.Drawing.Image)
+        Me.GroupClassesButton.BackgroundImage = Global.Exami.My.Resources.Resources.GroupByClassTrue
         Me.GroupClassesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.GroupClassesButton.Location = New System.Drawing.Point(206, 4)
         Me.GroupClassesButton.Name = "GroupClassesButton"

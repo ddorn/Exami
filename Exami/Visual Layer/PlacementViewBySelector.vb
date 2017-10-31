@@ -89,6 +89,13 @@ Public Class OptionsSelector
 
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles GroupClassesButton.Click
         Me.GroupClasses = Not Me.GroupClasses
+        If GroupClasses Then
+            GroupClassesButton.BackgroundImage = My.Resources.GroupByClassTrue
+            Me.Tag = "Stop groupping classes"
+        Else
+            GroupClassesButton.BackgroundImage = My.Resources.GroupByClassFalse
+            Me.Tag = "Group Students by classes"
+        End If
         RaiseEvent OptionsChanged()
     End Sub
 End Class

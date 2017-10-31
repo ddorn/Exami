@@ -187,6 +187,7 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Resources\icons8-sorttable.pdn" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\GroupByClassFalse.png" />
@@ -196,6 +197,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-User Groups Filled-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-sorttable.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
