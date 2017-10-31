@@ -17,7 +17,7 @@
             _CurrentPlacement = value
 
             If value IsNot Nothing Then
-                PlacementBoxes1.SetPlacements(value)
+                PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
                 OptionsSelector1.Enabled = True
             Else
                 OptionsSelector1.Enabled = False

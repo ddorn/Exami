@@ -3,9 +3,9 @@
 ''' </summary>
 Public Class PlacementBox
 
-    Public subPlacement As SubPlacement
+    Public group As StudentGroup
     Public Event NewMessage(msg As String)
-    Public Event NeedSave(subplacement As SubPlacement)
+    Public Event NeedSave(subplacement As StudentGroup)
 
     ' Title
 
@@ -24,16 +24,6 @@ Public Class PlacementBox
             Invalidate()
         End Set
     End Property
-    ''' <summary>
-    ''' Update the name of the subplacement when the title is changed (usually by the user)
-    ''' </summary>
-    Private Sub TitleLabel_TextChanged() Handles TitleLabel.TextChanged
-        ' Avoid nullReferenceException
-        If TitleLabel.Text Is Nothing Or Me.subPlacement Is Nothing Then
-            Return
-        End If
-        Me.subPlacement.name = TitleLabel.Text.Replace(vbNewLine, " - ")
-    End Sub
 
     '  Contents set and show
 
@@ -41,15 +31,13 @@ Public Class PlacementBox
     ''' Set the places and students of the box.
     ''' This actualize the screen.
     ''' </summary>
-    ''' <param name="subplacement">The subplacement to show in this box</param>
-    Public Sub SetContents(ByRef subplacement As SubPlacement)
-        Me.subPlacement = subplacement
-        Me.subPlacement.students.Sort()
+    ''' <param name="group">The group of students to show in this box</param>
+    Public Sub SetContents(ByRef group As StudentGroup)
+        Me.group = group
 
         ' Enable the options
         AzButton.Enabled = True
         ShuffleButton.Enabled = True
-        SaveButton.Enabled = True
         SortNumberButton.Enabled = True
 
         ' And updat everything
@@ -66,20 +54,36 @@ Public Class PlacementBox
 
         PlacementTextBox.ResetText()
 
-        For pos = 0 To subPlacement.students.Count - 1
-            ' We set the place of the student... in case of
-            subPlacement.students.allStudents(pos).place = subPlacement.places(pos)
+        For Each stud In group.allStudents
 
             ' The place then the name, aligned
-            Dim line = subPlacement.places(pos).ToString & vbTab &
-                subPlacement.students.allStudents(pos).studentNumber & vbTab &
-                subPlacement.students.allStudents(pos).ToString()
+            Dim line = stud.place.ToString & vbTab &
+                stud.studentNumber & vbTab &
+                stud.ToString()
 
             PlacementTextBox.AppendText(line)
             PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
         Next
 
     End Sub
+
+    ' Help functions
+
+    Private Function GetAllPlaces() As List(Of Place)
+        Dim places = New List(Of Place)
+        For Each stud In group.allStudents
+            places.Add(stud.place)
+        Next
+        Return places
+    End Function
+
+    Private Sub SetAllPlaces(places As List(Of Place))
+        For i = 0 To places.Count - 1
+            group.allStudents(i).place = places(i)
+            places(i).student = group.allStudents(i)
+        Next
+    End Sub
+
 
     ' Buttons
 
@@ -88,8 +92,15 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub Shuffle() Handles ShuffleButton.Click
-        Me.subPlacement.students.Sort()
-        Helper.Shuffle(Of Place)(subPlacement.places)
+        ' We sort the students by name 
+        group.Sort()
+        ' Extract the places
+        Dim places = GetAllPlaces()
+        ' Shuffle them
+        Helper.Shuffle(places)
+        ' And put them back
+        SetAllPlaces(places)
+        ' And actualize everything
         UpdateDisplay()
     End Sub
     ''' <summary>
@@ -97,8 +108,15 @@ Public Class PlacementBox
     ''' Updates the screen.
     ''' </summary>
     Private Sub AzButton_Click() Handles AzButton.Click
-        subPlacement.students.Sort()
-        subPlacement.places.Sort()
+        ' We sort the students by name 
+        group.Sort()
+        ' Extract the places
+        Dim places = GetAllPlaces()
+        ' Sort them too
+        places.Sort()
+        ' And put them back
+        SetAllPlaces(places)
+        ' And actualize everything
         UpdateDisplay()
     End Sub
     ''' <summary>
@@ -117,20 +135,16 @@ Public Class PlacementBox
         '                                                         Dim s2Number = Integer.Parse(p2.student.studentNumber.Substring(0, 8))
         '                                                         Return s1Number.CompareTo(s2Number)
         '                                                     End Function))
-        Me.subPlacement.places.Sort()
-        Me.subPlacement.students.allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
-                                                                                 Return s1.studentNumber.CompareTo(s2.studentNumber)
-                                                                             End Function))
+        ' We sort the students by number 
+        group.SortByNum()
+        ' Extract the places
+        Dim places = GetAllPlaces()
+        ' sort them too 
+        places.Sort()
+        ' And put them back
+        SetAllPlaces(places)
+        ' And actualize everything
         UpdateDisplay()
-    End Sub
-
-    ''' <summary>
-    ''' The Save occurs in PlacementBoxes
-    ''' </summary>
-    Private Sub SaveButton_Click() Handles SaveButton.Click
-
-        RaiseEvent NeedSave(Me.subPlacement)
-
     End Sub
 
     Private Sub PrintButton_Click(sender As Object, e As EventArgs) Handles PrintButton.Click
@@ -175,14 +189,18 @@ Public Class PlacementBox
 
         Dim lines As Integer = CInt(Math.Round((h - headerSize) / font.Height))
 
+        Dim students = group.Copy()
+        students.Sort()
+
         ' Print the placement
-        For i = currentLine To Math.Min(currentLine + lines, Me.subPlacement.students.Count) - 1
-            e.Graphics.DrawString(Me.PlacementTextBox.Lines(i), font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
+        For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
+            Dim ouatou = students.allStudents(i).place.ToString & vbTab & students.allStudents(i).ToString
+            e.Graphics.DrawString(ouatou, font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
         Next
 
         currentLine += lines
 
-        If currentLine >= Me.subPlacement.students.Count Then
+        If currentLine >= Me.group.Count Then
             e.HasMorePages = False
             currentLine = 0
         Else

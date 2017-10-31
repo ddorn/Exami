@@ -6,25 +6,25 @@ Public Class PlacementBoxes
     Public Event NewStatusMessage(msg As String)
     Public boxes As New List(Of PlacementBox)
 
-    Public Sub SetPlacements(placement As Placement)
+    Public Sub SetPlacements(placement As Placement, view As ViewBy)
 
         Controls.Clear()
         boxes.Clear()
 
-        Dim box As PlacementBox = Nothing
+        Dim groups = placement.students.Separate(view)
 
-        For Each subpla In placement.subPlacements
-            box = New PlacementBox()
+        For Each group In groups
 
+            Dim box = New PlacementBox()
             With box
-                .Title = subpla.name
+                .Title = group.GetNameAs(view)
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Left
+                .SetContents(group)
             End With
+
             Me.Controls.Add(box)
             Me.boxes.Add(box)
-            box.SetContents(subpla)
 
-            AddHandler box.NeedSave, AddressOf Save
         Next
 
         ' The last one fills up space to the right in case the user makes a bigger window
@@ -32,17 +32,6 @@ Public Class PlacementBoxes
         Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
-
-    End Sub
-
-    Private Sub Save(subplacement As SubPlacement)
-
-        If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
-            MP.SavePlacement(subplacement, SaveFileDialog1.FileName)
-            RaiseEvent NewStatusMessage(String.Format("This part of the placement was saved at {0}", SaveFileDialog1.FileName))
-        Else
-            RaiseEvent NewStatusMessage("You canceled the saving.")
-        End If
 
     End Sub
 

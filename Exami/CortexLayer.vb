@@ -500,6 +500,12 @@ Public Module CortexLayer
             End If
         End Function
 
+        ''' <summary>
+        ''' Get a shallow copy of the group
+        ''' </summary>
+        Public Function Copy() As StudentGroup
+            Return New StudentGroup(Me.allStudents.GetRange(0, Me.Count))
+        End Function
     End Class
 
 
@@ -511,6 +517,18 @@ Public Module CortexLayer
         Sub New(places As List(Of Place), students As StudentGroup, name As String)
             Me.places = places
             Me.students = students
+            Me.name = name
+        End Sub
+
+        Sub New(group As StudentGroup, name As String)
+            Me.students = group
+
+            Dim places = New List(Of Place)
+
+            For Each stud In students.allStudents
+                places.Add(stud.place)
+            Next
+
             Me.name = name
         End Sub
 

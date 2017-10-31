@@ -25,8 +25,6 @@ Partial Class PlacementBox
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlacementBox))
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.ShuffleButton = New System.Windows.Forms.Button()
-        Me.ByClassButton = New System.Windows.Forms.Button()
-        Me.SaveButton = New System.Windows.Forms.Button()
         Me.AzButton = New System.Windows.Forms.Button()
         Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
@@ -60,32 +58,6 @@ Partial Class PlacementBox
         Me.ShuffleButton.TabIndex = 3
         Me.ShuffleButton.Tag = "Place the students in a random order"
         Me.ShuffleButton.UseVisualStyleBackColor = True
-        '
-        'ByClassButton
-        '
-        Me.ByClassButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.ByClassButton.BackgroundImage = CType(resources.GetObject("ByClassButton.BackgroundImage"), System.Drawing.Image)
-        Me.ByClassButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ByClassButton.Enabled = False
-        Me.ByClassButton.Location = New System.Drawing.Point(244, 347)
-        Me.ByClassButton.Name = "ByClassButton"
-        Me.ByClassButton.Size = New System.Drawing.Size(42, 42)
-        Me.ByClassButton.TabIndex = 5
-        Me.ByClassButton.Tag = "Group the students by class"
-        Me.ByClassButton.UseVisualStyleBackColor = True
-        '
-        'SaveButton
-        '
-        Me.SaveButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
-        Me.SaveButton.BackgroundImage = CType(resources.GetObject("SaveButton.BackgroundImage"), System.Drawing.Image)
-        Me.SaveButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SaveButton.Enabled = False
-        Me.SaveButton.Location = New System.Drawing.Point(4, 347)
-        Me.SaveButton.Name = "SaveButton"
-        Me.SaveButton.Size = New System.Drawing.Size(42, 42)
-        Me.SaveButton.TabIndex = 1
-        Me.SaveButton.Tag = "Save this part of the placement"
-        Me.SaveButton.UseVisualStyleBackColor = True
         '
         'AzButton
         '
@@ -162,8 +134,6 @@ Partial Class PlacementBox
         Me.Controls.Add(Me.TitleLabel)
         Me.Controls.Add(Me.PlacementTextBox)
         Me.Controls.Add(Me.AzButton)
-        Me.Controls.Add(Me.SaveButton)
-        Me.Controls.Add(Me.ByClassButton)
         Me.Controls.Add(Me.ShuffleButton)
         Me.Controls.Add(Me.PrintButton)
         Me.MinimumSize = New System.Drawing.Size(242, 2)
@@ -175,8 +145,6 @@ Partial Class PlacementBox
     End Sub
     Friend WithEvents PrintButton As Button
     Friend WithEvents ShuffleButton As Button
-    Friend WithEvents ByClassButton As Button
-    Friend WithEvents SaveButton As Button
     Friend WithEvents AzButton As Button
     Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
