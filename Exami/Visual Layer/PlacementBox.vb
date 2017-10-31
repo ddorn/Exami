@@ -7,6 +7,33 @@ Public Class PlacementBox
     Public Event NewMessage(msg As String)
     Public Event NeedSave(subplacement As StudentGroup)
 
+    Enum SeeBy
+        Table
+        Alpha
+        Number
+    End Enum
+
+    Private _currentSeeBy As SeeBy = SeeBy.Alpha
+    Public Property CurrentSeeBy() As SeeBy
+        Get
+            Return _currentSeeBy
+        End Get
+        Set(ByVal value As SeeBy)
+            _currentSeeBy = value
+
+            If value = SeeBy.Alpha Then
+                Me.AzSort()
+                SeeByButton.BackgroundImage = My.Resources.sortAZ
+            ElseIf value = SeeBy.Number Then
+                Me.NumbSort()
+                SeeByButton.BackgroundImage = My.Resources.sortNum
+            Else
+                Me.TableSort()
+                SeeByButton.BackgroundImage = My.Resources.sorttable
+            End If
+        End Set
+    End Property
+
     ' Title
 
     ''' <summary>
@@ -34,11 +61,6 @@ Public Class PlacementBox
     ''' <param name="group">The group of students to show in this box</param>
     Public Sub SetContents(ByRef group As StudentGroup)
         Me.group = group
-
-        ' Enable the options
-        AzButton.Enabled = True
-        TableSortButton.Enabled = True
-        SortNumberButton.Enabled = True
 
         ' And updat everything
         UpdateDisplay()
@@ -153,7 +175,7 @@ Public Class PlacementBox
     ''' Shuffle the places and keep the students in the same order. Thus They are at a random place now.
     ''' Updates the screen.
     ''' </summary>
-    Private Sub TableSort() Handles TableSortButton.Click
+    Private Sub TableSort()
         group.allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
                                                               Return s1.place.CompareTo(s2.place)
                                                           End Function))
@@ -163,7 +185,7 @@ Public Class PlacementBox
     ''' Sort the places and leave the students as they are so they are by alphabetical order now.
     ''' Updates the screen.
     ''' </summary>
-    Private Sub AzSort() Handles AzButton.Click
+    Private Sub AzSort()
         group.Sort()
         UpdateDisplay()
     End Sub
@@ -171,10 +193,19 @@ Public Class PlacementBox
     ''' Sort the places by student number and leave the students as they are so they are by alphabetical order now.
     ''' Updates the screen.
     ''' </summary>
-    Private Sub SortNumberButton_Click(sender As Object, e As EventArgs) Handles SortNumberButton.Click
+    Private Sub NumbSort()
         ' We sort the students by number 
         group.SortByNum()
         UpdateDisplay()
     End Sub
 
+    Private Sub SeeByButton_Click() Handles SeeByButton.Click
+        If CurrentSeeBy = SeeBy.Alpha Then
+            CurrentSeeBy = SeeBy.Number
+        ElseIf CurrentSeeBy = SeeBy.Number Then
+            CurrentSeeBy = SeeBy.Table
+        Else
+            CurrentSeeBy = SeeBy.Alpha
+        End If
+    End Sub
 End Class
