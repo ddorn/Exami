@@ -1,4 +1,6 @@
-﻿''' <summary>
+﻿Imports Exami
+
+''' <summary>
 ''' This control let the user select set of flags for the GroupType enumeration.
 ''' </summary>
 Public Class OptionsSelector
@@ -6,13 +8,20 @@ Public Class OptionsSelector
     Public CurrentViewBy As ViewBy = ViewBy.None
     Public GroupClasses As Boolean = False
 
-    Public AzSortAll As Boolean = False
-    Public NumSortAll As Boolean = False
-    Public ShuffleAll As Boolean = False
-
     Public Event OptionsChanged()
     Public Event SaveAll()
     Public Event PrintAll()
+
+    Private _sortby As SortBy = SortBy.Name
+    Public Property Sort() As SortBy
+        Get
+            Return _sortby
+        End Get
+        Private Set(ByVal value As SortBy)
+            _sortby = value
+            RaiseEvent OptionsChanged()
+        End Set
+    End Property
 
     ' Change for the All box
 
@@ -67,29 +76,15 @@ Public Class OptionsSelector
     End Sub
 
     Private Sub ShuffleButton_Click() Handles ShuffleButton.Click
-
-        Me.ShuffleAll = True
-        Me.AzSortAll = False
-        Me.NumSortAll = False
-
-        RaiseEvent OptionsChanged()
+        Me.Sort = SortBy.Shuffle
     End Sub
 
     Private Sub NumSortAllButton_Click() Handles NumSortAllButton.Click
-
-        Me.ShuffleAll = False
-        Me.AzSortAll = False
-        Me.NumSortAll = True
-
-        RaiseEvent OptionsChanged()
+        Me.Sort = SortBy.Number
     End Sub
 
     Private Sub AzSortButton_Click(sender As Object, e As EventArgs) Handles AzSortButton.Click
-        Me.ShuffleAll = False
-        Me.AzSortAll = True
-        Me.NumSortAll = True
-
-        RaiseEvent OptionsChanged()
+        Me.Sort = SortBy.Name
     End Sub
 
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles GroupClassesButton.Click
