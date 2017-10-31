@@ -383,12 +383,12 @@ Public Module CortexLayer
         ''' </summary>
         ''' <param name="groupBy"></param>
         ''' <returns></returns>
-        Public Function Separate(groupBy As GroupType) As List(Of StudentGroup)
+        Public Function Separate(groupBy As ViewBy) As List(Of StudentGroup)
             Dim groupList = {Me}
             Dim tempGroupList = New List(Of StudentGroup)
 
             ' If we want to separate the subjects
-            If groupBy And GroupType.Subject Then
+            If groupBy And ViewBy.Subject Then
                 ' For each differnet group (there will be only one here but anyway
                 For Each group In groupList
                     ' We add the sub groups to the temp list
@@ -400,7 +400,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And GroupType.Classe Then
+            If groupBy And ViewBy.Classe Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByClass.Values)
                 Next
@@ -408,7 +408,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And GroupType.Room Then
+            If groupBy And ViewBy.Room Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByRoom.Values)
                 Next
@@ -459,6 +459,11 @@ Public Module CortexLayer
                                                         End Function))
         End Sub
 
+        Public Sub SortByNum()
+            allStudents.Sort(New Comparison(Of Student)(Function(s1, s2)
+                                                            Return s1.studentNumber.CompareTo(s2.studentNumber)
+                                                        End Function))
+        End Sub
         ' Wrapping methods
 
         ''' <summary>
@@ -473,18 +478,18 @@ Public Module CortexLayer
 
         ' 
 
-        Public Function GetNameAs(by As GroupType) As String
+        Public Function GetNameAs(by As ViewBy) As String
             Dim parts = New List(Of String)
 
-            If by And GroupType.Subject Then
+            If by And ViewBy.Subject Then
                 parts.Add(allStudents(0).classUnit.subject)
             End If
 
-            If by And GroupType.Classe Then
+            If by And ViewBy.Classe Then
                 parts.Add(allStudents(0).classUnit.GetTeacherFullName)
             End If
 
-            If by And GroupType.Room Then
+            If by And ViewBy.Room Then
                 parts.Add(allStudents(0).place.room)
             End If
 
@@ -540,12 +545,10 @@ Public Module CortexLayer
         ''' <summary>
         ''' The places that doesn't have students in them.
         ''' </summary>
-        Public placesLeft As List(Of Place)
+        Public places As List(Of Place)
 
         Private svFilePaths As String()
         Private ddFilePaths As String()
-
-        Public subPlacements As List(Of SubPlacement)
 
         ' New 
 
@@ -560,70 +563,68 @@ Public Module CortexLayer
             Me.svFilePaths = svFilePaths
 
             Me.students = New StudentGroup(svFilePaths)
-            Me.placesLeft = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
-            Me.subPlacements = New List(Of SubPlacement)
+            Me.places = DataAccessLayer.DD.LoadAllPlaces1D(ddFilePaths)
         End Sub
         ''' <summary>
         ''' Create a new placement.
         ''' </summary>
         ''' <param name="students">Group of not placed students</param>
-        ''' <param name="placesLeft">List of not used places</param>
-        ''' <param name="subPlacements">List of subplacement representing the placed students</param>
-        Sub New(students As StudentGroup, placesLeft As List(Of Place), subPlacements As List(Of SubPlacement))
+        ''' <param name="places">List of not used places</param>
+        Sub New(students As StudentGroup, places As List(Of Place))
             Me.students = students
-            Me.subPlacements = subPlacements
-            Me.placesLeft = placesLeft
+            Me.places = places
         End Sub
 
         ' Make the placement
 
         ''' <summary>
-        ''' Give the places left to the students that deosn't have one
+        ''' Associate places to students
+        ''' The place of a student can be now found at student.place
+        ''' The order of places means nothing and the only way to know a place is the above.
         ''' </summary>
-        Public Sub MakePlacement(Optional groupBy As GroupType = GroupType.None)
+        Public Sub MakePlacement(Sort As SortBy, groupByClass As Boolean)
 
             ' We really want to have enough places
-
-            If students.Count > placesLeft.Count Then
+            If students.Count > places.Count Then
                 Throw New OverflowException("There is more students than places")
             End If
 
-            ' This is just removing the Room flag
-            Dim groupByWithoutRoom = groupBy Or GroupType.Room Xor GroupType.Room
+            ' Sort everything
+            Me.students.Sort()
+            Me.places.Sort()
 
-            ' The idea is to do a virtual placement 
-            ' So sudents will have a room
-            ' And then we can separate them by room
 
-            Dim groups = Me.students.Separate(groupByWithoutRoom)
+            Dim GroupBy As ViewBy
+            If groupByClass Then
+                GroupBy = ViewBy.Subject Or ViewBy.Classe
+            Else
+                GroupBy = ViewBy.Subject
+            End If
+
+            ' We group the students as requiered and associate places 
+            ' as we go
+
+            Dim groups = Me.students.Separate(GroupBy)
 
             Dim pos = 0
             For Each group In groups
-                For studPos = 0 To group.Count - 1
-                    group.allStudents(studPos).place = placesLeft(pos)
+                Dim placesForThisGroup = places.GetRange(pos, group.Count)
+
+                If Sort = SortBy.Name Then
+                    ' Nothing to do, it's already sorded
+                ElseIf Sort = SortBy.Number Then
+                    group.SortByNum()
+                ElseIf Sort = SortBy.Shuffle Then
+                    Helper.Shuffle(placesForThisGroup)
+                End If
+
+                For groupPos = 0 To group.Count - 1
+                    ' Asociate both
+                    group.allStudents(groupPos).place = placesForThisGroup(groupPos)
+                    placesForThisGroup(groupPos).student = group.allStudents(groupPos)
                     pos += 1
                 Next
             Next
-
-            ' So we separate the sudents and allocating the places by chunck like in the previous ForEach
-            ' it is likely that sudents won't have this place at the end, but the goals are
-            '   1. to be able to already separate by classroom
-            '   2. to have the same group in the same 'chunk' of places
-            '   3. I'm soory for not beiing clear
-
-            groups = Me.students.Separate(groupBy)
-            For Each group In groups
-
-                Dim name = group.GetNameAs(groupBy)
-                ' We take the same number of places than of students
-                ' We take them in the list 
-                Dim places = placesLeft.Take(group.Count).ToList
-                ' And then remove them, they are used.
-                placesLeft.RemoveRange(0, group.Count)
-
-                Me.subPlacements.Add(New SubPlacement(places, group, name))
-            Next
-            Me.students = New StudentGroup
 
         End Sub
         ''' <summary>
@@ -631,45 +632,14 @@ Public Module CortexLayer
         ''' A return value indicates wether it worked or not.
         ''' </summary>
         ''' <returns>True if the placement was effected else false.</returns>
-        Public Function TryMakePlacement(Optional groupby As GroupType = GroupType.None) As Boolean
+        Public Function TryMakePlacement(sort As SortBy, groupByClass As Boolean) As Boolean
             Try
-                MakePlacement(groupby)
+                MakePlacement(sort, groupByClass)
             Catch ex As Exception
                 Return False
             End Try
             Return True
         End Function
-
-        ' Sort Places
-
-        ''' <summary>
-        ''' Sorts placesLeft so places of the same room are together
-        ''' </summary>
-        Public Sub SortPlacesByRoom()
-            Dim mapping = New Dictionary(Of String, List(Of Place))
-
-            For Each p In placesLeft
-                If mapping.ContainsKey(p.room) Then
-                    mapping(p.room).Add(p)
-                Else
-                    mapping(p.room) = New List(Of Place)({p})
-                End If
-            Next
-
-            ' We reintialise the places
-            placesLeft = New List(Of Place)
-
-            ' Add add each room one by one
-            For Each key In mapping.Keys
-                Dim places = mapping(key)
-                places.Sort()
-                placesLeft.AddRange(places)
-            Next
-
-        End Sub
-
-        ' Get all students
-
 
     End Class
 
