@@ -19,7 +19,7 @@ Public Module CortexLayer
         ''' Do not manipulate this array directly, but use provided public functions to do so.
         ''' </summary>
         ''' <remarks>The first axe is the row and the second the column.</remarks>
-        Protected availablePlaces(,) As Boolean
+        Public availablePlaces(,) As Boolean
 
         ' Create a new room
 
@@ -39,15 +39,7 @@ Public Module CortexLayer
         ''' </summary>
         ''' <param name="availables">A 2D-array of boolean representing the availaibility of a desktop.</param>
         Public Sub New(availables As Boolean(,))
-            ' The two arrays have the same size now.
-            ReDim availablePlaces(availables.GetUpperBound(0), availables.GetUpperBound(1))
-
-            For row = 0 To availables.GetUpperBound(0)
-                For col = 0 To availables.GetUpperBound(1)
-                    SetAvailable(row, col, availables(row, col))
-                Next
-            Next
-
+            Me.availablePlaces = availables
         End Sub
 
         ''' <summary>
