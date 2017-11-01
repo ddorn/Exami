@@ -5,6 +5,7 @@
 Public Class RoomManager
 
     Public Event CreateRoom()
+    Public Event ModifyRoom(roomFileName As String)
     Public Event NewStatusMessage(msg As String)
     Public Event SelectionChanged(checkedCount As Integer)
 
@@ -82,7 +83,7 @@ Public Class RoomManager
         RoomsListBox.Enabled = thereIsRoomsInTheFolder
         DeleteRoomButton.Enabled = thereIsRoomsInTheFolder
         CopyRoomButton.Enabled = thereIsRoomsInTheFolder
-        ModifyRoomButton.Enabled = False
+        ModifyRoomButton.Enabled = thereIsRoomsInTheFolder
         RenameRoomButton.Enabled = thereIsRoomsInTheFolder
 
     End Sub
@@ -96,6 +97,23 @@ Public Class RoomManager
     ''' </summary>
     Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
         RaiseEvent CreateRoom()
+    End Sub
+
+    ''' <summary>
+    ''' Send an event to show the RoomDesigner with a room already selected.
+    ''' </summary>
+    Private Sub ModifyRoomButton_Click() Handles ModifyRoomButton.Click
+
+        ' Warn if there is more than one room selected (or zero)
+        If CheckedCount() <> 1 Then
+            RaiseEvent NewStatusMessage("Check only one room to modify it.")
+            Return
+        End If
+
+        ' There is exactly one so its index is 0
+        Dim currentFileName = GetSelectedRoomPaths()(0)
+
+        RaiseEvent ModifyRoom(currentFileName)
     End Sub
 
     ''' <summary>

@@ -66,7 +66,6 @@ Partial Class RoomManager
         Me.ModifyRoomButton.Anchor = System.Windows.Forms.AnchorStyles.Bottom
         Me.ModifyRoomButton.BackgroundImage = CType(resources.GetObject("ModifyRoomButton.BackgroundImage"), System.Drawing.Image)
         Me.ModifyRoomButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ModifyRoomButton.Enabled = False
         Me.ModifyRoomButton.Location = New System.Drawing.Point(154, 210)
         Me.ModifyRoomButton.Name = "ModifyRoomButton"
         Me.ModifyRoomButton.Size = New System.Drawing.Size(42, 42)
