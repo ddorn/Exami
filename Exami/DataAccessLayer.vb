@@ -61,8 +61,8 @@ Public Module DataAccessLayer
         ''' </summary>
         ''' <returns>The name string of the place.</returns>
         Public Overrides Function ToString() As String
-            Dim colChar As Char = Chr(col + Asc("A"))
-            Return String.Format("{0}{1}", colChar, row + 1)
+            Dim rowChar As Char = Chr(row + Asc("A"))
+            Return String.Format("{0}{1}", rowChar, col + 1)
         End Function
 
         Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
@@ -74,7 +74,13 @@ Public Module DataAccessLayer
                 Return col.CompareTo(other.col)
             End If
 
-            Return row.CompareTo(other.row)
+            If col Mod 2 = 0 Then
+                Return row.CompareTo(other.row)
+            Else
+                ' This makes a snake
+                ' Because it is reversed on odd rows
+                Return -row.CompareTo(other.row)
+            End If
         End Function
 
         Public Function ToSvLine() As String
