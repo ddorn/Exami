@@ -117,20 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GroupByClassFalse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-User Groups-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GroupByClassTrue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-User Groups Filled-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sortAZ" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-Alphabetical Sorting-96.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sortNum" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-numeric.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="sorttable" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-sorttable.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <metadata name="PrintDialog1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <metadata name="PrintDocument1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>180, 17</value>
+  </metadata>
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="PrintButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABGdBTUEAALGPC/xhBQAAA81JREFUeF7t
+        mz1PVF0URqeyMARrLbBgQk8goaGACYX/gYTPyB8gDr0VpaWlDZ2J/AVatVATtLO0nsbCUIznkCfx5mTd
+        mTPnzjh3D3slK3kLsu9dzxggebXjOI7jOI7jOI7jOM40ePPxz3CRVJYdKMKyyrIDRVhWWXagCMsqyw4U
+        YVll2YEiLKssO1CEZZVlB4qwrLLsQBGWVZYdKMKyyrIDRVhWWXagCMsqyw4UYVll2YEiLKus9tLr9YZV
+        KcKyaZ+y20P6ghRh2bRP2e0hfUGKsGzap+z2kL4gRVg27VN2e0hfkCIsm/Ypuz2kL0gRlk37lP3/OTg4
+        WDk6OroI3hwfHw+CwwfuQFv04zaaafrs7+8vh4dcVx7sguHDeH92dvZEs02H09PT5+HwD3qgi96enJw8
+        03zNCeNfwUPc0b7TfM04PDxcDcfukuPueO/Cd46uZiwn/Om/hONuhnE7zVhOOPKZjj90X7x+OVy6Pb83
+        /jd9TdxOM5YTDvmvmuDS9/Nh51f/3vgh0NcEB5qxHDjqBh/9fPXvAwgfBn1NVDOWQ0ddfQsKw0frvgVF
+        NWM5dNTNVzOWQ0fdfDVjOXTUzVczlkNH3Xw1Yzl01M1XM5ZDR918NWM5dNTNVzOWQ0fdfDVjOXTUzVcz
+        lkNH3Xw1Yznp/4x2J1MzlkNH3Xw1Yzl01M1XM5ZDR918NWM5dNTNVzOWQ0fdfDVjOXTUzVczlkNH3Xw1
+        Yzl0tM6NjY3h2trasNvtLqSxLTZSe52asRw6Sq6vr+NLL6KxlTYgNWM5dJRM/+T3rn4vlNW22EobkJqx
+        HDpK+gfAasZy6CiZfguiCMtW21r5LSha/SFMEZaNTbFtc3MT2+vUjOXQ0Rzpn/lYlhpz1Izl0NEcKcKy
+        1JijZiwnHBmkR3OkCMtSY4bN/3Lu7u7uFzg8VoqwLDWOM2zX/K+nh0OX6eEcKYJ82v/WCundqlJjhs3/
+        gcbOzk43fJJ3cHykFEHSGPOQ3q0qNY5Sm61qxmaEY2/TB4yTIkgaYx7Su1WlxlHGzTRfc8Lv94/D0a/p
+        Q0ZJESSNMQ/p3apSY51h/E9xM803Hfb29p6E4x/Sh9VJEZalRjKMf721tbWs2abP9vb2SnhIPzzsJlj7
+        KypFWJYaZdzgJvysvIjbaKb5QxGWVZYdKMKyyrIDRZD0A3EW0rMnUVl2oAiSxpqF9OxJVJYdKIKksWYh
+        PXsSlWUHiiBprFlIz55EZdmBIiyrLDtQhGWVZQeKsKyy7EARllWWHSjCssqyA0VYVlmO4ziO4ziO4ziO
+        4zSg0/kLqbok99THNw8AAAAASUVORK5CYII=
+</value>
   </data>
 </root>

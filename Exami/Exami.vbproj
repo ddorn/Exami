@@ -47,6 +47,9 @@
   <PropertyGroup>
     <OptionInfer>On</OptionInfer>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -75,12 +78,29 @@
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
     <Compile Include="Helper.vb" />
-    <Compile Include="Visual Layer\Exami.vb">
+    <Compile Include="Visual Layer\Exami2.Designer.vb">
+      <DependentUpon>Exami2.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\Exami2.vb">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Visual Layer\Exami.Designer.vb">
-      <DependentUpon>Exami.vb</DependentUpon>
-      <SubType>Form</SubType>
+    <Compile Include="Visual Layer\PlacementBox.Designer.vb">
+      <DependentUpon>PlacementBox.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementBox.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementBoxes.Designer.vb">
+      <DependentUpon>PlacementBoxes.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementBoxes.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementViewBySelector.Designer.vb">
+      <DependentUpon>PlacementViewBySelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\PlacementViewBySelector.vb">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Visual Layer\RoomDesigner.Designer.vb">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
@@ -104,10 +124,37 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="Visual Layer\RoomManager.Designer.vb">
+      <DependentUpon>RoomManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\RoomManager.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Visual Layer\Settings.Designer.vb">
+      <DependentUpon>Settings.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\Settings.vb">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Visual Layer\SubjectManager.Designer.vb">
+      <DependentUpon>SubjectManager.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\SubjectManager.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Visual Layer\Exami.resx">
-      <DependentUpon>Exami.vb</DependentUpon>
+    <EmbeddedResource Include="Visual Layer\Exami2.resx">
+      <DependentUpon>Exami2.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\PlacementBox.resx">
+      <DependentUpon>PlacementBox.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\PlacementBoxes.resx">
+      <DependentUpon>PlacementBoxes.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\PlacementViewBySelector.resx">
+      <DependentUpon>PlacementViewBySelector.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\RoomDesigner.resx">
       <DependentUpon>RoomDesigner.vb</DependentUpon>
@@ -118,8 +165,18 @@
       <CustomToolNamespace>My.Resources</CustomToolNamespace>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\RoomManager.resx">
+      <DependentUpon>RoomManager.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\Settings.resx">
+      <DependentUpon>Settings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\SubjectManager.resx">
+      <DependentUpon>SubjectManager.vb</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="My Project\app.manifest" />
     <None Include="My Project\Application.myapp">
       <Generator>MyApplicationCodeGenerator</Generator>
       <LastGenOutput>Application.Designer.vb</LastGenOutput>
@@ -130,6 +187,25 @@
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
     </None>
     <None Include="App.config" />
+    <None Include="Resources\icons8-sorttable.pdn" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\GroupByClassFalse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-User Groups-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-User Groups Filled-100.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-sorttable.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Alphabetical Sorting-96.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-numeric.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

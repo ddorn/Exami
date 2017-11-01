@@ -2,7 +2,7 @@
 
     Dim preview As RoomPreview
 
-    Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
+    Public Sub SetRoom(room As Room)
 
         ' We hide the size stuff
         RowLabel.Visible = False
@@ -14,14 +14,37 @@
         ' Show the options of the room designer
         CancelButton.Visible = True
         SaveButton.Visible = True
+        If room.name IsNot Nothing Then
+            SaveAsButton.Visible = True
+        End If
+
+        preview = New RoomPreview(room)
+        Me.Show()
+    End Sub
+
+    Private Sub CreateRoomButton_Click() Handles CreateRoomButton.Click
+
+        ' We hide the size stuff
+        RowLabel.Visible = False
+        ColumnLabel.Visible = False
+        CreateRoomButton.Visible = False
+        RowNumericUpDown.Visible = False
+        ColumnNumericUpDown.Visible = False
+
+        ' Show the options of the room designer
+        CancelButton.Visible = True
+        SaveAsButton.Visible = True
+
+        ' But not save, because this room as no name
+        SaveButton.Visible = False
 
         ' Create our beautiful way to design rooms !
         preview = New RoomPreview(RowNumericUpDown.Value, ColumnNumericUpDown.Value)
     End Sub
 
     Private Sub RoomDesigner_Closed() Handles Me.Closed
-        ExamiForm.Show()
-        ExamiForm.UpdateAvailaibleFiles()
+        Exami2.Show()
+        Exami2.ReloadWorkingFolder()
     End Sub
 
     Private Sub CancelButton_Click() Handles CancelButton.Click
@@ -29,31 +52,50 @@
 
         If response = MsgBoxResult.Ok Then
             Me.Close()
-            ExamiForm.Show()
+            Exami2.Show()
         End If
     End Sub
 
-    Private Sub SaveButton_Click(sender As Object, e As EventArgs) Handles SaveButton.Click
-        Dim result As String
+    Private Sub SaveAsButton_Click(sender As Object, e As EventArgs) Handles SaveAsButton.Click
+        Dim roomName As String = Nothing
 
         ' We ask until you answer niark
         Dim prompt = "What is the name of this room ?"
-        While Not File.IsValidFileName(result)
-            result = InputBox(prompt)
+        While Not File.IsValidFileName(roomName)
+            roomName = InputBox(prompt)
             prompt = "It is an invalid file name, try an other name for this room"
         End While
 
         ' Save the room
-        If Not DataAccessLayer.DD.TrySaveRoom(preview, IO.Path.Combine(ExamiForm.WorkingFolder, result + ".dd")) Then
-            MsgBox("Error while saving the room. The name could be invalid, or you don have write access here...")
+        If Not TrySave(roomName) Then
             Return
         End If
 
         ' Go back tothe main form
         Me.Close()
-        ExamiForm.Show()
+        Exami2.Show()
     End Sub
 
+    Private Sub SaveButton_Click() Handles SaveButton.Click
+        If DialogResult.OK = MsgBox("This will override the the previous version of this room. Do you want to continue ?", MsgBoxStyle.OkCancel Or MsgBoxStyle.DefaultButton2) Then
+            ' Save the room
+            If TrySave(preview.name) Then
+                ' Go back tothe main form
+                Me.Close()
+                Exami2.Show()
+            End If
+        End If
+    End Sub
+
+    Public Function TrySave(name)
+        ' Save the room
+        If Not DataAccessLayer.DD.TrySaveRoom(preview, IO.Path.Combine(Exami2.WorkingFolder, name + ".dd")) Then
+            MsgBox("Error while saving the room. The name could be invalid, or you don have write access here...")
+            Return False
+        End If
+        MsgBox(IO.Path.Combine(Exami2.WorkingFolder, name + ".dd"))
+        Return True
+    End Function
 End Class
 
 ''' <summary>
@@ -74,6 +116,20 @@ Class RoomPreview
         MyBase.New(rowNb, colNb)
         ReDim tablesButtons(rowNb, colNb)
         SetRectangle(True, 0, 0, rowNb - 1, colNb - 1)
+    End Sub
+    ''' <summary>
+    ''' Create a RoomPreview from an existing room.
+    ''' </summary>
+    Sub New(room As Room)
+        MyBase.New(room.availablePlaces, room.name)
+        ReDim tablesButtons(room.LastRow + 1, room.LastColumn + 1)
+
+        ' We set the table buttons
+        For row = 0 To LastRow
+            For col = 0 To LastColumn
+                SetAvailable(row, col, GetAvailable(row, col))
+            Next
+        Next
     End Sub
 
     ''' <summary>

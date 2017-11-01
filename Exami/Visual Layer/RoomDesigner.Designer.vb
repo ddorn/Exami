@@ -29,6 +29,7 @@ Partial Class RoomDesigner
         Me.CreateRoomButton = New System.Windows.Forms.Button()
         Me.SaveButton = New System.Windows.Forms.Button()
         Me.CancelButton = New System.Windows.Forms.Button()
+        Me.SaveAsButton = New System.Windows.Forms.Button()
         CType(Me.RowNumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.ColumnNumericUpDown, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
@@ -36,7 +37,7 @@ Partial Class RoomDesigner
         'RowNumericUpDown
         '
         Me.RowNumericUpDown.Location = New System.Drawing.Point(527, 246)
-        Me.RowNumericUpDown.Maximum = New Decimal(New Integer() {255, 0, 0, 0})
+        Me.RowNumericUpDown.Maximum = New Decimal(New Integer() {26, 0, 0, 0})
         Me.RowNumericUpDown.Name = "RowNumericUpDown"
         Me.RowNumericUpDown.Size = New System.Drawing.Size(120, 26)
         Me.RowNumericUpDown.TabIndex = 0
@@ -82,7 +83,7 @@ Partial Class RoomDesigner
         '
         Me.SaveButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SaveButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
-        Me.SaveButton.Location = New System.Drawing.Point(1092, 542)
+        Me.SaveButton.Location = New System.Drawing.Point(1092, 500)
         Me.SaveButton.Name = "SaveButton"
         Me.SaveButton.Size = New System.Drawing.Size(98, 36)
         Me.SaveButton.TabIndex = 1000
@@ -102,12 +103,25 @@ Partial Class RoomDesigner
         Me.CancelButton.UseVisualStyleBackColor = True
         Me.CancelButton.Visible = False
         '
+        'SaveAsButton
+        '
+        Me.SaveAsButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SaveAsButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
+        Me.SaveAsButton.Location = New System.Drawing.Point(1092, 542)
+        Me.SaveAsButton.Name = "SaveAsButton"
+        Me.SaveAsButton.Size = New System.Drawing.Size(98, 36)
+        Me.SaveAsButton.TabIndex = 1002
+        Me.SaveAsButton.Text = "Save &As"
+        Me.SaveAsButton.UseVisualStyleBackColor = True
+        Me.SaveAsButton.Visible = False
+        '
         'RoomDesigner
         '
         Me.AcceptButton = Me.CreateRoomButton
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1202, 590)
+        Me.Controls.Add(Me.SaveAsButton)
         Me.Controls.Add(Me.CancelButton)
         Me.Controls.Add(Me.SaveButton)
         Me.Controls.Add(Me.CreateRoomButton)
@@ -132,4 +146,5 @@ Partial Class RoomDesigner
     Friend WithEvents CreateRoomButton As Button
     Friend WithEvents SaveButton As Button
     Friend WithEvents CancelButton As Button
+    Friend WithEvents SaveAsButton As Button
 End Class

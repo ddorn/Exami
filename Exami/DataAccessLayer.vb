@@ -1,6 +1,6 @@
 ﻿Imports Exami
 
-Module DataAccessLayer
+Public Module DataAccessLayer
 
     Enum SvKeys
         ' Student
@@ -35,6 +35,66 @@ Module DataAccessLayer
     End Enum
 
     ''' <summary>
+    ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
+    ''' </summary>
+    Public Class Place
+        Implements IComparable(Of Place)
+
+        Public row As Byte
+        Public col As Byte
+        Public room As String = ""
+        Public student As Student = Nothing
+
+        Sub New(row As Byte, col As Byte)
+            Me.row = row
+            Me.col = col
+        End Sub
+
+        Sub New(row As Byte, col As Byte, room As String)
+            Me.row = row
+            Me.col = col
+            Me.room = room
+        End Sub
+
+        ''' <summary>
+        ''' The table number as on the room plan on excel.
+        ''' </summary>
+        ''' <returns>The name string of the place.</returns>
+        Public Overrides Function ToString() As String
+            Dim rowChar As Char = Chr(row + Asc("A"))
+            Return String.Format("{0}{1}", rowChar, col + 1)
+        End Function
+
+        Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
+            If room <> other.room Then
+                Return room.CompareTo(other.room)
+            End If
+
+            If col <> other.col Then
+                Return col.CompareTo(other.col)
+            End If
+
+            If col Mod 2 = 0 Then
+                Return row.CompareTo(other.row)
+            Else
+                ' This makes a snake
+                ' Because it is reversed on odd rows
+                Return -row.CompareTo(other.row)
+            End If
+        End Function
+
+        Public Function ToSvLine() As String
+            Return String.Format("{0},{1},{2}", row, col, room)
+        End Function
+
+        Public Shared Function ParseFromSv(line As String) As Place
+            Dim fields = line.Split(",")
+
+            Return New Place(Byte.Parse(fields(0)), Byte.Parse(fields(1)), fields(2))
+        End Function
+    End Class
+
+    ''' <summary>
     ''' Me. Or anybody else that will pass their exam. Gut luck man !
     ''' </summary>
     Class Student
@@ -43,6 +103,7 @@ Module DataAccessLayer
         Public secondName As String
         Public studentNumber As String
         Public classUnit As ClassUnit
+        Public place As Place
 
         Sub New(studentNumber As String, familyName As String, firstName As String, secondName As String, classUnit As ClassUnit)
             With Me
@@ -248,7 +309,7 @@ Module DataAccessLayer
     End Class
 
     ''' <summary>
-    ''' A class to manipulate .sv files, extract, convert and save content
+    ''' A class to manipulate .sv files (students), extract, convert and save content
     ''' </summary>
     Class SV
 
@@ -273,7 +334,7 @@ Module DataAccessLayer
 
             ' It is -2 because of the header and the last blank line
             Dim Students = New List(Of Student)(lines.Length - 2)
-            Dim stud As Student
+            Dim stud As Student = Nothing
 
             ' -1 cos we skip the first line and then it is zero and it is aligned with the indices of Students
             pos = -1
@@ -340,7 +401,7 @@ Module DataAccessLayer
 
             ' The lines of the .vass file to convert
             Dim lines As String() = IO.File.ReadAllLines(vassFilePath)
-            Dim student As Student
+            Dim student As Student = Nothing
 
             For Each line As String In lines
 
@@ -372,7 +433,7 @@ Module DataAccessLayer
 
 
     ''' <summary>
-    ''' A class to save and load rooms.
+    ''' A class to manipulate .dd files (desktops), extract, convert and save content
     ''' </summary>
     Class DD
 
@@ -464,7 +525,7 @@ Module DataAccessLayer
         ''' </summary>
         ''' <param name="ddFilePath">The file to load the room. The file must exist.</param>
         ''' <returns>The room that was in the file.</returns>
-        Public Shared Function TryLoadRoom(ddFilePath As String, ByRef room As Room)
+        Public Shared Function TryLoadRoom(ddFilePath As String, ByRef room As Room) As Boolean
             Try
                 room = LoadRoom(ddFilePath)
             Catch ex As Exception
@@ -513,7 +574,7 @@ Module DataAccessLayer
     Class File
 
         ''' <summary>
-        ''' Get an array of all files with a specific extention in a givem folder
+        ''' Get an array of all files with a specific extention in a given folder
         ''' </summary>
         ''' <param name="path">The path to the folder</param>
         ''' <param name="extention">The extention of files to return (ex: ".vass")</param>
@@ -521,6 +582,10 @@ Module DataAccessLayer
         Shared Function GetFilesWithExtension(path As String, extention As String) As String()
             Dim NamesArray = New List(Of String)
             Dim fullName As String
+
+            If Not IO.Directory.Exists(path) Then
+                Return {}
+            End If
 
             For Each file In IO.Directory.EnumerateFiles(path)
                 If IO.Path.GetExtension(file) = extention Then
@@ -562,7 +627,71 @@ Module DataAccessLayer
 
             Return True
         End Function
+
     End Class
 
+    ''' <summary>
+    ''' A class to manipulate .mp files (placement), extract and save content.
+    ''' </summary>
+    Class MP
+        Shared Sub SavePlacement(placement As Placement, mpFilePath As String)
+            Dim file = IO.File.CreateText(mpFilePath)
 
+            file.WriteLine("v1")
+            file.WriteLine(placement.students.Count)
+
+            For i = 0 To placement.students.Count
+                file.WriteLine(placement.students.allStudents(i).ToSvLine)
+                file.WriteLine(placement.students.allStudents(i).place.ToSvLine)
+            Next
+
+            file.Close()
+        End Sub
+
+        Shared Sub SavePlacement(subplacement As SubPlacement, mpFilePath As String)
+
+            Dim file = IO.File.CreateText(mpFilePath)
+
+            file.WriteLine("v1")
+
+            ' size
+            file.WriteLine(subplacement.students.Count)
+
+            For i = 0 To subplacement.students.Count
+                file.WriteLine(subplacement.students.allStudents(i).ToSvLine)
+                file.WriteLine(subplacement.students.allStudents(i).place.ToSvLine)
+            Next
+
+            file.Close()
+
+        End Sub
+
+        Shared Function LoadPlacement(mpFilePath As String) As Placement
+
+            Dim file = IO.File.OpenText(mpFilePath)
+            Dim version = Integer.Parse(file.ReadLine.Substring(1))
+
+            If version <> 1 Then
+                Throw New VersionNotFoundException
+            End If
+
+            Dim students = New StudentGroup
+            Dim places = New List(Of Place)
+
+            Dim lines = Integer.Parse(file.ReadLine)
+
+            For i = 0 To lines - 1
+                Dim stud = Student.ParseFromSv(file.ReadLine())
+                Dim pla = Place.ParseFromSv(file.ReadLine)
+                stud.place = pla
+                pla.student = stud
+                students.allStudents.Add(stud)
+                places.Add(pla)
+            Next
+
+            file.Close()
+
+            Return New Placement(students, places)
+        End Function
+    End Class
 End Module
