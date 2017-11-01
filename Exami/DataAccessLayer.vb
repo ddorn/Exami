@@ -525,7 +525,7 @@ Public Module DataAccessLayer
         ''' </summary>
         ''' <param name="ddFilePath">The file to load the room. The file must exist.</param>
         ''' <returns>The room that was in the file.</returns>
-        Public Shared Function TryLoadRoom(ddFilePath As String, ByRef room As Room)
+        Public Shared Function TryLoadRoom(ddFilePath As String, ByRef room As Room) As Boolean
             Try
                 room = LoadRoom(ddFilePath)
             Catch ex As Exception
