@@ -35,6 +35,14 @@
 
     End Sub
 
+    Private Sub ModifyRoom(roomPath As String) Handles RoomManager1.ModifyRoom
+        Me.Hide()
+        Dim room As Room
+        If DD.TryLoadRoom(roomPath, room) Then
+            RoomDesigner.SetRoom(room)
+        End If
+    End Sub
+
     ' ############## '
     ' Folder  Manage '
     ' ############## '
