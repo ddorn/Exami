@@ -58,7 +58,7 @@ Public Class RoomManager
         Else
             rooms = File.GetFilesWithExtension(folderPath, ".dd")
 
-            If rooms.GetUpperBound(0) > 0 Then
+            If rooms.GetUpperBound(0) >= 0 Then
                 ' We hace a non empty room list ! Cool
                 thereIsRoomsInTheFolder = True
             Else
