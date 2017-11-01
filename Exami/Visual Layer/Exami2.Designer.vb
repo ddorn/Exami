@@ -249,13 +249,13 @@ Partial Class Exami2
         Me.SettingsButton.UseVisualStyleBackColor = True
         Me.SettingsButton.Visible = False
         '
-        'PlacementViewBySelector1
+        'OptionsSelector1
         '
         Me.OptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.OptionsSelector1.Enabled = False
         Me.OptionsSelector1.Location = New System.Drawing.Point(680, 8)
         Me.OptionsSelector1.MinimumSize = New System.Drawing.Size(237, 43)
-        Me.OptionsSelector1.Name = "PlacementViewBySelector1"
+        Me.OptionsSelector1.Name = "OptionsSelector1"
         Me.OptionsSelector1.Size = New System.Drawing.Size(490, 43)
         Me.OptionsSelector1.TabIndex = 8
         '
