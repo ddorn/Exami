@@ -98,4 +98,5 @@ Public Class OptionsSelector
         End If
         RaiseEvent OptionsChanged()
     End Sub
+
 End Class
