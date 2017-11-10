@@ -62,7 +62,7 @@ Public Module DataAccessLayer
         ''' <returns>The name string of the place.</returns>
         Public Overrides Function ToString() As String
             Dim rowChar As Char = Chr(row + Asc("A"))
-            Return String.Format("{0}{1}", rowChar, col + 1)
+            Return String.Format("{1}{0}", rowChar, col + 1)
         End Function
 
         Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
