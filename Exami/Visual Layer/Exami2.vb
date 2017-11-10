@@ -152,7 +152,13 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged
 
-        Dim placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+        Dim Placement
+        If CurrentPLacement Is Nothing Then
+            Placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+        Else
+            Placement = CurrentPLacement.Reseted()
+        End If
+
 
         If Not placement.TryMakePlacement(OptionsSelector1.Sort, OptionsSelector1.GroupClasses) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
