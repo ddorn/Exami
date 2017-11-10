@@ -1,15 +1,25 @@
 ﻿''' <summary>
-''' This control is just a list of 
+''' This control is just a container for a list of PlacementBox
 ''' </summary>
 Public Class PlacementBoxes
 
     Public Event NewStatusMessage(msg As String)
     Public boxes As New List(Of PlacementBox)
 
+    ''' <summary>
+    ''' Removes every PlacementBox and create new ones with the students of placement separated by view
+    ''' </summary>
+    ''' <param name="placement">The students, seated. If Nothing, will just remove everything.</param>
+    ''' <param name="view">How to separate the students for viewing.</param>
     Public Sub SetPlacements(placement As Placement, view As ViewBy)
 
         Controls.Clear()
         boxes.Clear()
+
+        If placement Is Nothing Then
+            ' We just clear everything
+            Return
+        End If
 
         Dim groups = placement.students.Separate(view)
 
@@ -27,8 +37,7 @@ Public Class PlacementBoxes
 
         Next
 
-        ' The last one fills up space to the right in case the user makes a bigger window
-        ' TODO: implement a resize function so they all always have the same size.
+        ' Update the Tooltips 
         Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
@@ -45,6 +54,7 @@ Public Class PlacementBoxes
         End If
 
         If iSubPlacement >= boxes.Count Then
+            ' We reset everything at the end.
             e.HasMorePages = False
             iSubPlacement = 0
         End If

@@ -15,13 +15,7 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-
-            If value IsNot Nothing Then
-                PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
-                OptionsSelector1.Enabled = True
-            Else
-                OptionsSelector1.Enabled = False
-            End If
+            PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
         End Set
     End Property
 
@@ -136,6 +130,7 @@
             MakePlacementButton.Enabled = False
             OptionsSelector1.Enabled = False
         End If
+        CurrentPLacement = Nothing
     End Sub
     Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
         If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
@@ -145,6 +140,7 @@
             MakePlacementButton.Enabled = False
             OptionsSelector1.Enabled = False
         End If
+        CurrentPLacement = Nothing
     End Sub
 
     ''' <summary>
