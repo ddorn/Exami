@@ -215,6 +215,7 @@
         ' We add the handler
         AddHandler control.MouseEnter, AddressOf SetToolTipHelp
         AddHandler control.Enter, AddressOf SetToolTipHelp
+        AddHandler control.Click, AddressOf SetToolTipHelp
 
         ' And the same for every sub control
         For Each con In control.Controls
