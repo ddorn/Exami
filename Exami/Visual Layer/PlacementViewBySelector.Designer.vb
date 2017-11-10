@@ -173,7 +173,7 @@ Partial Class OptionsSelector
         Me.GroupClassesButton.Name = "GroupClassesButton"
         Me.GroupClassesButton.Size = New System.Drawing.Size(34, 34)
         Me.GroupClassesButton.TabIndex = 23
-        Me.GroupClassesButton.Tag = "Stop groupping classes"
+        Me.GroupClassesButton.Tag = "Ungroup classes"
         Me.GroupClassesButton.UseVisualStyleBackColor = True
         '
         'OptionsSelector
