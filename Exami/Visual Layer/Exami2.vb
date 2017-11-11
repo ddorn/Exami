@@ -191,6 +191,7 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        
         SetUpHoverHandler(Me)
     End Sub
     ''' <summary>
