@@ -640,7 +640,7 @@ Public Module DataAccessLayer
             file.WriteLine("v1")
             file.WriteLine(placement.students.Count)
 
-            For i = 0 To placement.students.Count
+            For i = 0 To placement.students.Count - 1
                 file.WriteLine(placement.students.allStudents(i).ToSvLine)
                 file.WriteLine(placement.students.allStudents(i).place.ToSvLine)
             Next
@@ -657,7 +657,7 @@ Public Module DataAccessLayer
             ' size
             file.WriteLine(subplacement.students.Count)
 
-            For i = 0 To subplacement.students.Count
+            For i = 0 To subplacement.students.Count - 1
                 file.WriteLine(subplacement.students.allStudents(i).ToSvLine)
                 file.WriteLine(subplacement.students.allStudents(i).place.ToSvLine)
             Next
