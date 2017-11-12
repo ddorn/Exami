@@ -117,7 +117,6 @@ Public Class AddStudentForm
         Next
 
         Dim classesNames = Me.classes.Keys.ToList
-        classesNames.Sort()
 
         Me.ClassComboBox.Items.Clear()
         Me.ClassComboBox.Items.AddRange(classesNames.ToArray)

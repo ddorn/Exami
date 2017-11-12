@@ -126,6 +126,7 @@ Partial Class AddStudentForm
         Me.ClassComboBox.Location = New System.Drawing.Point(207, 368)
         Me.ClassComboBox.Name = "ClassComboBox"
         Me.ClassComboBox.Size = New System.Drawing.Size(179, 28)
+        Me.ClassComboBox.Sorted = True
         Me.ClassComboBox.TabIndex = 14
         '
         'FirstNameFailButton
