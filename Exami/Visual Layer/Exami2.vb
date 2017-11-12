@@ -263,9 +263,11 @@
 
         AddStudentForm.SetPlacement(CurrentPLacement)
         If AddStudentForm.ShowDialog() = DialogResult.OK Then
-            MsgBox(AddStudentForm.GetStudent.ToSvLine)
+            CurrentPLacement.students.allStudents.Add(AddStudentForm.GetStudent)
+            MakePlacement()
         Else
             MsgBox("Canceled.")
+            RaiseEvent NewStatusMessage("You canceled the new student.")
         End If
     End Sub
 End Class
