@@ -254,6 +254,20 @@
         Settings.Show()
     End Sub
 
+    Private Sub AddStudentButton_Click(sender As Object, e As EventArgs) Handles AddStudentButton.Click
+        If CurrentPLacement Is Nothing Then
+            MsgBox("You need to make a placement before adding students to it.")
+            RaiseEvent NewStatusMessage("You need to make a placement before adding students to it.")
+            Return
+        End If
+
+        AddStudentForm.SetPlacement(CurrentPLacement)
+        If AddStudentForm.ShowDialog() = DialogResult.OK Then
+            MsgBox(AddStudentForm.GetStudent.ToSvLine)
+        Else
+            MsgBox("Canceled.")
+        End If
+    End Sub
 End Class
 
 
