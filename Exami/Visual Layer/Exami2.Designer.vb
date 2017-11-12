@@ -28,21 +28,22 @@ Partial Class Exami2
         Me.SubjectManager1 = New Exami.SubjectManager()
         Me.RoomManager1 = New Exami.RoomManager()
         Me.PlacementBoxes1 = New Exami.PlacementBoxes()
-        Me.SelectFolderButton = New System.Windows.Forms.Button()
-        Me.MakePlacementButton = New System.Windows.Forms.Button()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.GeneralStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
-        Me.ReloadFolderButton = New System.Windows.Forms.Button()
         Me.SaveFileDialog1 = New System.Windows.Forms.SaveFileDialog()
         Me.OpenButton = New System.Windows.Forms.Button()
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.SettingsButton = New System.Windows.Forms.Button()
         Me.OptionsSelector1 = New Exami.OptionsSelector()
+        Me.AddStudentButton = New System.Windows.Forms.Button()
+        Me.SettingsButton = New System.Windows.Forms.Button()
+        Me.ReloadFolderButton = New System.Windows.Forms.Button()
+        Me.MakePlacementButton = New System.Windows.Forms.Button()
+        Me.SelectFolderButton = New System.Windows.Forms.Button()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -133,33 +134,6 @@ Partial Class Exami2
         Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
         Me.PlacementBoxes1.TabIndex = 0
         '
-        'SelectFolderButton
-        '
-        Me.SelectFolderButton.Image = CType(resources.GetObject("SelectFolderButton.Image"), System.Drawing.Image)
-        Me.SelectFolderButton.Location = New System.Drawing.Point(12, 12)
-        Me.SelectFolderButton.Name = "SelectFolderButton"
-        Me.SelectFolderButton.Size = New System.Drawing.Size(148, 34)
-        Me.SelectFolderButton.TabIndex = 0
-        Me.SelectFolderButton.Tag = "Select the folder containing the .vass files"
-        Me.SelectFolderButton.Text = "Select Folder"
-        Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.SelectFolderButton.UseVisualStyleBackColor = True
-        '
-        'MakePlacementButton
-        '
-        Me.MakePlacementButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.MakePlacementButton.Enabled = False
-        Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
-        Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.MakePlacementButton.Location = New System.Drawing.Point(282, 12)
-        Me.MakePlacementButton.Name = "MakePlacementButton"
-        Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
-        Me.MakePlacementButton.TabIndex = 5
-        Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
-        Me.MakePlacementButton.Text = "&Make placement"
-        Me.MakePlacementButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
-        Me.MakePlacementButton.UseVisualStyleBackColor = True
-        '
         'ToolStripStatusLabel2
         '
         Me.ToolStripStatusLabel2.Name = "ToolStripStatusLabel2"
@@ -195,15 +169,6 @@ Partial Class Exami2
         '
         Me.FolderBrowserDialog1.SelectedPath = "C:\Users\diego\Documents\Programation\Exami\Data"
         '
-        'ReloadFolderButton
-        '
-        Me.ReloadFolderButton.Image = CType(resources.GetObject("ReloadFolderButton.Image"), System.Drawing.Image)
-        Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 12)
-        Me.ReloadFolderButton.Name = "ReloadFolderButton"
-        Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
-        Me.ReloadFolderButton.TabIndex = 1
-        Me.ReloadFolderButton.UseVisualStyleBackColor = True
-        '
         'SaveFileDialog1
         '
         Me.SaveFileDialog1.DefaultExt = "mp"
@@ -238,17 +203,6 @@ Partial Class Exami2
         '
         Me.PrintDocument1.OriginAtMargins = True
         '
-        'SettingsButton
-        '
-        Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
-        Me.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SettingsButton.Location = New System.Drawing.Point(456, 12)
-        Me.SettingsButton.Name = "SettingsButton"
-        Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
-        Me.SettingsButton.TabIndex = 6
-        Me.SettingsButton.UseVisualStyleBackColor = True
-        Me.SettingsButton.Visible = False
-        '
         'OptionsSelector1
         '
         Me.OptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
@@ -261,10 +215,68 @@ Partial Class Exami2
         Me.OptionsSelector1.Size = New System.Drawing.Size(556, 48)
         Me.OptionsSelector1.TabIndex = 8
         '
+        'AddStudentButton
+        '
+        Me.AddStudentButton.BackgroundImage = Global.Exami.My.Resources.Resources.add_student
+        Me.AddStudentButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.AddStudentButton.Location = New System.Drawing.Point(449, 12)
+        Me.AddStudentButton.Name = "AddStudentButton"
+        Me.AddStudentButton.Size = New System.Drawing.Size(34, 34)
+        Me.AddStudentButton.TabIndex = 9
+        Me.AddStudentButton.UseVisualStyleBackColor = True
+        '
+        'SettingsButton
+        '
+        Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
+        Me.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SettingsButton.Location = New System.Drawing.Point(496, 12)
+        Me.SettingsButton.Name = "SettingsButton"
+        Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
+        Me.SettingsButton.TabIndex = 6
+        Me.SettingsButton.UseVisualStyleBackColor = True
+        Me.SettingsButton.Visible = False
+        '
+        'ReloadFolderButton
+        '
+        Me.ReloadFolderButton.Image = CType(resources.GetObject("ReloadFolderButton.Image"), System.Drawing.Image)
+        Me.ReloadFolderButton.Location = New System.Drawing.Point(159, 12)
+        Me.ReloadFolderButton.Name = "ReloadFolderButton"
+        Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
+        Me.ReloadFolderButton.TabIndex = 1
+        Me.ReloadFolderButton.UseVisualStyleBackColor = True
+        '
+        'MakePlacementButton
+        '
+        Me.MakePlacementButton.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.MakePlacementButton.Enabled = False
+        Me.MakePlacementButton.Image = CType(resources.GetObject("MakePlacementButton.Image"), System.Drawing.Image)
+        Me.MakePlacementButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.MakePlacementButton.Location = New System.Drawing.Point(282, 12)
+        Me.MakePlacementButton.Name = "MakePlacementButton"
+        Me.MakePlacementButton.Size = New System.Drawing.Size(168, 34)
+        Me.MakePlacementButton.TabIndex = 5
+        Me.MakePlacementButton.Tag = "Make the placement with the selected classes and classerooms"
+        Me.MakePlacementButton.Text = "&Make placement"
+        Me.MakePlacementButton.TextImageRelation = System.Windows.Forms.TextImageRelation.TextBeforeImage
+        Me.MakePlacementButton.UseVisualStyleBackColor = True
+        '
+        'SelectFolderButton
+        '
+        Me.SelectFolderButton.Image = CType(resources.GetObject("SelectFolderButton.Image"), System.Drawing.Image)
+        Me.SelectFolderButton.Location = New System.Drawing.Point(12, 12)
+        Me.SelectFolderButton.Name = "SelectFolderButton"
+        Me.SelectFolderButton.Size = New System.Drawing.Size(148, 34)
+        Me.SelectFolderButton.TabIndex = 0
+        Me.SelectFolderButton.Tag = "Select the folder containing the .vass files"
+        Me.SelectFolderButton.Text = "Select Folder"
+        Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.SelectFolderButton.UseVisualStyleBackColor = True
+        '
         'Exami2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.AddStudentButton)
         Me.Controls.Add(Me.OptionsSelector1)
         Me.Controls.Add(Me.SettingsButton)
         Me.Controls.Add(Me.OpenButton)
@@ -313,4 +325,5 @@ Partial Class Exami2
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents SettingsButton As Button
     Friend WithEvents OptionsSelector1 As OptionsSelector
+    Friend WithEvents AddStudentButton As Button
 End Class
