@@ -27,18 +27,16 @@ Partial Class AddStudentForm
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.FirstNameTextBox = New System.Windows.Forms.TextBox()
         Me.LastNameTextBox = New System.Windows.Forms.TextBox()
         Me.StudentNumberTextBox = New System.Windows.Forms.TextBox()
-        Me.SubjectComboBox = New System.Windows.Forms.ComboBox()
         Me.ClassComboBox = New System.Windows.Forms.ComboBox()
         Me.FirstNameFailButton = New System.Windows.Forms.Button()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.LastNameFailButton = New System.Windows.Forms.Button()
         Me.StudentNumberFailButton = New System.Windows.Forms.Button()
-        Me.SubjectFailButton = New System.Windows.Forms.Button()
+        Me.ClassFailButton = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'AddStudentButton
@@ -91,19 +89,10 @@ Partial Class AddStudentForm
         Me.Label4.TabIndex = 6
         Me.Label4.Text = "Student number"
         '
-        'Label5
-        '
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(12, 371)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(63, 20)
-        Me.Label5.TabIndex = 7
-        Me.Label5.Text = "Subject"
-        '
         'Label6
         '
         Me.Label6.AutoSize = True
-        Me.Label6.Location = New System.Drawing.Point(12, 412)
+        Me.Label6.Location = New System.Drawing.Point(12, 371)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(48, 20)
         Me.Label6.TabIndex = 8
@@ -126,22 +115,15 @@ Partial Class AddStudentForm
         'StudentNumberTextBox
         '
         Me.StudentNumberTextBox.Location = New System.Drawing.Point(207, 327)
+        Me.StudentNumberTextBox.MaxLength = 9
         Me.StudentNumberTextBox.Name = "StudentNumberTextBox"
         Me.StudentNumberTextBox.Size = New System.Drawing.Size(179, 26)
         Me.StudentNumberTextBox.TabIndex = 12
         '
-        'SubjectComboBox
-        '
-        Me.SubjectComboBox.FormattingEnabled = True
-        Me.SubjectComboBox.Location = New System.Drawing.Point(207, 368)
-        Me.SubjectComboBox.Name = "SubjectComboBox"
-        Me.SubjectComboBox.Size = New System.Drawing.Size(179, 28)
-        Me.SubjectComboBox.TabIndex = 13
-        '
         'ClassComboBox
         '
         Me.ClassComboBox.FormattingEnabled = True
-        Me.ClassComboBox.Location = New System.Drawing.Point(207, 409)
+        Me.ClassComboBox.Location = New System.Drawing.Point(207, 368)
         Me.ClassComboBox.Name = "ClassComboBox"
         Me.ClassComboBox.Size = New System.Drawing.Size(179, 28)
         Me.ClassComboBox.TabIndex = 14
@@ -194,17 +176,17 @@ Partial Class AddStudentForm
         Me.StudentNumberFailButton.UseVisualStyleBackColor = True
         Me.StudentNumberFailButton.Visible = False
         '
-        'SubjectFailButton
+        'ClassFailButton
         '
-        Me.SubjectFailButton.BackgroundImage = Global.Exami.My.Resources.Resources.huh
-        Me.SubjectFailButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SubjectFailButton.Location = New System.Drawing.Point(159, 360)
-        Me.SubjectFailButton.Name = "SubjectFailButton"
-        Me.SubjectFailButton.Size = New System.Drawing.Size(42, 42)
-        Me.SubjectFailButton.TabIndex = 18
-        Me.SubjectFailButton.Tag = "You need to select a subject"
-        Me.SubjectFailButton.UseVisualStyleBackColor = True
-        Me.SubjectFailButton.Visible = False
+        Me.ClassFailButton.BackgroundImage = Global.Exami.My.Resources.Resources.huh
+        Me.ClassFailButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ClassFailButton.Location = New System.Drawing.Point(159, 360)
+        Me.ClassFailButton.Name = "ClassFailButton"
+        Me.ClassFailButton.Size = New System.Drawing.Size(42, 42)
+        Me.ClassFailButton.TabIndex = 18
+        Me.ClassFailButton.Tag = "You need to select a class."
+        Me.ClassFailButton.UseVisualStyleBackColor = True
+        Me.ClassFailButton.Visible = False
         '
         'AddStudentForm
         '
@@ -213,17 +195,15 @@ Partial Class AddStudentForm
         Me.CancelButton = Me.CancelAddButton
         Me.ClientSize = New System.Drawing.Size(398, 610)
         Me.ControlBox = False
-        Me.Controls.Add(Me.SubjectFailButton)
+        Me.Controls.Add(Me.ClassFailButton)
         Me.Controls.Add(Me.StudentNumberFailButton)
         Me.Controls.Add(Me.LastNameFailButton)
         Me.Controls.Add(Me.FirstNameFailButton)
         Me.Controls.Add(Me.ClassComboBox)
-        Me.Controls.Add(Me.SubjectComboBox)
         Me.Controls.Add(Me.StudentNumberTextBox)
         Me.Controls.Add(Me.LastNameTextBox)
         Me.Controls.Add(Me.FirstNameTextBox)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
@@ -248,15 +228,13 @@ Partial Class AddStudentForm
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
     Friend WithEvents Label4 As Label
-    Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents FirstNameTextBox As TextBox
     Friend WithEvents LastNameTextBox As TextBox
     Friend WithEvents StudentNumberTextBox As TextBox
-    Friend WithEvents SubjectComboBox As ComboBox
     Friend WithEvents ClassComboBox As ComboBox
     Friend WithEvents FirstNameFailButton As Button
     Friend WithEvents LastNameFailButton As Button
     Friend WithEvents StudentNumberFailButton As Button
-    Friend WithEvents SubjectFailButton As Button
+    Friend WithEvents ClassFailButton As Button
 End Class
