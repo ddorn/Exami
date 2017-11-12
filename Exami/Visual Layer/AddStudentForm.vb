@@ -117,4 +117,14 @@ Public Class AddStudentForm
         Me.ClassComboBox.Items.AddRange(classesNames.ToArray)
 
     End Sub
+
+    ''' <summary>
+    ''' Return the student entered while the form was open.
+    ''' Considers that all data exists and is valid.
+    ''' </summary>
+    Public Function GetStudent() As Student
+        Return New Student(StudentNumberTextBox.Text, LastNameTextBox.Text, FirstNameTextBox.Text, "", classes(ClassComboBox.Text))
+    End Function
+
+
 End Class
