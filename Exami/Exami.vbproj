@@ -219,5 +219,8 @@
   <ItemGroup>
     <None Include="Resources\add-businessman.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\huh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
