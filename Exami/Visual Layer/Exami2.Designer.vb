@@ -219,6 +219,7 @@ Partial Class Exami2
         '
         Me.AddStudentButton.BackgroundImage = Global.Exami.My.Resources.Resources.add_student
         Me.AddStudentButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.AddStudentButton.Enabled = False
         Me.AddStudentButton.Location = New System.Drawing.Point(449, 12)
         Me.AddStudentButton.Name = "AddStudentButton"
         Me.AddStudentButton.Size = New System.Drawing.Size(34, 34)
@@ -229,7 +230,7 @@ Partial Class Exami2
         '
         Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
         Me.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SettingsButton.Location = New System.Drawing.Point(496, 12)
+        Me.SettingsButton.Location = New System.Drawing.Point(489, 12)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
         Me.SettingsButton.TabIndex = 6
