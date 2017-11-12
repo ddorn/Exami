@@ -284,7 +284,7 @@ Public Module DataAccessLayer
         End Function
 
         Public Overloads Function ToString() As String
-            If Not teacherCode Then
+            If "" = teacherCode Then
                 ' Class without teacher
                 Return subject
             Else
