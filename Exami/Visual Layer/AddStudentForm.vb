@@ -5,7 +5,7 @@ Public Class AddStudentForm
     Private classes As Dictionary(Of String, ClassUnit)
 
     Private Sub AddStudentButton_Click(sender As Object, e As EventArgs) Handles AddStudentButton.Click
-        If VerifyFirstName() And VerifyLastName() And VerifyStudentNumber() Then
+        If VerifyFirstName() And VerifyLastName() And VerifyStudentNumber() And VerifyClass() Then
             DialogResult = DialogResult.OK
         End If
     End Sub
@@ -131,5 +131,21 @@ Public Class AddStudentForm
         Return New Student(StudentNumberTextBox.Text, LastNameTextBox.Text, FirstNameTextBox.Text, "", classes(ClassComboBox.Text))
     End Function
 
+    Private Function VerifyClass() As Boolean Handles ClassComboBox.SelectedIndexChanged, ClassComboBox.LostFocus
+        Dim valid = classes.ContainsKey(ClassComboBox.Text)
 
+        If valid Then
+            ClassComboBox.ForeColor = Color.Black
+            ClassFailButton.Visible = False
+        Else
+            ClassComboBox.ForeColor = Color.Red
+            ClassFailButton.Visible = True
+        End If
+
+        Return valid
+    End Function
+
+    Private Sub ClassFailButton_Click(sender As Object, e As EventArgs) Handles ClassFailButton.Click
+        MsgBox(ClassFailButton.Tag)
+    End Sub
 End Class
