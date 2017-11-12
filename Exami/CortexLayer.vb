@@ -651,6 +651,9 @@ Public Module CortexLayer
             Return True
         End Function
 
+        Function Reseted() As Placement
+            Return New Placement(Me.students.Copy, Me.places.ToList())
+        End Function
     End Class
 
 End Module

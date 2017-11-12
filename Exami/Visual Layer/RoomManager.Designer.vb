@@ -55,7 +55,7 @@ Partial Class RoomManager
         Me.RoomsListBox.FormattingEnabled = True
         Me.RoomsListBox.HorizontalScrollbar = True
         Me.RoomsListBox.IntegralHeight = False
-        Me.RoomsListBox.Items.AddRange(New Object() {"First select a folder", "Then create a room setup", "Select one or more classes", "Create the placement"})
+        Me.RoomsListBox.Items.AddRange(New Object() {"Select a folder to see rooms"})
         Me.RoomsListBox.Location = New System.Drawing.Point(0, 0)
         Me.RoomsListBox.Name = "RoomsListBox"
         Me.RoomsListBox.Size = New System.Drawing.Size(254, 204)

@@ -11,12 +11,11 @@ Public Class SubjectManager
 
     ' Tutorial shown until somthing is selected
     Private helperSubjectList = New String() {
-            "Once you've selected a folder",
-            "Convert the vass files",
-            "By clicking 'Convert Files'",
-            "Then select a subject",
-            "And create a placement"
-        }
+        "There is no data in this folder",
+        "Select an other one",
+        "Or add data (.vass) in it."  ' The last dot prevents the string (after the first dot) of beiing removed... WHY ?
+    }
+
     ''' <summary> 
     ''' The folder from where the subjects are shown
     ''' </summary>

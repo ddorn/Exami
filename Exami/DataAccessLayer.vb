@@ -62,7 +62,7 @@ Public Module DataAccessLayer
         ''' <returns>The name string of the place.</returns>
         Public Overrides Function ToString() As String
             Dim rowChar As Char = Chr(row + Asc("A"))
-            Return String.Format("{0}{1}", rowChar, col + 1)
+            Return String.Format("{1}{0}", rowChar, col + 1)
         End Function
 
         Public Function CompareTo(other As Place) As Integer Implements IComparable(Of Place).CompareTo
@@ -281,6 +281,15 @@ Public Module DataAccessLayer
         ''' </summary>
         Public Function ToSvString() As String
             Return String.Join(",", {unitCode, classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName, subject})
+        End Function
+
+        Public Overloads Function ToString() As String
+            If "" = teacherCode Then
+                ' Class without teacher
+                Return subject
+            Else
+                Return teacherCode & " | " & subject
+            End If
         End Function
 
         Public Overloads Overrides Function Equals(obj As Object) As Boolean
@@ -640,7 +649,7 @@ Public Module DataAccessLayer
             file.WriteLine("v1")
             file.WriteLine(placement.students.Count)
 
-            For i = 0 To placement.students.Count
+            For i = 0 To placement.students.Count - 1
                 file.WriteLine(placement.students.allStudents(i).ToSvLine)
                 file.WriteLine(placement.students.allStudents(i).place.ToSvLine)
             Next
@@ -657,7 +666,7 @@ Public Module DataAccessLayer
             ' size
             file.WriteLine(subplacement.students.Count)
 
-            For i = 0 To subplacement.students.Count
+            For i = 0 To subplacement.students.Count - 1
                 file.WriteLine(subplacement.students.allStudents(i).ToSvLine)
                 file.WriteLine(subplacement.students.allStudents(i).place.ToSvLine)
             Next

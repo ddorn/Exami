@@ -11,11 +11,9 @@ Public Class RoomManager
 
     ' Tutorial shown until somthing is selected
     Dim helperRoomList = New String() {
-            "Once you've selected a folder",
-            "You can create a classroom",
-            "By clicking the + button",
-            "Then select it",
-            "And create a placement"
+            "There is no rooms in this folder",
+            "Try to select an other",
+            "Or create a room with the green +"
         }
     ''' <summary> 
     ''' The folder from where the rooms are shown
@@ -54,7 +52,7 @@ Public Class RoomManager
         ' Getting the rooms or the tuto if there is not rooms or if the folder is empty
 
         If folderPath Is Nothing Or folderPath = "" Or Not IO.Directory.Exists(folderPath) Then
-            ' The inital values are already whay we want
+            ' The inital values are already what we want
         Else
             rooms = File.GetFilesWithExtension(folderPath, ".dd")
 

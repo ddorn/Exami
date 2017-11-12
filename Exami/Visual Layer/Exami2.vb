@@ -15,12 +15,13 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-
-            If value IsNot Nothing Then
-                PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
-                OptionsSelector1.Enabled = True
-            Else
+            PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
+            If value Is Nothing Then
+                AddStudentButton.Enabled = False
                 OptionsSelector1.Enabled = False
+            Else
+                AddStudentButton.Enabled = True
+                OptionsSelector1.Enabled = True
             End If
         End Set
     End Property
@@ -131,20 +132,19 @@
         ' Aka both have selected subject/room now
         If checkedCount > 0 And SubjectManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
-            OptionsSelector1.Enabled = True
         Else
             MakePlacementButton.Enabled = False
-            OptionsSelector1.Enabled = False
         End If
+
+        CurrentPLacement = Nothing
     End Sub
     Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
         If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
-            OptionsSelector1.Enabled = True
         Else
             MakePlacementButton.Enabled = False
-            OptionsSelector1.Enabled = False
         End If
+        CurrentPLacement = Nothing
     End Sub
 
     ''' <summary>
@@ -152,7 +152,13 @@
     ''' </summary>
     Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged
 
-        Dim placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+        Dim Placement
+        If CurrentPLacement Is Nothing Then
+            Placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+        Else
+            Placement = CurrentPLacement.Reseted()
+        End If
+
 
         If Not placement.TryMakePlacement(OptionsSelector1.Sort, OptionsSelector1.GroupClasses) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
@@ -189,6 +195,7 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        
         SetUpHoverHandler(Me)
     End Sub
     ''' <summary>
@@ -215,6 +222,7 @@
         ' We add the handler
         AddHandler control.MouseEnter, AddressOf SetToolTipHelp
         AddHandler control.Enter, AddressOf SetToolTipHelp
+        AddHandler control.Click, AddressOf SetToolTipHelp
 
         ' And the same for every sub control
         For Each con In control.Controls
@@ -250,6 +258,22 @@
         Settings.Show()
     End Sub
 
+    Private Sub AddStudentButton_Click(sender As Object, e As EventArgs) Handles AddStudentButton.Click
+        If CurrentPLacement Is Nothing Then
+            MsgBox("You need to make a placement before adding students to it.")
+            RaiseEvent NewStatusMessage("You need to make a placement before adding students to it.")
+            Return
+        End If
+
+        AddStudentForm.SetPlacement(CurrentPLacement)
+        If AddStudentForm.ShowDialog() = DialogResult.OK Then
+            CurrentPLacement.students.allStudents.Add(AddStudentForm.GetStudent)
+            MakePlacement()
+        Else
+            MsgBox("Canceled.")
+            RaiseEvent NewStatusMessage("You canceled the new student.")
+        End If
+    End Sub
 End Class
 
 

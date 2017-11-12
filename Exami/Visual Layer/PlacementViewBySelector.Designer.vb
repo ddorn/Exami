@@ -41,7 +41,7 @@ Partial Class OptionsSelector
         '
         Me.AllCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AllCheckBox.AutoSize = True
-        Me.AllCheckBox.Location = New System.Drawing.Point(403, 21)
+        Me.AllCheckBox.Location = New System.Drawing.Point(468, 21)
         Me.AllCheckBox.Name = "AllCheckBox"
         Me.AllCheckBox.Size = New System.Drawing.Size(52, 24)
         Me.AllCheckBox.TabIndex = 22
@@ -54,7 +54,7 @@ Partial Class OptionsSelector
         Me.SubjectCheckBox.AutoSize = True
         Me.SubjectCheckBox.Checked = True
         Me.SubjectCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.SubjectCheckBox.Location = New System.Drawing.Point(403, 0)
+        Me.SubjectCheckBox.Location = New System.Drawing.Point(468, 0)
         Me.SubjectCheckBox.Name = "SubjectCheckBox"
         Me.SubjectCheckBox.Size = New System.Drawing.Size(89, 24)
         Me.SubjectCheckBox.TabIndex = 21
@@ -65,7 +65,7 @@ Partial Class OptionsSelector
         '
         Me.RoomCheckBox.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.RoomCheckBox.AutoSize = True
-        Me.RoomCheckBox.Location = New System.Drawing.Point(323, 21)
+        Me.RoomCheckBox.Location = New System.Drawing.Point(388, 21)
         Me.RoomCheckBox.Name = "RoomCheckBox"
         Me.RoomCheckBox.Size = New System.Drawing.Size(78, 24)
         Me.RoomCheckBox.TabIndex = 20
@@ -78,7 +78,7 @@ Partial Class OptionsSelector
         Me.ClassCheckBox.AutoSize = True
         Me.ClassCheckBox.Checked = True
         Me.ClassCheckBox.CheckState = System.Windows.Forms.CheckState.Checked
-        Me.ClassCheckBox.Location = New System.Drawing.Point(323, 0)
+        Me.ClassCheckBox.Location = New System.Drawing.Point(388, 0)
         Me.ClassCheckBox.Name = "ClassCheckBox"
         Me.ClassCheckBox.Size = New System.Drawing.Size(74, 24)
         Me.ClassCheckBox.TabIndex = 19
@@ -89,17 +89,17 @@ Partial Class OptionsSelector
         '
         Me.Label2.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(254, 11)
+        Me.Label2.Location = New System.Drawing.Point(256, 11)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(63, 20)
+        Me.Label2.Size = New System.Drawing.Size(126, 20)
         Me.Label2.TabIndex = 18
-        Me.Label2.Text = "View by"
+        Me.Label2.Text = "View grouped by"
         '
         'Label1
         '
         Me.Label1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.Label1.BackColor = System.Drawing.SystemColors.ControlDarkDark
-        Me.Label1.Location = New System.Drawing.Point(246, 9)
+        Me.Label1.Location = New System.Drawing.Point(248, 11)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(2, 23)
         Me.Label1.TabIndex = 25
@@ -173,7 +173,7 @@ Partial Class OptionsSelector
         Me.GroupClassesButton.Name = "GroupClassesButton"
         Me.GroupClassesButton.Size = New System.Drawing.Size(34, 34)
         Me.GroupClassesButton.TabIndex = 23
-        Me.GroupClassesButton.Tag = "Stop groupping classes"
+        Me.GroupClassesButton.Tag = "Ungroup classes"
         Me.GroupClassesButton.UseVisualStyleBackColor = True
         '
         'OptionsSelector
@@ -194,7 +194,7 @@ Partial Class OptionsSelector
         Me.Controls.Add(Me.Label2)
         Me.MinimumSize = New System.Drawing.Size(237, 43)
         Me.Name = "OptionsSelector"
-        Me.Size = New System.Drawing.Size(491, 43)
+        Me.Size = New System.Drawing.Size(556, 43)
         Me.ResumeLayout(False)
         Me.PerformLayout()
 

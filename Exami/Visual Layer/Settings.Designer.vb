@@ -56,9 +56,9 @@ Partial Class Settings
         Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(519, 49)
         Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(38, 20)
+        Me.Label2.Size = New System.Drawing.Size(51, 20)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "v2.0"
+        Me.Label2.Text = "v2.1.0"
         '
         'LinkLabel1
         '
@@ -70,6 +70,7 @@ Partial Class Settings
         Me.LinkLabel1.Name = "LinkLabel1"
         Me.LinkLabel1.Size = New System.Drawing.Size(57, 20)
         Me.LinkLabel1.TabIndex = 2
+        Me.LinkLabel1.TabStop = True
         Me.LinkLabel1.Text = "Icons8"
         Me.LinkLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter
         Me.LinkLabel1.VisitedLinkColor = System.Drawing.SystemColors.ControlText

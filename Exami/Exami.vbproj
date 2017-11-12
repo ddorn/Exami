@@ -78,6 +78,12 @@
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
     <Compile Include="Helper.vb" />
+    <Compile Include="Visual Layer\AddStudentForm.Designer.vb">
+      <DependentUpon>AddStudentForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\AddStudentForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Visual Layer\Exami2.Designer.vb">
       <DependentUpon>Exami2.vb</DependentUpon>
     </Compile>
@@ -144,6 +150,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Visual Layer\AddStudentForm.resx">
+      <DependentUpon>AddStudentForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\Exami2.resx">
       <DependentUpon>Exami2.vb</DependentUpon>
     </EmbeddedResource>
@@ -206,6 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icons8-numeric.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\add-businessman.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\huh.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
