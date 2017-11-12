@@ -283,6 +283,10 @@ Public Module DataAccessLayer
             Return String.Join(",", {unitCode, classCode, teacherCode, teacherTitle, teacherFirstName, teacherFamilyName, subject})
         End Function
 
+        Public Overloads Function ToString() As String
+            Return String.Join(" | ", {teacherCode, subject})
+        End Function
+
         Public Overloads Overrides Function Equals(obj As Object) As Boolean
 
             If obj Is Nothing OrElse Not Me.GetType() Is obj.GetType() Then
