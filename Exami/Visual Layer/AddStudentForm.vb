@@ -93,6 +93,12 @@ Public Class AddStudentForm
         Me.StudentNumberTextBox.Text = ""
         Me.LastNameTextBox.Text = ""
         Me.FirstNameTextBox.Text = ""
+        Me.ClassComboBox.Text = ""
+
+        Me.ClassFailButton.Visible = False
+        Me.FirstNameFailButton.Visible = False
+        Me.LastNameFailButton.Visible = False
+        Me.StudentNumberFailButton.Visible = False
 
         ' Setting classes
         Dim classes As List(Of ClassUnit) = placement.students.GetStudentsByClass().Keys.ToList
