@@ -27,12 +27,10 @@ Partial Class AddStudentForm
         Me.CancelAddButton = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.Label3 = New System.Windows.Forms.Label()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.Label5 = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
         Me.FirstnameTextBox = New System.Windows.Forms.TextBox()
-        Me.MiddleNameTextBox = New System.Windows.Forms.TextBox()
         Me.LastNameTextBox = New System.Windows.Forms.TextBox()
         Me.StudentNumberTextBox = New System.Windows.Forms.TextBox()
         Me.SubjectComboBox = New System.Windows.Forms.ComboBox()
@@ -59,7 +57,7 @@ Partial Class AddStudentForm
         Me.AddStudentButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AddStudentButton.DialogResult = System.Windows.Forms.DialogResult.OK
         Me.AddStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.AddStudentButton.Location = New System.Drawing.Point(176, 522)
+        Me.AddStudentButton.Location = New System.Drawing.Point(176, 556)
         Me.AddStudentButton.Name = "AddStudentButton"
         Me.AddStudentButton.Size = New System.Drawing.Size(129, 42)
         Me.AddStudentButton.TabIndex = 1
@@ -71,7 +69,7 @@ Partial Class AddStudentForm
         Me.CancelAddButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CancelAddButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CancelAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CancelAddButton.Location = New System.Drawing.Point(311, 522)
+        Me.CancelAddButton.Location = New System.Drawing.Point(311, 556)
         Me.CancelAddButton.Name = "CancelAddButton"
         Me.CancelAddButton.Size = New System.Drawing.Size(75, 42)
         Me.CancelAddButton.TabIndex = 2
@@ -81,7 +79,7 @@ Partial Class AddStudentForm
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(12, 217)
+        Me.Label1.Location = New System.Drawing.Point(12, 252)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(84, 20)
         Me.Label1.TabIndex = 3
@@ -95,15 +93,6 @@ Partial Class AddStudentForm
         Me.Label2.Size = New System.Drawing.Size(84, 20)
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "Last name"
-        '
-        'Label3
-        '
-        Me.Label3.AutoSize = True
-        Me.Label3.Location = New System.Drawing.Point(12, 253)
-        Me.Label3.Name = "Label3"
-        Me.Label3.Size = New System.Drawing.Size(99, 20)
-        Me.Label3.TabIndex = 5
-        Me.Label3.Text = "Middle name"
         '
         'Label4
         '
@@ -134,17 +123,10 @@ Partial Class AddStudentForm
         '
         'FirstnameTextBox
         '
-        Me.FirstnameTextBox.Location = New System.Drawing.Point(207, 214)
+        Me.FirstnameTextBox.Location = New System.Drawing.Point(207, 249)
         Me.FirstnameTextBox.Name = "FirstnameTextBox"
         Me.FirstnameTextBox.Size = New System.Drawing.Size(179, 26)
         Me.FirstnameTextBox.TabIndex = 9
-        '
-        'MiddleNameTextBox
-        '
-        Me.MiddleNameTextBox.Location = New System.Drawing.Point(207, 250)
-        Me.MiddleNameTextBox.Name = "MiddleNameTextBox"
-        Me.MiddleNameTextBox.Size = New System.Drawing.Size(179, 26)
-        Me.MiddleNameTextBox.TabIndex = 10
         '
         'LastNameTextBox
         '
@@ -187,12 +169,10 @@ Partial Class AddStudentForm
         Me.Controls.Add(Me.SubjectComboBox)
         Me.Controls.Add(Me.StudentNumberTextBox)
         Me.Controls.Add(Me.LastNameTextBox)
-        Me.Controls.Add(Me.MiddleNameTextBox)
         Me.Controls.Add(Me.FirstnameTextBox)
         Me.Controls.Add(Me.Label6)
         Me.Controls.Add(Me.Label5)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.CancelAddButton)
@@ -203,7 +183,7 @@ Partial Class AddStudentForm
         Me.Name = "AddStudentForm"
         Me.ShowInTaskbar = False
         Me.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide
-        Me.Text = "AddStudentForm"
+        Me.Text = "Exami - Add a student"
         Me.TopMost = True
         Me.ResumeLayout(False)
         Me.PerformLayout()
@@ -215,12 +195,10 @@ Partial Class AddStudentForm
     Friend WithEvents CancelAddButton As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents Label3 As Label
     Friend WithEvents Label4 As Label
     Friend WithEvents Label5 As Label
     Friend WithEvents Label6 As Label
     Friend WithEvents FirstnameTextBox As TextBox
-    Friend WithEvents MiddleNameTextBox As TextBox
     Friend WithEvents LastNameTextBox As TextBox
     Friend WithEvents StudentNumberTextBox As TextBox
     Friend WithEvents SubjectComboBox As ComboBox
