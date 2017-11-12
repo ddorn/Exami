@@ -284,7 +284,12 @@ Public Module DataAccessLayer
         End Function
 
         Public Overloads Function ToString() As String
-            Return String.Join(" | ", {teacherCode, subject})
+            If Not teacherCode Then
+                ' Class without teacher
+                Return subject
+            Else
+                Return teacherCode & " | " & subject
+            End If
         End Function
 
         Public Overloads Overrides Function Equals(obj As Object) As Boolean
