@@ -224,6 +224,7 @@ Partial Class Exami2
         Me.AddStudentButton.Name = "AddStudentButton"
         Me.AddStudentButton.Size = New System.Drawing.Size(34, 34)
         Me.AddStudentButton.TabIndex = 9
+        Me.AddStudentButton.Tag = "Add someone to this placement"
         Me.AddStudentButton.UseVisualStyleBackColor = True
         '
         'SettingsButton
@@ -234,6 +235,7 @@ Partial Class Exami2
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
         Me.SettingsButton.TabIndex = 6
+        Me.SettingsButton.Tag = "Open the settings"
         Me.SettingsButton.UseVisualStyleBackColor = True
         Me.SettingsButton.Visible = False
         '
