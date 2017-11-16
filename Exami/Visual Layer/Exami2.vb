@@ -195,7 +195,9 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        
+        For Each con In Controls
+            ToolTip1.SetToolTip(con, con.tag)
+        Next
         SetUpHoverHandler(Me)
     End Sub
     ''' <summary>
@@ -274,6 +276,7 @@
             RaiseEvent NewStatusMessage("You canceled the new student.")
         End If
     End Sub
+
 End Class
 
 

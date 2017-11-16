@@ -22,6 +22,7 @@ Partial Class Exami2
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Exami2))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
@@ -38,12 +39,13 @@ Partial Class Exami2
         Me.OpenFileDialog1 = New System.Windows.Forms.OpenFileDialog()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
-        Me.OptionsSelector1 = New Exami.OptionsSelector()
         Me.AddStudentButton = New System.Windows.Forms.Button()
         Me.SettingsButton = New System.Windows.Forms.Button()
         Me.ReloadFolderButton = New System.Windows.Forms.Button()
         Me.MakePlacementButton = New System.Windows.Forms.Button()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.OptionsSelector1 = New Exami.OptionsSelector()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -203,18 +205,6 @@ Partial Class Exami2
         '
         Me.PrintDocument1.OriginAtMargins = True
         '
-        'OptionsSelector1
-        '
-        Me.OptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.OptionsSelector1.AutoSize = True
-        Me.OptionsSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.OptionsSelector1.Enabled = False
-        Me.OptionsSelector1.Location = New System.Drawing.Point(619, 8)
-        Me.OptionsSelector1.MinimumSize = New System.Drawing.Size(237, 43)
-        Me.OptionsSelector1.Name = "OptionsSelector1"
-        Me.OptionsSelector1.Size = New System.Drawing.Size(556, 48)
-        Me.OptionsSelector1.TabIndex = 8
-        '
         'AddStudentButton
         '
         Me.AddStudentButton.BackgroundImage = Global.Exami.My.Resources.Resources.add_student
@@ -246,6 +236,7 @@ Partial Class Exami2
         Me.ReloadFolderButton.Name = "ReloadFolderButton"
         Me.ReloadFolderButton.Size = New System.Drawing.Size(34, 34)
         Me.ReloadFolderButton.TabIndex = 1
+        Me.ReloadFolderButton.Tag = "Reload the selected folder"
         Me.ReloadFolderButton.UseVisualStyleBackColor = True
         '
         'MakePlacementButton
@@ -274,6 +265,18 @@ Partial Class Exami2
         Me.SelectFolderButton.Text = "Select Folder"
         Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.SelectFolderButton.UseVisualStyleBackColor = True
+        '
+        'OptionsSelector1
+        '
+        Me.OptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.OptionsSelector1.AutoSize = True
+        Me.OptionsSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.OptionsSelector1.Enabled = False
+        Me.OptionsSelector1.Location = New System.Drawing.Point(619, 8)
+        Me.OptionsSelector1.MinimumSize = New System.Drawing.Size(237, 43)
+        Me.OptionsSelector1.Name = "OptionsSelector1"
+        Me.OptionsSelector1.Size = New System.Drawing.Size(556, 48)
+        Me.OptionsSelector1.TabIndex = 8
         '
         'Exami2
         '
@@ -329,4 +332,5 @@ Partial Class Exami2
     Friend WithEvents SettingsButton As Button
     Friend WithEvents OptionsSelector1 As OptionsSelector
     Friend WithEvents AddStudentButton As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class
