@@ -142,6 +142,12 @@
     <Compile Include="Visual Layer\Settings.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Visual Layer\SortOptions.Designer.vb">
+      <DependentUpon>SortOptions.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\SortOptions.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Visual Layer\SubjectManager.Designer.vb">
       <DependentUpon>SubjectManager.vb</DependentUpon>
     </Compile>
@@ -179,6 +185,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\Settings.resx">
       <DependentUpon>Settings.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Visual Layer\SortOptions.resx">
+      <DependentUpon>SortOptions.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\SubjectManager.resx">
       <DependentUpon>SubjectManager.vb</DependentUpon>
@@ -221,6 +230,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\huh.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_Snake.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Snake.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
