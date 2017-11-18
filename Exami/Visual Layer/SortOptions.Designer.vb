@@ -107,7 +107,7 @@ Partial Class SortOptions
         'GroupClassesButton
         '
         Me.GroupClassesButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.GroupClassesButton.BackgroundImage = Global.Exami.My.Resources.Resources.GroupByClassTrue
+        Me.GroupClassesButton.BackgroundImage = Global.Exami.My.Resources.Resources.group
         Me.GroupClassesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.GroupClassesButton.Location = New System.Drawing.Point(203, 3)
         Me.GroupClassesButton.Name = "GroupClassesButton"

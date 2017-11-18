@@ -237,5 +237,14 @@
   <ItemGroup>
     <None Include="Resources\Snake.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_snake2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\snake2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_group.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

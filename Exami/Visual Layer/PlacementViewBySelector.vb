@@ -6,22 +6,11 @@
 Public Class OptionsSelector
 
     Public CurrentViewBy As ViewBy = ViewBy.None
-    Public GroupClasses As Boolean = True
 
     Public Event OptionsChanged()
     Public Event SaveAll()
     Public Event PrintAll()
 
-    Private _sortby As SortBy = SortBy.Name
-    Public Property Sort() As SortBy
-        Get
-            Return _sortby
-        End Get
-        Private Set(ByVal value As SortBy)
-            _sortby = value
-            RaiseEvent OptionsChanged()
-        End Set
-    End Property
 
     ' Change for the All box
 
@@ -67,36 +56,13 @@ Public Class OptionsSelector
         CurrentViewBy = CurrentViewBy Xor ViewBy.Room
     End Sub
 
-    Private Sub Button5_Click(sender As Object, e As EventArgs) Handles SaveAllButton.Click
+    Private Sub Button5_Click(sender As Object, e As EventArgs)
         RaiseEvent SaveAll()
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles PrintAllButton.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs)
         RaiseEvent PrintAll()
     End Sub
 
-    Private Sub ShuffleButton_Click() Handles ShuffleButton.Click
-        Me.Sort = SortBy.Shuffle
-    End Sub
-
-    Private Sub NumSortAllButton_Click() Handles NumSortAllButton.Click
-        Me.Sort = SortBy.Number
-    End Sub
-
-    Private Sub AzSortButton_Click(sender As Object, e As EventArgs) Handles AzSortButton.Click
-        Me.Sort = SortBy.Name
-    End Sub
-
-    Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles GroupClassesButton.Click
-        Me.GroupClasses = Not Me.GroupClasses
-        If GroupClasses Then
-            GroupClassesButton.BackgroundImage = My.Resources.GroupByClassTrue
-            GroupClassesButton.Tag = "Ungroup classes"
-        Else
-            GroupClassesButton.BackgroundImage = My.Resources.GroupByClassFalse
-            GroupClassesButton.Tag = "Group Students by classes"
-        End If
-        RaiseEvent OptionsChanged()
-    End Sub
 
 End Class
