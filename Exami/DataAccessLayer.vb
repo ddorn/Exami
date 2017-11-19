@@ -34,6 +34,19 @@ Public Module DataAccessLayer
         subject = 1
     End Enum
 
+    Enum CsvKeys
+        ' Student
+        studentNumber = 0
+        familyName = 1
+        firstName = 2
+        ' Class
+        unitCode = 6
+        teacherCode = 9
+        teacherName = 10
+        Subject = 11
+
+    End Enum
+
     ''' <summary>
     ''' Represent a table where a student can seat. You know, the thing usually with four feets in wood or plastic !
     ''' </summary>
@@ -225,7 +238,6 @@ Public Module DataAccessLayer
         ''' <returns>A student representing the line</returns>
         Public Shared Function ParseFromVass(line As String) As Student
             Dim fields As String()
-            Dim returnString As String = ""
 
             ' We don't want any empty line !
             If line = "" Then
@@ -271,6 +283,56 @@ Public Module DataAccessLayer
             Return True
         End Function
 
+        ' Parsing from .csv
+        Shared Function ParseFromCsv(line As String)
+            Dim fields As String()
+
+            ' We don't want any empty line !
+            If line = "" Then
+                Throw New ArgumentException("The line cannot by an empty string.")
+            End If
+            If line Is Nothing Then
+                Throw New ArgumentNullException("The line cannot be nothing.")
+            End If
+
+            ' We separate the diferents f.ields
+            fields = line.Split(",")
+
+            ' We don't want a non value line (like the last ones of vass files)
+            If fields.Length <> 12 Then
+                Throw New ArgumentException("The line doesn't represent a student.")
+            End If
+
+            Dim tFirstName = "Teacher First Name"
+            Dim tFamilyName = "Teacher Family Name"
+            If fields(CsvKeys.teacherName).Contains(";") Then
+                tFirstName = fields(CsvKeys.teacherName).Split(";")(1)
+                tFamilyName = fields(CsvKeys.teacherName).Split(";")(0)
+            End If
+
+            Dim classUnit = New ClassUnit(fields(CsvKeys.unitCode),
+                                          "",
+                                          fields(CsvKeys.teacherCode),
+                                          "",
+                                          tFirstName,
+                                          tFamilyName,
+                                          fields(CsvKeys.Subject))
+
+            Return New Student(fields(CsvKeys.studentNumber),
+                               fields(CsvKeys.familyName),
+                               fields(CsvKeys.firstName),
+                               "",
+                               classUnit)
+        End Function
+        Shared Function TryParseFormCsv(line As String, ByRef student As Student) As Boolean
+            Try
+                student = ParseFromCsv(line)
+            Catch ex As ArgumentException
+                Return False
+            End Try
+            Return True
+        End Function
+
         ' Convert to .sv
 
         ''' <summary>
@@ -291,6 +353,8 @@ Public Module DataAccessLayer
         Overrides Function ToString() As String
             Return String.Format("{0} {1}", familyName, firstName)
         End Function
+
+
     End Class
 
     ''' <summary>
@@ -470,7 +534,6 @@ Public Module DataAccessLayer
                     line = student.ToSvLine()
                     svFile.WriteLine(line)
                 End If
-
             Next
 
             svFile.Close()
@@ -484,6 +547,62 @@ Public Module DataAccessLayer
         Shared Function TryConvertVassToSv(vassFilePath As String) As Boolean
             Try
                 ConvertVassToSv(vassFilePath)
+            Catch ex As Exception
+                Return False
+            End Try
+            Return True
+        End Function
+
+
+        Public Shared Sub ConvertCsvToSv(csvFilePath As String)
+
+            ' We just remove the extention
+            Dim dirPath = IO.Path.ChangeExtension(csvFilePath, "").TrimEnd(".")  ' ChangeExtension leaves a dot at the end
+
+            ' Create an empty folder with the same name
+            If IO.Directory.Exists(dirPath) Then
+                For Each _file In IO.Directory.GetFiles(dirPath)
+                    IO.File.Delete(_file)
+                Next
+            Else
+                IO.Directory.CreateDirectory(dirPath)
+            End If
+
+            ' Luckily the csv file is already sorted by subject
+
+            Dim curSubject = Nothing
+            Dim student As Student = Nothing
+            Dim file As IO.TextWriter = Nothing
+
+            For Each line In IO.File.ReadAllLines(csvFilePath)
+                ' The supression of useless, empty and naughty lines is in the TryParse
+                If Student.TryParseFormCsv(line, student) Then
+                    line = student.ToSvLine()
+
+                    ' If we changed subject
+                    If student.classUnit.subject <> curSubject Then
+                        ' No file was already opend, first loop
+                        If file IsNot Nothing Then
+                            file.Close()
+                        End If
+
+                        curSubject = student.classUnit.subject
+                        file = IO.File.CreateText(IO.Path.Combine(dirPath, curSubject + ".sv"))
+                    End If
+
+                    file.WriteLine(line)
+                End If
+            Next
+
+            If file IsNot Nothing Then
+                file.Close()
+            End If
+
+        End Sub
+
+        Shared Function TryConvertCsvToSv(csvFilePath As String) As Boolean
+            Try
+                ConvertCsvToSv(csvFilePath)
             Catch ex As Exception
                 Return False
             End Try

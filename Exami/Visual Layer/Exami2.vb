@@ -112,13 +112,22 @@
     End Sub
 
     Private Function ConvertFolder(folder As String) As Tuple(Of Integer, Integer)
+        ' Keeping track of the number converted / failed
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
 
         ' We convert each .vass file in the folder
         For Each fileName In File.GetFilesWithExtension(folder, ".vass")
-            ' Keeping track of the number converted / failed
             If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
+                nbFilesConverted += 1
+            Else
+                nbFilesFailed += 1
+            End If
+        Next
+
+        ' The all .csv (for year 10/11)
+        For Each filename In File.GetFilesWithExtension(folder, ".csv")
+            If DataAccessLayer.SV.TryConvertCsvToSv(filename) Then
                 nbFilesConverted += 1
             Else
                 nbFilesFailed += 1
