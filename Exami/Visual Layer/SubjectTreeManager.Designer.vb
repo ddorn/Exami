@@ -35,12 +35,13 @@ Partial Class SubjectTreeManager
         Me.TreeView1.Size = New System.Drawing.Size(420, 361)
         Me.TreeView1.TabIndex = 0
         '
-        'Label1
+        'EmptyFolderLabel
         '
         Me.EmptyFolderLabel.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.EmptyFolderLabel.AutoSize = True
-        Me.EmptyFolderLabel.Location = New System.Drawing.Point(138, 168)
-        Me.EmptyFolderLabel.Name = "Label1"
+        Me.EmptyFolderLabel.BackColor = System.Drawing.SystemColors.ControlLightLight
+        Me.EmptyFolderLabel.Location = New System.Drawing.Point(139, 170)
+        Me.EmptyFolderLabel.Name = "EmptyFolderLabel"
         Me.EmptyFolderLabel.Size = New System.Drawing.Size(142, 20)
         Me.EmptyFolderLabel.TabIndex = 1
         Me.EmptyFolderLabel.Text = "No data files found"
