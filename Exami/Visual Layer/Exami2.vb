@@ -21,9 +21,9 @@
 
             AddStudentButton.Enabled = ouatou
             OptionsSelector1.Enabled = ouatou
-            SortOptions1.Enabled     = ouatou
-            PrintAllButton.Enabled   = ouatou
-            SaveAllButton.Enabled    = ouatou
+            SortOptions1.Enabled = ouatou
+            PrintAllButton.Enabled = ouatou
+            SaveAllButton.Enabled = ouatou
         End Set
     End Property
 
