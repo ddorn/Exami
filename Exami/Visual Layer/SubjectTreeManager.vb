@@ -63,7 +63,7 @@
                 folderNode = parentNode.Nodes.Add(folderName)
                 folderNode.Tag = folder
                 Dim subFilesCount = PopulateTreeView(folder, folderNode)
-
+                recFilesCount += subFilesCount
                 If subFilesCount = 0 Then
                     ' Remove the node just added (last one)
                     parentNode.Nodes.RemoveAt(parentNode.Nodes.Count - 1)
@@ -95,7 +95,7 @@
     End Function
 
     Private Function _GetCheckedNodes(node As TreeNode) As List(Of String)
-        If node.Nodes.Count = 0 Then
+        If node.Nodes.Count = 0 And node.Checked Then
             Return New List(Of String)({CType(node.Tag, String)})
         End If
 
@@ -112,4 +112,7 @@
         Return GetSelectedSubjectPaths.Count
     End Function
 
+    Private Sub TreeView1_AfterCheck() Handles TreeView1.AfterCheck
+        RaiseEvent SelectionChanged(GetSelectedSubjectPaths.Count)
+    End Sub
 End Class

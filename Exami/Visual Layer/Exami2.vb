@@ -114,7 +114,7 @@
     Private Function ConvertFolder(folder As String) As Tuple(Of Integer, Integer)
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
-        MsgBox(folder)
+
         ' We convert each .vass file in the folder
         For Each fileName In File.GetFilesWithExtension(folder, ".vass")
             ' Keeping track of the number converted / failed
