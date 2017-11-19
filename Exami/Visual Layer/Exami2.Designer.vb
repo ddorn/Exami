@@ -241,6 +241,7 @@ Partial Class Exami2
         '
         Me.SaveAllButton.BackgroundImage = CType(resources.GetObject("SaveAllButton.BackgroundImage"), System.Drawing.Image)
         Me.SaveAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SaveAllButton.Enabled = False
         Me.SaveAllButton.Location = New System.Drawing.Point(489, 12)
         Me.SaveAllButton.Name = "SaveAllButton"
         Me.SaveAllButton.Size = New System.Drawing.Size(34, 34)
@@ -252,6 +253,7 @@ Partial Class Exami2
         '
         Me.PrintAllButton.BackgroundImage = CType(resources.GetObject("PrintAllButton.BackgroundImage"), System.Drawing.Image)
         Me.PrintAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PrintAllButton.Enabled = False
         Me.PrintAllButton.Location = New System.Drawing.Point(529, 12)
         Me.PrintAllButton.Name = "PrintAllButton"
         Me.PrintAllButton.Size = New System.Drawing.Size(34, 34)
@@ -264,6 +266,7 @@ Partial Class Exami2
         Me.SortOptions1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SortOptions1.AutoSize = True
+        Me.SortOptions1.Enabled = False
         Me.SortOptions1.Location = New System.Drawing.Point(609, 8)
         Me.SortOptions1.Name = "SortOptions1"
         Me.SortOptions1.Size = New System.Drawing.Size(386, 40)

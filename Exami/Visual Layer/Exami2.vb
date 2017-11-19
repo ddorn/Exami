@@ -16,13 +16,14 @@
         Set(ByVal value As Placement)
             _CurrentPlacement = value
             PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
-            If value Is Nothing Then
-                AddStudentButton.Enabled = False
-                OptionsSelector1.Enabled = False
-            Else
-                AddStudentButton.Enabled = True
-                OptionsSelector1.Enabled = True
-            End If
+
+            Dim ouatou = value IsNot Nothing
+
+            AddStudentButton.Enabled = ouatou
+            OptionsSelector1.Enabled = ouatou
+            SortOptions1.Enabled     = ouatou
+            PrintAllButton.Enabled   = ouatou
+            SaveAllButton.Enabled    = ouatou
         End Set
     End Property
 
