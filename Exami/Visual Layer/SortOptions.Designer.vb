@@ -33,7 +33,7 @@ Partial Class SortOptions
         'SnakeButton
         '
         Me.SnakeButton.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.SnakeButton.BackgroundImage = Global.Exami.My.Resources.Resources.snake2
+        Me.SnakeButton.BackgroundImage = Global.Exami.My.Resources.Resources.snake
         Me.SnakeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.SnakeButton.Location = New System.Drawing.Point(164, 3)
         Me.SnakeButton.Name = "SnakeButton"
@@ -57,7 +57,7 @@ Partial Class SortOptions
         'NumSortAllButton
         '
         Me.NumSortAllButton.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.NumSortAllButton.BackgroundImage = CType(resources.GetObject("NumSortAllButton.BackgroundImage"), System.Drawing.Image)
+        Me.NumSortAllButton.BackgroundImage = Global.Exami.My.Resources.Resources.noSortNum
         Me.NumSortAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.NumSortAllButton.Location = New System.Drawing.Point(44, 3)
         Me.NumSortAllButton.Name = "NumSortAllButton"
@@ -81,7 +81,7 @@ Partial Class SortOptions
         'GroupClassesButton
         '
         Me.GroupClassesButton.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.GroupClassesButton.BackgroundImage = Global.Exami.My.Resources.Resources.group
+        Me.GroupClassesButton.BackgroundImage = CType(resources.GetObject("GroupClassesButton.BackgroundImage"), System.Drawing.Image)
         Me.GroupClassesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.GroupClassesButton.Location = New System.Drawing.Point(124, 3)
         Me.GroupClassesButton.Name = "GroupClassesButton"

@@ -12,6 +12,19 @@
         End Get
         Private Set(ByVal value As SortBy)
             _sortby = value
+
+            If value = SortBy.Name Then
+                AzSortButton.BackgroundImage = My.Resources.sortAZ
+            Else
+                AzSortButton.BackgroundImage = My.Resources.noSortAz
+            End If
+
+            If value = SortBy.Number Then
+                NumSortAllButton.BackgroundImage = My.Resources.sortNum
+            Else
+                NumSortAllButton.BackgroundImage = My.Resources.noSortNum
+            End If
+
             RaiseEvent SortChanged()
         End Set
     End Property
@@ -43,12 +56,13 @@
     Private Sub SnakeButton_Click() Handles SnakeButton.Click
         Me.Snake = Not Me.Snake
         If Snake Then
-            SnakeButton.BackgroundImage = My.Resources.snake2
+            SnakeButton.BackgroundImage = My.Resources.snake
             SnakeButton.Tag = "Click to place the students front to back in every column"
         Else
-            SnakeButton.BackgroundImage = My.Resources.no_snake2
+            SnakeButton.BackgroundImage = My.Resources.noSnake
             SnakeButton.Tag = "Click to place the students in a snake patern: front to back the back to front"
         End If
+        RaiseEvent SortChanged()
     End Sub
 
 End Class

@@ -249,5 +249,14 @@
   <ItemGroup>
     <None Include="Resources\group.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_AzSort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_TableSort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\no_NumSort.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
