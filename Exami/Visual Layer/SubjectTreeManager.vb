@@ -48,6 +48,12 @@
         TreeView1.ExpandAll()
     End Sub
 
+    ''' <summary>
+    ''' Recursively add the .sv files in dir to the parentNode
+    ''' </summary>
+    ''' <param name="dir">Root directory to take the file </param>
+    ''' <param name="parentNode">Node to  put the childs of dir</param>
+    ''' <returns>The number of added .sv files.</returns>
     Private Function PopulateTreeView(dir As String, parentNode As TreeNode) As Integer
         Dim folder As String = String.Empty
         Dim recFilesCount = 0
@@ -84,16 +90,28 @@
         Return recFilesCount + files.Length
     End Function
 
-    Friend Sub SetFolder(workingFolder As String)
-        Me.folderPath = workingFolder
+    ''' <summary>
+    ''' Set and reload the folder from which the subjects are shown.
+    ''' </summary>
+    ''' <param name="path"></param>
+    Friend Sub SetFolder(path As String)
+        Me.folderPath = path
         Me.UpdateSubjectList()
     End Sub
 
+    ''' <summary>
+    ''' Get an array of the file paths to the checked subjects
+    ''' </summary>
     Public Function GetSelectedSubjectPaths() As String()
 
         Return _GetCheckedNodes(TreeView1.TopNode).ToArray
     End Function
 
+    ''' <summary>
+    ''' Recursively get the checked subjects path from a node.
+    ''' </summary>
+    ''' <param name="node">Origin node to get paths from.</param>
+    ''' <returns>A list of paths to the checked subjects.</returns>
     Private Function _GetCheckedNodes(node As TreeNode) As List(Of String)
         If node.Nodes.Count = 0 And node.Checked Then
             Return New List(Of String)({CType(node.Tag, String)})
@@ -108,6 +126,10 @@
         Return checked
     End Function
 
+    ''' <summary>
+    ''' Number of checked subjects.
+    ''' </summary>
+    ''' <returns></returns>
     Public Function CheckedCount() As Integer
         Return GetSelectedSubjectPaths.Count
     End Function
