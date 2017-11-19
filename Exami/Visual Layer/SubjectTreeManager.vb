@@ -104,7 +104,7 @@
     ''' </summary>
     Public Function GetSelectedSubjectPaths() As String()
 
-        Return _GetCheckedNodes(TreeView1.TopNode).ToArray
+        Return _GetCheckedNodes(TreeView1.Nodes(0)).ToArray
     End Function
 
     ''' <summary>
@@ -113,7 +113,7 @@
     ''' <param name="node">Origin node to get paths from.</param>
     ''' <returns>A list of paths to the checked subjects.</returns>
     Private Function _GetCheckedNodes(node As TreeNode) As List(Of String)
-        If node.Nodes.Count = 0 And node.Checked Then
+        If node.GetNodeCount(False) = 0 And node.Checked Then
             Return New List(Of String)({CType(node.Tag, String)})
         End If
 
