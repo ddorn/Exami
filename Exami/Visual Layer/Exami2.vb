@@ -87,8 +87,8 @@
 
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
-        SubjectManager1.SetFolder(WorkingFolder)
-
+        'SubjectManager1.SetFolder(WorkingFolder)
+        SubjectTreeManager1.SetFolder(WorkingFolder)
     End Sub
 
     ''' <summary>
@@ -131,7 +131,7 @@
     Private Sub EnablePlacementFromRoom(checkedCount As Integer) Handles RoomManager1.SelectionChanged
         ' When the user selects an item in the RoomManager that makes more than 0 items selected and there is some subject selected too
         ' Aka both have selected subject/room now
-        If checkedCount > 0 And SubjectManager1.CheckedCount > 0 Then
+        If checkedCount > 0 And SubjectTreeManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
             MakePlacementButton.Enabled = False
@@ -139,7 +139,7 @@
 
         CurrentPLacement = Nothing
     End Sub
-    Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
+    Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectTreeManager1.SelectionChanged
         If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
@@ -155,7 +155,7 @@
 
         Dim Placement
         If CurrentPLacement Is Nothing Then
-            Placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+            Placement = New Placement(SubjectTreeManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
         Else
             Placement = CurrentPLacement.Reseted()
         End If
@@ -277,7 +277,6 @@
             RaiseEvent NewStatusMessage("You canceled the new student.")
         End If
     End Sub
-
 End Class
 
 
