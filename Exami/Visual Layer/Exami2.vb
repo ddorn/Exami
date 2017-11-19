@@ -150,7 +150,7 @@
     ''' <summary>
     ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
     ''' </summary>
-    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged
+    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged, SortOptions1.SortChanged
 
         Dim Placement
         If CurrentPLacement Is Nothing Then
@@ -160,13 +160,13 @@
         End If
 
 
-        If Not placement.TryMakePlacement(OptionsSelector1.Sort, OptionsSelector1.GroupClasses) Then
+        If Not Placement.TryMakePlacement(SortOptions1.Sort, SortOptions1.GroupClasses) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
             RaiseEvent NewStatusMessage("There was more students than places, the placement aborted.")
             Return
         End If
 
-        CurrentPLacement = placement
+        CurrentPLacement = Placement
     End Sub
 
     ' Save / Load

@@ -23,11 +23,11 @@
         Me.Sort = SortBy.Number
     End Sub
 
-    Private Sub AzSortButton_Click(sender As Object, e As EventArgs)
+    Private Sub AzSortButton_Click(sender As Object, e As EventArgs) Handles AzSortButton.Click
         Me.Sort = SortBy.Name
     End Sub
 
-    Private Sub SettingsButton_Click(sender As Object, e As EventArgs)
+    Private Sub GroupClassesButton_Click(sender As Object, e As EventArgs) Handles GroupClassesButton.Click
         Me.GroupClasses = Not Me.GroupClasses
         If GroupClasses Then
             GroupClassesButton.BackgroundImage = My.Resources.group
