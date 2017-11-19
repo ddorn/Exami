@@ -45,7 +45,7 @@
         End If
 
         TreeView1.EndUpdate()
-
+        TreeView1.ExpandAll()
     End Sub
 
     Private Function PopulateTreeView(dir As String, parentNode As TreeNode) As Integer
