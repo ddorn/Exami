@@ -93,7 +93,6 @@
             MsgBox("Error while saving the room. The name could be invalid, or you don have write access here...")
             Return False
         End If
-        MsgBox(IO.Path.Combine(Exami2.WorkingFolder, name + ".dd"))
         Return True
     End Function
 End Class
