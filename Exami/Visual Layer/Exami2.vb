@@ -161,7 +161,7 @@
         End If
 
 
-        If Not Placement.TryMakePlacement(SortOptions1.Sort, SortOptions1.GroupClasses) Then
+        If Not Placement.TryMakePlacement(SortOptions1.Sort, SortOptions1.GroupClasses, SortOptions1.Snake) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
             RaiseEvent NewStatusMessage("There was more students than places, the placement aborted.")
             Return

@@ -74,13 +74,7 @@ Public Module DataAccessLayer
                 Return col.CompareTo(other.col)
             End If
 
-            If col Mod 2 = 0 Then
-                Return row.CompareTo(other.row)
-            Else
-                ' This makes a snake
-                ' Because it is reversed on odd rows
-                Return -row.CompareTo(other.row)
-            End If
+            Return row.CompareTo(other.row)
         End Function
 
         Public Function ToSvLine() As String
@@ -92,6 +86,63 @@ Public Module DataAccessLayer
 
             Return New Place(Byte.Parse(fields(0)), Byte.Parse(fields(1)), fields(2))
         End Function
+
+        Public Shared Sub SnakeSort(ByRef places As List(Of Place))
+            Dim byRoom = New Dictionary(Of String, List(Of Place))
+
+            For Each p In places
+                If byRoom.ContainsKey(p.room) Then
+                    byRoom(p.room).Add(p)
+                Else
+                    byRoom(p.room) = New List(Of Place)({p})
+                End If
+            Next
+
+            Dim invertedCols = New Dictionary(Of String, List(Of Integer))
+
+            For Each pair In byRoom
+                pair.Value.Sort()  ' Regular sort, front2back
+
+                ' We collect the existing columns numbers
+                Dim colNumbers = New List(Of Integer)
+                Dim curCol = -1
+                For Each p In pair.Value
+                    If p.col <> curCol Then
+                        curCol = p.col
+                        colNumbers.Add(curCol)
+                    End If
+                Next
+
+                ' Then we keep only the second columns, that will be inverted
+                For i = 0 To colNumbers.Count - 1
+                    If i Mod 2 = 0 Then
+                        ' Evil col, we remove it
+                        ' But we know that half of the columns before i are already removed
+                        colNumbers.RemoveAt(i \ 2)
+                    End If
+                Next
+
+                invertedCols(pair.Key) = colNumbers
+            Next
+
+            places.Sort(New Comparison(Of Place)(Function(p1, p2)
+                                                     If p1.room <> p2.room Then
+                                                         Return p1.room.CompareTo(p2.room)
+                                                     End If
+
+                                                     If p1.col <> p2.col Then
+                                                         Return p1.col.CompareTo(p2.col)
+                                                     End If
+
+                                                     If invertedCols(p1.room).Contains(p1.col) Then
+                                                         ' Need to be reversed
+                                                         Return -p1.row.CompareTo(p2.row)
+                                                     Else
+                                                         Return p1.row.CompareTo(p2.row)
+                                                     End If
+                                                 End Function))
+        End Sub
+
     End Class
 
     ''' <summary>
