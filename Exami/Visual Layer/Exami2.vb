@@ -87,7 +87,6 @@
 
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
-        'SubjectManager1.SetFolder(WorkingFolder)
         SubjectTreeManager1.SetFolder(WorkingFolder)
     End Sub
 
@@ -95,11 +94,29 @@
     ''' Converts the all the vass files in the workingFolder to sv ones. Informs the user of the succes of the operation
     ''' </summary>
     Private Sub ConvertFolder() Handles ReloadFolderButton.Click
+
+        Dim info = ConvertFolder(WorkingFolder)  ' (converted, failed)
+
+        ' Be kind, tell her what happend
+        If info.Item1 = 0 And info.Item2 = 0 Then
+            RaiseEvent NewStatusMessage("There is no files to convert in this folder :/")
+        ElseIf info.Item2 = 0 Then
+
+        Else
+            RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", info.Item1, info.Item2))
+        End If
+
+        ' Show new files 
+        ReloadWorkingFolder()
+
+    End Sub
+
+    Private Function ConvertFolder(folder As String) As Tuple(Of Integer, Integer)
         Dim nbFilesConverted = 0
         Dim nbFilesFailed = 0
-
-        ' We convert each .vass file in the WorkingFolder
-        For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
+        MsgBox(folder)
+        ' We convert each .vass file in the folder
+        For Each fileName In File.GetFilesWithExtension(folder, ".vass")
             ' Keeping track of the number converted / failed
             If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
                 nbFilesConverted += 1
@@ -108,20 +125,15 @@
             End If
         Next
 
-        ' Be kind, tell her what happend
-        If nbFilesConverted = 0 And nbFilesFailed = 0 Then
-            RaiseEvent NewStatusMessage("There is no files to convert in this folder :/")
-        ElseIf nbFilesFailed = 0 Then
+        ' And also each subfolder
+        For Each fold In IO.Directory.GetDirectories(folder)
+            Dim info = ConvertFolder(fold)
+            nbFilesConverted += info.Item1
+            nbFilesConverted += info.Item2
+        Next
 
-        Else
-            RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", nbFilesConverted, nbFilesFailed))
-        End If
-
-        ' Show new files 
-        ReloadWorkingFolder()
-
-    End Sub
-
+        Return New Tuple(Of Integer, Integer)(nbFilesConverted, nbFilesFailed)
+    End Function
 
     ' ############## '
     '   Placement    '
