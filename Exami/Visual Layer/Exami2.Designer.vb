@@ -42,6 +42,8 @@ Partial Class Exami2
         Me.MakePlacementButton = New System.Windows.Forms.Button()
         Me.SelectFolderButton = New System.Windows.Forms.Button()
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
+        Me.SaveAllButton = New System.Windows.Forms.Button()
+        Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.SortOptions1 = New Exami.SortOptions()
         Me.OptionsSelector1 = New Exami.OptionsSelector()
         Me.SubjectManager1 = New Exami.SubjectManager()
@@ -191,13 +193,12 @@ Partial Class Exami2
         '
         Me.SettingsButton.BackgroundImage = CType(resources.GetObject("SettingsButton.BackgroundImage"), System.Drawing.Image)
         Me.SettingsButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SettingsButton.Location = New System.Drawing.Point(489, 12)
+        Me.SettingsButton.Location = New System.Drawing.Point(569, 12)
         Me.SettingsButton.Name = "SettingsButton"
         Me.SettingsButton.Size = New System.Drawing.Size(34, 34)
         Me.SettingsButton.TabIndex = 6
         Me.SettingsButton.Tag = "Open the settings"
         Me.SettingsButton.UseVisualStyleBackColor = True
-        Me.SettingsButton.Visible = False
         '
         'ReloadFolderButton
         '
@@ -236,14 +237,36 @@ Partial Class Exami2
         Me.SelectFolderButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
         Me.SelectFolderButton.UseVisualStyleBackColor = True
         '
+        'SaveAllButton
+        '
+        Me.SaveAllButton.BackgroundImage = CType(resources.GetObject("SaveAllButton.BackgroundImage"), System.Drawing.Image)
+        Me.SaveAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.SaveAllButton.Location = New System.Drawing.Point(489, 12)
+        Me.SaveAllButton.Name = "SaveAllButton"
+        Me.SaveAllButton.Size = New System.Drawing.Size(34, 34)
+        Me.SaveAllButton.TabIndex = 37
+        Me.SaveAllButton.Tag = "Save the whole seating plan"
+        Me.SaveAllButton.UseVisualStyleBackColor = True
+        '
+        'PrintAllButton
+        '
+        Me.PrintAllButton.BackgroundImage = CType(resources.GetObject("PrintAllButton.BackgroundImage"), System.Drawing.Image)
+        Me.PrintAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.PrintAllButton.Location = New System.Drawing.Point(529, 12)
+        Me.PrintAllButton.Name = "PrintAllButton"
+        Me.PrintAllButton.Size = New System.Drawing.Size(34, 34)
+        Me.PrintAllButton.TabIndex = 36
+        Me.PrintAllButton.Tag = "Print the whole seating plan"
+        Me.PrintAllButton.UseVisualStyleBackColor = True
+        '
         'SortOptions1
         '
         Me.SortOptions1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.SortOptions1.AutoSize = True
-        Me.SortOptions1.Location = New System.Drawing.Point(529, 8)
+        Me.SortOptions1.Location = New System.Drawing.Point(609, 8)
         Me.SortOptions1.Name = "SortOptions1"
-        Me.SortOptions1.Size = New System.Drawing.Size(403, 40)
+        Me.SortOptions1.Size = New System.Drawing.Size(386, 40)
         Me.SortOptions1.TabIndex = 10
         Me.SortOptions1.Tag = "Options to change how students are placed"
         '
@@ -253,10 +276,9 @@ Partial Class Exami2
         Me.OptionsSelector1.AutoSize = True
         Me.OptionsSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.OptionsSelector1.Enabled = False
-        Me.OptionsSelector1.Location = New System.Drawing.Point(938, 8)
-        Me.OptionsSelector1.MinimumSize = New System.Drawing.Size(237, 43)
+        Me.OptionsSelector1.Location = New System.Drawing.Point(1001, 8)
         Me.OptionsSelector1.Name = "OptionsSelector1"
-        Me.OptionsSelector1.Size = New System.Drawing.Size(237, 48)
+        Me.OptionsSelector1.Size = New System.Drawing.Size(174, 48)
         Me.OptionsSelector1.TabIndex = 8
         '
         'SubjectManager1
@@ -294,7 +316,9 @@ Partial Class Exami2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.SaveAllButton)
         Me.Controls.Add(Me.SortOptions1)
+        Me.Controls.Add(Me.PrintAllButton)
         Me.Controls.Add(Me.AddStudentButton)
         Me.Controls.Add(Me.OptionsSelector1)
         Me.Controls.Add(Me.SettingsButton)
@@ -347,4 +371,6 @@ Partial Class Exami2
     Friend WithEvents AddStudentButton As Button
     Friend WithEvents ToolTip1 As ToolTip
     Friend WithEvents SortOptions1 As SortOptions
+    Friend WithEvents SaveAllButton As Button
+    Friend WithEvents PrintAllButton As Button
 End Class

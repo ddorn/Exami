@@ -8,9 +8,6 @@ Public Class OptionsSelector
     Public CurrentViewBy As ViewBy = ViewBy.None
 
     Public Event OptionsChanged()
-    Public Event SaveAll()
-    Public Event PrintAll()
-
 
     ' Change for the All box
 
@@ -54,14 +51,6 @@ Public Class OptionsSelector
 
     Private Sub RoomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RoomCheckBox.CheckedChanged
         CurrentViewBy = CurrentViewBy Xor ViewBy.Room
-    End Sub
-
-    Private Sub Button5_Click(sender As Object, e As EventArgs)
-        RaiseEvent SaveAll()
-    End Sub
-
-    Private Sub Button4_Click(sender As Object, e As EventArgs)
-        RaiseEvent PrintAll()
     End Sub
 
 

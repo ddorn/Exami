@@ -171,7 +171,7 @@
 
     ' Save / Load
 
-    Private Sub SaveAll() Handles OptionsSelector1.SaveAll
+    Private Sub SaveAll() Handles SaveAllButton.Click
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             MP.SavePlacement(Me.CurrentPLacement, SaveFileDialog1.FileName)
@@ -246,7 +246,7 @@
     '    Printing    '
     ' ############## '
 
-    Private Sub PrintAll() Handles OptionsSelector1.PrintAll
+    Private Sub PrintAll() Handles PrintAllButton.Click
         If PrintDialog1.ShowDialog() = DialogResult.OK Then
             PrintDocument1.Print()
         End If

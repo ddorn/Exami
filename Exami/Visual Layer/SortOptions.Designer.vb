@@ -24,8 +24,6 @@ Partial Class SortOptions
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(SortOptions))
         Me.SnakeButton = New System.Windows.Forms.Button()
-        Me.SaveAllButton = New System.Windows.Forms.Button()
-        Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.ShuffleButton = New System.Windows.Forms.Button()
         Me.NumSortAllButton = New System.Windows.Forms.Button()
         Me.AzSortButton = New System.Windows.Forms.Button()
@@ -37,43 +35,19 @@ Partial Class SortOptions
         Me.SnakeButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.SnakeButton.BackgroundImage = Global.Exami.My.Resources.Resources.snake2
         Me.SnakeButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SnakeButton.Location = New System.Drawing.Point(243, 3)
+        Me.SnakeButton.Location = New System.Drawing.Point(164, 3)
         Me.SnakeButton.Name = "SnakeButton"
         Me.SnakeButton.Size = New System.Drawing.Size(34, 34)
         Me.SnakeButton.TabIndex = 36
         Me.SnakeButton.Tag = "Students are placed in a snake pattern in the class"
         Me.SnakeButton.UseVisualStyleBackColor = True
         '
-        'SaveAllButton
-        '
-        Me.SaveAllButton.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.SaveAllButton.BackgroundImage = CType(resources.GetObject("SaveAllButton.BackgroundImage"), System.Drawing.Image)
-        Me.SaveAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.SaveAllButton.Location = New System.Drawing.Point(3, 3)
-        Me.SaveAllButton.Name = "SaveAllButton"
-        Me.SaveAllButton.Size = New System.Drawing.Size(34, 34)
-        Me.SaveAllButton.TabIndex = 35
-        Me.SaveAllButton.Tag = "Save the whole seating plan"
-        Me.SaveAllButton.UseVisualStyleBackColor = True
-        '
-        'PrintAllButton
-        '
-        Me.PrintAllButton.Anchor = System.Windows.Forms.AnchorStyles.None
-        Me.PrintAllButton.BackgroundImage = CType(resources.GetObject("PrintAllButton.BackgroundImage"), System.Drawing.Image)
-        Me.PrintAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.PrintAllButton.Location = New System.Drawing.Point(43, 3)
-        Me.PrintAllButton.Name = "PrintAllButton"
-        Me.PrintAllButton.Size = New System.Drawing.Size(34, 34)
-        Me.PrintAllButton.TabIndex = 34
-        Me.PrintAllButton.Tag = "Print the whole seating plan"
-        Me.PrintAllButton.UseVisualStyleBackColor = True
-        '
         'ShuffleButton
         '
         Me.ShuffleButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.ShuffleButton.BackgroundImage = CType(resources.GetObject("ShuffleButton.BackgroundImage"), System.Drawing.Image)
         Me.ShuffleButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.ShuffleButton.Location = New System.Drawing.Point(83, 3)
+        Me.ShuffleButton.Location = New System.Drawing.Point(4, 3)
         Me.ShuffleButton.Name = "ShuffleButton"
         Me.ShuffleButton.Size = New System.Drawing.Size(34, 34)
         Me.ShuffleButton.TabIndex = 33
@@ -85,7 +59,7 @@ Partial Class SortOptions
         Me.NumSortAllButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.NumSortAllButton.BackgroundImage = CType(resources.GetObject("NumSortAllButton.BackgroundImage"), System.Drawing.Image)
         Me.NumSortAllButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.NumSortAllButton.Location = New System.Drawing.Point(123, 3)
+        Me.NumSortAllButton.Location = New System.Drawing.Point(44, 3)
         Me.NumSortAllButton.Name = "NumSortAllButton"
         Me.NumSortAllButton.Size = New System.Drawing.Size(34, 34)
         Me.NumSortAllButton.TabIndex = 32
@@ -97,7 +71,7 @@ Partial Class SortOptions
         Me.AzSortButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.AzSortButton.BackgroundImage = CType(resources.GetObject("AzSortButton.BackgroundImage"), System.Drawing.Image)
         Me.AzSortButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.AzSortButton.Location = New System.Drawing.Point(163, 3)
+        Me.AzSortButton.Location = New System.Drawing.Point(84, 3)
         Me.AzSortButton.Name = "AzSortButton"
         Me.AzSortButton.Size = New System.Drawing.Size(34, 34)
         Me.AzSortButton.TabIndex = 31
@@ -109,7 +83,7 @@ Partial Class SortOptions
         Me.GroupClassesButton.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.GroupClassesButton.BackgroundImage = Global.Exami.My.Resources.Resources.group
         Me.GroupClassesButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.GroupClassesButton.Location = New System.Drawing.Point(203, 3)
+        Me.GroupClassesButton.Location = New System.Drawing.Point(124, 3)
         Me.GroupClassesButton.Name = "GroupClassesButton"
         Me.GroupClassesButton.Size = New System.Drawing.Size(34, 34)
         Me.GroupClassesButton.TabIndex = 30
@@ -120,20 +94,15 @@ Partial Class SortOptions
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.Controls.Add(Me.SnakeButton)
-        Me.Controls.Add(Me.SaveAllButton)
-        Me.Controls.Add(Me.PrintAllButton)
         Me.Controls.Add(Me.ShuffleButton)
         Me.Controls.Add(Me.NumSortAllButton)
         Me.Controls.Add(Me.AzSortButton)
         Me.Controls.Add(Me.GroupClassesButton)
         Me.Name = "SortOptions"
-        Me.Size = New System.Drawing.Size(280, 40)
+        Me.Size = New System.Drawing.Size(202, 40)
         Me.ResumeLayout(False)
 
     End Sub
-
-    Friend WithEvents SaveAllButton As Button
-    Friend WithEvents PrintAllButton As Button
     Friend WithEvents ShuffleButton As Button
     Friend WithEvents NumSortAllButton As Button
     Friend WithEvents AzSortButton As Button
