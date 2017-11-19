@@ -26,9 +26,6 @@ Partial Class Exami2
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Exami2))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
-        Me.SubjectTreeManager1 = New Exami.SubjectTreeManager()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
@@ -49,6 +46,9 @@ Partial Class Exami2
         Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.SortOptions1 = New Exami.SortOptions()
         Me.OptionsSelector1 = New Exami.OptionsSelector()
+        Me.SubjectTreeManager1 = New Exami.SubjectTreeManager()
+        Me.RoomManager1 = New Exami.RoomManager()
+        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -107,36 +107,6 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 210
         Me.SplitContainer2.TabIndex = 21
         Me.SplitContainer2.TabStop = False
-        '
-        'SubjectTreeManager1
-        '
-        Me.SubjectTreeManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectTreeManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectTreeManager1.Name = "SubjectTreeManager1"
-        Me.SubjectTreeManager1.Size = New System.Drawing.Size(246, 202)
-        Me.SubjectTreeManager1.TabIndex = 38
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.AutoSize = True
-        Me.RoomManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
-        Me.RoomManager1.TabIndex = 0
-        '
-        'PlacementBoxes1
-        '
-        Me.PlacementBoxes1.AutoScroll = True
-        Me.PlacementBoxes1.AutoSize = True
-        Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
-        Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
-        Me.PlacementBoxes1.TabIndex = 0
         '
         'ToolStripStatusLabel2
         '
@@ -229,6 +199,7 @@ Partial Class Exami2
         Me.SettingsButton.TabIndex = 6
         Me.SettingsButton.Tag = "Open the settings"
         Me.SettingsButton.UseVisualStyleBackColor = True
+        Me.SettingsButton.Visible = False
         '
         'ReloadFolderButton
         '
@@ -313,6 +284,36 @@ Partial Class Exami2
         Me.OptionsSelector1.Name = "OptionsSelector1"
         Me.OptionsSelector1.Size = New System.Drawing.Size(174, 48)
         Me.OptionsSelector1.TabIndex = 8
+        '
+        'SubjectTreeManager1
+        '
+        Me.SubjectTreeManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectTreeManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectTreeManager1.Name = "SubjectTreeManager1"
+        Me.SubjectTreeManager1.Size = New System.Drawing.Size(246, 202)
+        Me.SubjectTreeManager1.TabIndex = 38
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.AutoSize = True
+        Me.RoomManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
+        Me.RoomManager1.TabIndex = 0
+        '
+        'PlacementBoxes1
+        '
+        Me.PlacementBoxes1.AutoScroll = True
+        Me.PlacementBoxes1.AutoSize = True
+        Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
+        Me.PlacementBoxes1.Name = "PlacementBoxes1"
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
+        Me.PlacementBoxes1.TabIndex = 0
         '
         'Exami2
         '

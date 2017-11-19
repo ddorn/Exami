@@ -58,7 +58,7 @@ Partial Class Settings
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(51, 20)
         Me.Label2.TabIndex = 1
-        Me.Label2.Text = "v2.1.0"
+        Me.Label2.Text = "v2.2.0"
         '
         'LinkLabel1
         '
