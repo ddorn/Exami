@@ -573,10 +573,16 @@ Public Module DataAccessLayer
             Dim curSubject = Nothing
             Dim student As Student = Nothing
             Dim file As IO.TextWriter = Nothing
+            Dim header As String = Nothing
 
             For Each line In IO.File.ReadAllLines(csvFilePath)
                 ' The supression of useless, empty and naughty lines is in the TryParse
                 If Student.TryParseFormCsv(line, student) Then
+                    If header Is Nothing Then
+                        header = student.ToSvLine()
+                        Continue For
+                    End If
+
                     line = student.ToSvLine()
 
                     ' If we changed subject
@@ -588,6 +594,7 @@ Public Module DataAccessLayer
 
                         curSubject = student.classUnit.subject
                         file = IO.File.CreateText(IO.Path.Combine(dirPath, curSubject + ".sv"))
+                        file.WriteLine(header)
                     End If
 
                     file.WriteLine(line)
