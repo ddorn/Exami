@@ -500,7 +500,6 @@ Public Module CortexLayer
         End Function
     End Class
 
-
     Public Class SubPlacement
         Public places As List(Of Place)
         Public students As StudentGroup
@@ -592,7 +591,7 @@ Public Module CortexLayer
         ''' The place of a student can be now found at student.place
         ''' The order of places means nothing and the only way to know a place is the above.
         ''' </summary>
-        Public Sub MakePlacement(Sort As SortBy, groupByClass As Boolean)
+        Public Sub MakePlacement(Sort As SortBy, groupByClass As Boolean, snake As Boolean)
 
             ' We really want to have enough places
             If students.Count > places.Count Then
@@ -601,7 +600,11 @@ Public Module CortexLayer
 
             ' Sort everything
             Me.students.Sort()
-            Me.places.Sort()
+            If snake Then
+                Place.SnakeSort(places)
+            Else
+                Me.places.Sort()   ' The regular place sorting is top to back
+            End If
 
 
             Dim GroupBy As ViewBy
@@ -642,9 +645,9 @@ Public Module CortexLayer
         ''' A return value indicates wether it worked or not.
         ''' </summary>
         ''' <returns>True if the placement was effected else false.</returns>
-        Public Function TryMakePlacement(sort As SortBy, groupByClass As Boolean) As Boolean
+        Public Function TryMakePlacement(sort As SortBy, groupByClass As Boolean, snake As Boolean) As Boolean
             Try
-                MakePlacement(sort, groupByClass)
+                MakePlacement(sort, groupByClass, snake)
             Catch ex As Exception
                 Return False
             End Try

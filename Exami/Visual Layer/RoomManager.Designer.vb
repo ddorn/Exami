@@ -22,6 +22,7 @@ Partial Class RoomManager
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RoomManager))
         Me.RenameRoomButton = New System.Windows.Forms.Button()
         Me.RoomsListBox = New System.Windows.Forms.CheckedListBox()
@@ -29,6 +30,7 @@ Partial Class RoomManager
         Me.CopyRoomButton = New System.Windows.Forms.Button()
         Me.CreateRoomButton = New System.Windows.Forms.Button()
         Me.DeleteRoomButton = New System.Windows.Forms.Button()
+        Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SuspendLayout()
         '
         'RenameRoomButton
@@ -134,4 +136,5 @@ Partial Class RoomManager
     Friend WithEvents CopyRoomButton As Button
     Friend WithEvents CreateRoomButton As Button
     Friend WithEvents DeleteRoomButton As Button
+    Friend WithEvents ToolTip1 As ToolTip
 End Class

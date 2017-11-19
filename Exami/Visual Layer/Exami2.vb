@@ -16,13 +16,14 @@
         Set(ByVal value As Placement)
             _CurrentPlacement = value
             PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
-            If value Is Nothing Then
-                AddStudentButton.Enabled = False
-                OptionsSelector1.Enabled = False
-            Else
-                AddStudentButton.Enabled = True
-                OptionsSelector1.Enabled = True
-            End If
+
+            Dim ouatou = value IsNot Nothing
+
+            AddStudentButton.Enabled = ouatou
+            OptionsSelector1.Enabled = ouatou
+            SortOptions1.Enabled = ouatou
+            PrintAllButton.Enabled = ouatou
+            SaveAllButton.Enabled = ouatou
         End Set
     End Property
 
@@ -86,34 +87,23 @@
 
         ' Update the class and rooms managers
         RoomManager1.SetFolder(WorkingFolder)
-        SubjectManager1.SetFolder(WorkingFolder)
-
+        SubjectTreeManager1.SetFolder(WorkingFolder)
     End Sub
 
     ''' <summary>
     ''' Converts the all the vass files in the workingFolder to sv ones. Informs the user of the succes of the operation
     ''' </summary>
     Private Sub ConvertFolder() Handles ReloadFolderButton.Click
-        Dim nbFilesConverted = 0
-        Dim nbFilesFailed = 0
 
-        ' We convert each .vass file in the WorkingFolder
-        For Each fileName In File.GetFilesWithExtension(WorkingFolder, ".vass")
-            ' Keeping track of the number converted / failed
-            If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
-                nbFilesConverted += 1
-            Else
-                nbFilesFailed += 1
-            End If
-        Next
+        Dim info = ConvertFolder(WorkingFolder)  ' (converted, failed)
 
         ' Be kind, tell her what happend
-        If nbFilesConverted = 0 And nbFilesFailed = 0 Then
+        If info.Item1 = 0 And info.Item2 = 0 Then
             RaiseEvent NewStatusMessage("There is no files to convert in this folder :/")
-        ElseIf nbFilesFailed = 0 Then
+        ElseIf info.Item2 = 0 Then
 
         Else
-            RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", nbFilesConverted, nbFilesFailed))
+            RaiseEvent NewStatusMessage(String.Format("{} files where processed and {} failed", info.Item1, info.Item2))
         End If
 
         ' Show new files 
@@ -121,6 +111,38 @@
 
     End Sub
 
+    Private Function ConvertFolder(folder As String) As Tuple(Of Integer, Integer)
+        ' Keeping track of the number converted / failed
+        Dim nbFilesConverted = 0
+        Dim nbFilesFailed = 0
+
+        ' We convert each .vass file in the folder
+        For Each fileName In File.GetFilesWithExtension(folder, ".vass")
+            If DataAccessLayer.SV.TryConvertVassToSv(fileName) Then
+                nbFilesConverted += 1
+            Else
+                nbFilesFailed += 1
+            End If
+        Next
+
+        ' The all .csv (for year 10/11)
+        For Each filename In File.GetFilesWithExtension(folder, ".csv")
+            If DataAccessLayer.SV.TryConvertCsvToSv(filename) Then
+                nbFilesConverted += 1
+            Else
+                nbFilesFailed += 1
+            End If
+        Next
+
+        ' And also each subfolder
+        For Each fold In IO.Directory.GetDirectories(folder)
+            Dim info = ConvertFolder(fold)
+            nbFilesConverted += info.Item1
+            nbFilesConverted += info.Item2
+        Next
+
+        Return New Tuple(Of Integer, Integer)(nbFilesConverted, nbFilesFailed)
+    End Function
 
     ' ############## '
     '   Placement    '
@@ -130,7 +152,7 @@
     Private Sub EnablePlacementFromRoom(checkedCount As Integer) Handles RoomManager1.SelectionChanged
         ' When the user selects an item in the RoomManager that makes more than 0 items selected and there is some subject selected too
         ' Aka both have selected subject/room now
-        If checkedCount > 0 And SubjectManager1.CheckedCount > 0 Then
+        If checkedCount > 0 And SubjectTreeManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
             MakePlacementButton.Enabled = False
@@ -138,7 +160,7 @@
 
         CurrentPLacement = Nothing
     End Sub
-    Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectManager1.SelectionChanged
+    Private Sub EnablePlacementFromSubject(checkedCount As Integer) Handles SubjectTreeManager1.SelectionChanged
         If checkedCount > 0 And RoomManager1.CheckedCount > 0 Then
             MakePlacementButton.Enabled = True
         Else
@@ -150,28 +172,28 @@
     ''' <summary>
     ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
     ''' </summary>
-    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged
+    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged, SortOptions1.SortChanged
 
         Dim Placement
         If CurrentPLacement Is Nothing Then
-            Placement = New Placement(SubjectManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
+            Placement = New Placement(SubjectTreeManager1.GetSelectedSubjectPaths, RoomManager1.GetSelectedRoomPaths)
         Else
             Placement = CurrentPLacement.Reseted()
         End If
 
 
-        If Not placement.TryMakePlacement(OptionsSelector1.Sort, OptionsSelector1.GroupClasses) Then
+        If Not Placement.TryMakePlacement(SortOptions1.Sort, SortOptions1.GroupClasses, SortOptions1.Snake) Then
             MsgBox("There is more students than places !", MsgBoxStyle.Exclamation)
             RaiseEvent NewStatusMessage("There was more students than places, the placement aborted.")
             Return
         End If
 
-        CurrentPLacement = placement
+        CurrentPLacement = Placement
     End Sub
 
     ' Save / Load
 
-    Private Sub SaveAll() Handles OptionsSelector1.SaveAll
+    Private Sub SaveAll() Handles SaveAllButton.Click
 
         If SaveFileDialog1.ShowDialog() = DialogResult.OK Then
             MP.SavePlacement(Me.CurrentPLacement, SaveFileDialog1.FileName)
@@ -195,7 +217,9 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        
+        For Each con In Controls
+            ToolTip1.SetToolTip(con, con.tag)
+        Next
         SetUpHoverHandler(Me)
     End Sub
     ''' <summary>
@@ -244,7 +268,7 @@
     '    Printing    '
     ' ############## '
 
-    Private Sub PrintAll() Handles OptionsSelector1.PrintAll
+    Private Sub PrintAll() Handles PrintAllButton.Click
         If PrintDialog1.ShowDialog() = DialogResult.OK Then
             PrintDocument1.Print()
         End If

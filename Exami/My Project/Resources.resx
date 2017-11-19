@@ -118,12 +118,6 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="GroupByClassFalse" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-User Groups-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="GroupByClassTrue" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\icons8-User Groups Filled-100.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="add_student" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\add-businessman.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
@@ -138,5 +132,26 @@
   </data>
   <data name="huh" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\huh.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="no_group" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_group.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noSnake" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_snake2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="snake" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\snake2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="group" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\group.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noSortAz" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_AzSort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noSortNum" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_NumSort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="noTableSort" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\no_TableSort.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

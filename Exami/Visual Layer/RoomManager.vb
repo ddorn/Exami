@@ -296,4 +296,9 @@ Public Class RoomManager
 
     End Function
 
+    Private Sub RoomManager_Load(sender As Object, e As EventArgs) Handles Me.Load
+        For Each con In Controls
+            ToolTip1.SetToolTip(con, con.tag)
+        Next
+    End Sub
 End Class

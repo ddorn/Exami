@@ -197,4 +197,56 @@
         zvN+9lZ2mvLRr+a0QKZvQngBx5bZvGGXuNIAAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="ToolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 65</value>
+  </metadata>
+  <data name="SaveAllButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABGdBTUEAALGPC/xhBQAABDVJREFUeF7t
+        mr2KVlcYRudqZKIWEmQQTCHa2OdSIlYGcwc2FuYaBNFRBiHBxh8sBIs0FhIVZCQhYKGFjY488sjZDGv2
+        ngP7/b6dOe+CVR6e867jOM1sJEmSJEmSJEmSJEmSJMlBfLywtUc+2dyc5e0Hj4eUbpMfzm/95gTrhV5O
+        UuSadPwI0m3fHeIj0ItJilyTjh9Buq107R+BXkpS5Jp0/AjSbftd60egF5IUuSYd38NjP56pSs+U0m3k
+        2j4CvYykyDXp+B5S9FJ6ppRuO8i1fAR6EUmRa9LxPaTopfRMKd1Wc+UfgV5CUuSadHwPKXopPVNKt7Vc
+        6UegF5AUuSYd30OKXkrPlNJth3FlH4HGJUWuScf3kKKX0jOldNthXclHoGFJkWvS8T2k6KX0TCndNkdn
+        ioNGJUWuScf3kKKX0jOldNscnSkOGpUUuSYd30OKXkrPlNJtc3SmOGhUUuSadHwPKXopPVNKt83RmeKg
+        UUmRa9LxPaTopfRMKd02R2eKg0YlRa5Jx/eQopfSM6V02xydKQ4alRS5Jh3fQ4peSs+U0m1zdKY4aFRS
+        5Jp0fA8peik9U0q3zdGZ4qBRSZFr0vE9pOil9Ewp3TZHZ4qDRiVFrknH95Cil9IzpXTbHJ0pDhqVT3/g
+        0Ad5594fGGCd3r91D2+bozPFQaPyr1MnMfRB7ly7jhHW6aMbv+Ntc3SmOGhUvj93etZPwcOzPw31U3B3
+        58+9/36+iLfN0ZnioNHv6iPoJ+HZieMYfb/6CPpJ2L65jVFWof7b0b/8HvGlM8VBo+mkM8VBo+mkM8VB
+        o+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VBo+mkM8VB
+        o/LT1ct7n1//vXfU0Y2ffr2EDaQzxUGj8su7Xb/i0efz7ltsIJ0pDhqVS4MaSGeKg0bl0qAG0pnioFG5
+        NKiBdKY4aFQuDWognSkOGpUtnr94+b+yBTWQzhQHjcoWdOTItqAG0pnioFHZgo4c2RbUQDpTHDQqW9CR
+        I9uCGkhnioNG5dKgBtKZ4qBRuTSogXSmOGhULg1qIJ0pDhqVS4MaSGeKg0ZlC/pFN7ItqIF0pjhoVLag
+        I0e2BTWQzhQHjcoWdOTItqAG0pnioFHZgo4c2RbUQDpTHDQqlwY1kM4UB43KpUENpDPFQaNyaVAD6Uxx
+        0KhcGtRAOlMcNCpb0C+6kW1BDaQzxUGjsgUdObItqIF0pjhoVLagI0e2BTWQzhQHjcoWdOTItqAG0pni
+        oFG5NKiBdKY4aFQuDWognSkOGpVLgxpIZ4qDRuXSoAbSmeKgUfnl33/8akefIf8499ufp7955Vc8unz7
+        8/Qrv2AD6Uxx0Gg66Uxx0Gg66Uxx0Gg66Uxx0Gg66UxJkiRJkiRJkiRJkiRJso+Nja+q8NsShqqeUQAA
+        AABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="PrintAllButton.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAAGAAAABgCAYAAADimHc4AAAABGdBTUEAALGPC/xhBQAAA81JREFUeF7t
+        mz1PVF0URqeyMARrLbBgQk8goaGACYX/gYTPyB8gDr0VpaWlDZ2J/AVatVATtLO0nsbCUIznkCfx5mTd
+        mTPnzjh3D3slK3kLsu9dzxggebXjOI7jOI7jOI7jOM40ePPxz3CRVJYdKMKyyrIDRVhWWXagCMsqyw4U
+        YVll2YEiLKssO1CEZZVlB4qwrLLsQBGWVZYdKMKyyrIDRVhWWXagCMsqyw4UYVll2YEiLKus9tLr9YZV
+        KcKyaZ+y20P6ghRh2bRP2e0hfUGKsGzap+z2kL4gRVg27VN2e0hfkCIsm/Ypuz2kL0gRlk37lP3/OTg4
+        WDk6OroI3hwfHw+CwwfuQFv04zaaafrs7+8vh4dcVx7sguHDeH92dvZEs02H09PT5+HwD3qgi96enJw8
+        03zNCeNfwUPc0b7TfM04PDxcDcfukuPueO/Cd46uZiwn/Om/hONuhnE7zVhOOPKZjj90X7x+OVy6Pb83
+        /jd9TdxOM5YTDvmvmuDS9/Nh51f/3vgh0NcEB5qxHDjqBh/9fPXvAwgfBn1NVDOWQ0ddfQsKw0frvgVF
+        NWM5dNTNVzOWQ0fdfDVjOXTUzVczlkNH3Xw1Yzl01M1XM5ZDR918NWM5dNTNVzOWQ0fdfDVjOXTUzVcz
+        lkNH3Xw1Yznp/4x2J1MzlkNH3Xw1Yzl01M1XM5ZDR918NWM5dNTNVzOWQ0fdfDVjOXTUzVczlkNH3Xw1
+        Yzl0tM6NjY3h2trasNvtLqSxLTZSe52asRw6Sq6vr+NLL6KxlTYgNWM5dJRM/+T3rn4vlNW22EobkJqx
+        HDpK+gfAasZy6CiZfguiCMtW21r5LSha/SFMEZaNTbFtc3MT2+vUjOXQ0Rzpn/lYlhpz1Izl0NEcKcKy
+        1JijZiwnHBmkR3OkCMtSY4bN/3Lu7u7uFzg8VoqwLDWOM2zX/K+nh0OX6eEcKYJ82v/WCundqlJjhs3/
+        gcbOzk43fJJ3cHykFEHSGPOQ3q0qNY5Sm61qxmaEY2/TB4yTIkgaYx7Su1WlxlHGzTRfc8Lv94/D0a/p
+        Q0ZJESSNMQ/p3apSY51h/E9xM803Hfb29p6E4x/Sh9VJEZalRjKMf721tbWs2abP9vb2SnhIPzzsJlj7
+        KypFWJYaZdzgJvysvIjbaKb5QxGWVZYdKMKyyrIDRZD0A3EW0rMnUVl2oAiSxpqF9OxJVJYdKIKksWYh
+        PXsSlWUHiiBprFlIz55EZdmBIiyrLDtQhGWVZQeKsKyy7EARllWWHSjCssqyA0VYVlmO4ziO4ziO4ziO
+        4zSg0/kLqbok99THNw8AAAAASUVORK5CYII=
+</value>
+  </data>
+  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>130</value>
+  </metadata>
 </root>

@@ -73,19 +73,9 @@ Namespace My.Resources
         '''<summary>
         '''  Looks up a localized resource of type System.Drawing.Bitmap.
         '''</summary>
-        Friend ReadOnly Property GroupByClassFalse() As System.Drawing.Bitmap
+        Friend ReadOnly Property group() As System.Drawing.Bitmap
             Get
-                Dim obj As Object = ResourceManager.GetObject("GroupByClassFalse", resourceCulture)
-                Return CType(obj,System.Drawing.Bitmap)
-            End Get
-        End Property
-        
-        '''<summary>
-        '''  Looks up a localized resource of type System.Drawing.Bitmap.
-        '''</summary>
-        Friend ReadOnly Property GroupByClassTrue() As System.Drawing.Bitmap
-            Get
-                Dim obj As Object = ResourceManager.GetObject("GroupByClassTrue", resourceCulture)
+                Dim obj As Object = ResourceManager.GetObject("group", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
@@ -96,6 +86,66 @@ Namespace My.Resources
         Friend ReadOnly Property huh() As System.Drawing.Bitmap
             Get
                 Dim obj As Object = ResourceManager.GetObject("huh", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property no_group() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("no_group", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property noSnake() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("noSnake", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property noSortAz() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("noSortAz", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property noSortNum() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("noSortNum", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property noTableSort() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("noTableSort", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized resource of type System.Drawing.Bitmap.
+        '''</summary>
+        Friend ReadOnly Property snake() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("snake", resourceCulture)
                 Return CType(obj,System.Drawing.Bitmap)
             End Get
         End Property
