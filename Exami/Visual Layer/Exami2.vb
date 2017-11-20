@@ -24,6 +24,7 @@
             SortOptions1.Enabled = ouatou
             PrintAllButton.Enabled = ouatou
             SaveAllButton.Enabled = ouatou
+            ViewGroupedByLabel.Enabled = ouatou
         End Set
     End Property
 

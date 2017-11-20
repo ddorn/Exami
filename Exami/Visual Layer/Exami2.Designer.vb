@@ -26,6 +26,9 @@ Partial Class Exami2
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Exami2))
         Me.SplitContainer1 = New System.Windows.Forms.SplitContainer()
         Me.SplitContainer2 = New System.Windows.Forms.SplitContainer()
+        Me.SubjectTreeManager1 = New Exami.SubjectTreeManager()
+        Me.RoomManager1 = New Exami.RoomManager()
+        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
         Me.ToolStripStatusLabel2 = New System.Windows.Forms.ToolStripStatusLabel()
         Me.StatusBar = New System.Windows.Forms.StatusStrip()
         Me.HoverStatusLabel = New System.Windows.Forms.ToolStripStatusLabel()
@@ -46,9 +49,7 @@ Partial Class Exami2
         Me.PrintAllButton = New System.Windows.Forms.Button()
         Me.SortOptions1 = New Exami.SortOptions()
         Me.OptionsSelector1 = New Exami.OptionsSelector()
-        Me.SubjectTreeManager1 = New Exami.SubjectTreeManager()
-        Me.RoomManager1 = New Exami.RoomManager()
-        Me.PlacementBoxes1 = New Exami.PlacementBoxes()
+        Me.ViewGroupedByLabel = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -107,6 +108,36 @@ Partial Class Exami2
         Me.SplitContainer2.SplitterDistance = 210
         Me.SplitContainer2.TabIndex = 21
         Me.SplitContainer2.TabStop = False
+        '
+        'SubjectTreeManager1
+        '
+        Me.SubjectTreeManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.SubjectTreeManager1.Location = New System.Drawing.Point(3, 3)
+        Me.SubjectTreeManager1.Name = "SubjectTreeManager1"
+        Me.SubjectTreeManager1.Size = New System.Drawing.Size(246, 202)
+        Me.SubjectTreeManager1.TabIndex = 38
+        '
+        'RoomManager1
+        '
+        Me.RoomManager1.AutoSize = True
+        Me.RoomManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
+        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
+        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
+        Me.RoomManager1.Name = "RoomManager1"
+        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
+        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
+        Me.RoomManager1.TabIndex = 0
+        '
+        'PlacementBoxes1
+        '
+        Me.PlacementBoxes1.AutoScroll = True
+        Me.PlacementBoxes1.AutoSize = True
+        Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
+        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
+        Me.PlacementBoxes1.Name = "PlacementBoxes1"
+        Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
+        Me.PlacementBoxes1.TabIndex = 0
         '
         'ToolStripStatusLabel2
         '
@@ -270,7 +301,7 @@ Partial Class Exami2
         Me.SortOptions1.Enabled = False
         Me.SortOptions1.Location = New System.Drawing.Point(609, 8)
         Me.SortOptions1.Name = "SortOptions1"
-        Me.SortOptions1.Size = New System.Drawing.Size(386, 40)
+        Me.SortOptions1.Size = New System.Drawing.Size(254, 40)
         Me.SortOptions1.TabIndex = 10
         Me.SortOptions1.Tag = "Options to change how students are placed"
         '
@@ -284,41 +315,24 @@ Partial Class Exami2
         Me.OptionsSelector1.Name = "OptionsSelector1"
         Me.OptionsSelector1.Size = New System.Drawing.Size(174, 48)
         Me.OptionsSelector1.TabIndex = 8
+        Me.OptionsSelector1.Tag = "Choose how you see the seating plan"
         '
-        'SubjectTreeManager1
+        'ViewGroupedByLabel
         '
-        Me.SubjectTreeManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.SubjectTreeManager1.Location = New System.Drawing.Point(3, 3)
-        Me.SubjectTreeManager1.Name = "SubjectTreeManager1"
-        Me.SubjectTreeManager1.Size = New System.Drawing.Size(246, 202)
-        Me.SubjectTreeManager1.TabIndex = 38
-        '
-        'RoomManager1
-        '
-        Me.RoomManager1.AutoSize = True
-        Me.RoomManager1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.RoomManager1.Dock = System.Windows.Forms.DockStyle.Fill
-        Me.RoomManager1.Location = New System.Drawing.Point(0, 0)
-        Me.RoomManager1.MinimumSize = New System.Drawing.Size(254, 0)
-        Me.RoomManager1.Name = "RoomManager1"
-        Me.RoomManager1.Padding = New System.Windows.Forms.Padding(3)
-        Me.RoomManager1.Size = New System.Drawing.Size(254, 263)
-        Me.RoomManager1.TabIndex = 0
-        '
-        'PlacementBoxes1
-        '
-        Me.PlacementBoxes1.AutoScroll = True
-        Me.PlacementBoxes1.AutoSize = True
-        Me.PlacementBoxes1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
-        Me.PlacementBoxes1.Location = New System.Drawing.Point(0, 0)
-        Me.PlacementBoxes1.Name = "PlacementBoxes1"
-        Me.PlacementBoxes1.Size = New System.Drawing.Size(0, 0)
-        Me.PlacementBoxes1.TabIndex = 0
+        Me.ViewGroupedByLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ViewGroupedByLabel.AutoSize = True
+        Me.ViewGroupedByLabel.Location = New System.Drawing.Point(869, 9)
+        Me.ViewGroupedByLabel.Name = "ViewGroupedByLabel"
+        Me.ViewGroupedByLabel.Size = New System.Drawing.Size(126, 40)
+        Me.ViewGroupedByLabel.TabIndex = 38
+        Me.ViewGroupedByLabel.Text = "View the seating" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "plan grouped by:"
+        Me.ViewGroupedByLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
         'Exami2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.ViewGroupedByLabel)
         Me.Controls.Add(Me.SaveAllButton)
         Me.Controls.Add(Me.SortOptions1)
         Me.Controls.Add(Me.PrintAllButton)
@@ -376,4 +390,5 @@ Partial Class Exami2
     Friend WithEvents SaveAllButton As Button
     Friend WithEvents PrintAllButton As Button
     Friend WithEvents SubjectTreeManager1 As SubjectTreeManager
+    Friend WithEvents ViewGroupedByLabel As Label
 End Class
