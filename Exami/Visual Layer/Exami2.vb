@@ -218,6 +218,8 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        ViewGroupedByLabel.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
+        OptionsSelector1.Tag = ViewGroupedByLabel.Tag
         For Each con In Controls
             ToolTip1.SetToolTip(con, con.tag)
         Next

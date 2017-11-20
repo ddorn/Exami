@@ -321,10 +321,13 @@ Partial Class Exami2
         '
         Me.ViewGroupedByLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.ViewGroupedByLabel.AutoSize = True
+        Me.ViewGroupedByLabel.Enabled = False
         Me.ViewGroupedByLabel.Location = New System.Drawing.Point(869, 9)
         Me.ViewGroupedByLabel.Name = "ViewGroupedByLabel"
         Me.ViewGroupedByLabel.Size = New System.Drawing.Size(126, 40)
         Me.ViewGroupedByLabel.TabIndex = 38
+        Me.ViewGroupedByLabel.Tag = "Choose how you see the seating planThis doesn't change how the students are seate" &
+    "d, only how you see them"
         Me.ViewGroupedByLabel.Text = "View the seating" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "plan grouped by:"
         Me.ViewGroupedByLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
         '
