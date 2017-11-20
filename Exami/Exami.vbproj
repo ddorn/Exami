@@ -54,6 +54,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Deployment" />
+    <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -78,6 +79,12 @@
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
     <Compile Include="Helper.vb" />
+    <Compile Include="Visual Layer\SexyViewOptionsSelector.Designer.vb">
+      <DependentUpon>SexyViewOptionsSelector.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\SexyViewOptionsSelector.vb">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="Visual Layer\SubjectTreeManager.Designer.vb">
       <DependentUpon>SubjectTreeManager.vb</DependentUpon>
     </Compile>
@@ -162,6 +169,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Visual Layer\SexyViewOptionsSelector.resx">
+      <DependentUpon>SexyViewOptionsSelector.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\SubjectTreeManager.resx">
       <DependentUpon>SubjectTreeManager.vb</DependentUpon>
     </EmbeddedResource>
@@ -266,6 +276,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\no_NumSort.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\eye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\SortAz_small.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>

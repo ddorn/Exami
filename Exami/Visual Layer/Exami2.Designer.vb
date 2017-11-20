@@ -47,9 +47,10 @@ Partial Class Exami2
         Me.ToolTip1 = New System.Windows.Forms.ToolTip(Me.components)
         Me.SaveAllButton = New System.Windows.Forms.Button()
         Me.PrintAllButton = New System.Windows.Forms.Button()
+        Me.ViewGroupedByLabel = New System.Windows.Forms.Label()
+        Me.SexyViewOptionsSelector1 = New Exami.SexyViewOptionsSelector()
         Me.SortOptions1 = New Exami.SortOptions()
         Me.OptionsSelector1 = New Exami.OptionsSelector()
-        Me.ViewGroupedByLabel = New System.Windows.Forms.Label()
         CType(Me.SplitContainer1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SplitContainer1.Panel1.SuspendLayout()
         Me.SplitContainer1.Panel2.SuspendLayout()
@@ -293,6 +294,31 @@ Partial Class Exami2
         Me.PrintAllButton.Tag = "Print the whole seating plan"
         Me.PrintAllButton.UseVisualStyleBackColor = True
         '
+        'ViewGroupedByLabel
+        '
+        Me.ViewGroupedByLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ViewGroupedByLabel.AutoSize = True
+        Me.ViewGroupedByLabel.Enabled = False
+        Me.ViewGroupedByLabel.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.ViewGroupedByLabel.Location = New System.Drawing.Point(903, 19)
+        Me.ViewGroupedByLabel.Name = "ViewGroupedByLabel"
+        Me.ViewGroupedByLabel.Size = New System.Drawing.Size(43, 20)
+        Me.ViewGroupedByLabel.TabIndex = 38
+        Me.ViewGroupedByLabel.Tag = "Choose how you see the seating planThis doesn't change how the students are seate" &
+    "d, only how you see them"
+        Me.ViewGroupedByLabel.Text = "View"
+        Me.ViewGroupedByLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
+        '
+        'SexyViewOptionsSelector1
+        '
+        Me.SexyViewOptionsSelector1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.SexyViewOptionsSelector1.BackColor = System.Drawing.SystemColors.Control
+        Me.SexyViewOptionsSelector1.Expanded = False
+        Me.SexyViewOptionsSelector1.Location = New System.Drawing.Point(1132, 6)
+        Me.SexyViewOptionsSelector1.Name = "SexyViewOptionsSelector1"
+        Me.SexyViewOptionsSelector1.Size = New System.Drawing.Size(40, 40)
+        Me.SexyViewOptionsSelector1.TabIndex = 40
+        '
         'SortOptions1
         '
         Me.SortOptions1.Anchor = CType(((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Left) _
@@ -301,7 +327,7 @@ Partial Class Exami2
         Me.SortOptions1.Enabled = False
         Me.SortOptions1.Location = New System.Drawing.Point(609, 8)
         Me.SortOptions1.Name = "SortOptions1"
-        Me.SortOptions1.Size = New System.Drawing.Size(254, 40)
+        Me.SortOptions1.Size = New System.Drawing.Size(205, 40)
         Me.SortOptions1.TabIndex = 10
         Me.SortOptions1.Tag = "Options to change how students are placed"
         '
@@ -311,30 +337,17 @@ Partial Class Exami2
         Me.OptionsSelector1.AutoSize = True
         Me.OptionsSelector1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink
         Me.OptionsSelector1.Enabled = False
-        Me.OptionsSelector1.Location = New System.Drawing.Point(1001, 8)
+        Me.OptionsSelector1.Location = New System.Drawing.Point(952, 6)
         Me.OptionsSelector1.Name = "OptionsSelector1"
         Me.OptionsSelector1.Size = New System.Drawing.Size(174, 48)
         Me.OptionsSelector1.TabIndex = 8
         Me.OptionsSelector1.Tag = "Choose how you see the seating plan"
         '
-        'ViewGroupedByLabel
-        '
-        Me.ViewGroupedByLabel.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ViewGroupedByLabel.AutoSize = True
-        Me.ViewGroupedByLabel.Enabled = False
-        Me.ViewGroupedByLabel.Location = New System.Drawing.Point(869, 9)
-        Me.ViewGroupedByLabel.Name = "ViewGroupedByLabel"
-        Me.ViewGroupedByLabel.Size = New System.Drawing.Size(126, 40)
-        Me.ViewGroupedByLabel.TabIndex = 38
-        Me.ViewGroupedByLabel.Tag = "Choose how you see the seating planThis doesn't change how the students are seate" &
-    "d, only how you see them"
-        Me.ViewGroupedByLabel.Text = "View the seating" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "plan grouped by:"
-        Me.ViewGroupedByLabel.TextAlign = System.Drawing.ContentAlignment.TopRight
-        '
         'Exami2
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1178, 561)
+        Me.Controls.Add(Me.SexyViewOptionsSelector1)
         Me.Controls.Add(Me.ViewGroupedByLabel)
         Me.Controls.Add(Me.SaveAllButton)
         Me.Controls.Add(Me.SortOptions1)
@@ -394,4 +407,5 @@ Partial Class Exami2
     Friend WithEvents PrintAllButton As Button
     Friend WithEvents SubjectTreeManager1 As SubjectTreeManager
     Friend WithEvents ViewGroupedByLabel As Label
+    Friend WithEvents SexyViewOptionsSelector1 As SexyViewOptionsSelector
 End Class
