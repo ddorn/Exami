@@ -15,16 +15,15 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-            PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
+            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.CurrentViewBy)
 
             Dim ouatou = value IsNot Nothing
 
             AddStudentButton.Enabled = ouatou
-            OptionsSelector1.Enabled = ouatou
+            SexyViewOptionsSelector1.Enabled = ouatou
             SortOptions1.Enabled = ouatou
             PrintAllButton.Enabled = ouatou
             SaveAllButton.Enabled = ouatou
-            ViewGroupedByLabel.Enabled = ouatou
         End Set
     End Property
 
@@ -173,7 +172,7 @@
     ''' <summary>
     ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
     ''' </summary>
-    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged, SortOptions1.SortChanged
+    Private Sub MakePlacement() Handles MakePlacementButton.Click, SortOptions1.SortChanged, SexyViewOptionsSelector1.OptionsChanged
 
         Dim Placement
         If CurrentPLacement Is Nothing Then
@@ -218,8 +217,7 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        ViewGroupedByLabel.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
-        OptionsSelector1.Tag = ViewGroupedByLabel.Tag
+        SexyViewOptionsSelector1.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
         For Each con In Controls
             ToolTip1.SetToolTip(con, con.tag)
         Next
