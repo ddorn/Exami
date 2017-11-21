@@ -23,7 +23,7 @@ Partial Class Settings
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         Me.Label1 = New System.Windows.Forms.Label()
-        Me.Label2 = New System.Windows.Forms.Label()
+        Me.VersionLabel = New System.Windows.Forms.Label()
         Me.LinkLabel1 = New System.Windows.Forms.LinkLabel()
         Me.Label4 = New System.Windows.Forms.Label()
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
@@ -50,15 +50,15 @@ Partial Class Settings
         Me.Label1.TabIndex = 0
         Me.Label1.Text = "Exami"
         '
-        'Label2
+        'VersionLabel
         '
-        Me.Label2.Anchor = System.Windows.Forms.AnchorStyles.Top
-        Me.Label2.AutoSize = True
-        Me.Label2.Location = New System.Drawing.Point(519, 49)
-        Me.Label2.Name = "Label2"
-        Me.Label2.Size = New System.Drawing.Size(51, 20)
-        Me.Label2.TabIndex = 1
-        Me.Label2.Text = "v2.2.0"
+        Me.VersionLabel.Anchor = System.Windows.Forms.AnchorStyles.Top
+        Me.VersionLabel.AutoSize = True
+        Me.VersionLabel.Location = New System.Drawing.Point(519, 49)
+        Me.VersionLabel.Name = "VersionLabel"
+        Me.VersionLabel.Size = New System.Drawing.Size(51, 20)
+        Me.VersionLabel.TabIndex = 1
+        Me.VersionLabel.Text = "v2.2.0"
         '
         'LinkLabel1
         '
@@ -220,7 +220,7 @@ Partial Class Settings
         Me.Controls.Add(Me.ChooseDataDirButton)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label4)
-        Me.Controls.Add(Me.Label2)
+        Me.Controls.Add(Me.VersionLabel)
         Me.Controls.Add(Me.Label1)
         Me.Name = "Settings"
         Me.Text = "Settings"
@@ -230,7 +230,7 @@ Partial Class Settings
     End Sub
 
     Friend WithEvents Label1 As Label
-    Friend WithEvents Label2 As Label
+    Friend WithEvents VersionLabel As Label
     Friend WithEvents LinkLabel1 As LinkLabel
     Friend WithEvents Label4 As Label
     Friend WithEvents LinkLabel2 As LinkLabel

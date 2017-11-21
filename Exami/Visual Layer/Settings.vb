@@ -38,6 +38,7 @@
             SaveDirLabel.Text = FolderBrowserDialog1.SelectedPath
             My.Settings.SaveDir = FolderBrowserDialog1.SelectedPath
         End If
+        VersionLabel.Text = My.Settings.Version
     End Sub
 
     Private Sub LinkLabel3_LinkClicked(sender As Object, e As LinkLabelLinkClickedEventArgs) Handles LinkLabel3.LinkClicked
