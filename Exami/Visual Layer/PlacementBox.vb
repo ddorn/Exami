@@ -6,6 +6,7 @@ Public Class PlacementBox
     Public group As StudentGroup
     Public Event NewMessage(msg As String)
     Public Event NeedSave(subplacement As StudentGroup)
+    Public Event ColumnReorder(sender As PlacementBox, oldIndex As Integer, newIndex As Integer)
 
     Public Property CurrentSeeBy() As SeeSortedBy
         Get
@@ -218,4 +219,19 @@ Public Class PlacementBox
     Private Sub ListView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles ListView1.ColumnClick
         CurrentSeeBy = ListView1.Columns(e.Column).Tag  ' Tag is the way to sort it, see UpdateDisplay.
     End Sub
+
+    Private Sub ListView1_ColumnReordered(sender As Object, e As ColumnReorderedEventArgs) Handles ListView1.ColumnReordered
+        RaiseEvent ColumnReorder(Me, e.OldDisplayIndex, e.NewDisplayIndex)
+    End Sub
+
+    Public Sub ReorderColumns(oldIndex As Integer, newIndex As Integer)
+        For Each col As ColumnHeader In ListView1.Columns
+            If col.DisplayIndex = oldIndex Then
+                col.DisplayIndex = newIndex
+                Exit For
+            End If
+        Next
+        Me.Refresh()
+    End Sub
+
 End Class

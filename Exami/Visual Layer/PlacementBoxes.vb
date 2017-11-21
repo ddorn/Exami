@@ -34,6 +34,8 @@ Public Class PlacementBoxes
             Me.Controls.Add(box)
             Me.boxes.Add(box)
 
+            AddHandler box.ColumnReorder, AddressOf ReorderAllColumns
+
         Next
 
         ' Update the Tooltips 
@@ -88,4 +90,14 @@ Public Class PlacementBoxes
         Next
     End Sub
 
+    Private Sub ReorderAllColumns(sender As PlacementBox, oldIndex As Integer, newIndex As Integer)
+        For Each con As PlacementBox In Controls
+            If con Is sender Then
+                Continue For
+            End If
+
+            con.ReorderColumns(oldIndex, newIndex)
+        Next
+
+    End Sub
 End Class
