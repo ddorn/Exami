@@ -9,12 +9,6 @@ Public Class RoomManager
     Public Event NewStatusMessage(msg As String)
     Public Event SelectionChanged(checkedCount As Integer)
 
-    ' Tutorial shown until somthing is selected
-    Dim helperRoomList = New String() {
-            "There is no rooms in this folder",
-            "Try to select an other",
-            "Or create a room with the green +"
-        }
     ''' <summary> 
     ''' The folder from where the rooms are shown
     ''' </summary>
@@ -46,8 +40,7 @@ Public Class RoomManager
     ''' Reload the folder to update the list of availaible rooms
     ''' </summary>
     Private Sub UpdateRoomList()
-        Dim thereIsRoomsInTheFolder As Boolean = False
-        Dim rooms As String() = helperRoomList
+        Dim rooms As String() = {}
 
         ' Getting the rooms or the tuto if there is not rooms or if the folder is empty
 
@@ -55,14 +48,6 @@ Public Class RoomManager
             ' The inital values are already what we want
         Else
             rooms = File.GetFilesWithExtension(folderPath, ".dd")
-
-            If rooms.GetUpperBound(0) >= 0 Then
-                ' We hace a non empty room list ! Cool
-                thereIsRoomsInTheFolder = True
-            Else
-                ' If its empty wewant our tuto back
-                rooms = helperRoomList
-            End If
         End If
 
         ' Put rooms in the CheckedListBox
@@ -78,12 +63,16 @@ Public Class RoomManager
 
         ' Enable buttons depending on the existence of rooms
 
-        RoomsListBox.Enabled = thereIsRoomsInTheFolder
-        DeleteRoomButton.Enabled = thereIsRoomsInTheFolder
-        CopyRoomButton.Enabled = thereIsRoomsInTheFolder
-        ModifyRoomButton.Enabled = thereIsRoomsInTheFolder
-        RenameRoomButton.Enabled = thereIsRoomsInTheFolder
+        Dim enabl As Boolean = (rooms.Length > 0)
 
+        RoomsListBox.Enabled = enabl
+        DeleteRoomButton.Enabled = enabl
+        CopyRoomButton.Enabled = enabl
+        ModifyRoomButton.Enabled = enabl
+        RenameRoomButton.Enabled = enabl
+
+        EmptyFolderLabel.Visible = Not enabl
+        WarnImage.Visible = Not enabl
     End Sub
 
     ' ============= '

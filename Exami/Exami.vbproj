@@ -283,5 +283,8 @@
   <ItemGroup>
     <None Include="Resources\SortAz_small.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\argh.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
 </Project>
