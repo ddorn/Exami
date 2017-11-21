@@ -78,11 +78,11 @@ Public Class PlacementBox
         Next
         ' Creating the columns
         ' TODO: addhandler for click to sort them
-        ListView1.Columns.Add("Place", -2)
+        ListView1.Columns.Add("Place", -2).Tag = SeeSortedBy.Table
         If options.showNumbers Then
-            ListView1.Columns.Add("Student number", -2)
+            ListView1.Columns.Add("Student number", -2).Tag = SeeSortedBy.Number
         End If
-        ListView1.Columns.Add("Name", -2)
+        ListView1.Columns.Add("Name", -2).Tag = SeeSortedBy.Alpha
 
         ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
         ListView1.ResumeLayout()
@@ -213,5 +213,9 @@ Public Class PlacementBox
         Else
             CurrentSeeBy = SeeSortedBy.Alpha
         End If
+    End Sub
+
+    Private Sub ListView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles ListView1.ColumnClick
+        CurrentSeeBy = ListView1.Columns(e.Column).Tag  ' Tag is the way to sort it, see UpdateDisplay.
     End Sub
 End Class
