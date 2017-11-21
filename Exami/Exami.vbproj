@@ -51,7 +51,7 @@
     <ApplicationManifest>My Project\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Logo.ico</ApplicationIcon>
+    <ApplicationIcon>Logo Exami 2.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -290,6 +290,7 @@
     <None Include="Resources\argh.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Logo Exami 2.ico" />
     <Content Include="Logo.ico" />
     <Content Include="Student.ico" />
   </ItemGroup>
