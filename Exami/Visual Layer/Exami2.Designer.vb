@@ -229,7 +229,6 @@ Partial Class Exami2
         Me.SettingsButton.TabIndex = 6
         Me.SettingsButton.Tag = "Open the settings"
         Me.SettingsButton.UseVisualStyleBackColor = True
-        Me.SettingsButton.Visible = False
         '
         'ReloadFolderButton
         '

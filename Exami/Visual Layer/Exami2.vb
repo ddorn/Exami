@@ -223,6 +223,10 @@
         Next
         SetUpHoverHandler(Me)
 
+        ' Default settings
+        Me.FolderBrowserDialog1.SelectedPath = My.Settings.Datadir
+        Me.OpenFileDialog1.FileName = My.Settings.SaveDir
+        Me.SaveFileDialog1.FileName = My.Settings.SaveDir
     End Sub
     ''' <summary>
     ''' Set the Status label to the tag of the current control the mouse is in.
@@ -306,6 +310,10 @@
     End Sub
 
     Private Sub SelectFolder(sender As Object, e As EventArgs) Handles SelectFolderButton.Click
+
+    End Sub
+
+    Private Sub OpenButton_Click(sender As Object, e As EventArgs) Handles OpenButton.Click
 
     End Sub
 End Class

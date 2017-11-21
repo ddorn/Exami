@@ -29,11 +29,11 @@ Partial Class Settings
         Me.LinkLabel2 = New System.Windows.Forms.LinkLabel()
         Me.LinkLabel3 = New System.Windows.Forms.LinkLabel()
         Me.Label3 = New System.Windows.Forms.Label()
-        Me.Button1 = New System.Windows.Forms.Button()
-        Me.Label5 = New System.Windows.Forms.Label()
+        Me.ChooseDataDirButton = New System.Windows.Forms.Button()
+        Me.DataDirLabel = New System.Windows.Forms.Label()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.Button2 = New System.Windows.Forms.Button()
-        Me.Label7 = New System.Windows.Forms.Label()
+        Me.ChooseSaveDirButton = New System.Windows.Forms.Button()
+        Me.SaveDirLabel = New System.Windows.Forms.Label()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.LinkLabel4 = New System.Windows.Forms.LinkLabel()
         Me.FolderBrowserDialog1 = New System.Windows.Forms.FolderBrowserDialog()
@@ -127,25 +127,25 @@ Partial Class Settings
         Me.Label3.TabIndex = 7
         Me.Label3.Text = "Data directory"
         '
-        'Button1
+        'ChooseDataDirButton
         '
-        Me.Button1.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Button1.Location = New System.Drawing.Point(31, 173)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(76, 28)
-        Me.Button1.TabIndex = 8
-        Me.Button1.Text = "Change"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.ChooseDataDirButton.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.ChooseDataDirButton.Location = New System.Drawing.Point(31, 173)
+        Me.ChooseDataDirButton.Name = "ChooseDataDirButton"
+        Me.ChooseDataDirButton.Size = New System.Drawing.Size(76, 28)
+        Me.ChooseDataDirButton.TabIndex = 8
+        Me.ChooseDataDirButton.Text = "Change"
+        Me.ChooseDataDirButton.UseVisualStyleBackColor = True
         '
-        'Label5
+        'DataDirLabel
         '
-        Me.Label5.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label5.AutoSize = True
-        Me.Label5.Location = New System.Drawing.Point(113, 177)
-        Me.Label5.Name = "Label5"
-        Me.Label5.Size = New System.Drawing.Size(131, 20)
-        Me.Label5.TabIndex = 9
-        Me.Label5.Text = "Path/To/Directory"
+        Me.DataDirLabel.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.DataDirLabel.AutoSize = True
+        Me.DataDirLabel.Location = New System.Drawing.Point(113, 177)
+        Me.DataDirLabel.Name = "DataDirLabel"
+        Me.DataDirLabel.Size = New System.Drawing.Size(131, 20)
+        Me.DataDirLabel.TabIndex = 9
+        Me.DataDirLabel.Text = "Path/To/Directory"
         '
         'Label6
         '
@@ -158,25 +158,25 @@ Partial Class Settings
         Me.Label6.TabIndex = 10
         Me.Label6.Text = "Favorite save directory"
         '
-        'Button2
+        'ChooseSaveDirButton
         '
-        Me.Button2.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Button2.Location = New System.Drawing.Point(31, 247)
-        Me.Button2.Name = "Button2"
-        Me.Button2.Size = New System.Drawing.Size(76, 28)
-        Me.Button2.TabIndex = 11
-        Me.Button2.Text = "Change"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.ChooseSaveDirButton.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.ChooseSaveDirButton.Location = New System.Drawing.Point(31, 247)
+        Me.ChooseSaveDirButton.Name = "ChooseSaveDirButton"
+        Me.ChooseSaveDirButton.Size = New System.Drawing.Size(76, 28)
+        Me.ChooseSaveDirButton.TabIndex = 11
+        Me.ChooseSaveDirButton.Text = "Change"
+        Me.ChooseSaveDirButton.UseVisualStyleBackColor = True
         '
-        'Label7
+        'SaveDirLabel
         '
-        Me.Label7.Anchor = System.Windows.Forms.AnchorStyles.Left
-        Me.Label7.AutoSize = True
-        Me.Label7.Location = New System.Drawing.Point(113, 251)
-        Me.Label7.Name = "Label7"
-        Me.Label7.Size = New System.Drawing.Size(131, 20)
-        Me.Label7.TabIndex = 12
-        Me.Label7.Text = "Path/To/Directory"
+        Me.SaveDirLabel.Anchor = System.Windows.Forms.AnchorStyles.Left
+        Me.SaveDirLabel.AutoSize = True
+        Me.SaveDirLabel.Location = New System.Drawing.Point(113, 251)
+        Me.SaveDirLabel.Name = "SaveDirLabel"
+        Me.SaveDirLabel.Size = New System.Drawing.Size(131, 20)
+        Me.SaveDirLabel.TabIndex = 12
+        Me.SaveDirLabel.Text = "Path/To/Directory"
         '
         'Label8
         '
@@ -213,11 +213,11 @@ Partial Class Settings
         Me.Controls.Add(Me.LinkLabel2)
         Me.Controls.Add(Me.LinkLabel1)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.Button2)
+        Me.Controls.Add(Me.SaveDirLabel)
+        Me.Controls.Add(Me.ChooseSaveDirButton)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.DataDirLabel)
+        Me.Controls.Add(Me.ChooseDataDirButton)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.Label2)
@@ -236,11 +236,11 @@ Partial Class Settings
     Friend WithEvents LinkLabel2 As LinkLabel
     Friend WithEvents LinkLabel3 As LinkLabel
     Friend WithEvents Label3 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents Label5 As Label
+    Friend WithEvents ChooseDataDirButton As Button
+    Friend WithEvents DataDirLabel As Label
     Friend WithEvents Label6 As Label
-    Friend WithEvents Button2 As Button
-    Friend WithEvents Label7 As Label
+    Friend WithEvents ChooseSaveDirButton As Button
+    Friend WithEvents SaveDirLabel As Label
     Friend WithEvents Label8 As Label
     Friend WithEvents LinkLabel4 As LinkLabel
     Friend WithEvents FolderBrowserDialog1 As FolderBrowserDialog
