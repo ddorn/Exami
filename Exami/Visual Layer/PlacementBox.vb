@@ -64,16 +64,10 @@ Public Class PlacementBox
 
     Private Sub UpdateDisplay()
 
+        ListView1.BeginUpdate()
         ListView1.SuspendLayout()
-        ListView1.Clear()
 
-        ' Creating the columns
-        ' TODO: addhandler for click to sort them
-        ListView1.Columns.Add("Place", -2)
-        If options.showNumbers Then
-            ListView1.Columns.Add("Student number", -2)
-        End If
-        ListView1.Columns.Add("Name", -2)
+        ListView1.Clear()
 
         For Each stud In group.allStudents
             Dim item = ListView1.Items.Add(stud.place.ToString)
@@ -82,10 +76,17 @@ Public Class PlacementBox
             End If
             item.SubItems.Add(stud.ToString)
         Next
+        ' Creating the columns
+        ' TODO: addhandler for click to sort them
+        ListView1.Columns.Add("Place", -2)
+        If options.showNumbers Then
+            ListView1.Columns.Add("Student number", -2)
+        End If
+        ListView1.Columns.Add("Name", -2)
 
-
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
         ListView1.ResumeLayout()
-
+        ListView1.EndUpdate()
     End Sub
 
     ' Print

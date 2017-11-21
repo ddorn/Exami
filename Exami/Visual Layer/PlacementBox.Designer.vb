@@ -23,31 +23,16 @@ Partial Class PlacementBox
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(PlacementBox))
-        Dim ListViewItem1 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem(New String() {"Cucu", "bla", "bli", "", ""}, -1)
-        Dim ListViewItem2 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Coucou")
-        Dim ListViewItem3 As System.Windows.Forms.ListViewItem = New System.Windows.Forms.ListViewItem("Caca")
-        Me.PlacementTextBox = New System.Windows.Forms.RichTextBox()
         Me.TitleLabel = New System.Windows.Forms.TextBox()
         Me.PrintDialog1 = New System.Windows.Forms.PrintDialog()
         Me.PrintDocument1 = New System.Drawing.Printing.PrintDocument()
         Me.SeeByButton = New System.Windows.Forms.Button()
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
+        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
+        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
-        '
-        'PlacementTextBox
-        '
-        Me.PlacementTextBox.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
-            Or System.Windows.Forms.AnchorStyles.Left) _
-            Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.PlacementTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None
-        Me.PlacementTextBox.Font = New System.Drawing.Font("Segoe UI", 8.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.PlacementTextBox.Location = New System.Drawing.Point(0, 71)
-        Me.PlacementTextBox.Name = "PlacementTextBox"
-        Me.PlacementTextBox.Size = New System.Drawing.Size(290, 270)
-        Me.PlacementTextBox.TabIndex = 8
-        Me.PlacementTextBox.Text = ""
-        Me.PlacementTextBox.WordWrap = False
         '
         'TitleLabel
         '
@@ -108,15 +93,11 @@ Partial Class PlacementBox
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HotTracking = True
         Me.ListView1.HoverSelection = True
-        ListViewItem1.StateImageIndex = 0
-        ListViewItem2.IndentCount = 1
-        ListViewItem2.StateImageIndex = 0
-        ListViewItem3.StateImageIndex = 0
-        Me.ListView1.Items.AddRange(New System.Windows.Forms.ListViewItem() {ListViewItem1, ListViewItem2, ListViewItem3})
         Me.ListView1.Location = New System.Drawing.Point(3, 71)
         Me.ListView1.Name = "ListView1"
         Me.ListView1.Size = New System.Drawing.Size(284, 270)
@@ -124,13 +105,24 @@ Partial Class PlacementBox
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
         '
+        'ColumnHeader1
+        '
+        Me.ColumnHeader1.Text = "Place"
+        '
+        'ColumnHeader2
+        '
+        Me.ColumnHeader2.Text = "Student number"
+        '
+        'ColumnHeader3
+        '
+        Me.ColumnHeader3.Text = "Name"
+        '
         'PlacementBox
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.Controls.Add(Me.ListView1)
         Me.Controls.Add(Me.TitleLabel)
-        Me.Controls.Add(Me.PlacementTextBox)
         Me.Controls.Add(Me.SeeByButton)
         Me.Controls.Add(Me.PrintButton)
         Me.MinimumSize = New System.Drawing.Size(242, 2)
@@ -141,10 +133,12 @@ Partial Class PlacementBox
 
     End Sub
     Friend WithEvents PrintButton As Button
-    Friend WithEvents PlacementTextBox As RichTextBox
     Friend WithEvents TitleLabel As TextBox
     Friend WithEvents PrintDialog1 As PrintDialog
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents SeeByButton As Button
     Friend WithEvents ListView1 As ListView
+    Friend WithEvents ColumnHeader1 As ColumnHeader
+    Friend WithEvents ColumnHeader2 As ColumnHeader
+    Friend WithEvents ColumnHeader3 As ColumnHeader
 End Class
