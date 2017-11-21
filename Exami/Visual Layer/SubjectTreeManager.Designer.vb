@@ -46,6 +46,7 @@ Partial Class SubjectTreeManager
         Me.EmptyFolderLabel.Name = "EmptyFolderLabel"
         Me.EmptyFolderLabel.Size = New System.Drawing.Size(142, 20)
         Me.EmptyFolderLabel.TabIndex = 1
+        Me.EmptyFolderLabel.Tag = "You need to select a new folder"
         Me.EmptyFolderLabel.Text = "No data files found"
         '
         'WarnImage
@@ -53,12 +54,13 @@ Partial Class SubjectTreeManager
         Me.WarnImage.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.WarnImage.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.WarnImage.BackgroundImage = Global.Exami.My.Resources.Resources.argh
-        Me.WarnImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.WarnImage.Location = New System.Drawing.Point(0, 110)
+        Me.WarnImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.WarnImage.Location = New System.Drawing.Point(161, 100)
         Me.WarnImage.Name = "WarnImage"
-        Me.WarnImage.Size = New System.Drawing.Size(420, 86)
+        Me.WarnImage.Size = New System.Drawing.Size(96, 96)
         Me.WarnImage.TabIndex = 2
         Me.WarnImage.TabStop = False
+        Me.WarnImage.Tag = "You need to select a new folder"
         '
         'SubjectTreeManager
         '

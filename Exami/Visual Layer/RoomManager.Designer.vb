@@ -122,12 +122,13 @@ Partial Class RoomManager
         Me.WarnImage.Anchor = System.Windows.Forms.AnchorStyles.None
         Me.WarnImage.BackColor = System.Drawing.SystemColors.ControlLightLight
         Me.WarnImage.BackgroundImage = Global.Exami.My.Resources.Resources.argh
-        Me.WarnImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center
-        Me.WarnImage.Location = New System.Drawing.Point(0, 69)
+        Me.WarnImage.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.WarnImage.Location = New System.Drawing.Point(81, 58)
         Me.WarnImage.Name = "WarnImage"
-        Me.WarnImage.Size = New System.Drawing.Size(254, 85)
+        Me.WarnImage.Size = New System.Drawing.Size(96, 96)
         Me.WarnImage.TabIndex = 15
         Me.WarnImage.TabStop = False
+        Me.WarnImage.Tag = "You need to select a new folder"
         '
         'EmptyFolderLabel
         '
@@ -138,6 +139,7 @@ Partial Class RoomManager
         Me.EmptyFolderLabel.Name = "EmptyFolderLabel"
         Me.EmptyFolderLabel.Size = New System.Drawing.Size(122, 20)
         Me.EmptyFolderLabel.TabIndex = 14
+        Me.EmptyFolderLabel.Tag = "You need to select a new folder"
         Me.EmptyFolderLabel.Text = "No rooms found"
         '
         'RoomManager
@@ -155,6 +157,7 @@ Partial Class RoomManager
         Me.MinimumSize = New System.Drawing.Size(254, 0)
         Me.Name = "RoomManager"
         Me.Size = New System.Drawing.Size(254, 255)
+        Me.Tag = "You need to select a new folder"
         CType(Me.WarnImage, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()

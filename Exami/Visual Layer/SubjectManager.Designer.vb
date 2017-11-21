@@ -35,7 +35,6 @@ Partial Class SubjectManager
         Me.SubjectListBox.FormattingEnabled = True
         Me.SubjectListBox.HorizontalScrollbar = True
         Me.SubjectListBox.IntegralHeight = False
-        Me.SubjectListBox.Items.AddRange(New Object() {"There is no data in this folder", "Select an other one", "Or add data (.vass) in it"})
         Me.SubjectListBox.Location = New System.Drawing.Point(0, 0)
         Me.SubjectListBox.Name = "SubjectListBox"
         Me.SubjectListBox.Size = New System.Drawing.Size(264, 238)
