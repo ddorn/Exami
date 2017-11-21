@@ -29,9 +29,6 @@ Partial Class PlacementBox
         Me.SeeByButton = New System.Windows.Forms.Button()
         Me.PrintButton = New System.Windows.Forms.Button()
         Me.ListView1 = New System.Windows.Forms.ListView()
-        Me.ColumnHeader1 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader2 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
-        Me.ColumnHeader3 = CType(New System.Windows.Forms.ColumnHeader(), System.Windows.Forms.ColumnHeader)
         Me.SuspendLayout()
         '
         'TitleLabel
@@ -93,29 +90,16 @@ Partial Class PlacementBox
         Me.ListView1.Anchor = CType((((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Bottom) _
             Or System.Windows.Forms.AnchorStyles.Left) _
             Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.ListView1.Columns.AddRange(New System.Windows.Forms.ColumnHeader() {Me.ColumnHeader1, Me.ColumnHeader2, Me.ColumnHeader3})
         Me.ListView1.FullRowSelect = True
         Me.ListView1.GridLines = True
         Me.ListView1.HotTracking = True
         Me.ListView1.HoverSelection = True
-        Me.ListView1.Location = New System.Drawing.Point(3, 71)
+        Me.ListView1.Location = New System.Drawing.Point(0, 71)
         Me.ListView1.Name = "ListView1"
-        Me.ListView1.Size = New System.Drawing.Size(284, 270)
+        Me.ListView1.Size = New System.Drawing.Size(290, 270)
         Me.ListView1.TabIndex = 9
         Me.ListView1.UseCompatibleStateImageBehavior = False
         Me.ListView1.View = System.Windows.Forms.View.Details
-        '
-        'ColumnHeader1
-        '
-        Me.ColumnHeader1.Text = "Place"
-        '
-        'ColumnHeader2
-        '
-        Me.ColumnHeader2.Text = "Student number"
-        '
-        'ColumnHeader3
-        '
-        Me.ColumnHeader3.Text = "Name"
         '
         'PlacementBox
         '
@@ -138,7 +122,4 @@ Partial Class PlacementBox
     Friend WithEvents PrintDocument1 As Printing.PrintDocument
     Friend WithEvents SeeByButton As Button
     Friend WithEvents ListView1 As ListView
-    Friend WithEvents ColumnHeader1 As ColumnHeader
-    Friend WithEvents ColumnHeader2 As ColumnHeader
-    Friend WithEvents ColumnHeader3 As ColumnHeader
 End Class

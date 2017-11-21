@@ -16,6 +16,7 @@
         Set(ByVal value As Placement)
             _CurrentPlacement = value
             PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.options)
+            SetUpHoverHandler(PlacementBoxes1)
 
             Dim ouatou = value IsNot Nothing
 

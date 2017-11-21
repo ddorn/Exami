@@ -5,12 +5,15 @@ Public Class PlacementBoxes
 
     Public Event NewStatusMessage(msg As String)
     Public boxes As New List(Of PlacementBox)
+    Private _doPaint = True
 
     ''' <summary>
     ''' Removes every PlacementBox and create new ones with the students of placement separated by view
     ''' </summary>
     ''' <param name="placement">The students, seated. If Nothing, will just remove everything.</param>
     Public Sub SetPlacements(placement As Placement, options As PlacementViewOptions)
+
+        BeginUpdate()
 
         Controls.Clear()
         boxes.Clear()
@@ -38,10 +41,10 @@ Public Class PlacementBoxes
 
         Next
 
-        ' Update the Tooltips 
-        Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
+
+        EndUpdate()
 
     End Sub
 
@@ -100,4 +103,21 @@ Public Class PlacementBoxes
         Next
 
     End Sub
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        If _doPaint Then
+            MyBase.OnPaint(e)
+        End If
+    End Sub
+
+    Public Sub BeginUpdate()
+        _doPaint = False
+        SuspendLayout()
+    End Sub
+
+    Public Sub EndUpdate()
+        _doPaint = True
+        ResumeLayout()
+    End Sub
+
 End Class

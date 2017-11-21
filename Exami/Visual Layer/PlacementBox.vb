@@ -234,4 +234,7 @@ Public Class PlacementBox
         Me.Refresh()
     End Sub
 
+    Private Sub ListView1_ItemActivate(sender As Object, e As EventArgs) Handles ListView1.ItemActivate
+        MsgBox("Not ready John !")
+    End Sub
 End Class
