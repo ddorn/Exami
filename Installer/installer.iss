@@ -11,7 +11,7 @@ DefaultGroupName=Exami
 UninstallDisplayIcon={app}\MyProg.exe
 Compression=lzma2
 SolidCompression=yes
-;OutputDir=userdocs:Inno Setup Examples Output
+OutputDir=C:\Users\diego\Documents\Programation\Exami\Installer\bin
 SourceDir=C:\Users\diego\Documents\Programation\Exami\Exami\bin\Release
 
 [Files]
@@ -21,4 +21,7 @@ Source: "Logo.ico"; DestDir: "{app}"
 
 [Icons]
 Name: "{group}\Exami"; Filename: "{app}\Exami.exe"
+
+[Run]
+Filename: {app}\Exami.exe; Description: Run Application; Flags: postinstall nowait skipifsilent
 
