@@ -131,14 +131,28 @@ Public Class PlacementBox
 
         Dim lines As Integer = CInt(Math.Round((h - headerSize) / font.Height))
 
-        'Dim students = group.Copy()
-        'students.Sort()
+        Dim columnOrder(ListView1.Columns.Count - 1) As Byte
+        For Each col As ColumnHeader In ListView1.Columns
+            columnOrder(col.DisplayIndex) = col.Index
+        Next
 
-        ' Print the placement
-        For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
-            'Dim ouatou = students.allStudents(i).place.ToString & vbTab & students.allStudents(i).ToString
-            Dim ouatou = Me.PlacementTextBox.Lines(i)
-            e.Graphics.DrawString(ouatou, font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
+        Dim colSizes(columnOrder.Count - 1) As Integer  ' In display order
+        ' Finding the sizes of columns (max of each item)
+        For Each item As ListViewItem In ListView1.Items
+            For col = 0 To columnOrder.Count - 1
+                Dim size = e.Graphics.MeasureString(item.SubItems(col).Text + "  ", font).Width
+                If colSizes(col) < size Then
+                    colSizes(col) = size
+                End If
+            Next
+        Next
+
+        ' Find the position of each colum
+        Dim colPositions(columnOrder.Count - 1) As Integer
+        Dim pos = 0
+        For Each col In columnOrder
+            colPositions(col) = pos
+            pos += colSizes(col)
         Next
 
         For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
