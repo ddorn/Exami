@@ -222,7 +222,7 @@
             ToolTip1.SetToolTip(con, con.tag)
         Next
         SetUpHoverHandler(Me)
-        SetUpSexyOptionsExit(Me)
+
     End Sub
     ''' <summary>
     ''' Set the Status label to the tag of the current control the mouse is in.
@@ -301,26 +301,11 @@
         End If
     End Sub
 
-    Private Sub SetUpSexyOptionsExit(control As Control)
-        ' I have a lot of troubles knowing when the mouse quits the SexyViewOptionsSelector1
-        ' But When the mouse enter something else, then I now it has left
-        Return
-        If control.Name = "SexyViewOptionsSelector1" Then
-            Return
-        Else
-            AddHandler control.MouseEnter, Sub()
-                                               RaiseEvent NewStatusMessage(control.Name)
-                                               SexyViewOptionsSelector1.Expanded = False
-                                           End Sub
-        End If
-
-        For Each c In control.Controls
-            SetUpSexyOptionsExit(c)
-        Next
+    Private Sub SexyViewOptionsSelector1_MouseEnter(sender As Object, e As EventArgs)
 
     End Sub
 
-    Private Sub SexyViewOptionsSelector1_MouseEnter(sender As Object, e As EventArgs)
+    Private Sub SelectFolder(sender As Object, e As EventArgs) Handles SelectFolderButton.Click
 
     End Sub
 End Class
