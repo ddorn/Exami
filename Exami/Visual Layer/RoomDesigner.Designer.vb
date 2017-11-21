@@ -118,8 +118,7 @@ Partial Class RoomDesigner
         'RoomDesigner
         '
         Me.AcceptButton = Me.CreateRoomButton
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1202, 590)
         Me.Controls.Add(Me.SaveAsButton)
         Me.Controls.Add(Me.CancelButton)
