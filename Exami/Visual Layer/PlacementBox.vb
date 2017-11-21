@@ -62,31 +62,29 @@ Public Class PlacementBox
         UpdateDisplay()
     End Sub
 
-    ''' <summary>
-    ''' This DOES a placement and show it to the screen.
-    ''' </summary>
     Private Sub UpdateDisplay()
-        ' Yep, the placement is done here...
-        ' I kmow it is supposed to be only displaying but well
-        ' It just associate places and students in the order, for option in the order, just suffle/order the two lists as you want
 
-        PlacementTextBox.ResetText()
+        ListView1.SuspendLayout()
+        ListView1.Clear()
+
+        ' Creating the columns
+        ' TODO: addhandler for click to sort them
+        ListView1.Columns.Add("Place", -2)
+        If options.showNumbers Then
+            ListView1.Columns.Add("Student number", -2)
+        End If
+        ListView1.Columns.Add("Name", -2)
 
         For Each stud In group.allStudents
-
-            ' The place then the name, aligned
-            Dim line
+            Dim item = ListView1.Items.Add(stud.place.ToString)
             If options.showNumbers Then
-                line = stud.place.ToString & vbTab &
-                stud.studentNumber & vbTab &
-                stud.ToString()
-            Else
-                line = stud.place.ToString & vbTab &
-                stud.ToString()
+                item.SubItems.Add(stud.studentNumber)
             End If
-            PlacementTextBox.AppendText(line)
-            PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
+            item.SubItems.Add(stud.ToString)
         Next
+
+
+        ListView1.ResumeLayout()
 
     End Sub
 
@@ -142,6 +140,14 @@ Public Class PlacementBox
             Dim ouatou = Me.PlacementTextBox.Lines(i)
             e.Graphics.DrawString(ouatou, font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
         Next
+
+        For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
+            Dim ouatou As ListViewItem = Me.ListView1.Items(i)
+
+            For Each col In columnOrder
+                e.Graphics.DrawString(ouatou.SubItems(col).Text, font, Brushes.Black, New RectangleF(left + colPositions(col), top + headerSize + font.Height * (i - currentLine), w, font.Height))
+            Next col
+        Next i
 
         currentLine += lines
 
