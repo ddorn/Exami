@@ -28,14 +28,17 @@ Partial Class SexyViewOptionsSelector
         Me.ClassCheckBox = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.RadioButton3 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton2 = New System.Windows.Forms.RadioButton()
-        Me.RadioButton1 = New System.Windows.Forms.RadioButton()
-        Me.Button1 = New System.Windows.Forms.Button()
+        Me.SortTableButton = New System.Windows.Forms.RadioButton()
+        Me.SortAzButton = New System.Windows.Forms.RadioButton()
+        Me.SortNumButton = New System.Windows.Forms.RadioButton()
+        Me.ViewButton = New System.Windows.Forms.Button()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.ShowNumbersButton = New System.Windows.Forms.CheckBox()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
         Me.SuspendLayout()
         '
         'AllCheckBox
@@ -101,9 +104,9 @@ Partial Class SexyViewOptionsSelector
         '
         'GroupBox2
         '
-        Me.GroupBox2.Controls.Add(Me.RadioButton3)
-        Me.GroupBox2.Controls.Add(Me.RadioButton2)
-        Me.GroupBox2.Controls.Add(Me.RadioButton1)
+        Me.GroupBox2.Controls.Add(Me.SortTableButton)
+        Me.GroupBox2.Controls.Add(Me.SortAzButton)
+        Me.GroupBox2.Controls.Add(Me.SortNumButton)
         Me.GroupBox2.Location = New System.Drawing.Point(3, 131)
         Me.GroupBox2.Name = "GroupBox2"
         Me.GroupBox2.Size = New System.Drawing.Size(244, 192)
@@ -111,61 +114,61 @@ Partial Class SexyViewOptionsSelector
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "View sorted by"
         '
-        'RadioButton3
+        'SortTableButton
         '
-        Me.RadioButton3.Image = Global.Exami.My.Resources.Resources.sorttable
-        Me.RadioButton3.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RadioButton3.Location = New System.Drawing.Point(23, 137)
-        Me.RadioButton3.Name = "RadioButton3"
-        Me.RadioButton3.Size = New System.Drawing.Size(215, 50)
-        Me.RadioButton3.TabIndex = 31
-        Me.RadioButton3.TabStop = True
-        Me.RadioButton3.Text = "Table"
-        Me.RadioButton3.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.RadioButton3.UseVisualStyleBackColor = True
+        Me.SortTableButton.Image = Global.Exami.My.Resources.Resources.sorttable
+        Me.SortTableButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SortTableButton.Location = New System.Drawing.Point(23, 137)
+        Me.SortTableButton.Name = "SortTableButton"
+        Me.SortTableButton.Size = New System.Drawing.Size(215, 50)
+        Me.SortTableButton.TabIndex = 31
+        Me.SortTableButton.TabStop = True
+        Me.SortTableButton.Text = "Table"
+        Me.SortTableButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.SortTableButton.UseVisualStyleBackColor = True
         '
-        'RadioButton2
+        'SortAzButton
         '
-        Me.RadioButton2.Checked = True
-        Me.RadioButton2.Image = Global.Exami.My.Resources.Resources.sortAzSmall
-        Me.RadioButton2.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RadioButton2.Location = New System.Drawing.Point(23, 25)
-        Me.RadioButton2.Name = "RadioButton2"
-        Me.RadioButton2.Size = New System.Drawing.Size(215, 50)
-        Me.RadioButton2.TabIndex = 30
-        Me.RadioButton2.TabStop = True
-        Me.RadioButton2.Text = "Name"
-        Me.RadioButton2.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.RadioButton2.UseVisualStyleBackColor = True
+        Me.SortAzButton.Checked = True
+        Me.SortAzButton.Image = Global.Exami.My.Resources.Resources.sortAzSmall
+        Me.SortAzButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SortAzButton.Location = New System.Drawing.Point(23, 25)
+        Me.SortAzButton.Name = "SortAzButton"
+        Me.SortAzButton.Size = New System.Drawing.Size(215, 50)
+        Me.SortAzButton.TabIndex = 30
+        Me.SortAzButton.TabStop = True
+        Me.SortAzButton.Text = "Name"
+        Me.SortAzButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.SortAzButton.UseVisualStyleBackColor = True
         '
-        'RadioButton1
+        'SortNumButton
         '
-        Me.RadioButton1.Image = Global.Exami.My.Resources.Resources.sortNum
-        Me.RadioButton1.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
-        Me.RadioButton1.Location = New System.Drawing.Point(23, 81)
-        Me.RadioButton1.Name = "RadioButton1"
-        Me.RadioButton1.Size = New System.Drawing.Size(215, 50)
-        Me.RadioButton1.TabIndex = 29
-        Me.RadioButton1.Text = "Student number"
-        Me.RadioButton1.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
-        Me.RadioButton1.UseVisualStyleBackColor = True
+        Me.SortNumButton.Image = Global.Exami.My.Resources.Resources.sortNum
+        Me.SortNumButton.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft
+        Me.SortNumButton.Location = New System.Drawing.Point(23, 81)
+        Me.SortNumButton.Name = "SortNumButton"
+        Me.SortNumButton.Size = New System.Drawing.Size(215, 50)
+        Me.SortNumButton.TabIndex = 29
+        Me.SortNumButton.Text = "Student number"
+        Me.SortNumButton.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText
+        Me.SortNumButton.UseVisualStyleBackColor = True
         '
-        'Button1
+        'ViewButton
         '
-        Me.Button1.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
-        Me.Button1.BackgroundImage = Global.Exami.My.Resources.Resources.eye
-        Me.Button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
-        Me.Button1.FlatAppearance.BorderSize = 0
-        Me.Button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat
-        Me.Button1.Location = New System.Drawing.Point(213, 3)
-        Me.Button1.Name = "Button1"
-        Me.Button1.Size = New System.Drawing.Size(34, 34)
-        Me.Button1.TabIndex = 1
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.ViewButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Top Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
+        Me.ViewButton.BackgroundImage = Global.Exami.My.Resources.Resources.eye
+        Me.ViewButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
+        Me.ViewButton.FlatAppearance.BorderSize = 0
+        Me.ViewButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat
+        Me.ViewButton.Location = New System.Drawing.Point(213, 3)
+        Me.ViewButton.Name = "ViewButton"
+        Me.ViewButton.Size = New System.Drawing.Size(34, 34)
+        Me.ViewButton.TabIndex = 1
+        Me.ViewButton.UseVisualStyleBackColor = True
         '
         'Label1
         '
-        Me.Label1.Location = New System.Drawing.Point(23, 383)
+        Me.Label1.Location = New System.Drawing.Point(22, 461)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(224, 106)
         Me.Label1.TabIndex = 30
@@ -176,41 +179,68 @@ Partial Class SexyViewOptionsSelector
         '
         Me.Label2.AutoSize = True
         Me.Label2.Font = New System.Drawing.Font("Microsoft Sans Serif", 8.0!, CType((System.Drawing.FontStyle.Bold Or System.Drawing.FontStyle.Underline), System.Drawing.FontStyle), System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.Label2.Location = New System.Drawing.Point(0, 363)
+        Me.Label2.Location = New System.Drawing.Point(-1, 441)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(52, 20)
         Me.Label2.TabIndex = 31
         Me.Label2.Text = "Note:"
         '
+        'GroupBox3
+        '
+        Me.GroupBox3.Controls.Add(Me.ShowNumbersButton)
+        Me.GroupBox3.Location = New System.Drawing.Point(3, 329)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(244, 53)
+        Me.GroupBox3.TabIndex = 32
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "Show and Print"
+        '
+        'ShowNumbersButton
+        '
+        Me.ShowNumbersButton.AutoSize = True
+        Me.ShowNumbersButton.Checked = True
+        Me.ShowNumbersButton.CheckState = System.Windows.Forms.CheckState.Checked
+        Me.ShowNumbersButton.Location = New System.Drawing.Point(3, 22)
+        Me.ShowNumbersButton.Name = "ShowNumbersButton"
+        Me.ShowNumbersButton.Size = New System.Drawing.Size(158, 24)
+        Me.ShowNumbersButton.TabIndex = 0
+        Me.ShowNumbersButton.Text = "Student numbers"
+        Me.ShowNumbersButton.UseVisualStyleBackColor = True
+        '
         'SexyViewOptionsSelector
         '
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.BackColor = System.Drawing.SystemColors.Control
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
-        Me.Controls.Add(Me.Button1)
+        Me.Controls.Add(Me.ViewButton)
         Me.Name = "SexyViewOptionsSelector"
-        Me.Size = New System.Drawing.Size(250, 500)
+        Me.Size = New System.Drawing.Size(250, 567)
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
     End Sub
 
-    Friend WithEvents Button1 As Button
+    Friend WithEvents ViewButton As Button
     Private WithEvents AllCheckBox As CheckBox
     Private WithEvents SubjectCheckBox As CheckBox
     Private WithEvents RoomCheckBox As CheckBox
     Private WithEvents ClassCheckBox As CheckBox
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents GroupBox2 As GroupBox
-    Friend WithEvents RadioButton1 As RadioButton
-    Friend WithEvents RadioButton3 As RadioButton
-    Friend WithEvents RadioButton2 As RadioButton
+    Friend WithEvents SortNumButton As RadioButton
+    Friend WithEvents SortTableButton As RadioButton
+    Friend WithEvents SortAzButton As RadioButton
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents ShowNumbersButton As CheckBox
 End Class

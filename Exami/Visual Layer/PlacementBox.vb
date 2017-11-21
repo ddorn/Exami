@@ -7,24 +7,17 @@ Public Class PlacementBox
     Public Event NewMessage(msg As String)
     Public Event NeedSave(subplacement As StudentGroup)
 
-    Enum SeeBy
-        Table
-        Alpha
-        Number
-    End Enum
-
-    Private _currentSeeBy As SeeBy = SeeBy.Alpha
-    Public Property CurrentSeeBy() As SeeBy
+    Public Property CurrentSeeBy() As SeeSortedBy
         Get
-            Return _currentSeeBy
+            Return options.sortedBy
         End Get
-        Set(ByVal value As SeeBy)
-            _currentSeeBy = value
+        Set(ByVal value As SeeSortedBy)
+            options.sortedBy = value
 
-            If value = SeeBy.Alpha Then
+            If value = SeeSortedBy.Alpha Then
                 Me.AzSort()
                 SeeByButton.BackgroundImage = My.Resources.sortAZ
-            ElseIf value = SeeBy.Number Then
+            ElseIf value = SeeSortedBy.Number Then
                 Me.NumbSort()
                 SeeByButton.BackgroundImage = My.Resources.sortNum
             Else
@@ -33,6 +26,8 @@ Public Class PlacementBox
             End If
         End Set
     End Property
+
+    Private options As PlacementViewOptions
 
     ' Title
 
@@ -59,9 +54,10 @@ Public Class PlacementBox
     ''' This actualize the screen.
     ''' </summary>
     ''' <param name="group">The group of students to show in this box</param>
-    Public Sub SetContents(ByRef group As StudentGroup)
+    Public Sub SetContents(ByRef group As StudentGroup, options As PlacementViewOptions)
         Me.group = group
-
+        Me.options = options
+        Me.CurrentSeeBy = options.sortedBy
         ' And updat everything
         UpdateDisplay()
     End Sub
@@ -79,31 +75,19 @@ Public Class PlacementBox
         For Each stud In group.allStudents
 
             ' The place then the name, aligned
-            Dim line = stud.place.ToString & vbTab &
+            Dim line
+            If options.showNumbers Then
+                line = stud.place.ToString & vbTab &
                 stud.studentNumber & vbTab &
                 stud.ToString()
-
+            Else
+                line = stud.place.ToString & vbTab &
+                stud.ToString()
+            End If
             PlacementTextBox.AppendText(line)
             PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
         Next
 
-    End Sub
-
-    ' Help functions
-
-    Private Function GetAllPlaces() As List(Of Place)
-        Dim places = New List(Of Place)
-        For Each stud In group.allStudents
-            places.Add(stud.place)
-        Next
-        Return places
-    End Function
-
-    Private Sub SetAllPlaces(places As List(Of Place))
-        For i = 0 To places.Count - 1
-            group.allStudents(i).place = places(i)
-            places(i).student = group.allStudents(i)
-        Next
     End Sub
 
     ' Print
@@ -200,12 +184,12 @@ Public Class PlacementBox
     End Sub
 
     Private Sub SeeByButton_Click() Handles SeeByButton.Click
-        If CurrentSeeBy = SeeBy.Alpha Then
-            CurrentSeeBy = SeeBy.Number
-        ElseIf CurrentSeeBy = SeeBy.Number Then
-            CurrentSeeBy = SeeBy.Table
+        If CurrentSeeBy = SeeSortedBy.Alpha Then
+            CurrentSeeBy = SeeSortedBy.Number
+        ElseIf CurrentSeeBy = SeeSortedBy.Number Then
+            CurrentSeeBy = SeeSortedBy.Table
         Else
-            CurrentSeeBy = SeeBy.Alpha
+            CurrentSeeBy = SeeSortedBy.Alpha
         End If
     End Sub
 End Class

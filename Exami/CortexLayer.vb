@@ -375,12 +375,12 @@ Public Module CortexLayer
         ''' </summary>
         ''' <param name="groupBy"></param>
         ''' <returns></returns>
-        Public Function Separate(groupBy As ViewBy) As List(Of StudentGroup)
+        Public Function Separate(groupBy As GroupBy) As List(Of StudentGroup)
             Dim groupList = {Me}
             Dim tempGroupList = New List(Of StudentGroup)
 
             ' If we want to separate the subjects
-            If groupBy And ViewBy.Subject Then
+            If groupBy And GroupBy.Subject Then
                 ' For each differnet group (there will be only one here but anyway
                 For Each group In groupList
                     ' We add the sub groups to the temp list
@@ -392,7 +392,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And ViewBy.Classe Then
+            If groupBy And GroupBy.Classe Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByClass.Values)
                 Next
@@ -400,7 +400,7 @@ Public Module CortexLayer
                 tempGroupList.Clear()
             End If
 
-            If groupBy And ViewBy.Room Then
+            If groupBy And GroupBy.Room Then
                 For Each group In groupList
                     tempGroupList.AddRange(group.GetStudentsByRoom.Values)
                 Next
@@ -470,18 +470,18 @@ Public Module CortexLayer
 
         ' 
 
-        Public Function GetNameAs(by As ViewBy) As String
+        Public Function GetNameAs(by As GroupBy) As String
             Dim parts = New List(Of String)
 
-            If by And ViewBy.Subject Then
+            If by And GroupBy.Subject Then
                 parts.Add(allStudents(0).classUnit.subject)
             End If
 
-            If by And ViewBy.Classe Then
+            If by And GroupBy.Classe Then
                 parts.Add(allStudents(0).classUnit.GetTeacherFullName)
             End If
 
-            If by And ViewBy.Room Then
+            If by And GroupBy.Room Then
                 parts.Add(allStudents(0).place.room)
             End If
 
@@ -607,11 +607,11 @@ Public Module CortexLayer
             End If
 
 
-            Dim GroupBy As ViewBy
+            Dim GroupBy As GroupBy
             If groupByClass Then
-                GroupBy = ViewBy.Subject Or ViewBy.Classe
+                GroupBy = GroupBy.Subject Or GroupBy.Classe
             Else
-                GroupBy = ViewBy.Subject
+                GroupBy = GroupBy.Subject
             End If
 
             ' We group the students as requiered and associate places 

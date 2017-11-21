@@ -1,11 +1,14 @@
 ﻿Public Class SexyViewOptionsSelector
     Public Event OptionsChanged()
     Public Event NewStatusMsg(msg As String)
+
     ' =========== ' 
     '  Expansion  '
     ' =========== '
 
     Public ForceExpantion As Boolean = False
+    Public showNumbers As Boolean = True
+    Public sortedBy As SeeSortedBy = SeeSortedBy.Alpha
 
     Private _Expanded As Boolean
     Public Property Expanded() As Boolean
@@ -22,7 +25,7 @@
     End Property
 
 
-    Private Sub Expand() Handles Me.MouseEnter, Me.Enter, Button1.MouseEnter, Button1.MouseEnter
+    Private Sub Expand() Handles ViewButton.MouseEnter, ViewButton.Enter
         If _Expanded Then
             Return
         End If
@@ -30,13 +33,13 @@
         _Expanded = True
         Dim prevRight = Me.Right
         ' Big size
-        Size = New Size(250, 500)
+        Size = New Size(250, 567)
         Me.BorderStyle = BorderStyle.FixedSingle
         ' But we want to keep the right anchor
         Me.Left = prevRight - Width
     End Sub
 
-    Private Sub Contract()
+    Private Sub Contract() Handles ViewButton.MouseLeave, ViewButton.Leave
         If Not _Expanded Or ForceExpantion Then
             Return
         End If
@@ -56,7 +59,7 @@
     '  Group  By  '
     ' =========== '
 
-    Public CurrentViewBy As ViewBy = ViewBy.None
+    Public CurrentGroupBy As GroupBy = GroupBy.None
 
     ' Change for the All box
 
@@ -91,16 +94,46 @@
 
     Private Sub SubjectCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SubjectCheckBox.CheckedChanged
         ' The xor operation adds a flag
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Subject
+        CurrentGroupBy = CurrentGroupBy Xor GroupBy.Subject
     End Sub
     Private Sub ClassCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ClassCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Classe
+        CurrentGroupBy = CurrentGroupBy Xor GroupBy.Classe
     End Sub
     Private Sub RoomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RoomCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Room
+        CurrentGroupBy = CurrentGroupBy Xor GroupBy.Room
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles ViewButton.Click
         ForceExpantion = Not ForceExpantion
+        If ForceExpantion Then
+            RaiseEvent NewStatusMsg("View options pinned.")
+        Else
+            RaiseEvent NewStatusMsg("View options unpinned")
+        End If
+    End Sub
+
+    Private Sub ShowNumbersButton_CheckedChanged() Handles ShowNumbersButton.CheckedChanged
+        showNumbers = ShowNumbersButton.Checked
+        RaiseEvent OptionsChanged()
+    End Sub
+
+    ReadOnly Property Options
+        Get
+            Return New PlacementViewOptions(Me.CurrentGroupBy, Me.sortedBy, Me.showNumbers)
+        End Get
+    End Property
+
+
+    Private Sub SortAzButton_CheckedChanged(sender As Object, e As EventArgs) Handles SortAzButton.Click
+        sortedBy = SeeSortedBy.Alpha
+        RaiseEvent OptionsChanged()
+    End Sub
+    Private Sub SortTableButton_CheckedChanged(sender As Object, e As EventArgs) Handles SortTableButton.Click
+        sortedBy = SeeSortedBy.Table
+        RaiseEvent OptionsChanged()
+    End Sub
+    Private Sub SortNumButton_CheckedChanged(sender As Object, e As EventArgs) Handles SortNumButton.Click
+        sortedBy = SeeSortedBy.Number
+        RaiseEvent OptionsChanged()
     End Sub
 End Class

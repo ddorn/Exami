@@ -10,8 +10,7 @@ Public Class PlacementBoxes
     ''' Removes every PlacementBox and create new ones with the students of placement separated by view
     ''' </summary>
     ''' <param name="placement">The students, seated. If Nothing, will just remove everything.</param>
-    ''' <param name="view">How to separate the students for viewing.</param>
-    Public Sub SetPlacements(placement As Placement, view As ViewBy)
+    Public Sub SetPlacements(placement As Placement, options As PlacementViewOptions)
 
         Controls.Clear()
         boxes.Clear()
@@ -21,15 +20,15 @@ Public Class PlacementBoxes
             Return
         End If
 
-        Dim groups = placement.students.Separate(view)
+        Dim groups = placement.students.Separate(options.groupedBy)
 
         For Each group In groups
 
             Dim box = New PlacementBox()
             With box
-                .Title = group.GetNameAs(view)
+                .Title = group.GetNameAs(options.groupedBy)
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Left
-                .SetContents(group)
+                .SetContents(group, options)
             End With
 
             Me.Controls.Add(box)

@@ -5,7 +5,7 @@
 ''' </summary>
 Public Class OptionsSelector
 
-    Public CurrentViewBy As ViewBy = ViewBy.None
+    Public CurrentViewBy As GroupBy = GroupBy.None
 
     Public Event OptionsChanged()
 
@@ -42,15 +42,15 @@ Public Class OptionsSelector
 
     Private Sub SubjectCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles SubjectCheckBox.CheckedChanged
         ' The xor operation adds a flag
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Subject
+        CurrentViewBy = CurrentViewBy Xor GroupBy.Subject
     End Sub
 
     Private Sub ClassCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles ClassCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Classe
+        CurrentViewBy = CurrentViewBy Xor GroupBy.Classe
     End Sub
 
     Private Sub RoomCheckBox_CheckedChanged(sender As Object, e As EventArgs) Handles RoomCheckBox.CheckedChanged
-        CurrentViewBy = CurrentViewBy Xor ViewBy.Room
+        CurrentViewBy = CurrentViewBy Xor GroupBy.Room
     End Sub
 
 

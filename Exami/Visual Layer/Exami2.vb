@@ -15,7 +15,7 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.CurrentViewBy)
+            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.options)
 
             Dim ouatou = value IsNot Nothing
 
@@ -217,7 +217,7 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        SexyViewOptionsSelector1.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
+        'SexyViewOptionsSelector1.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
         For Each con In Controls
             ToolTip1.SetToolTip(con, con.tag)
         Next
@@ -304,6 +304,7 @@
     Private Sub SetUpSexyOptionsExit(control As Control)
         ' I have a lot of troubles knowing when the mouse quits the SexyViewOptionsSelector1
         ' But When the mouse enter something else, then I now it has left
+        Return
         If control.Name = "SexyViewOptionsSelector1" Then
             Return
         Else
@@ -329,12 +330,12 @@ End Class
 ''' This enumeration represents the possibilities for grouping students.
 ''' </summary>
 <Flags()>
-Public Enum ViewBy
+Public Enum GroupBy
     None = 0
     Classe = 1
     Room = 2
     Subject = 4
-    All = ViewBy.Classe Or ViewBy.Room Or ViewBy.Subject
+    All = GroupBy.Classe Or GroupBy.Room Or GroupBy.Subject
 End Enum
 
 ''' <summary>
@@ -345,3 +346,24 @@ Public Enum SortBy
     Number
     Shuffle
 End Enum
+
+
+Public Enum SeeSortedBy
+    Table
+    Alpha
+    Number
+End Enum
+
+Public Class PlacementViewOptions
+    Public sortedBy = SeeSortedBy.Alpha
+    Public showNumbers = True
+    Public groupedBy = GroupBy.None
+
+    Public Sub New(groupedBy As GroupBy, sortedBy As SeeSortedBy, showNumbers As Boolean)
+        With Me
+            .groupedBy = groupedBy
+            .showNumbers = showNumbers
+            .sortedBy = sortedBy
+        End With
+    End Sub
+End Class
