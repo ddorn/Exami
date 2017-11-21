@@ -133,12 +133,13 @@ Public Class PlacementBox
 
         Dim lines As Integer = CInt(Math.Round((h - headerSize) / font.Height))
 
-        Dim students = group.Copy()
-        students.Sort()
+        'Dim students = group.Copy()
+        'students.Sort()
 
         ' Print the placement
         For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
-            Dim ouatou = students.allStudents(i).place.ToString & vbTab & students.allStudents(i).ToString
+            'Dim ouatou = students.allStudents(i).place.ToString & vbTab & students.allStudents(i).ToString
+            Dim ouatou = Me.PlacementTextBox.Lines(i)
             e.Graphics.DrawString(ouatou, font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
         Next
 
