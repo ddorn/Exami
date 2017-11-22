@@ -82,6 +82,12 @@
   <ItemGroup>
     <Compile Include="DataAccessLayer.vb" />
     <Compile Include="Helper.vb" />
+    <Compile Include="Visual Layer\NeighboursForm.Designer.vb">
+      <DependentUpon>NeighboursForm.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Visual Layer\NeighboursForm.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Visual Layer\SexyViewOptionsSelector.Designer.vb">
       <DependentUpon>SexyViewOptionsSelector.vb</DependentUpon>
     </Compile>
@@ -172,6 +178,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Visual Layer\NeighboursForm.resx">
+      <DependentUpon>NeighboursForm.vb</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Visual Layer\SexyViewOptionsSelector.resx">
       <DependentUpon>SexyViewOptionsSelector.vb</DependentUpon>
     </EmbeddedResource>

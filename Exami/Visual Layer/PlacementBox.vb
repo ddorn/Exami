@@ -7,6 +7,7 @@ Public Class PlacementBox
     Public Event NewMessage(msg As String)
     Public Event NeedSave(subplacement As StudentGroup)
     Public Event ColumnReorder(sender As PlacementBox, oldIndex As Integer, newIndex As Integer)
+    Public Event ItemClick(student As Student)
 
     Public Property CurrentSeeBy() As SeeSortedBy
         Get
@@ -76,6 +77,7 @@ Public Class PlacementBox
                 item.SubItems.Add(stud.studentNumber)
             End If
             item.SubItems.Add(stud.ToString)
+            item.Tag = stud
         Next
         ' Creating the columns
         ' TODO: addhandler for click to sort them
@@ -234,7 +236,8 @@ Public Class PlacementBox
         Me.Refresh()
     End Sub
 
-    Private Sub ListView1_ItemActivate(sender As Object, e As EventArgs) Handles ListView1.ItemActivate
-        MsgBox("Not ready John !")
+    Private Sub ListView1_ItemActivate() Handles ListView1.ItemActivate
+
+        RaiseEvent ItemClick(CType(ListView1.SelectedItems(0).Tag, Student))
     End Sub
 End Class

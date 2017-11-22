@@ -4,6 +4,8 @@
 Public Class PlacementBoxes
 
     Public Event NewStatusMessage(msg As String)
+    Public Event StudentClick(student As Student)
+
     Public boxes As New List(Of PlacementBox)
     Private _doPaint = True
 
@@ -38,6 +40,7 @@ Public Class PlacementBoxes
             Me.boxes.Add(box)
 
             AddHandler box.ColumnReorder, AddressOf ReorderAllColumns
+            AddHandler box.ItemClick, AddressOf BoxItemClick_Handler
 
         Next
 
@@ -118,6 +121,10 @@ Public Class PlacementBoxes
     Public Sub EndUpdate()
         _doPaint = True
         ResumeLayout()
+    End Sub
+
+    Protected Sub BoxItemClick_Handler(student As Student)
+        RaiseEvent StudentClick(student)
     End Sub
 
 End Class

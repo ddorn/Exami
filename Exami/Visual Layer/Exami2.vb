@@ -1,4 +1,6 @@
-﻿Public Class Exami2
+﻿Imports Exami
+
+Public Class Exami2
 
     Public Event NewStatusMessage(msg As String)
 
@@ -15,7 +17,7 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.options)
+            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.Options)
             SetUpHoverHandler(PlacementBoxes1)
 
             Dim ouatou = value IsNot Nothing
@@ -282,8 +284,12 @@
     End Sub
 
     Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
-        Me.PlacementBoxes1.print(sender, e)
+        Me.PlacementBoxes1.Print(sender, e)
     End Sub
+
+    ' ############## '
+    '  Other button  '
+    ' ############## '
 
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
         Settings.Show()
@@ -306,17 +312,16 @@
         End If
     End Sub
 
-    Private Sub SexyViewOptionsSelector1_MouseEnter(sender As Object, e As EventArgs)
+    ' ############## '
+    '   Neighbours   '
+    ' ############## '
 
+    Private Sub PlacementBoxes1_StudentClick(student As Student) Handles PlacementBoxes1.StudentClick
+        Dim neigh = New NeighboursForm()
+        neigh.SetContent(student, CurrentPLacement)
+        neigh.Show()
     End Sub
 
-    Private Sub SelectFolder(sender As Object, e As EventArgs) Handles SelectFolderButton.Click
-
-    End Sub
-
-    Private Sub OpenButton_Click(sender As Object, e As EventArgs) Handles OpenButton.Click
-
-    End Sub
 End Class
 
 
