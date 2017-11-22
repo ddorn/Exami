@@ -17,10 +17,11 @@ SourceDir=C:\Users\diego\Documents\Programation\Exami\Exami\bin\Release
 [Files]
 Source: "Exami.exe"; DestDir: "{app}"
 Source: "Logo.ico"; DestDir: "{app}"
-;Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
+Source: "UninstallLogo.ico"; DestDir: "{app}"
 
 [Icons]
-Name: "{group}\Exami"; Filename: "{app}\Exami.exe"; IconFilename: "{app}\Logo.ico" 
+Name: "{group}\Exami\Exami"; Filename: "{app}\Exami.exe"; IconFilename: "{app}\Logo.ico" 
+Name: "{group}\Exami\Uninstall"; Filename: "{uninstallexe}"; IconFilename: "{app}\UninstallLogo.ico"
 Name: "{commondesktop}\Exami"; Filename: "{app}\Exami.exe"; IconFilename: "{app}\Logo.ico"
 
 [Run]
