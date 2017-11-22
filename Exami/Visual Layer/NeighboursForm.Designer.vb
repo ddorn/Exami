@@ -22,6 +22,7 @@ Partial Class NeighboursForm
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(NeighboursForm))
         Me.Row1Label = New System.Windows.Forms.Label()
         Me.Row2Label = New System.Windows.Forms.Label()
         Me.Row3Label = New System.Windows.Forms.Label()
@@ -215,6 +216,7 @@ Partial Class NeighboursForm
         Me.Controls.Add(Me.Row3Label)
         Me.Controls.Add(Me.Row2Label)
         Me.Controls.Add(Me.Row1Label)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "NeighboursForm"
         Me.Text = "NeighboursForm"
         Me.ResumeLayout(False)

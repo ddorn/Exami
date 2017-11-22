@@ -41,9 +41,8 @@ Partial Class AddStudentForm
         '
         'AddStudentButton
         '
-        Me.AddStudentButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AddStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.AddStudentButton.Location = New System.Drawing.Point(176, 522)
+        Me.AddStudentButton.Location = New System.Drawing.Point(176, 556)
         Me.AddStudentButton.Name = "AddStudentButton"
         Me.AddStudentButton.Size = New System.Drawing.Size(129, 42)
         Me.AddStudentButton.TabIndex = 1
@@ -52,10 +51,9 @@ Partial Class AddStudentForm
         '
         'CancelAddButton
         '
-        Me.CancelAddButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CancelAddButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CancelAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
-        Me.CancelAddButton.Location = New System.Drawing.Point(311, 522)
+        Me.CancelAddButton.Location = New System.Drawing.Point(311, 556)
         Me.CancelAddButton.Name = "CancelAddButton"
         Me.CancelAddButton.Size = New System.Drawing.Size(75, 42)
         Me.CancelAddButton.TabIndex = 2

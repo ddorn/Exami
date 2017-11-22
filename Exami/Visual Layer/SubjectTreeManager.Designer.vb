@@ -30,6 +30,7 @@ Partial Class SubjectTreeManager
         '
         'TreeView1
         '
+        Me.TreeView1.BorderStyle = System.Windows.Forms.BorderStyle.None
         Me.TreeView1.CheckBoxes = True
         Me.TreeView1.Dock = System.Windows.Forms.DockStyle.Fill
         Me.TreeView1.Location = New System.Drawing.Point(0, 0)

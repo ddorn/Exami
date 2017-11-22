@@ -5,7 +5,7 @@
 
 [Setup]
 AppName=Exami
-AppVersion=2.3.0                                                  
+AppVersion=2.4.0                                          
 DefaultDirName={pf}\Exami
 DefaultGroupName=Exami
 UninstallDisplayIcon={app}\MyProg.exe
@@ -20,7 +20,8 @@ Source: "Logo.ico"; DestDir: "{app}"
 ;Source: "Readme.txt"; DestDir: "{app}"; Flags: isreadme
 
 [Icons]
-Name: "{group}\Exami"; Filename: "{app}\Exami.exe"
+Name: "{group}\Exami"; Filename: "{app}\Exami.exe"; IconFilename: "{app}\Logo.ico" 
+Name: "{commondesktop}\Exami"; Filename: "{app}\Exami.exe"; IconFilename: "{app}\Logo.ico"
 
 [Run]
 Filename: {app}\Exami.exe; Description: Run Application; Flags: postinstall nowait skipifsilent
