@@ -13,7 +13,7 @@ Compression=lzma2
 SolidCompression=yes
 OutputDir=C:\Users\diego\Documents\Programation\Exami\Installer\bin
 SourceDir=C:\Users\diego\Documents\Programation\Exami\Exami\bin\Release
-
+OutputBaseFilename=ExamiInstaller
 [Files]
 Source: "Exami.exe"; DestDir: "{app}"
 Source: "Logo.ico"; DestDir: "{app}"
