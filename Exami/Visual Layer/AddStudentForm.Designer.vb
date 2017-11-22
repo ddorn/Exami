@@ -41,7 +41,6 @@ Partial Class AddStudentForm
         '
         'AddStudentButton
         '
-        Me.AddStudentButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.AddStudentButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.AddStudentButton.Location = New System.Drawing.Point(176, 556)
         Me.AddStudentButton.Name = "AddStudentButton"
@@ -52,7 +51,6 @@ Partial Class AddStudentForm
         '
         'CancelAddButton
         '
-        Me.CancelAddButton.Anchor = CType((System.Windows.Forms.AnchorStyles.Bottom Or System.Windows.Forms.AnchorStyles.Right), System.Windows.Forms.AnchorStyles)
         Me.CancelAddButton.DialogResult = System.Windows.Forms.DialogResult.Cancel
         Me.CancelAddButton.FlatStyle = System.Windows.Forms.FlatStyle.Popup
         Me.CancelAddButton.Location = New System.Drawing.Point(311, 556)

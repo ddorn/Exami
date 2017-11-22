@@ -6,25 +6,20 @@ Public Class PlacementBox
     Public group As StudentGroup
     Public Event NewMessage(msg As String)
     Public Event NeedSave(subplacement As StudentGroup)
+    Public Event ColumnReorder(sender As PlacementBox, oldIndex As Integer, newIndex As Integer)
+    Public Event ItemClick(student As Student)
 
-    Enum SeeBy
-        Table
-        Alpha
-        Number
-    End Enum
-
-    Private _currentSeeBy As SeeBy = SeeBy.Alpha
-    Public Property CurrentSeeBy() As SeeBy
+    Public Property CurrentSeeBy() As SeeSortedBy
         Get
-            Return _currentSeeBy
+            Return options.sortedBy
         End Get
-        Set(ByVal value As SeeBy)
-            _currentSeeBy = value
+        Set(ByVal value As SeeSortedBy)
+            options.sortedBy = value
 
-            If value = SeeBy.Alpha Then
+            If value = SeeSortedBy.Alpha Then
                 Me.AzSort()
                 SeeByButton.BackgroundImage = My.Resources.sortAZ
-            ElseIf value = SeeBy.Number Then
+            ElseIf value = SeeSortedBy.Number Then
                 Me.NumbSort()
                 SeeByButton.BackgroundImage = My.Resources.sortNum
             Else
@@ -33,6 +28,8 @@ Public Class PlacementBox
             End If
         End Set
     End Property
+
+    Private options As PlacementViewOptions
 
     ' Title
 
@@ -59,51 +56,40 @@ Public Class PlacementBox
     ''' This actualize the screen.
     ''' </summary>
     ''' <param name="group">The group of students to show in this box</param>
-    Public Sub SetContents(ByRef group As StudentGroup)
+    Public Sub SetContents(ByRef group As StudentGroup, options As PlacementViewOptions)
         Me.group = group
-
+        Me.options = options
+        Me.CurrentSeeBy = options.sortedBy
         ' And updat everything
         UpdateDisplay()
     End Sub
 
-    ''' <summary>
-    ''' This DOES a placement and show it to the screen.
-    ''' </summary>
     Private Sub UpdateDisplay()
-        ' Yep, the placement is done here...
-        ' I kmow it is supposed to be only displaying but well
-        ' It just associate places and students in the order, for option in the order, just suffle/order the two lists as you want
 
-        PlacementTextBox.ResetText()
+        ListView1.BeginUpdate()
+        ListView1.SuspendLayout()
+
+        ListView1.Clear()
 
         For Each stud In group.allStudents
-
-            ' The place then the name, aligned
-            Dim line = stud.place.ToString & vbTab &
-                stud.studentNumber & vbTab &
-                stud.ToString()
-
-            PlacementTextBox.AppendText(line)
-            PlacementTextBox.AppendText(vbNewLine)  ' Only one line is a bit... stupid
+            Dim item = ListView1.Items.Add(stud.place.ToString)
+            If options.showNumbers Then
+                item.SubItems.Add(stud.studentNumber)
+            End If
+            item.SubItems.Add(stud.ToString)
+            item.Tag = stud
         Next
+        ' Creating the columns
+        ' TODO: addhandler for click to sort them
+        ListView1.Columns.Add("Place", -2).Tag = SeeSortedBy.Table
+        If options.showNumbers Then
+            ListView1.Columns.Add("Student number", -2).Tag = SeeSortedBy.Number
+        End If
+        ListView1.Columns.Add("Name", -2).Tag = SeeSortedBy.Alpha
 
-    End Sub
-
-    ' Help functions
-
-    Private Function GetAllPlaces() As List(Of Place)
-        Dim places = New List(Of Place)
-        For Each stud In group.allStudents
-            places.Add(stud.place)
-        Next
-        Return places
-    End Function
-
-    Private Sub SetAllPlaces(places As List(Of Place))
-        For i = 0 To places.Count - 1
-            group.allStudents(i).place = places(i)
-            places(i).student = group.allStudents(i)
-        Next
+        ListView1.AutoResizeColumns(ColumnHeaderAutoResizeStyle.HeaderSize)
+        ListView1.ResumeLayout()
+        ListView1.EndUpdate()
     End Sub
 
     ' Print
@@ -149,14 +135,37 @@ Public Class PlacementBox
 
         Dim lines As Integer = CInt(Math.Round((h - headerSize) / font.Height))
 
-        Dim students = group.Copy()
-        students.Sort()
-
-        ' Print the placement
-        For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
-            Dim ouatou = students.allStudents(i).place.ToString & vbTab & students.allStudents(i).ToString
-            e.Graphics.DrawString(ouatou, font, Brushes.Black, New RectangleF(left, top + headerSize + font.Height * (i - currentLine), w, font.Height))
+        Dim columnOrder(ListView1.Columns.Count - 1) As Byte
+        For Each col As ColumnHeader In ListView1.Columns
+            columnOrder(col.DisplayIndex) = col.Index
         Next
+
+        Dim colSizes(columnOrder.Count - 1) As Integer  ' In display order
+        ' Finding the sizes of columns (max of each item)
+        For Each item As ListViewItem In ListView1.Items
+            For col = 0 To columnOrder.Count - 1
+                Dim size = e.Graphics.MeasureString(item.SubItems(col).Text + "  ", font).Width
+                If colSizes(col) < size Then
+                    colSizes(col) = size
+                End If
+            Next
+        Next
+
+        ' Find the position of each colum
+        Dim colPositions(columnOrder.Count - 1) As Integer
+        Dim pos = 0
+        For Each col In columnOrder
+            colPositions(col) = pos
+            pos += colSizes(col)
+        Next
+
+        For i = currentLine To Math.Min(currentLine + lines, Me.group.Count) - 1
+            Dim ouatou As ListViewItem = Me.ListView1.Items(i)
+
+            For Each col In columnOrder
+                e.Graphics.DrawString(ouatou.SubItems(col).Text, font, Brushes.Black, New RectangleF(left + colPositions(col), top + headerSize + font.Height * (i - currentLine), w, font.Height))
+            Next col
+        Next i
 
         currentLine += lines
 
@@ -200,12 +209,35 @@ Public Class PlacementBox
     End Sub
 
     Private Sub SeeByButton_Click() Handles SeeByButton.Click
-        If CurrentSeeBy = SeeBy.Alpha Then
-            CurrentSeeBy = SeeBy.Number
-        ElseIf CurrentSeeBy = SeeBy.Number Then
-            CurrentSeeBy = SeeBy.Table
+        If CurrentSeeBy = SeeSortedBy.Alpha Then
+            CurrentSeeBy = SeeSortedBy.Number
+        ElseIf CurrentSeeBy = SeeSortedBy.Number Then
+            CurrentSeeBy = SeeSortedBy.Table
         Else
-            CurrentSeeBy = SeeBy.Alpha
+            CurrentSeeBy = SeeSortedBy.Alpha
         End If
+    End Sub
+
+    Private Sub ListView1_ColumnClick(sender As Object, e As ColumnClickEventArgs) Handles ListView1.ColumnClick
+        CurrentSeeBy = ListView1.Columns(e.Column).Tag  ' Tag is the way to sort it, see UpdateDisplay.
+    End Sub
+
+    Private Sub ListView1_ColumnReordered(sender As Object, e As ColumnReorderedEventArgs) Handles ListView1.ColumnReordered
+        RaiseEvent ColumnReorder(Me, e.OldDisplayIndex, e.NewDisplayIndex)
+    End Sub
+
+    Public Sub ReorderColumns(oldIndex As Integer, newIndex As Integer)
+        For Each col As ColumnHeader In ListView1.Columns
+            If col.DisplayIndex = oldIndex Then
+                col.DisplayIndex = newIndex
+                Exit For
+            End If
+        Next
+        Me.Refresh()
+    End Sub
+
+    Private Sub ListView1_ItemActivate() Handles ListView1.ItemActivate
+
+        RaiseEvent ItemClick(CType(ListView1.SelectedItems(0).Tag, Student))
     End Sub
 End Class

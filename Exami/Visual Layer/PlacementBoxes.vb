@@ -4,14 +4,18 @@
 Public Class PlacementBoxes
 
     Public Event NewStatusMessage(msg As String)
+    Public Event StudentClick(student As Student)
+
     Public boxes As New List(Of PlacementBox)
+    Private _doPaint = True
 
     ''' <summary>
     ''' Removes every PlacementBox and create new ones with the students of placement separated by view
     ''' </summary>
     ''' <param name="placement">The students, seated. If Nothing, will just remove everything.</param>
-    ''' <param name="view">How to separate the students for viewing.</param>
-    Public Sub SetPlacements(placement As Placement, view As ViewBy)
+    Public Sub SetPlacements(placement As Placement, options As PlacementViewOptions)
+
+        BeginUpdate()
 
         Controls.Clear()
         boxes.Clear()
@@ -21,26 +25,29 @@ Public Class PlacementBoxes
             Return
         End If
 
-        Dim groups = placement.students.Separate(view)
+        Dim groups = placement.students.Separate(options.groupedBy)
 
         For Each group In groups
 
             Dim box = New PlacementBox()
             With box
-                .Title = group.GetNameAs(view)
+                .Title = group.GetNameAs(options.groupedBy)
                 .Anchor = AnchorStyles.Top Or AnchorStyles.Left
-                .SetContents(group)
+                .SetContents(group, options)
             End With
 
             Me.Controls.Add(box)
             Me.boxes.Add(box)
 
+            AddHandler box.ColumnReorder, AddressOf ReorderAllColumns
+            AddHandler box.ItemClick, AddressOf BoxItemClick_Handler
+
         Next
 
-        ' Update the Tooltips 
-        Exami2.SetUpHoverHandler(Me)
         ' Set all the positions and sizes
         Me.PlacementBoxes_Resize()
+
+        EndUpdate()
 
     End Sub
 
@@ -87,6 +94,37 @@ Public Class PlacementBoxes
             box.Size = New Size(boxWidth, Me.Height)
             curPosX += boxWidth + 3
         Next
+    End Sub
+
+    Private Sub ReorderAllColumns(sender As PlacementBox, oldIndex As Integer, newIndex As Integer)
+        For Each con As PlacementBox In Controls
+            If con Is sender Then
+                Continue For
+            End If
+
+            con.ReorderColumns(oldIndex, newIndex)
+        Next
+
+    End Sub
+
+    Protected Overrides Sub OnPaint(e As PaintEventArgs)
+        If _doPaint Then
+            MyBase.OnPaint(e)
+        End If
+    End Sub
+
+    Public Sub BeginUpdate()
+        _doPaint = False
+        SuspendLayout()
+    End Sub
+
+    Public Sub EndUpdate()
+        _doPaint = True
+        ResumeLayout()
+    End Sub
+
+    Protected Sub BoxItemClick_Handler(student As Student)
+        RaiseEvent StudentClick(student)
     End Sub
 
 End Class

@@ -38,10 +38,12 @@
         If qte Then
             TreeView1.Enabled = True
             EmptyFolderLabel.Visible = False
+            WarnImage.Visible = False
         Else
             TreeView1.Nodes.Clear()
             TreeView1.Enabled = False
             EmptyFolderLabel.Visible = True
+            WarnImage.Visible = True
         End If
 
         TreeView1.EndUpdate()
@@ -136,5 +138,9 @@
 
     Private Sub TreeView1_AfterCheck() Handles TreeView1.AfterCheck
         RaiseEvent SelectionChanged(GetSelectedSubjectPaths.Count)
+    End Sub
+
+    Private Sub TreeView1_AfterCheck(sender As Object, e As TreeViewEventArgs) Handles TreeView1.AfterCheck
+
     End Sub
 End Class

@@ -22,6 +22,7 @@ Partial Class RoomDesigner
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(RoomDesigner))
         Me.RowNumericUpDown = New System.Windows.Forms.NumericUpDown()
         Me.ColumnNumericUpDown = New System.Windows.Forms.NumericUpDown()
         Me.RowLabel = New System.Windows.Forms.Label()
@@ -118,8 +119,7 @@ Partial Class RoomDesigner
         'RoomDesigner
         '
         Me.AcceptButton = Me.CreateRoomButton
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(9.0!, 20.0!)
-        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
+        Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None
         Me.ClientSize = New System.Drawing.Size(1202, 590)
         Me.Controls.Add(Me.SaveAsButton)
         Me.Controls.Add(Me.CancelButton)
@@ -129,6 +129,7 @@ Partial Class RoomDesigner
         Me.Controls.Add(Me.RowLabel)
         Me.Controls.Add(Me.ColumnNumericUpDown)
         Me.Controls.Add(Me.RowNumericUpDown)
+        Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.Name = "RoomDesigner"
         Me.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen
         Me.Text = "Room Designer"

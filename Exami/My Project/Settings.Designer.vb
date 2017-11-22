@@ -56,7 +56,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property SaveDir() As String
             Get
                 Return CType(Me("SaveDir"),String)
@@ -68,7 +68,7 @@ Namespace My
         
         <Global.System.Configuration.UserScopedSettingAttribute(),  _
          Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
-         Global.System.Configuration.DefaultSettingValueAttribute("C:\")>  _
+         Global.System.Configuration.DefaultSettingValueAttribute("")>  _
         Public Property Datadir() As String
             Get
                 Return CType(Me("Datadir"),String)
@@ -76,6 +76,15 @@ Namespace My
             Set
                 Me("Datadir") = value
             End Set
+        End Property
+        
+        <Global.System.Configuration.ApplicationScopedSettingAttribute(),  _
+         Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
+         Global.System.Configuration.DefaultSettingValueAttribute("2.4.0")>  _
+        Public ReadOnly Property Version() As String
+            Get
+                Return CType(Me("Version"),String)
+            End Get
         End Property
     End Class
 End Namespace

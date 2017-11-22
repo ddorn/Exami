@@ -1,4 +1,6 @@
-﻿Public Class Exami2
+﻿Imports Exami
+
+Public Class Exami2
 
     Public Event NewStatusMessage(msg As String)
 
@@ -15,12 +17,13 @@
         End Get
         Set(ByVal value As Placement)
             _CurrentPlacement = value
-            PlacementBoxes1.SetPlacements(value, OptionsSelector1.CurrentViewBy)
+            PlacementBoxes1.SetPlacements(value, SexyViewOptionsSelector1.Options)
+            SetUpHoverHandler(PlacementBoxes1)
 
             Dim ouatou = value IsNot Nothing
 
             AddStudentButton.Enabled = ouatou
-            OptionsSelector1.Enabled = ouatou
+            SexyViewOptionsSelector1.Enabled = ouatou
             SortOptions1.Enabled = ouatou
             PrintAllButton.Enabled = ouatou
             SaveAllButton.Enabled = ouatou
@@ -172,7 +175,7 @@
     ''' <summary>
     ''' Actualise thePLacementBoxes given the current ViewBy and the current selected files.
     ''' </summary>
-    Private Sub MakePlacement() Handles MakePlacementButton.Click, OptionsSelector1.OptionsChanged, SortOptions1.SortChanged
+    Private Sub MakePlacement() Handles MakePlacementButton.Click, SortOptions1.SortChanged, SexyViewOptionsSelector1.OptionsChanged
 
         Dim Placement
         If CurrentPLacement Is Nothing Then
@@ -217,10 +220,16 @@
     ' ############## '
 
     Private Sub Exami2_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        'SexyViewOptionsSelector1.Tag = "Choose how you see the seating plan" + vbNewLine + "This doesn't change how the students are seated, only how you see them."
         For Each con In Controls
             ToolTip1.SetToolTip(con, con.tag)
         Next
         SetUpHoverHandler(Me)
+
+        ' Default settings
+        Me.FolderBrowserDialog1.SelectedPath = My.Settings.Datadir
+        Me.OpenFileDialog1.FileName = My.Settings.SaveDir
+        Me.SaveFileDialog1.FileName = My.Settings.SaveDir
     End Sub
     ''' <summary>
     ''' Set the Status label to the tag of the current control the mouse is in.
@@ -260,7 +269,7 @@
     ''' this corner is inteded tobe used for general purpose messages, warnings and jokes ^^
     ''' </summary>
     ''' <param name="msg">The new text of the generak message status</param>
-    Sub SetStatusMessage(msg As String) Handles Me.NewStatusMessage, RoomManager1.NewStatusMessage, PlacementBoxes1.NewStatusMessage
+    Sub SetStatusMessage(msg As String) Handles Me.NewStatusMessage, RoomManager1.NewStatusMessage, PlacementBoxes1.NewStatusMessage, SexyViewOptionsSelector1.NewStatusMsg
         GeneralStatusLabel.Text = msg
     End Sub
 
@@ -275,8 +284,12 @@
     End Sub
 
     Private Sub PrintDocument1_PrintPage(sender As Object, e As Printing.PrintPageEventArgs) Handles PrintDocument1.PrintPage
-        Me.PlacementBoxes1.print(sender, e)
+        Me.PlacementBoxes1.Print(sender, e)
     End Sub
+
+    ' ############## '
+    '  Other button  '
+    ' ############## '
 
     Private Sub SettingsButton_Click(sender As Object, e As EventArgs) Handles SettingsButton.Click
         Settings.Show()
@@ -298,6 +311,17 @@
             RaiseEvent NewStatusMessage("You canceled the new student.")
         End If
     End Sub
+
+    ' ############## '
+    '   Neighbours   '
+    ' ############## '
+
+    Private Sub PlacementBoxes1_StudentClick(student As Student) Handles PlacementBoxes1.StudentClick
+        Dim neigh = New NeighboursForm()
+        neigh.SetContent(student, CurrentPLacement)
+        neigh.Show()
+    End Sub
+
 End Class
 
 
@@ -305,12 +329,12 @@ End Class
 ''' This enumeration represents the possibilities for grouping students.
 ''' </summary>
 <Flags()>
-Public Enum ViewBy
+Public Enum GroupBy
     None = 0
     Classe = 1
     Room = 2
     Subject = 4
-    All = ViewBy.Classe Or ViewBy.Room Or ViewBy.Subject
+    All = GroupBy.Classe Or GroupBy.Room Or GroupBy.Subject
 End Enum
 
 ''' <summary>
@@ -321,3 +345,24 @@ Public Enum SortBy
     Number
     Shuffle
 End Enum
+
+
+Public Enum SeeSortedBy
+    Table
+    Alpha
+    Number
+End Enum
+
+Public Class PlacementViewOptions
+    Public sortedBy = SeeSortedBy.Alpha
+    Public showNumbers = True
+    Public groupedBy = GroupBy.None
+
+    Public Sub New(groupedBy As GroupBy, sortedBy As SeeSortedBy, showNumbers As Boolean)
+        With Me
+            .groupedBy = groupedBy
+            .showNumbers = showNumbers
+            .sortedBy = sortedBy
+        End With
+    End Sub
+End Class
